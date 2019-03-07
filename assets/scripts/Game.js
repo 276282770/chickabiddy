@@ -33,10 +33,9 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        WX.login((code)=>{
-            
-        });
-        
+        WX.login();
+        WX.getUserInfo();
+        WX.getSetting();
     },
 
     start () {
@@ -47,6 +46,6 @@ cc.Class({
     
     //分享
     onShare(){
-        WX.shareAppMessage("aaa","http://pic13.nipic.com/20110412/6759696_220922114000_2.jpg","");
+        WX.shareAppMessage("","http://pic13.nipic.com/20110412/6759696_220922114000_2.jpg","tp=222");
     },
 });
