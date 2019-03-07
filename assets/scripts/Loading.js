@@ -7,8 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-var WX=require("WX");
-var Network=require("Network");
+
 cc.Class({
     extends: cc.Component,
 
@@ -28,24 +27,27 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
+        progress:{default:null,type:cc.ProgressBar,tooltip:"加载进度条"},
+        lblProgress:{default:null,type:cc.Label,tooltip:"加载进度显示"},
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        WX.login();
-        WX.getUserInfo();
-        WX.getSetting();
-    },
+    // onLoad () {},
 
     start () {
 
+        
+        cc.director.preloadScene("Main",(completedCount,totalCount,item)=>{
+            var precent=completedCount/totalCount;
+            this.progress=precent;
+            this.lblProgress.string="加载中..."+ (parseInt(precent)*100).toString()+"%";
+        },function(err,asset){
+            if(err==null){
+                cc.director.loadScene("Main");
+            }
+        });
     },
 
     // update (dt) {},
-    
-    //分享
-    onShare(){
-        WX.shareAppMessage("","http://pic13.nipic.com/20110412/6759696_220922114000_2.jpg","tp=222");
-    },
 });
