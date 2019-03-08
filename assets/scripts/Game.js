@@ -35,7 +35,8 @@ cc.Class({
     onLoad () {
         WX.login();
         WX.getUserInfo();
-        WX.getSetting();
+        WX.getSetting((isAuth)=>{if(!isAuth)WX.createUserInfoButton();});
+        
     },
 
     start () {
