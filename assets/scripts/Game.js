@@ -36,7 +36,7 @@ cc.Class({
         WX.login();
         WX.getUserInfo();
         WX.getSetting((isAuth)=>{if(!isAuth)WX.createUserInfoButton();});
-        
+        WX.getUserCloudStorage();
     },
 
     start () {
@@ -48,5 +48,8 @@ cc.Class({
     //分享
     onShare(){
         WX.shareAppMessage("","http://pic13.nipic.com/20110412/6759696_220922114000_2.jpg","tp=222");
+    },
+    onClick(){
+        WX.setUserCloudStorage(10);
     },
 });
