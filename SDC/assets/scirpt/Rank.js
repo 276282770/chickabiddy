@@ -7,8 +7,8 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+
 var WX=require("WX");
-var Network=require("Network");
 cc.Class({
     extends: cc.Component,
 
@@ -32,36 +32,33 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        WX.login();
-        WX.getUserInfo();
-        WX.getSetting((isAuth)=>{if(!isAuth)WX.createUserInfoButton();});
-
-    },
+    // onLoad () {},
 
     start () {
-
+        var self=this;
+        WX.onMessage((data)=>self.rsvMessage(data));
+  
     },
 
     // update (dt) {},
     
-    //分享
-    onShare(){
-        WX.shareAppMessage("","http://pic13.nipic.com/20110412/6759696_220922114000_2.jpg","tp=222");
-    },
-    onClick(){
-        this.getScore();
-    },
-    onClick2(){
-        this.setScore(20);
-    },
+    //接受主域消息
+    rsvMessage(data){
 
-    //设置分数
-    setScore(score){
-        WX.postMessage({cmd:"SETSCORE",para:score});
+        switch(data.cmd){
+            case "SETSCORE":this.setScore(data.para);break;
+            case "GETSCORE":this.getScore();break;
+        }
     },
-    //获取自己分数
+    //发送分数
+    setScore(score){
+        WX.setUserCloudStorage(score);
+    },
+    //获取自己的分数
     getScore(){
-        WX.postMessage({cmd:"GETSCORE"});
+        WX.getUserCloudStorage();
+    },
+    test(){
+        console.log("test");
     },
 });

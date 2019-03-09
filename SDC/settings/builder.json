@@ -29,21 +29,21 @@
     "portrait": false,
     "upsideDown": false
   },
-  "packageName": "org.cocos2d.chickabiddy",
+  "packageName": "org.cocos2d.SDC",
   "qqplay": {
     "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait",
     "zip": false
   },
-  "startScene": "3f5489d8-1ae1-4f6f-b865-a6c0b1c3e7dd",
-  "title": "chickabiddy",
+  "startScene": "25656b04-5e93-4edf-a9b2-50a3670045a4",
+  "title": "SDC",
   "webOrientation": "auto",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
     "appid": "wx6ac3f5090a6b99c5",
     "orientation": "portrait",
-    "subContext": "SDC"
+    "subContext": ""
   },
-  "xxteaKey": "c9ff712c-9da8-46",
+  "xxteaKey": "f773aee0-9c67-46",
   "zipCompressJs": true
 }
