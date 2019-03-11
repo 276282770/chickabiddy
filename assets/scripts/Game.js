@@ -9,6 +9,7 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 var WX=require("WX");
 var Network=require("Network");
+var Common=require("Common");
 cc.Class({
     extends: cc.Component,
 
@@ -28,6 +29,10 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
+        txtSelfEgg:cc.Label,  //自己的鸡蛋
+        txtOtherEgg:cc.Label,  //偷来的鸡蛋
+        txtLvl:cc.Label,  //等级
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -36,6 +41,7 @@ cc.Class({
         WX.login();
         WX.getUserInfo();
         WX.getSetting((isAuth)=>{if(!isAuth)WX.createUserInfoButton();});
+
 
     },
 
@@ -50,10 +56,34 @@ cc.Class({
         WX.shareAppMessage("","http://pic13.nipic.com/20110412/6759696_220922114000_2.jpg","tp=222");
     },
     onClick(){
-        this.getScore();
+        
     },
-    onClick2(){
-        this.setScore(20);
+    //更新首页
+    updateIndex(){
+        var self=this;
+        Network.requestIndexInfo((data)=>{
+            self.setSelfEgg(data.eggSelf);
+            self.setOtherEgg(data.eggOther);
+        });
+    },
+
+    //设置自己的鸡蛋
+    setSelfEgg(num){
+        this.txtSelfEgg.string=num.toString();
+    },
+    //设置自己的鸡蛋和效果
+    setSelfEggEff(num){
+        //eff
+        this.setSelfEgg(num);
+    },
+    //设置偷来的鸡蛋
+    setOtherEgg(num){
+        this.txtOtherEgg.string=num.toString();
+    },
+    //设置偷来的鸡蛋和效果
+    setOtherEggEff(num){
+        //eff
+        this.setOtherEgg(num);
     },
 
     //设置分数
@@ -63,5 +93,10 @@ cc.Class({
     //获取自己分数
     getScore(){
         WX.postMessage({cmd:"GETSCORE"});
+    },
+
+    //显示朋友面板
+    showPanelFriends(){
+
     },
 });
