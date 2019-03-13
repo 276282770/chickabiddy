@@ -8,6 +8,7 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
+var Network=require("Network");
 cc.Class({
     extends: cc.Component,
 
@@ -28,6 +29,10 @@ cc.Class({
         //     }
         // },
         ndBg:cc.Node,  //背景节点
+        preItem:cc.Prefab,  //好友项预制体
+        ndCtnt:cc.Node,  //好友列表根节点
+        _page:0,  //分页
+        _isPanelReady:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -40,13 +45,54 @@ cc.Class({
     
     //显示面板
     show(){
-        
-       
-    this.ndBg.runAction(cc.moveTo(1,new cc.Vec2(this.ndBg.position.x,this.ndBg.height)));
-
+        var self=this;
+    this.ndBg.runAction(cc.sequence( cc.moveTo(1,new cc.Vec2(this.ndBg.position.x,this.ndBg.height)),
+        cc.callFunc(function(){self._isPanelReady=true;})
+        ));
+        this.loadFriends();
     },
     //隐藏面板
     hide(){
 
+    },
+    //删除面板
+    onClose(){
+        var self=this;
+        if(!this._isPanelReady)
+        return;
+        this.ndBg.runAction(cc.sequence( 
+            cc.moveTo(1,new cc.Vec2(this.ndBg.position.x,0)),
+            cc.callFunc(function(){
+                self.node.destroy();
+                console.log("删除面板");
+            })));
+    },
+    onEnable(){
+        this.show();
+    },
+    //添加好友
+    onAddFriend(){
+
+    },
+    //加载好友
+    loadFriends(){
+        var self=this;
+        Network.requestFriendList(this._page,(res)=>{
+            if(res.result){
+                console.log("aaa");
+                console.log(JSON.stringify(res));
+                let friends=res.data.friends;
+                for(var i=0;i<friends.length;i++){
+                    let newItem= cc.instantiate(this.preItem);
+                    newItem.parent=self.ndCtnt;
+                    let newItemScr= newItem.getComponent("ItemFriend");
+                    newItemScr.fillItem(friends[i].id,friends[i].lvl,friends[i].nickName,friends[i].avatar,
+                        friends[i].isHelpBath,friends[i].isStealFood,friends[i].isStealEgg,friends[i].isOtherStealFood);
+                }
+                self._page++;
+            }else{
+                Global.game.showTip(res.data);
+            }
+        });
     },
 });

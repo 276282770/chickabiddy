@@ -10,6 +10,7 @@
 var WX=require("WX");
 var Network=require("Network");
 var Common=require("Common");
+var PanelManager=require("PanelManager");
 cc.Class({
     extends: cc.Component,
 
@@ -33,11 +34,14 @@ cc.Class({
         txtOtherEgg:cc.Label,  //偷来的鸡蛋
         txtLvl:cc.Label,  //等级
 
+        panels:PanelManager,  //面板管理
+        prePanelFriends:cc.Prefab,  //朋友面板预制体
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        Global.game=this;
         WX.login();
         WX.getUserInfo();
         WX.getSetting((isAuth)=>{if(!isAuth)WX.createUserInfoButton();});
@@ -46,7 +50,9 @@ cc.Class({
     },
 
     start () {
-
+        Network.test(function(res){
+            console.log(JSON.stringify(res));
+        });
     },
 
     // update (dt) {},
@@ -95,8 +101,13 @@ cc.Class({
         WX.postMessage({cmd:"GETSCORE"});
     },
 
-    //显示朋友面板
-    showPanelFriends(){
+    //显示提示框
+    showTip(txt){
 
+    },
+
+    //显示朋友面板
+    onShowPanelFriends(){
+        this.panels.createPanel(this.prePanelFriends,"PanelFriends");
     },
 });

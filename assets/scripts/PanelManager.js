@@ -8,7 +8,6 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-
 cc.Class({
     extends: cc.Component,
 
@@ -28,7 +27,9 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        
+        ndMask:cc.Node,  //背景
+        _panel:null,  //当前面板
+        _panelScr:null,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -38,8 +39,29 @@ cc.Class({
     start () {
 
     },
-
-    // update (dt) {},
-    
-
+    //创建面板
+    createPanel(pref,scrName){
+        if(!pref)
+            return;
+        var newPanel= cc.instantiate(pref);
+        newPanel.parent=this.node;
+        this._panel=newPanel;
+        if(scrName)
+        this._panelScr=this._panel.getComponent(scrName);
+        // this.ndMask.active=true;
+    },
+    /**删除当前面板
+     */
+    deletePanel(){
+        if(this._panel!=null){
+            if(this._panelScr!=null){
+                this._panelScr.onClose();
+            }else{
+                this._panel.destroy();
+            }
+            this._panel=null;
+            this._panelScr=null;
+            // this.ndMask.active=false;
+        }
+    },
 });
