@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "fe7f4af5-230f-416b-be49-ca9645c09142",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "食物背景板": {
+      "ver": "1.0.3",
+      "uuid": "34d45bfc-c1f8-4227-8c68-8e97b8b507cd",
+      "rawTextureUuid": "fe7f4af5-230f-416b-be49-ca9645c09142",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 700,
+      "height": 160,
+      "rawWidth": 700,
+      "rawHeight": 160,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

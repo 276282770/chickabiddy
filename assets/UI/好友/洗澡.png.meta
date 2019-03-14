@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "ac49b378-040e-437e-9052-b410f2b325b6",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "洗澡": {
+      "ver": "1.0.3",
+      "uuid": "f92930cf-b17a-432f-b9d5-40e3c5a4c217",
+      "rawTextureUuid": "ac49b378-040e-437e-9052-b410f2b325b6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 60,
+      "height": 60,
+      "rawWidth": 60,
+      "rawHeight": 60,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
