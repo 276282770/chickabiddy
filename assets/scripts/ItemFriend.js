@@ -34,7 +34,8 @@ cc.Class({
         ndCanStealFood:cc.Node,  //是否可以偷吃食物节点
         ndCanStealEgg:cc.Node,  //是否可以偷蛋节点
         ndIsOtherStealFood:cc.Node,  //是否被别人偷饭节点
-        _id:-1,
+        spBg2:cc.SpriteFrame,  //背景2
+        _uid:-1,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -53,22 +54,27 @@ cc.Class({
      * @param  {bool} canStealFood  是否可以偷取食物
      * @param  {bool} canStealEgg  是否可以偷蛋
      * @param  {boolean} isOtherStealFood  是否有他人正在偷吃食物
+     * @param  {int}  inc  索引
      */
-    fillItem(id,lvl,nickname,avatar,canHelpBath,canStealFood,canStealEgg,isOtherStealFood){
+    fillItem(id,lvl,nickname,avatar,canHelpBath,canStealFood,canStealEgg,isOtherStealFood,inc){
         console.log("cccc");
         var self=this;
-        this._id=id;
+        this._uid=id;
         this.txtLvl.string=lvl.toString();
         this.txtNickname.string=nickname;
         this.ndCanHelpBath.active=canHelpBath;
         this.ndCanStealEgg.active=canStealEgg;
         this.ndCanStealFood.active=canStealFood;
         this.ndIsOtherStealFood.active=isOtherStealFood;
+        if(inc!=null&&inc%2==0){
+            this.node.getComponent(cc.Sprite).spriteFrame=this.spBg2;
+        }
         cc.loader.load({url:avatar,type:"png"},function(err,tex){
             if(tex){
                 self.imgAvatar.spriteFrame=new cc.SpriteFrame(tex);
             }
         });
+        
         console.log("bbbbbb");
     },
     // update (dt) {},

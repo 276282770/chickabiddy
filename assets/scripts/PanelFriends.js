@@ -33,6 +33,7 @@ cc.Class({
         ndCtnt:cc.Node,  //好友列表根节点
         _page:0,  //分页
         _isPanelReady:false,
+        _inc:0,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -46,7 +47,7 @@ cc.Class({
     //显示面板
     show(){
         var self=this;
-    this.ndBg.runAction(cc.sequence( cc.moveTo(1,new cc.Vec2(this.ndBg.position.x,this.ndBg.height)),
+    this.ndBg.runAction(cc.sequence( cc.moveTo(0.5,new cc.Vec2(this.ndBg.position.x,this.ndBg.height)),
         cc.callFunc(function(){self._isPanelReady=true;})
         ));
         this.loadFriends();
@@ -61,7 +62,7 @@ cc.Class({
         if(!this._isPanelReady)
         return;
         this.ndBg.runAction(cc.sequence( 
-            cc.moveTo(1,new cc.Vec2(this.ndBg.position.x,0)),
+            cc.moveTo(0.5,new cc.Vec2(this.ndBg.position.x,0)),
             cc.callFunc(function(){
                 self.node.destroy();
                 console.log("删除面板");
@@ -79,20 +80,66 @@ cc.Class({
         var self=this;
         Network.requestFriendList(this._page,(res)=>{
             if(res.result){
-                console.log("aaa");
-                console.log(JSON.stringify(res));
-                let friends=res.data.friends;
-                for(var i=0;i<friends.length;i++){
-                    let newItem= cc.instantiate(this.preItem);
-                    newItem.parent=self.ndCtnt;
-                    let newItemScr= newItem.getComponent("ItemFriend");
-                    newItemScr.fillItem(friends[i].id,friends[i].lvl,friends[i].nickName,friends[i].avatar,
-                        friends[i].isHelpBath,friends[i].isStealFood,friends[i].isStealEgg,friends[i].isOtherStealFood);
-                }
-                self._page++;
+                self.updatePanel(res.data);
             }else{
                 Global.game.showTip(res.data);
             }
         });
+        let backData={};
+        backData.result=true;
+        backData.data={};
+        backData.data.friends=[{
+            id:1,
+            nickName:"ふ液飮颩",
+            lvl:2,
+            avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
+            isHelpBath:true,
+            isStealEgg:false,
+            isStealFood:true,
+            isOtherStealFood:false
+        },{
+            id:2,
+            nickName:"aabbxx",
+            lvl:2,
+            avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
+            isHelpBath:false,
+            isStealEgg:true,
+            isStealFood:false,
+            isOtherStealFood:true
+        },
+        {
+            id:2,
+            nickName:"aabbxx",
+            lvl:2,
+            avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
+            isHelpBath:true,
+            isStealEgg:true,
+            isStealFood:true,
+            isOtherStealFood:true
+        },
+        {
+            id:2,
+            nickName:"aabbxx",
+            lvl:2,
+            avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
+            isHelpBath:false,
+            isStealEgg:false,
+            isStealFood:false,
+            isOtherStealFood:false
+        },
+        ];
+        this.updatePanel(backData.data);
+    },
+    updatePanel(data){
+                        let friends=data.friends;
+                for(var i=0;i<friends.length;i++){
+                    let newItem= cc.instantiate(this.preItem);
+                    newItem.parent=this.ndCtnt;
+                    let newItemScr= newItem.getComponent("ItemFriend");
+                    newItemScr.fillItem(friends[i].id,friends[i].lvl,friends[i].nickName,friends[i].avatar,
+                        friends[i].isHelpBath,friends[i].isStealFood,friends[i].isStealEgg,friends[i].isOtherStealFood,this._inc);
+                    this._inc++;
+                }
+                this._page++;
     },
 });

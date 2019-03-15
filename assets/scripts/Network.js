@@ -7,7 +7,7 @@ var Network={
     request(url,data,success){
         WX.request(url,data,"POST",success);
     },
-    /**
+    /**登录
      * @param  {string} code 微信code
      * @param  {function} callback 回调函数
      */
@@ -93,20 +93,6 @@ var Network={
             }
             callback(backData);
         });
-        let backData={};
-        backData.result=true;
-        backData.data={};
-        backData.data.friends=[{
-            id:1,
-            nickName:"ふ液飮颩",
-            lvl:2,
-            avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
-            isHelpBath:true,
-            isStealEgg:false,
-            isStealFood:true,
-            isOtherStealFood:false
-        }];
-        callback(backData);
     },
     //添加好友
     requestAddFriend(id,callback){
@@ -164,9 +150,9 @@ var Network={
         callback(backData);
     },
     //吃饭
-    requestDine(callback){
+    requestDine(id,callback){
         let url=this.domain+"chicken/checkEat.action";
-        let data={uid:Global.id};
+        let data={uid:Global.id,pid:id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
             if(res.state==200){
@@ -348,6 +334,25 @@ var Network={
                     item.description=res.data[i].describe;
                     backData.data.push(item);
                 }
+            }else{
+                backData.data="";
+            }
+            if(callback)
+                callback(backData);
+        });
+    },
+    /**请求背包列表
+     * @param  {function} callback 回调函数
+     */
+    requestPackage(callback){
+        let url=this.domain+"";
+        let data={uid:Global.id};
+        let backData={result:false,data:null};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data=[];
+
             }else{
                 backData.data="";
             }

@@ -7,7 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-
+var WX=require("WX");
 cc.Class({
     extends: cc.Component,
 
@@ -27,9 +27,8 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        ndMask:cc.Node,  //背景
-        _panel:null,  //当前面板
-        _panelScr:null,
+        ndBg:cc.Node,  //背景节点
+        _panelReady:false,  //是否准备好
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -39,32 +38,39 @@ cc.Class({
     start () {
 
     },
-    //创建面板
-    createPanel(pref,scrName){
-        if(!pref)
-            return;
-        if(this.node.childrenCount>1){
-            return;
-        }
-        var newPanel= cc.instantiate(pref);
-        newPanel.parent=this.node;
-        this._panel=newPanel;
-        if(scrName)
-        this._panelScr=this._panel.getComponent(scrName);
-        // this.ndMask.active=true;
-    },
-    /**删除当前面板
+
+    // update (dt) {},
+    
+    /**链接到中原银行小程序
      */
-    deletePanel(){
-        if(this._panel!=null){
-            if(this._panelScr!=null){
-                this._panelScr.onClose();
-            }else{
-                this._panel.destroy();
-            }
-            this._panel=null;
-            this._panelScr=null;
-            // this.ndMask.active=false;
-        }
+    onLinkBank(){
+        let appid="";
+        WX.navigateToMiniProgram(appid);
+    },
+    onShow(){
+        var self=this;
+        let h=this.ndBg.height;
+        let x=this.ndBg.position.x;
+        this.ndBg.runAction(cc.sequence(
+            cc.moveTo(0.5,x,h),
+            cc.callFunc(function(){
+                self._panelReady=true;
+            })
+        ));
+    },
+    onClose(){
+        if(!this._panelReady)
+            return;
+        let x=this.ndBg.position.x;
+        var self=this;
+        this.ndBg.runAction(cc.sequence(
+            cc.moveTo(0.5,x,0),
+            cc.callFunc(function(){
+                self.node.destroy();
+            })
+        ));
+    },
+    onEnable(){
+        this.onShow();
     },
 });

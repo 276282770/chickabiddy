@@ -36,6 +36,10 @@ cc.Class({
 
         panels:PanelManager,  //面板管理
         prePanelFriends:cc.Prefab,  //朋友面板预制体
+        prePanelLink:cc.Prefab,  //链接面板预制体
+        prePanelTittivate:cc.Prefab,  //装扮面板预制体
+        prePanelMission:cc.Prefab,  //任务面板预制体
+        prePanelPackage:cc.Prefab,  //背包面板预制体
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -71,6 +75,10 @@ cc.Class({
             self.setSelfEgg(data.eggSelf);
             self.setOtherEgg(data.eggOther);
         });
+    },
+    //更新吃饭
+    updateDine(data){
+        console.log("更新吃饭");
     },
 
     //设置自己的鸡蛋
@@ -109,5 +117,25 @@ cc.Class({
     //显示朋友面板
     onShowPanelFriends(){
         this.panels.createPanel(this.prePanelFriends,"PanelFriends");
+    },
+    /**显示链接面板
+     */
+    onShowPanelLink(){
+        this.panels.createPanel(this.prePanelLink,"PanelLink");
+    },
+    /**显示装扮面板
+     */
+    onShowPanelTittivate(){
+        this.panels.createPanel(this.prePanelTittivate,"PanelTittivate");
+    },
+    /**显示任务面板
+     */
+    onShowPanelMission(){
+        this.panels.createPanel(this.prePanelMission,"PanelMission");
+    },
+    /**显示背包面板
+     */
+    onShowPanelPackage(){
+        this.panels.createPanel(this.prePanelPackage,"PanelPackage");
     },
 });
