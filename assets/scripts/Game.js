@@ -40,6 +40,8 @@ cc.Class({
         prePanelTittivate:cc.Prefab,  //装扮面板预制体
         prePanelMission:cc.Prefab,  //任务面板预制体
         prePanelPackage:cc.Prefab,  //背包面板预制体
+        prePanelAnnouncement:cc.Prefab,  //公告面板预制体
+        prePanelPersonal:cc.Prefab,  //个人信息面板预制体
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -137,5 +139,11 @@ cc.Class({
      */
     onShowPanelPackage(){
         this.panels.createPanel(this.prePanelPackage,"PanelPackage");
+    },
+    onShowPanelAnnouncement(){
+        this.panels.createPanel(this.prePanelAnnouncement,"PanelAnnouncement");
+    },
+    onShowPanelPersonal(){
+        this.panels.createPanel(this.prePanelPersonal,"PanelPersonal");
     },
 });
