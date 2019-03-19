@@ -33,6 +33,9 @@ cc.Class({
         txtSelfEgg:cc.Label,  //自己的鸡蛋
         txtOtherEgg:cc.Label,  //偷来的鸡蛋
         txtLvl:cc.Label,  //等级
+        proLvl:cc.ProgressBar,  //等级进度
+        imgAvatar:cc.Sprite,  //头像
+        
 
         panels:PanelManager,  //面板管理
         prePanelFriends:cc.Prefab,  //朋友面板预制体
@@ -78,6 +81,7 @@ cc.Class({
             self.setOtherEgg(data.eggOther);
         });
     },
+
     //更新吃饭
     updateDine(data){
         console.log("更新吃饭");
@@ -100,6 +104,15 @@ cc.Class({
     setOtherEggEff(num){
         //eff
         this.setOtherEgg(num);
+    },
+    //设置头像
+    setAvatar(avatar){
+        var self=this;
+        cc.loader.load({url:avatar,type:jpg},function(err,tex){
+            if(!err){
+                self.imgAvatar.spriteFrame=tex;
+            }
+        });
     },
 
     //设置分数

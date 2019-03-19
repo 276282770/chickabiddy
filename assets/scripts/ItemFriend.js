@@ -57,7 +57,6 @@ cc.Class({
      * @param  {int}  inc  索引
      */
     fillItem(id,lvl,nickname,avatar,canHelpBath,canStealFood,canStealEgg,isOtherStealFood,inc){
-        console.log("cccc");
         var self=this;
         this._uid=id;
         this.txtLvl.string=lvl.toString();
@@ -75,7 +74,6 @@ cc.Class({
             }
         });
         
-        console.log("bbbbbb");
     },
     // update (dt) {},
 });
