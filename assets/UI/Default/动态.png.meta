@@ -1,15 +1,15 @@
 {
   "ver": "2.2.0",
-  "uuid": "f26369cb-0457-4cf2-aa74-2742ef08fc4e",
+  "uuid": "ddc7b62d-c8ca-4a5d-bb1e-2c69fd090708",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "subMetas": {
-    "好友": {
+    "动态": {
       "ver": "1.0.3",
-      "uuid": "bfe373de-3f19-4c0d-9775-2bd8ae1933d9",
-      "rawTextureUuid": "f26369cb-0457-4cf2-aa74-2742ef08fc4e",
+      "uuid": "d61ae515-99ab-47fb-a958-5853f393e5a8",
+      "rawTextureUuid": "ddc7b62d-c8ca-4a5d-bb1e-2c69fd090708",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

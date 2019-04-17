@@ -89,7 +89,7 @@ var WX={
                 success:function(res){
                     console.log("->【获取微信用户信息】"+JSON.stringify(res));
                     if(callback){
-                        callback(JSON.parse(res.rawData));
+                        callback(res.userInfo);
                     }
                 },
                 fail:function(err){

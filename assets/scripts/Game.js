@@ -36,6 +36,8 @@ cc.Class({
         proLvl:cc.ProgressBar,  //等级进度
         imgAvatar:cc.Sprite,  //头像
         
+        preMsgBox:cc.Prefab,  //消息框预制体
+        ndHomeMask:cc.Node,  //主页遮罩
 
         panels:PanelManager,  //面板管理
         prePanelFriends:cc.Prefab,  //朋友面板预制体
@@ -45,26 +47,54 @@ cc.Class({
         prePanelPackage:cc.Prefab,  //背包面板预制体
         prePanelAnnouncement:cc.Prefab,  //公告面板预制体
         prePanelPersonal:cc.Prefab,  //个人信息面板预制体
+
+        _hour:0,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         Global.game=this;
-        WX.login();
-        WX.getUserInfo();
-        WX.getSetting((isAuth)=>{if(!isAuth)WX.createUserInfoButton();});
+        WX.login(code=>{
+            let avatar;
+            let nickName;
+            WX.getSetting((isAuth)=>{if(!isAuth){WX.createUserInfoButton(
+                function(data){
+                    avatar=data.avatarUrl;
+                    nickName=data.nickName;
+                    Network.requestLogin(code,avatar,nickName,(res)=>{
+
+                        console.log("AABBCC");
+                    });
+                }
+            );}
+                else{
+                    WX.getUserInfo((res)=>{
+                        avatar=res.avatarUrl;
+                        nickName=res.nickName;
+                        Network.requestLogin(code,avatar,nickName,(res)=>{
+
+                            console.log("AABBCC");
+                        });
+                    });
+                }
+            });
+            
+        });
+        
+        
 
 
     },
 
     start () {
-        Network.test(function(res){
-            console.log(JSON.stringify(res));
-        });
+        
     },
 
-    // update (dt) {},
+
+    update (dt) {
+        this.setDark();
+    },
     
     //分享
     onShare(){
@@ -126,7 +156,10 @@ cc.Class({
 
     //显示提示框
     showTip(txt){
-
+        let msgBox= cc.instantiate(this.preMsgBox);
+        msgBox.parent=this.node;
+        let msgBoxScr=msgBox.getComponent("MsgBox");
+        msgBoxScr.show(txt);
     },
 
     //显示朋友面板
@@ -158,5 +191,27 @@ cc.Class({
     },
     onShowPanelPersonal(){
         this.panels.createPanel(this.prePanelPersonal,"PanelPersonal");
+    },
+
+    //测试
+    test(){
+        this.showTip("你好  300000000000000\r\n200");
+    },
+    //设置天黑天亮
+    setDark(){
+        let hour=new Date().getHours();
+        if(hour==this._hour)
+            return;
+        this._hour=hour;
+        if(hour>=6&&hour<=20){
+            this.ndHomeMask.active=false;
+        }else{
+            this.ndHomeMask.active=true;
+        }
+        console.log("现在时刻："+hour+"点");
+    },
+    //显示敬请期待提示
+    onShowTipExpect(){
+        this.showTip("敬请期待.");
     },
 });

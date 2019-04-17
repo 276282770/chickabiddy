@@ -1,7 +1,7 @@
 var WX=require("WX");
 var Network={
     // domain:"",
-    domain:"http://192.168.0.154:8080/",  //域名
+    domain:"http://132.232.211.116/",  //域名
 
     //封装微信http协议
     request(url,data,success){
@@ -11,9 +11,9 @@ var Network={
      * @param  {string} code 微信code
      * @param  {function} callback 回调函数
      */
-    requestLogin(code,callback){
+    requestLogin(code,avatar,nickName,callback){
         let url=this.domain+"load/load.action";
-        let data={code:code};
+        let data={code:code,url:avatar,nickName:nickName};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
             if(res.state==200){

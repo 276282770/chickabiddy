@@ -1,45 +1,17 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 
-cc.Class({
-    extends: cc.Component,
+var Common={
 
-    properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
-        
-    },
+    //现在时刻是否是夜晚
+    isDarkNow(){
+        let hour=new Date().getHours();
+        let result=true;
+        console.log("现在时刻："+hour);
+        if(hour>=6&&hour<=20)
+            result=false;
+        return result;
+    }
+};
 
-    // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
-
-    start () {
-
-    },
-
-    // update (dt) {},
-    
-
-});
+module.exports=Common;
