@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "12f19548-4c8b-43b8-9f4d-1af2d4efafe3",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "商店物品柜子": {
+      "ver": "1.0.3",
+      "uuid": "89874dbf-4d81-4dcf-afd1-3abd7def6df3",
+      "rawTextureUuid": "12f19548-4c8b-43b8-9f4d-1af2d4efafe3",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 672,
+      "height": 134,
+      "rawWidth": 672,
+      "rawHeight": 134,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

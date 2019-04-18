@@ -576,8 +576,8 @@
     "_spriteFrame": {
       "__uuid__": "2e304e65-cb33-417b-9d69-0e3f7a773ec9"
     },
-    "_type": 0,
-    "_sizeMode": 1,
+    "_type": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -736,6 +736,9 @@
     },
     "txtDate": {
       "__id__": 13
+    },
+    "imgBg": {
+      "__id__": 15
     },
     "_id": ""
   },

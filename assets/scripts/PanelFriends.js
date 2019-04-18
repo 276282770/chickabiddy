@@ -73,7 +73,7 @@ cc.Class({
     },
     //添加好友
     onAddFriend(){
-
+        Global.game.onShare("tp=af&id="+Global.id);
     },
     //加载好友
     loadFriends(){
@@ -85,50 +85,50 @@ cc.Class({
                 Global.game.showTip(res.data);
             }
         });
-        let backData={};
-        backData.result=true;
-        backData.data={};
-        backData.data.friends=[{
-            id:1,
-            nickName:"ふ液飮颩",
-            lvl:2,
-            avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
-            isHelpBath:true,
-            isStealEgg:false,
-            isStealFood:true,
-            isOtherStealFood:false
-        },{
-            id:2,
-            nickName:"aabbxx",
-            lvl:2,
-            avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
-            isHelpBath:false,
-            isStealEgg:true,
-            isStealFood:false,
-            isOtherStealFood:true
-        },
-        {
-            id:2,
-            nickName:"aabbxx",
-            lvl:2,
-            avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
-            isHelpBath:true,
-            isStealEgg:true,
-            isStealFood:true,
-            isOtherStealFood:true
-        },
-        {
-            id:2,
-            nickName:"aabbxx",
-            lvl:2,
-            avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
-            isHelpBath:false,
-            isStealEgg:false,
-            isStealFood:false,
-            isOtherStealFood:false
-        },
-        ];
-        this.updatePanel(backData.data);
+        // let backData={};
+        // backData.result=true;
+        // backData.data={};
+        // backData.data.friends=[{
+        //     id:1,
+        //     nickName:"ふ液飮颩",
+        //     lvl:2,
+        //     avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
+        //     isHelpBath:true,
+        //     isStealEgg:false,
+        //     isStealFood:true,
+        //     isOtherStealFood:false
+        // },{
+        //     id:2,
+        //     nickName:"aabbxx",
+        //     lvl:2,
+        //     avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
+        //     isHelpBath:false,
+        //     isStealEgg:true,
+        //     isStealFood:false,
+        //     isOtherStealFood:true
+        // },
+        // {
+        //     id:2,
+        //     nickName:"aabbxx",
+        //     lvl:2,
+        //     avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
+        //     isHelpBath:true,
+        //     isStealEgg:true,
+        //     isStealFood:true,
+        //     isOtherStealFood:true
+        // },
+        // {
+        //     id:2,
+        //     nickName:"aabbxx",
+        //     lvl:2,
+        //     avatar:"https://wx.qlogo.cn/mmopen/vi_32/oUicWDFmZmf8Khf6uEh7pt7uvEPiaQCibGqeJWOWHrdICRevRxUG4niawH7c7qyM80iciaSia5qdflU85RB7WM0gtTbuA/132",
+        //     isHelpBath:false,
+        //     isStealEgg:false,
+        //     isStealFood:false,
+        //     isOtherStealFood:false
+        // },
+        // ];
+        // this.updatePanel(backData.data);
     },
     updatePanel(data){
                         let friends=data.friends;

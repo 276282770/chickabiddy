@@ -39,7 +39,7 @@
   "title": "chickabiddy",
   "webOrientation": "auto",
   "wechatgame": {
-    "REMOTE_SERVER_ROOT": "",
+    "REMOTE_SERVER_ROOT": "http://132.232.211.116:82",
     "appid": "wx0663cc7af0bc185d",
     "orientation": "portrait",
     "subContext": ""

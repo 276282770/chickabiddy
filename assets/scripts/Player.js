@@ -8,7 +8,6 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-var Network=require("Network");
 cc.Class({
     extends: cc.Component,
 
@@ -28,8 +27,6 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        ndBg:cc.Node,  //背景节点
-        _panelReady:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -39,34 +36,6 @@ cc.Class({
     start () {
 
     },
-    onShow(){
-        var self=this;
-        let h=this.ndBg.height;
-        let x=this.ndBg.position.x;
-        this.ndBg.runAction(cc.sequence(
-            cc.moveTo(0.5,x,h),
-            cc.callFunc(function(){
-                self._panelReady=true;
-            })
-        ));
-    },
-    onClose(){
-        if(!this._panelReady)
-            return;
-        let x=this.ndBg.position.x;
-        var self=this;
-        this.ndBg.runAction(cc.sequence(
-            cc.moveTo(0.5,x,0),
-            cc.callFunc(function(){
-                self.node.destroy();
-            })
-        ));
-    },
-    onEnable(){
-        this.onShow();
-    },
-    //分享任务
-    onShare(){
-        Global.game.onShare("tp=ad&id="+Global.id);
-    },
+
+    // update (dt) {},
 });

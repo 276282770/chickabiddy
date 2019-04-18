@@ -47,6 +47,7 @@ cc.Class({
         prePanelPackage:cc.Prefab,  //背包面板预制体
         prePanelAnnouncement:cc.Prefab,  //公告面板预制体
         prePanelPersonal:cc.Prefab,  //个人信息面板预制体
+        prePanelDetail:cc.Prefab,  //个人记录
 
         _hour:0,
     },
@@ -58,6 +59,7 @@ cc.Class({
         WX.login(code=>{
             let avatar;
             let nickName;
+            // code="aaa";
             WX.getSetting((isAuth)=>{if(!isAuth){WX.createUserInfoButton(
                 function(data){
                     avatar=data.avatarUrl;
@@ -82,23 +84,30 @@ cc.Class({
             
         });
         
-        
+        WX.onShow((res)=>{
+            if(res.tp){
+                //添加好友
+                if(res.tp=="af"){
+                    Network.requestAddFriend(res.id);
+                }
+            }
+        });
 
 
     },
 
     start () {
-        
+        this.setDark();
     },
 
 
     update (dt) {
-        this.setDark();
+        // this.setDark();
     },
     
     //分享
-    onShare(){
-        WX.shareAppMessage("","http://pic13.nipic.com/20110412/6759696_220922114000_2.jpg","tp=222");
+    onShare(tp){
+        WX.shareAppMessage("","http://pic13.nipic.com/20110412/6759696_220922114000_2.jpg",tp);
     },
     onClick(){
         
@@ -192,6 +201,10 @@ cc.Class({
     onShowPanelPersonal(){
         this.panels.createPanel(this.prePanelPersonal,"PanelPersonal");
     },
+    //显示个人日志信息
+    onShowPanelDetail(){
+        this.panels.createPanel(this.prePanelDetail,"PanelDetail");
+    },
 
     //测试
     test(){
@@ -212,6 +225,6 @@ cc.Class({
     },
     //显示敬请期待提示
     onShowTipExpect(){
-        this.showTip("敬请期待.");
+        this.showTip("正在完善中,敬请期待.");
     },
 });

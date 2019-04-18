@@ -1,7 +1,7 @@
 var WX=require("WX");
 var Network={
     // domain:"",
-    domain:"http://132.232.211.116/",  //域名
+    domain:"http://132.232.211.116",  //域名
 
     //封装微信http协议
     request(url,data,success){
@@ -12,7 +12,7 @@ var Network={
      * @param  {function} callback 回调函数
      */
     requestLogin(code,avatar,nickName,callback){
-        let url=this.domain+"load/load.action";
+        let url=this.domain+":81/load/load.action";
         let data={code:code,url:avatar,nickName:nickName};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -47,8 +47,8 @@ var Network={
     },
     //请求公告信息
     requestAnnouncement:function(callback){
-        let url=this.domain+"gonggao/getGonggao.action";
-        let data={data:"getGonggao"};
+        let url=this.domain+"/gonggao/getGonggao.action";
+        let data={uid:Global.id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
             if(res.state==200){
@@ -56,6 +56,7 @@ var Network={
                 backData.data={};
                 backData.data.date=res.data.time;
                 backData.data.text=res.data.text;
+                backData.data.imgUrl=res.data.url;
             }else{
                 backData.data="";
             }
@@ -65,7 +66,7 @@ var Network={
     },
     //请求好友信息
     requestFriendList:function(page,callback){
-        let url=this.domain+"friend/getFriendList.action";
+        let url=this.domain+":81/friend/getFriendList.action";
         let data={uid:Global.id,currentPage:page};
         var self=this;
         this.request(url,data,(res)=>{
@@ -79,7 +80,7 @@ var Network={
                     friend.id=res.data[i].fid;
                     friend.nickName=res.data[i].nickName;  
                     friend.lvl=res.data[i].level;  //等级
-                    friend.avatar=res.data[i].logoUrl;  //头像
+                    friend.avatar=res.data[i].url;  //头像
                     friend.isHelpBath=res.data[i].xizao==1; //是否可以洗澡
                     friend.isStealEgg=res.data[i].toudan==1;  //是否可以偷蛋
                     friend.isStealFood=res.data[i].food==1;  //是否可以偷饭
@@ -96,7 +97,7 @@ var Network={
     },
     //添加好友
     requestAddFriend(id,callback){
-        let url=this.domain+"friend/addFriend.action";
+        let url=this.domain+"/friend/addFriend.action";
         let data={uid:Global.id,fid:id};
         var backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -111,7 +112,7 @@ var Network={
     },
     //删除好友
     requestDelFriend(id,callback){
-        let url=this.domain+"friend/delFriend.action";
+        let url=this.domain+"/friend/delFriend.action";
         let data={uid:Global.id,fid:id};
         var backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -126,7 +127,7 @@ var Network={
     },
     //查询指定用户是否是自己好友
     requestIsFriend(id,callback){
-        let url=this.domain+"friend/findFriend.action";
+        let url=this.domain+"/friend/findFriend.action";
         let data={uid:Global.id,fid:id};
         this.request(url,data,(res)=>{
             var backData={};
@@ -151,7 +152,7 @@ var Network={
     },
     //吃饭
     requestDine(id,callback){
-        let url=this.domain+"chicken/checkEat.action";
+        let url=this.domain+"/chicken/checkEat.action";
         let data={uid:Global.id,pid:id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -167,7 +168,7 @@ var Network={
     //饭被偷吃，揍一顿
     //@id  被揍id
     requestHit(id,callback){
-        let url=this.domain+"chicken/Hit.action";
+        let url=this.domain+"/chicken/Hit.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -184,7 +185,7 @@ var Network={
     //饭被偷吃，赶走
     //@id  偷吃者id
     requestDriveOff(id,callback){
-        let url=this.domain+"chicken/Qugan.action";
+        let url=this.domain+"/chicken/Qugan.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -201,7 +202,7 @@ var Network={
     //@selfEggNum  自己的鸡蛋
     //@otherEggNum  偷来的鸡蛋
     requestSaleEgg(selfEggNum,otherEggNum,callback){
-        let url=this.domain+"age/sellAge.action";
+        let url=this.domain+"/age/sellAge.action";
         let data={uid:Global.id,goodAge:selfEggNum,badAge:otherEggNum};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -219,7 +220,7 @@ var Network={
      * @param  {} callback  返回
      */
     requestTackABath(callback){
-        let url=this.domain+"xizao/userself.action";
+        let url=this.domain+"/xizao/userself.action";
         let data={uid:Global.id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -237,7 +238,7 @@ var Network={
      * @param  {Function} callback  返回
      */
     requestHelpTackABath(id,callback){
-        let url=this.domain+"xizao/help.action";
+        let url=this.domain+"/xizao/help.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -256,7 +257,7 @@ var Network={
      * @param  {function} callback  返回
      */
     requestWorldRankList(page,callback){
-        let url=this.domain+"rank/getWorldRank.action";
+        let url=this.domain+"/rank/getWorldRank.action";
         let data={data:"worldRank",currentPage:page};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -286,7 +287,7 @@ var Network={
     //@page 分页
     //@mid  消息ID
     requestWorldMsg(page,mid,callback){
-        let url=this.domain+"msg/getWorldMsg.action";
+        let url=this.domain+"/msg/getWorldMsg.action";
         let data={msg:"getWorldMsg",currentPage:page,worldId:mid};
         var backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -301,7 +302,7 @@ var Network={
      * @param  {function} callback  返回
      */
     requestBuy(id,count,callback){
-        let url=this.domain+"shop/buyProp.action";
+        let url=this.domain+"/shop/buyProp.action";
         let data={uid:Global.id,propId:id,num:count};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -318,7 +319,7 @@ var Network={
      * @param  {function} callback 返回
      */
     requestShop(callback){
-        let url=this.domain+"shop/shop.action";
+        let url=this.domain+"/shop/shop.action";
         let data={data:"shop"};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -362,7 +363,7 @@ var Network={
     },
     //发送世界消息
     requestSendWorldMsg(msg,callback){
-        let url=this.domain+"msg/sendWorldMsg.action";
+        let url=this.domain+"/msg/sendWorldMsg.action";
         let data={uid:Global.id,msg:msg};
         var backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -378,7 +379,7 @@ var Network={
     },
     //发送消息
     requestSendMsg(id,msg,callback){
-        let url=this.domain+"msg/sendMsg.action";
+        let url=this.domain+"/msg/sendMsg.action";
         let data={uid:Global.id,fid:id,msg:msg};
         var backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -395,6 +396,22 @@ var Network={
     //查看消息
     requestQueryMsglst(id,page,callback){
         
+    },
+    //获取动态（日志）
+    requestDetailLog(callback){
+        let url=this.domain+":81/dongtai/getdongtai.action";
+        let data={uid:Global.id};
+        var backData={result:false,data:null};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data=res.data;
+            }else{
+                backData.data="";
+            }
+            if(callback)
+                callback(backData);
+        });
     },
     //测试
     test(callback){

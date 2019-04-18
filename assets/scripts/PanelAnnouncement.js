@@ -30,6 +30,7 @@ cc.Class({
         // },
         txtInfo:cc.Label,  //内容
         txtDate:cc.Label,  //时间
+        imgBg:cc.Sprite,  //背景
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -49,11 +50,20 @@ cc.Class({
                 Global.game.showTip(res.data);
             }
         });
-        this.updatePanel({date:"2018-03-01",text:"测试测试测试测试测试测试测试测试测试测试"});
+        //this.updatePanel({date:"2018-03-01",text:"测试测试测试测试测试测试测试测试测试测试"});
     },
     updatePanel(data){
+        var self=this;
         this.txtInfo.string=data.text;
+        if(data.date)
         this.txtDate.string=data.date;
+        if(data.imgUrl){
+            cc.loader.load(data.imgUrl,function(err,tex){
+                if(err==null)
+                self.imgBg.spriteFrame=new cc.SpriteFrame(tex);
+            });
+            
+        }
     },
 
     onShow(){
