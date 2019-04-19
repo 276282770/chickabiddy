@@ -8,7 +8,6 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-var Network=require("Network");
 cc.Class({
     extends: cc.Component,
 
@@ -28,9 +27,12 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        ndBg:cc.Node,  //背景节点
-        prePanelAnswer:cc.Prefab,  //答题
-        _panelReady:false,
+        imgGoods:cc.Sprite,   //物品图片
+        txtGoodsName:cc.Label,  //物品名称
+        txtGoodsDesc:cc.Label,  //物品说明
+        txtPrice:cc.Label,  //物品价格
+        prePanelBuy:cc.Prefab,  //购买预制体
+        _id:-1,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -40,44 +42,25 @@ cc.Class({
     start () {
 
     },
-    onShow(){
-        var self=this;
-        let h=this.ndBg.height;
-        let x=this.ndBg.position.x;
-        this.ndBg.runAction(cc.sequence(
-            cc.moveTo(0.5,x,h),
-            cc.callFunc(function(){
-                self._panelReady=true;
-            })
-        ));
-    },
-    onClose(){
-        if(!this._panelReady)
-            return;
-        let x=this.ndBg.position.x;
-        var self=this;
-        this.ndBg.runAction(cc.sequence(
-            cc.moveTo(0.5,x,0),
-            cc.callFunc(function(){
-                self.node.destroy();
-            })
-        ));
-    },
-    onEnable(){
-        this.onShow();
-    },
-    //分享任务
-    onShare(){
-        Global.game.onShare("tp=ad&id="+Global.id);
-        this.onClose();
-    },
-    //答题
-    onAnswer(){
-        var self=this;
-        let panel=cc.instantiate(self.prePanelAnswer);
-        panel.parent=cc.find("Canvas");
-        // Global.game.panels.createPanel(self.prePanelAnswer,"PanelAnswer");
 
-        this.node.destroy();
+    // update (dt) {},
+    fill(id,name,desc,price){
+        var self=this;
+        this._id=id;
+        cc.loader.loadRes("Shop/shop_"+id,function(err,tex){
+            if(!err){
+                self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
+            }
+        });
+        this.txtGoodsName.string=name;
+        this.txtGoodsDesc.string=desc;
+        this.txtPrice.string=price.toString();
+    },
+    //购买
+    onBuy(){
+        Global.game.panels.deletePanel();
+        let newPanel= cc.instantiate(this.prePanelBuy);
+        newPanel.parent=cc.find("Canvas");
+        
     },
 });

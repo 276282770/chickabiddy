@@ -15,6 +15,50 @@ var Network={
         let url=this.domain+":81/load/load.action";
         let data={code:code,url:avatar,nickName:nickName};
         let backData={result:false,data:null};
+
+        Global.user.nickName=nickName;
+        Global.user.avatar=avatar;
+
+
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data={};
+                backData.data.id=res.data.uid;  //id
+                backData.data.lvl=res.data.level;  //等级
+                backData.data.lvlExp=res.data.currentExp;  //经验
+                backData.data.lvlFullExp=res.data.maxExp;  //升级所需经验
+                // backData.data.lvlProg=res.data.currentExp/res.data.maxExp;  //下一等级进度
+                backData.data.selfEggNum=res.data.goodEgg;  //自己鸡蛋个数
+                backData.data.otherEggNum=res.data.badEgg;  //别人鸡蛋个数
+                backData.data.eggNum=res.data.waitGetEgg;  //未收鸡蛋个数
+                // backData.data.eggProg=res.data.age_pre;  //下一个鸡蛋出生进度
+                backData.data.eggProgCurr=res.data.EggTime;  //鸡蛋已经成熟时间
+                backData.data.eggProgFull=res.data.totalEggTime;  //鸡蛋成熟总时间
+                backData.data.money=res.data.money;  //钱
+                // backData.data.cleanProg=res.data.clean_pre;  //干净进度
+                backData.data.cleanProgCurr=res.clean;
+                backData.data.cleanProgFull=86400;
+
+                backData.data.foodRemain=res.data.totalEatTime;  //食物剩余可以吃的时间
+                backData.data.foodProgFull=res.data.howLongEat_pre;  //食物进度
+                // backData.data.foodProg=res.data.howLongEat_pre;  //食物进度
+                backData.data.newDetail=res.data.unRead_dongtai;  //新动态
+                backData.data.newAnnouncement=res.data.unRead_gonggao;  //新公告
+                // backData.data.newWorldMsg=res.data.unRead_world;
+                backData.data.state=0;
+                if(res.data.die==1)
+                backData.data.state=1;
+
+                Global.id=backData.data.id;
+            }
+        });
+    },
+    //请求首页信息
+    requestIndexInfo:function(callback){
+        let data={uid:Global.id};
+        let url=this.domain+":81/load/load.action";
+        let backData={result:false,data:null};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -22,8 +66,8 @@ var Network={
                 backData.data.id=res.data.uid;  //id
                 backData.data.lvl=res.data.level;  //等级
                 backData.data.lvlProg=res.data.exp_pre;  //下一等级进度
-                backData.data.selfEggNum=res.data.ouerself;  //自己鸡蛋个数
-                backData.data.otherEggNum=res.data.steal;  //别人鸡蛋个数
+                backData.data.selfEggNum=res.data.goodEgg;  //自己鸡蛋个数
+                backData.data.otherEggNum=res.data.badEgg;  //别人鸡蛋个数
                 backData.data.eggNum=res.data.waitGet;  //未收鸡蛋个数
                 backData.data.eggProg=res.data.age_pre;  //下一个鸡蛋出生进度
                 backData.data.money=res.data.money;  //钱
@@ -32,18 +76,12 @@ var Network={
                 backData.data.foodProg=res.data.howLongEat_pre;  //食物进度
                 backData.data.newDetail=res.data.unRead_dongtai;  //新动态
                 backData.data.newAnnouncement=res.data.unRead_gonggao;  //新公告
-                // backData.data.newWorldMsg=res.data.unRead_world;
-
-                Global.id=backData.data.id;
+            }else{
+                backData.data="";
             }
+            if(callback)
+                callback(backData);
         });
-    },
-    //请求首页信息
-    requestIndexInfo:function(callback){
-        let data={eggSelf:-1,eggOther:-1};
-        let url="";
-
-        callback(data);
     },
     //请求公告信息
     requestAnnouncement:function(callback){
@@ -152,7 +190,7 @@ var Network={
     },
     //吃饭
     requestDine(id,callback){
-        let url=this.domain+"/chicken/checkEat.action";
+        let url=this.domain+":82/chicken/checkEat.action";
         let data={uid:Global.id,pid:id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -168,7 +206,7 @@ var Network={
     //饭被偷吃，揍一顿
     //@id  被揍id
     requestHit(id,callback){
-        let url=this.domain+"/chicken/Hit.action";
+        let url=this.domain+":82/chicken/Hit.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -185,7 +223,7 @@ var Network={
     //饭被偷吃，赶走
     //@id  偷吃者id
     requestDriveOff(id,callback){
-        let url=this.domain+"/chicken/Qugan.action";
+        let url=this.domain+":82/chicken/Qugan.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -220,7 +258,7 @@ var Network={
      * @param  {} callback  返回
      */
     requestTackABath(callback){
-        let url=this.domain+"/xizao/userself.action";
+        let url=this.domain+":81/xizao/userself.action";
         let data={uid:Global.id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -238,7 +276,7 @@ var Network={
      * @param  {Function} callback  返回
      */
     requestHelpTackABath(id,callback){
-        let url=this.domain+"/xizao/help.action";
+        let url=this.domain+":81/xizao/help.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -302,7 +340,7 @@ var Network={
      * @param  {function} callback  返回
      */
     requestBuy(id,count,callback){
-        let url=this.domain+"/shop/buyProp.action";
+        let url=this.domain+":81/shop/buyProp.action";
         let data={uid:Global.id,propId:id,num:count};
         let backData={result:false,data:null};
         this.request(url,data,(res)=>{
@@ -401,6 +439,38 @@ var Network={
     requestDetailLog(callback){
         let url=this.domain+":81/dongtai/getdongtai.action";
         let data={uid:Global.id};
+        var backData={result:false,data:null};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data=res.data;
+            }else{
+                backData.data="";
+            }
+            if(callback)
+                callback(backData);
+        });
+    },
+    //获取道具
+    requestGetPropLst(callback){
+        let url=this.domain+"";
+        let data={uid:Global.id};
+        var backData={result:false,data:null};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data=res.data;
+            }else{
+                backData.data="";
+            }
+            if(callback)
+                callback(backData);
+        });
+    },
+    //使用道具
+    requestUseProp(id,callback){
+        let url=this.domain+"";
+        let data={uid:Global.id,id:id};
         var backData={result:false,data:null};
         this.request(url,data,(res)=>{
             if(res.state==200){

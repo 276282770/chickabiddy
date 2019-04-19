@@ -48,6 +48,8 @@ cc.Class({
         prePanelAnnouncement:cc.Prefab,  //公告面板预制体
         prePanelPersonal:cc.Prefab,  //个人信息面板预制体
         prePanelDetail:cc.Prefab,  //个人记录
+        prePanelProp:cc.Prefab,  //道具预制体
+        prePanelShop:cc.Prefab,  //商店预制体
 
         _hour:0,
     },
@@ -56,6 +58,7 @@ cc.Class({
 
     onLoad () {
         Global.game=this;
+        var self=this;
         WX.login(code=>{
             let avatar;
             let nickName;
@@ -64,20 +67,14 @@ cc.Class({
                 function(data){
                     avatar=data.avatarUrl;
                     nickName=data.nickName;
-                    Network.requestLogin(code,avatar,nickName,(res)=>{
-
-                        console.log("AABBCC");
-                    });
+                    self.login(code,avatar,nickName);
                 }
             );}
                 else{
                     WX.getUserInfo((res)=>{
                         avatar=res.avatarUrl;
                         nickName=res.nickName;
-                        Network.requestLogin(code,avatar,nickName,(res)=>{
-
-                            console.log("AABBCC");
-                        });
+                        self.login(code,avatar,nickName);
                     });
                 }
             });
@@ -105,6 +102,18 @@ cc.Class({
         // this.setDark();
     },
     
+    login(code,avatar,nickName){
+        var self=this;
+        cc.loader.load({url:avatar,type:"png"},function(err,tex){
+            if(!err){
+                self.imgAvatar.spriteFrame=new cc.SpriteFrame(tex);
+            }
+        });
+        Network.requestLogin(code,avatar,nickName,(res)=>{
+
+            
+        });
+    },
     //分享
     onShare(tp){
         WX.shareAppMessage("","http://pic13.nipic.com/20110412/6759696_220922114000_2.jpg",tp);
@@ -204,6 +213,14 @@ cc.Class({
     //显示个人日志信息
     onShowPanelDetail(){
         this.panels.createPanel(this.prePanelDetail,"PanelDetail");
+    },
+    //显示道具界面
+    onShowPanelProp(){
+        this.panels.createPanel(this.prePanelProp,"PanelProp");
+    },
+    //显示商店界面
+    onShowPanelShop(){
+        this.panels.createPanel(this.prePanelShop,"PanelShop");
     },
 
     //测试

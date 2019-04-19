@@ -29,7 +29,7 @@ cc.Class({
         //     }
         // },
         ndBg:cc.Node,  //背景节点
-        prePanelAnswer:cc.Prefab,  //答题
+        ndCtnt:cc.Node,  //根内容节点
         _panelReady:false,
     },
 
@@ -50,6 +50,7 @@ cc.Class({
                 self._panelReady=true;
             })
         ));
+        this.load();
     },
     onClose(){
         if(!this._panelReady)
@@ -66,18 +67,7 @@ cc.Class({
     onEnable(){
         this.onShow();
     },
-    //分享任务
-    onShare(){
-        Global.game.onShare("tp=ad&id="+Global.id);
-        this.onClose();
-    },
-    //答题
-    onAnswer(){
-        var self=this;
-        let panel=cc.instantiate(self.prePanelAnswer);
-        panel.parent=cc.find("Canvas");
-        // Global.game.panels.createPanel(self.prePanelAnswer,"PanelAnswer");
-
-        this.node.destroy();
-    },
+    load(){
+        Network.requestGetPropLst();
+    }
 });

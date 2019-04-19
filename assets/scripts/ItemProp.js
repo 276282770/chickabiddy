@@ -28,9 +28,7 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        ndBg:cc.Node,  //背景节点
-        prePanelAnswer:cc.Prefab,  //答题
-        _panelReady:false,
+        _id:-1,  //道具ID
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -40,44 +38,26 @@ cc.Class({
     start () {
 
     },
-    onShow(){
-        var self=this;
-        let h=this.ndBg.height;
-        let x=this.ndBg.position.x;
-        this.ndBg.runAction(cc.sequence(
-            cc.moveTo(0.5,x,h),
-            cc.callFunc(function(){
-                self._panelReady=true;
-            })
-        ));
-    },
-    onClose(){
-        if(!this._panelReady)
-            return;
-        let x=this.ndBg.position.x;
-        var self=this;
-        this.ndBg.runAction(cc.sequence(
-            cc.moveTo(0.5,x,0),
-            cc.callFunc(function(){
-                self.node.destroy();
-            })
-        ));
-    },
-    onEnable(){
-        this.onShow();
-    },
-    //分享任务
-    onShare(){
-        Global.game.onShare("tp=ad&id="+Global.id);
-        this.onClose();
-    },
-    //答题
-    onAnswer(){
-        var self=this;
-        let panel=cc.instantiate(self.prePanelAnswer);
-        panel.parent=cc.find("Canvas");
-        // Global.game.panels.createPanel(self.prePanelAnswer,"PanelAnswer");
 
-        this.node.destroy();
+    // update (dt) {},
+    //使用
+    onUse(){
+        Network.requestUseProp((res)=>{
+            if(!res.result){
+                Global.game.showTip(res.data);
+            }
+            Global.game.panels.deletePanel();
+        });
     },
+
+    fill(id){
+        var self=this;
+        if(id){
+            cc.loader.loadRes("Prop/prop_"+id,function(err,tex){
+                if(!err){
+                    self.node.getComponent(cc.Sprite).spriteFrame=new cc.SpriteFrame(tex);
+                }
+            });
+        }
+    }
 });
