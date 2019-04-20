@@ -30,6 +30,8 @@ cc.Class({
         // },
         ndBg:cc.Node,  //背景节点
         prePanelAnswer:cc.Prefab,  //答题
+        ndMiss0:cc.Node,  //任务0
+        ndMiss1:cc.Node,  //任务1
         _panelReady:false,
     },
 
@@ -38,7 +40,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
+        this.load();
     },
     onShow(){
         var self=this;
@@ -79,5 +81,16 @@ cc.Class({
         // Global.game.panels.createPanel(self.prePanelAnswer,"PanelAnswer");
 
         this.node.destroy();
+    },
+    load(){
+        var self=this;
+        Network.requestMission((res)=>{
+            if(res.result){
+                if(res.data.miss0Cmplt)
+                self.ndMiss0.getChildByName("txtComplete").active=true;
+                if(res.data.miss1Cmplt)
+                self.ndMiss1.getChildByName("txtComplete").active=true;
+            }
+        });
     },
 });

@@ -14,7 +14,7 @@ var Network={
     requestLogin(code,avatar,nickName,callback){
         let url=this.domain+":81/load/load.action";
         let data={code:code,url:avatar,nickName:nickName};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
 
         Global.user.nickName=nickName;
         Global.user.avatar=avatar;
@@ -23,7 +23,7 @@ var Network={
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
-                backData.data={};
+                // backData.data={};
                 backData.data.id=res.data.uid;  //id
                 backData.data.lvl=res.data.level;  //等级
                 backData.data.lvlExp=res.data.currentExp;  //经验
@@ -58,11 +58,11 @@ var Network={
     requestIndexInfo:function(callback){
         let data={uid:Global.id};
         let url=this.domain+":81/load/load.action";
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
-                backData.data={};
+                // backData.data={};
                 backData.data.id=res.data.uid;  //id
                 backData.data.lvl=res.data.level;  //等级
                 backData.data.lvlProg=res.data.exp_pre;  //下一等级进度
@@ -87,7 +87,7 @@ var Network={
     requestAnnouncement:function(callback){
         let url=this.domain+"/gonggao/getGonggao.action";
         let data={uid:Global.id};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -104,7 +104,7 @@ var Network={
     },
     //请求好友信息
     requestFriendList:function(page,callback){
-        let url=this.domain+":81/friend/getFriendList.action";
+        let url=this.domain+"/friend/getFriendList.action";
         let data={uid:Global.id,currentPage:page};
         var self=this;
         this.request(url,data,(res)=>{
@@ -137,7 +137,7 @@ var Network={
     requestAddFriend(id,callback){
         let url=this.domain+"/friend/addFriend.action";
         let data={uid:Global.id,fid:id};
-        var backData={result:false,data:null};
+        var backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -152,7 +152,7 @@ var Network={
     requestDelFriend(id,callback){
         let url=this.domain+"/friend/delFriend.action";
         let data={uid:Global.id,fid:id};
-        var backData={result:false,data:null};
+        var backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -192,7 +192,7 @@ var Network={
     requestDine(id,callback){
         let url=this.domain+":82/chicken/checkEat.action";
         let data={uid:Global.id,pid:id};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -208,7 +208,7 @@ var Network={
     requestHit(id,callback){
         let url=this.domain+":82/chicken/Hit.action";
         let data={uid:Global.id,fid:id};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -225,7 +225,7 @@ var Network={
     requestDriveOff(id,callback){
         let url=this.domain+":82/chicken/Qugan.action";
         let data={uid:Global.id,fid:id};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -242,7 +242,7 @@ var Network={
     requestSaleEgg(selfEggNum,otherEggNum,callback){
         let url=this.domain+"/age/sellAge.action";
         let data={uid:Global.id,goodAge:selfEggNum,badAge:otherEggNum};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -260,7 +260,7 @@ var Network={
     requestTackABath(callback){
         let url=this.domain+":81/xizao/userself.action";
         let data={uid:Global.id};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -278,7 +278,7 @@ var Network={
     requestHelpTackABath(id,callback){
         let url=this.domain+":81/xizao/help.action";
         let data={uid:Global.id,fid:id};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -297,7 +297,7 @@ var Network={
     requestWorldRankList(page,callback){
         let url=this.domain+"/rank/getWorldRank.action";
         let data={data:"worldRank",currentPage:page};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -327,7 +327,7 @@ var Network={
     requestWorldMsg(page,mid,callback){
         let url=this.domain+"/msg/getWorldMsg.action";
         let data={msg:"getWorldMsg",currentPage:page,worldId:mid};
-        var backData={result:false,data:null};
+        var backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 //有问题
@@ -342,7 +342,7 @@ var Network={
     requestBuy(id,count,callback){
         let url=this.domain+":81/shop/buyProp.action";
         let data={uid:Global.id,propId:id,num:count};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -359,7 +359,7 @@ var Network={
     requestShop(callback){
         let url=this.domain+"/shop/shop.action";
         let data={data:"shop"};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -380,13 +380,37 @@ var Network={
                 callback(backData);
         });
     },
+    /**
+     *获取单个商品详情
+     *
+     * @param {*} id  商品ID
+     * @param {*} callback  回调
+     */
+    requestShopGoodsById(id,callback){
+        let url=this.domain+"/shop/selectOne.action";
+        let data={pid:id};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.data==200){
+                backData.result=true;
+                backData.data.id=res.data.id;
+                backData.data.name=res.data.name;
+                backData.data.desc=res.data.des;
+                backData.data.price=res.data.price;
+            }else{
+                backData.data="";
+            }
+            if(callback)
+                callback(backData);
+        });
+    },
     /**请求背包列表
      * @param  {function} callback 回调函数
      */
     requestPackage(callback){
         let url=this.domain+"";
         let data={uid:Global.id};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -403,7 +427,7 @@ var Network={
     requestSendWorldMsg(msg,callback){
         let url=this.domain+"/msg/sendWorldMsg.action";
         let data={uid:Global.id,msg:msg};
-        var backData={result:false,data:null};
+        var backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -419,7 +443,7 @@ var Network={
     requestSendMsg(id,msg,callback){
         let url=this.domain+"/msg/sendMsg.action";
         let data={uid:Global.id,fid:id,msg:msg};
-        var backData={result:false,data:null};
+        var backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -439,7 +463,7 @@ var Network={
     requestDetailLog(callback){
         let url=this.domain+":81/dongtai/getdongtai.action";
         let data={uid:Global.id};
-        var backData={result:false,data:null};
+        var backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -455,7 +479,7 @@ var Network={
     requestGetPropLst(callback){
         let url=this.domain+"";
         let data={uid:Global.id};
-        var backData={result:false,data:null};
+        var backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -471,7 +495,7 @@ var Network={
     requestUseProp(id,callback){
         let url=this.domain+"";
         let data={uid:Global.id,id:id};
-        var backData={result:false,data:null};
+        var backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
@@ -483,11 +507,91 @@ var Network={
                 callback(backData);
         });
     },
+    //获取问题题目
+    requestAnswerLst(callback){
+        let url=this.domain+":81/question/question.action";
+        let data={uid:Global.id};
+        var backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data.id=res.data.id;
+                backData.data.q=res.data.title;
+                backData.data.a0=res.data.answera;
+                backData.data.a1=res.data.answerb;
+                backData.data.a2=res.data.answerc;
+                backData.data.a3=res.data.answerd;
+            }else{
+
+                backData.data="";
+            }
+            if(callback)
+                callback(backData);
+        });
+    },
+    //答题
+    requestAnswer(id,a,callback){
+        let url=this.domain+":81/question/userAnswer.action";
+        let s=['A','B','C','D'];
+        let data={uid:Global.id,qid:id,choice:s[a]};
+        var backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                
+            }
+            backData.data.say=res.data.tips;
+                backData.data.award=res.data.text;
+            if(callback)
+                callback(backData);
+        });
+    },
+    /**
+     *查看任务
+     *
+     * @param {*} callback 回调函数
+     */
+    requestMission(callback){
+        let url=this.domain+":81/share/task.action";
+        let data={uid:Global.id};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data.miss0Cmplt=res.data.share==1;
+                backData.data.miss1Cmplt=res.data.question==1;
+            }
+            if(callback){
+                callback(backData);
+            }
+        });
+    },
+    /**
+     *分享
+     *
+     * @param {*} callback 回调函数
+     */
+    requestShare(callback){
+        let url=this.domain+":81/share/share.action";
+        let data={uid:Global.id};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                
+            }
+            backData.data.title=res.data.text;
+            backData.data.imageUrl=res.data.url;
+            if(callback)
+                callback(backData);
+        });
+    },
+    
     //测试
     test(callback){
         let url=this.domain+"ssm/tt.action";
         let data={name:"张三"};
-        let backData={result:false,data:null};
+        let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;

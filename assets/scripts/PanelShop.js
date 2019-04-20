@@ -37,6 +37,8 @@ cc.Class({
         // ndSvOther:cc.Node,
         txtMoney:cc.Label,  //钱
 
+        
+
         _panelReady:false,
     },
 
@@ -45,7 +47,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        
+        this.load();
     },
     /**选择
      */
@@ -191,6 +193,10 @@ cc.Class({
     load(){
         var self=this;
         self.txtMoney.string=Global.money.toString();
-        Network.requestShop();
+        Network.requestShop((res)=>{
+            if(res.result){
+
+            }
+        });
     },
 });

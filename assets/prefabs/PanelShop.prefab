@@ -1918,7 +1918,9 @@
     "ndSvShop": {
       "__id__": 19
     },
-    "txtMoney": null,
+    "txtMoney": {
+      "__id__": 47
+    },
     "_panelReady": false,
     "_id": ""
   },

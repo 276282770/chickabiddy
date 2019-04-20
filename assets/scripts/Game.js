@@ -32,6 +32,7 @@ cc.Class({
         // },
         txtSelfEgg:cc.Label,  //自己的鸡蛋
         txtOtherEgg:cc.Label,  //偷来的鸡蛋
+        txtMoney:cc.Label,  //钱
         txtLvl:cc.Label,  //等级
         proLvl:cc.ProgressBar,  //等级进度
         imgAvatar:cc.Sprite,  //头像
@@ -51,7 +52,9 @@ cc.Class({
         prePanelProp:cc.Prefab,  //道具预制体
         prePanelShop:cc.Prefab,  //商店预制体
 
+
         _hour:0,
+        _money:0,  //钱
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -81,14 +84,16 @@ cc.Class({
             
         });
         
-        WX.onShow((res)=>{
-            if(res.tp){
-                //添加好友
-                if(res.tp=="af"){
-                    Network.requestAddFriend(res.id);
-                }
-            }
-        });
+        // WX.onShow((res)=>{
+        //     if(res.tp){
+        //         //添加好友
+        //         if(res.tp=="af"){
+        //             Network.requestAddFriend(res.id);
+        //         }
+        //     }
+        // });
+        console.log("aavv");
+
 
 
     },
@@ -110,24 +115,40 @@ cc.Class({
             }
         });
         Network.requestLogin(code,avatar,nickName,(res)=>{
-
-            
+            if(res.result){
+                self.updateState(res.data);
+            }            
         });
     },
     //分享
     onShare(tp){
-        WX.shareAppMessage("","http://pic13.nipic.com/20110412/6759696_220922114000_2.jpg",tp);
-    },
-    onClick(){
+        var self=this;
+        Network.requestShare((res)=>{
+            
+                let title=res.data.title;
+                let imageUrl=res.data.imageUrl;
+                WX.shareAppMessage(title,imageUrl,tp);
+            
+        });
         
     },
     //更新首页
     updateIndex(){
         var self=this;
-        Network.requestIndexInfo((data)=>{
-            self.setSelfEgg(data.eggSelf);
-            self.setOtherEgg(data.eggOther);
+        Network.requestIndexInfo((res)=>{
+            if(res.result){
+                let data=res.data;
+                self.updateState(data);
+            }
         });
+    },
+    updateState(data){
+        var self=this;
+        self.setSelfEgg(data.eggSelf);
+        self.setOtherEgg(data.eggOther);
+        self.setMoney(data.money);
+        self.txtLvl.string=data.lvl.toString();
+        self.proLvl.progress=data.lvlExp/data.lvlFullExp;
     },
 
     //更新吃饭
@@ -135,6 +156,21 @@ cc.Class({
         console.log("更新吃饭");
     },
 
+    //设置钱
+    setMoney(num){
+        this._money=num;
+        this.txtMoney.string=this._money.toString();
+    },
+    setMoneyEff(num){
+        this.setMoney(num);
+        this.txtMoney.node.getComponent(cc.Animation).play();
+    },
+    //添加钱
+    addMoneyEff(num){
+        this._money+=num;
+        this.txtMoney.string=this._money.toString();
+        this.txtMoney.node.getComponent(cc.Animation).play();
+    },
     //设置自己的鸡蛋
     setSelfEgg(num){
         this.txtSelfEgg.string=num.toString();
@@ -225,7 +261,11 @@ cc.Class({
 
     //测试
     test(){
-        this.showTip("你好  300000000000000\r\n200");
+
+        var backData={result:false,data:{}};
+        backData.data.id=1;
+        console.log(backData.data.id);
+ 
     },
     //设置天黑天亮
     setDark(){
