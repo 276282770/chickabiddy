@@ -70,7 +70,7 @@ cc.Class({
     },
     //分享任务
     onShare(){
-        Global.game.onShare("tp=ad&id="+Global.id);
+        Global.game.onShare("tp=af&id="+Global.id);
         this.onClose();
     },
     //答题

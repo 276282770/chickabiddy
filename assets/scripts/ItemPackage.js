@@ -30,10 +30,10 @@ cc.Class({
         this.txtName.string=name;
         this.txtDescript.string=descript;
         this.txtCount.string=count.toString();
-        let path="goods/"+id;
-        cc.loader.loadRes(path,cc.SpriteFrame,function(err,tex){
+        let path="Shop/shop_"+id;
+        cc.loader.loadRes(path,function(err,tex){
             if(!err){
-                self.imgGoods.spriteFrame=tex;
+                self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
             }
 
         });

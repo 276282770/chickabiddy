@@ -82,7 +82,7 @@ cc.Class({
             if(res.result){
                 self.updatePanel(res.data);
             }else{
-                Global.game.showTip(res.data);
+                //Global.game.showTip(res.data);
             }
         });
         // let backData={};

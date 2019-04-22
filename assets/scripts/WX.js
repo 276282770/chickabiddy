@@ -206,6 +206,7 @@ var WX={
     onShow(callback){
         if(cc.sys.platform==cc.sys.WECHAT_GAME){
         wx.onShow(function(res){
+            console.log("->【回到前台】"+JSON.stringify(res));
             if(callback){
                 callback(res.query);
                 

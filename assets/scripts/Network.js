@@ -33,15 +33,15 @@ var Network={
                 backData.data.otherEggNum=res.data.badEgg;  //别人鸡蛋个数
                 backData.data.eggNum=res.data.waitGetEgg;  //未收鸡蛋个数
                 // backData.data.eggProg=res.data.age_pre;  //下一个鸡蛋出生进度
-                backData.data.eggProgCurr=res.data.EggTime;  //鸡蛋已经成熟时间
+                backData.data.eggProgCurr=res.data.eggTime;  //鸡蛋已经成熟时间
                 backData.data.eggProgFull=res.data.totalEggTime;  //鸡蛋成熟总时间
                 backData.data.money=res.data.money;  //钱
                 // backData.data.cleanProg=res.data.clean_pre;  //干净进度
-                backData.data.cleanProgCurr=res.clean;
+                backData.data.cleanProgCurr=res.data.clean;
                 backData.data.cleanProgFull=86400;
 
                 backData.data.foodRemain=res.data.totalEatTime;  //食物剩余可以吃的时间
-                backData.data.foodProgFull=res.data.howLongEat_pre;  //食物进度
+                backData.data.foodProgFull=res.data.resEatTime;  //食物进度
                 // backData.data.foodProg=res.data.howLongEat_pre;  //食物进度
                 backData.data.newDetail=res.data.unRead_dongtai;  //新动态
                 backData.data.newAnnouncement=res.data.unRead_gonggao;  //新公告
@@ -76,15 +76,15 @@ var Network={
                 backData.data.otherEggNum=res.data.badEgg;  //别人鸡蛋个数
                 backData.data.eggNum=res.data.waitGetEgg;  //未收鸡蛋个数
                 // backData.data.eggProg=res.data.age_pre;  //下一个鸡蛋出生进度
-                backData.data.eggProgCurr=res.data.EggTime;  //鸡蛋已经成熟时间
+                backData.data.eggProgCurr=res.data.eggTime;  //鸡蛋已经成熟时间
                 backData.data.eggProgFull=res.data.totalEggTime;  //鸡蛋成熟总时间
                 backData.data.money=res.data.money;  //钱
                 // backData.data.cleanProg=res.data.clean_pre;  //干净进度
-                backData.data.cleanProgCurr=res.clean;
+                backData.data.cleanProgCurr=res.data.clean;
                 backData.data.cleanProgFull=86400;
 
                 backData.data.foodRemain=res.data.totalEatTime;  //食物剩余可以吃的时间
-                backData.data.foodProgFull=res.data.howLongEat_pre;  //食物进度
+                backData.data.foodProgFull=res.data.resEatTime;  //食物进度
                 // backData.data.foodProg=res.data.howLongEat_pre;  //食物进度
                 backData.data.newDetail=res.data.unRead_dongtai;  //新动态
                 backData.data.newAnnouncement=res.data.unRead_gonggao;  //新公告
@@ -432,14 +432,21 @@ var Network={
      * @param  {function} callback 回调函数
      */
     requestPackage(callback){
-        let url=this.domain+"";
-        let data={uid:Global.id};
+        let url=this.domain+":81/shop/back.action";
+        let data={uid:Global.id,cls:1};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
                 backData.data=[];
-
+                for(var i=0;i<res.data.length;i++){
+                    let item={};
+                    item.id=res.data[i].pid;
+                    item.name=res.data[i].name;
+                    item.descript=res.data[i].des;
+                    item.count=res.data[i].num;
+                    backData.data.push(item);
+                }
             }else{
                 backData.data="";
             }
@@ -485,7 +492,7 @@ var Network={
     },
     //获取动态（日志）
     requestDetailLog(callback){
-        let url=this.domain+":81/dongtai/getdongtai.action";
+        let url=this.domain+"/dongtai/getdongtai.action";
         let data={uid:Global.id};
         var backData={result:false,data:{}};
         this.request(url,data,(res)=>{

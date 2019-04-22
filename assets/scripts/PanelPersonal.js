@@ -18,6 +18,14 @@ cc.Class({
         txtID:cc.Label,  //ID
         txtSelfEggCtnt:cc.Label,  //自己收获的蛋的个数
         txtOtherEggCtnt:cc.Label,  //收取别人蛋的个数
+        proExp:cc.ProgressBar,  //经验进度
+        proEgg:cc.ProgressBar,  //鸡蛋进度
+        proFood:cc.ProgressBar,  //食物进度
+        proClean:cc.ProgressBar,  //清洁进度
+        txtExp:cc.Label,  //经验
+        txtEgg:cc.Label,  
+        txtFood:cc.Label,
+        txtClean:cc.Label,
     },
 
 
@@ -51,7 +59,7 @@ cc.Class({
     load(){
         var self=this;
         this.txtNickName.string=Global.user.nickName;
-        this.txtID.string="ID"+Global.id.toString();
+        this.txtID.string="ID："+Global.id.toString();
         if(Global.user.avatar!=""){
         cc.loader.load({url:Global.user.avatar,type:"png"},function(err,tex){
             if(!err){
@@ -61,8 +69,29 @@ cc.Class({
         }
         Network.requestIndexInfo((res)=>{
             if(res.result){
-                self.txtSelfEggCtnt.string="下单数："+res.data.selfEggNum.toString();
+                console.log("-----------------");
+                console.log(JSON.stringify(res.data));
+                self.txtSelfEggCtnt.string="下蛋数："+res.data.selfEggNum.toString();
                 self.txtOtherEggCtnt.string="偷蛋数："+res.data.otherEggNum.toString();
+                self.proExp.progress=res.data.lvlExp/res.data.lvlFullExp; 
+                self.txtExp.string=res.data.lvlExp.toString()+"/"+res.data.lvlFullExp.toString();
+                if(res.data.eggProgCurr>=0){
+                    self.proEgg.progress=res.data.eggProgCurr/res.data.eggProgFull;
+                    self.txtEgg.string=res.data.eggProgCurr.toString()+"/"+res.data.eggProgFull.toString();
+                }
+                if(res.data.foodRemain>=0){
+                    self.proFood.progress=res.data.foodRemain/res.data.foodProgFull;
+                    self.txtFood.string=res.data.foodRemain.toString()+"/"+res.data.foodProgFull.toString();
+                }
+                if(res.data.cleanProgCurr>=0){
+                    self.proClean.progress=res.data.cleanProgCurr/res.data.cleanProgFull;
+                    self.txtClean.string=res.data.cleanProgCurr.toString()+"/"+res.data.cleanProgFull.toString();
+                }
+               
+                
+                
+                
+
             }
         });
     },

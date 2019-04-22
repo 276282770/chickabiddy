@@ -56,18 +56,18 @@ cc.Class({
                 Global.game.showTip(res.data);
             }
         });
-        let res={result:true,data:[{id:1,name:"猪饲料",descript:"给猪猪吃的饲料",count:3},{id:1,name:"Niu饲料",descript:"给牛吃的饲料",count:4}]};
-        if(res.result){
-            for(var i=0;i<res.data.length;i++){
-                let data=res.data[i];
-                let newItem=cc.instantiate(this.preItemPackage);
-                newItem.parent=self.ndCtnt;
-                let newItemScr=newItem.getComponent("ItemPackage");
-                newItemScr.fill(data.id,data.name,data.descript,data.count);
-            }
-        }else{
-            Global.game.showTip(res.data);
-        }
+        // let res={result:true,data:[{id:1,name:"猪饲料",descript:"给猪猪吃的饲料",count:3},{id:1,name:"Niu饲料",descript:"给牛吃的饲料",count:4}]};
+        // if(res.result){
+        //     for(var i=0;i<res.data.length;i++){
+        //         let data=res.data[i];
+        //         let newItem=cc.instantiate(this.preItemPackage);
+        //         newItem.parent=self.ndCtnt;
+        //         let newItemScr=newItem.getComponent("ItemPackage");
+        //         newItemScr.fill(data.id,data.name,data.descript,data.count);
+        //     }
+        // }else{
+        //     Global.game.showTip(res.data);
+        // }
     },
     onShow(){
         var self=this;

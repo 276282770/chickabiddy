@@ -62,6 +62,7 @@ cc.Class({
     onLoad () {
         Global.game=this;
         var self=this;
+        let query=WX.getLaunchOptionsSync();
         WX.login(code=>{
             let avatar;
             let nickName;
@@ -70,25 +71,36 @@ cc.Class({
                 function(data){
                     avatar=data.avatarUrl;
                     nickName=data.nickName;
+                    if(query.tp!=null&&query.tp=="af"){
+                        self.login(code,avatar,nickName,query.id);
+                    }else{
                     self.login(code,avatar,nickName);
+                    }
                 }
             );}
                 else{
                     WX.getUserInfo((res)=>{
                         avatar=res.avatarUrl;
                         nickName=res.nickName;
+                        if(query.tp!=null&&query.tp=="af"){
+                            self.login(code,avatar,nickName,query.id);
+                        }else{
                         self.login(code,avatar,nickName);
+                        }
                     });
                 }
             });
             
         });
-        
+       
         WX.onShow((res)=>{
+
             if(res.tp){
+
                 //添加好友
                 if(res.tp=="af"){
-                    Network.requestAddFriend(res.id);
+
+                    Network.requestAddFriend(res.id,function(res){});
                 }
             }
         });
@@ -107,7 +119,7 @@ cc.Class({
         // this.setDark();
     },
     
-    login(code,avatar,nickName){
+    login(code,avatar,nickName,fid){
         var self=this;
         cc.loader.load({url:avatar,type:"png"},function(err,tex){
             if(!err){
@@ -116,7 +128,11 @@ cc.Class({
         });
         Network.requestLogin(code,avatar,nickName,(res)=>{
             if(res.result){
+                if(fid!=null){
+                    Network.requestAddFriend(fid,function(res){});
+                }
                 self.updateState(res.data);
+                
             }            
         });
     },
@@ -262,9 +278,16 @@ cc.Class({
     //测试
     test(){
 
-        var backData={result:false,data:{}};
-        backData.data.id=1;
-        console.log(backData.data.id);
+        let imgA=cc.find("Canvas/New Sprite").getComponent(cc.Sprite);
+        let imgB=cc.find("Canvas/New Sprite(Splash)").getComponent(cc.Sprite);
+        let path="Shop/shop_"+5;
+        cc.loader.loadRes(path,function(err,tex){
+            if(!err){
+                imgA.spriteFrame=new cc.SpriteFrame(tex);
+                imgB.spriteFrame=new cc.SpriteFrame(tex);
+            }
+
+        });
  
     },
     //设置天黑天亮
