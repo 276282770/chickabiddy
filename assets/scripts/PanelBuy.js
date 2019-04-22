@@ -37,7 +37,7 @@ cc.Class({
 
         _unitPrice:0,  //单价
         _num:0,  //数量
-        _id:-1,
+        _cid:-1,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -48,10 +48,11 @@ cc.Class({
 
     },
     //填充
-    fill(id,imgUrl,name,desc,unitPrice){
-        this._id=id;
+    fill(id,name,desc,unitPrice){
+
+        this._cid=id;
         var self=this;
-        if(imgUrl!=null){
+        if(id!=null){
             cc.loader.loadRes("Shop/shop_"+id,function(err,tex){
                 if(!err){
                     self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
@@ -64,7 +65,7 @@ cc.Class({
         this.iniPrice();
     },
     onClose(){
-
+        this.node.destroy();
     },
     //初始化数量和总价
     iniPrice(){
@@ -102,7 +103,7 @@ cc.Class({
     //点击购买
     onBuy(){
         var self=this;
-        Network.requestBuy(this._id,this._num,(res)=>{
+        Network.requestBuy(this._cid,this._num,(res)=>{
             if(res.result){
                 Global.game.addMoneyEff(-self._num*self._unitPrice);
                 Global.game.showTip("购买成功");
@@ -113,10 +114,23 @@ cc.Class({
         });
     },
     //加载界面
-    load(){
+    load(id){
+        console.log("加载:"+id);
+        var self=this;
+        Network.requestShopGoodsById(id,(res)=>{
 
+            if(res.result){
+ 
+                self.fill(res.data.id,res.data.name,res.data.desc,res.data.price);
+            }
+        });
     },
-    
+    onEnable(){
+        this.onShow();
+    },
+    onShow(){
+        this.node.getComponent(cc.Animation).play();
+    },
 
     // update (dt) {},
 });

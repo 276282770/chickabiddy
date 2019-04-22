@@ -32,7 +32,7 @@ cc.Class({
         txtGoodsDesc:cc.Label,  //物品说明
         txtPrice:cc.Label,  //物品价格
         prePanelBuy:cc.Prefab,  //购买预制体
-        _id:-1,
+        _cid:-1,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -44,9 +44,17 @@ cc.Class({
     },
 
     // update (dt) {},
+    /**
+     *填充项
+     *
+     * @param {*} id  物品id
+     * @param {*} name  物品名称
+     * @param {*} desc  物品描述
+     * @param {*} price  物品价格
+     */
     fill(id,name,desc,price){
         var self=this;
-        this._id=id;
+        this._cid=id;
         cc.loader.loadRes("Shop/shop_"+id,function(err,tex){
             if(!err){
                 self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
@@ -61,6 +69,7 @@ cc.Class({
         Global.game.panels.deletePanel();
         let newPanel= cc.instantiate(this.prePanelBuy);
         newPanel.parent=cc.find("Canvas");
-        
+        let newPanelScr=newPanel.getComponent("PanelBuy");
+        newPanelScr.load(this._cid);
     },
 });

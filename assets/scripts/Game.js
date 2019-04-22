@@ -84,15 +84,15 @@ cc.Class({
             
         });
         
-        // WX.onShow((res)=>{
-        //     if(res.tp){
-        //         //添加好友
-        //         if(res.tp=="af"){
-        //             Network.requestAddFriend(res.id);
-        //         }
-        //     }
-        // });
-        console.log("aavv");
+        WX.onShow((res)=>{
+            if(res.tp){
+                //添加好友
+                if(res.tp=="af"){
+                    Network.requestAddFriend(res.id);
+                }
+            }
+        });
+
 
 
 
@@ -144,8 +144,8 @@ cc.Class({
     },
     updateState(data){
         var self=this;
-        self.setSelfEgg(data.eggSelf);
-        self.setOtherEgg(data.eggOther);
+        self.setSelfEgg(data.selfEggNum);
+        self.setOtherEgg(data.otherEggNum);
         self.setMoney(data.money);
         self.txtLvl.string=data.lvl.toString();
         self.proLvl.progress=data.lvlExp/data.lvlFullExp;

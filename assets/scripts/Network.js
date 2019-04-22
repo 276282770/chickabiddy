@@ -51,7 +51,11 @@ var Network={
                 backData.data.state=1;
 
                 Global.id=backData.data.id;
+            }else{
+                backData.data="";
             }
+            if(callback)
+                callback(backData);
         });
     },
     //请求首页信息
@@ -65,17 +69,31 @@ var Network={
                 // backData.data={};
                 backData.data.id=res.data.uid;  //id
                 backData.data.lvl=res.data.level;  //等级
-                backData.data.lvlProg=res.data.exp_pre;  //下一等级进度
+                backData.data.lvlExp=res.data.currentExp;  //经验
+                backData.data.lvlFullExp=res.data.maxExp;  //升级所需经验
+                // backData.data.lvlProg=res.data.currentExp/res.data.maxExp;  //下一等级进度
                 backData.data.selfEggNum=res.data.goodEgg;  //自己鸡蛋个数
                 backData.data.otherEggNum=res.data.badEgg;  //别人鸡蛋个数
-                backData.data.eggNum=res.data.waitGet;  //未收鸡蛋个数
-                backData.data.eggProg=res.data.age_pre;  //下一个鸡蛋出生进度
+                backData.data.eggNum=res.data.waitGetEgg;  //未收鸡蛋个数
+                // backData.data.eggProg=res.data.age_pre;  //下一个鸡蛋出生进度
+                backData.data.eggProgCurr=res.data.EggTime;  //鸡蛋已经成熟时间
+                backData.data.eggProgFull=res.data.totalEggTime;  //鸡蛋成熟总时间
                 backData.data.money=res.data.money;  //钱
-                backData.data.cleanProg=res.data.clean_pre;  //干净进度
-                backData.data.foodRemain=res.data.howLongEat;  //食物剩余可以吃的时间
-                backData.data.foodProg=res.data.howLongEat_pre;  //食物进度
+                // backData.data.cleanProg=res.data.clean_pre;  //干净进度
+                backData.data.cleanProgCurr=res.clean;
+                backData.data.cleanProgFull=86400;
+
+                backData.data.foodRemain=res.data.totalEatTime;  //食物剩余可以吃的时间
+                backData.data.foodProgFull=res.data.howLongEat_pre;  //食物进度
+                // backData.data.foodProg=res.data.howLongEat_pre;  //食物进度
                 backData.data.newDetail=res.data.unRead_dongtai;  //新动态
                 backData.data.newAnnouncement=res.data.unRead_gonggao;  //新公告
+                // backData.data.newWorldMsg=res.data.unRead_world;
+                backData.data.state=0;
+                if(res.data.die==1)
+                backData.data.state=1;
+
+                Global.id=backData.data.id;
             }else{
                 backData.data="";
             }
@@ -341,13 +359,19 @@ var Network={
      */
     requestBuy(id,count,callback){
         let url=this.domain+":81/shop/buyProp.action";
-        let data={uid:Global.id,propId:id,num:count};
+        let data={uid:Global.id,pid:id,num:count};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
+                backData.result="购买成功";
             }else{
-                backData.data="";
+                let err="";
+                switch(state){
+                    case 222:err="购买商品不存在";break;
+                }
+
+                backData.data=err;
             }
             if(callback)
                 callback(backData);
@@ -356,9 +380,9 @@ var Network={
     /**商店
      * @param  {function} callback 返回
      */
-    requestShop(callback){
-        let url=this.domain+"/shop/shop.action";
-        let data={data:"shop"};
+    requestShop(tp,callback){
+        let url=this.domain+":81/shop/shop.action";
+        let data={uid:Global.id,cls:tp};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
@@ -366,11 +390,11 @@ var Network={
                 backData.data=[];
                 for(var i=0;i<res.data.length;i++){
                     let item={};
-                    item.id=res.data[i].sid;
+                    item.id=res.data[i].id;
                     item.name=res.data[i].name;
                     item.price=res.data[i].price;
                     item.durable=res.data[i].time;
-                    item.description=res.data[i].describe;
+                    item.description=res.data[i].des;
                     backData.data.push(item);
                 }
             }else{
@@ -387,11 +411,11 @@ var Network={
      * @param {*} callback  回调
      */
     requestShopGoodsById(id,callback){
-        let url=this.domain+"/shop/selectOne.action";
+        let url=this.domain+":81/shop/selectOne.action";
         let data={pid:id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
-            if(res.data==200){
+            if(res.state==200){
                 backData.result=true;
                 backData.data.id=res.data.id;
                 backData.data.name=res.data.name;

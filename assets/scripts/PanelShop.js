@@ -36,6 +36,7 @@ cc.Class({
         ndSvShop:cc.Node,
         // ndSvOther:cc.Node,
         txtMoney:cc.Label,  //钱
+        preItemShop:cc.Prefab,   //项预制体
 
         
 
@@ -191,12 +192,20 @@ cc.Class({
     },
     //加载
     load(){
+        
         var self=this;
         self.txtMoney.string=Global.money.toString();
-        Network.requestShop((res)=>{
+        Network.requestShop(1,(res)=>{
             if(res.result){
-
+                var data=res.data;
+                for(var i=0;i<data.length;i++){
+                    let item=cc.instantiate(self.preItemShop);
+                    item.parent=self.ndSvShop.getChildByName("view").getChildByName("content");
+                    let itemScr=item.getComponent("ItemShop");
+                    itemScr.fill(data[i].id,data[i].name,data[i].description,data[i].price);
+                }
             }
         });
+
     },
 });

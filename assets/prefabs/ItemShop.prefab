@@ -226,7 +226,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": -120,
-      "y": 18,
+      "y": 0,
       "z": 0
     },
     "_scale": {
@@ -717,7 +717,10 @@
     "txtPrice": {
       "__id__": 13
     },
-    "prePanelBuy": null,
+    "prePanelBuy": {
+      "__uuid__": "9dd58347-9b43-4355-b3b5-97b23d938b0d"
+    },
+    "_cid": -1,
     "_id": ""
   },
   {
