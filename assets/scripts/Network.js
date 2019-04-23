@@ -417,10 +417,17 @@ var Network={
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
-                backData.data.id=res.data.id;
-                backData.data.name=res.data.name;
-                backData.data.desc=res.data.des;
-                backData.data.price=res.data.price;
+                backData.data=[];
+                for(var i=0;i<res.data.length;i++){
+                    let item={};
+                    item.id=res.data[i].id;
+                    item.name=res.data[i].name;
+                    item.price=res.data[i].price;
+                    item.durable=res.data[i].time;
+                    item.description=res.data[i].des;
+                    item.had=res.data[i].num>0;
+                    backData.data.push(item);
+                }
             }else{
                 backData.data="";
             }
@@ -428,6 +435,47 @@ var Network={
                 callback(backData);
         });
     },
+        //获取道具
+        requestGetPropLst(callback){
+            let url=this.domain+":81/shop/prop.action";
+            let data={uid:Global.id,cls:2};
+            var backData={result:false,data:[]};
+            this.request(url,data,(res)=>{
+                if(res.state==200){
+                    backData.result=true;
+                    for(var i=0;i<res.data.length;i++){
+                        let item={};
+                        item.id=res.data[i].pid;
+                    item.name=res.data[i].name;
+                    item.desc=res.data[i].desc;
+                    item.price=res.data[i].price;
+                    item.had=res.data[i].num>0;
+                    backData.data.push(item);
+                    }
+                    
+                }else{
+                    backData.data="";
+                }
+                if(callback)
+                    callback(backData);
+            });
+        },
+        //使用道具
+        requestUseProp(id,callback){
+            let url=this.domain+"";
+            let data={uid:Global.id,id:id};
+            var backData={result:false,data:{}};
+            this.request(url,data,(res)=>{
+                if(res.state==200){
+                    backData.result=true;
+                    backData.data=res.data;
+                }else{
+                    backData.data="";
+                }
+                if(callback)
+                    callback(backData);
+            });
+        },
     /**请求背包列表
      * @param  {function} callback 回调函数
      */
@@ -494,38 +542,6 @@ var Network={
     requestDetailLog(callback){
         let url=this.domain+"/dongtai/getdongtai.action";
         let data={uid:Global.id};
-        var backData={result:false,data:{}};
-        this.request(url,data,(res)=>{
-            if(res.state==200){
-                backData.result=true;
-                backData.data=res.data;
-            }else{
-                backData.data="";
-            }
-            if(callback)
-                callback(backData);
-        });
-    },
-    //获取道具
-    requestGetPropLst(callback){
-        let url=this.domain+"";
-        let data={uid:Global.id};
-        var backData={result:false,data:{}};
-        this.request(url,data,(res)=>{
-            if(res.state==200){
-                backData.result=true;
-                backData.data=res.data;
-            }else{
-                backData.data="";
-            }
-            if(callback)
-                callback(backData);
-        });
-    },
-    //使用道具
-    requestUseProp(id,callback){
-        let url=this.domain+"";
-        let data={uid:Global.id,id:id};
         var backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
@@ -613,6 +629,39 @@ var Network={
             }
             backData.data.title=res.data.text;
             backData.data.imageUrl=res.data.url;
+            if(callback)
+                callback(backData);
+        });
+    },
+    //点击小鸡说的话
+    requestClickPlayer(callback){
+        let url=this.domain+":81/load/click.action";
+        let data={uid:Global.id};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data.text=res.tips.tips;
+            }
+            if(callback)
+                callback(backData);
+        });
+    },
+
+    /**
+     *驱赶
+     *
+     * @param {*} id  小偷ID
+     * @param {*} callback 回调函数
+     */
+    requestThiefOut(id,callback){
+        let url=this.domain+"/chicken/Qugan.action";
+        let data={uid:Global.id,fid:id};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+            }
             if(callback)
                 callback(backData);
         });

@@ -34,7 +34,12 @@ cc.Class({
         txtOtherEgg:cc.Label,  //偷来的鸡蛋
         txtMoney:cc.Label,  //钱
         txtLvl:cc.Label,  //等级
+        txtEgg:cc.Label,  //鸡蛋个数
         proLvl:cc.ProgressBar,  //等级进度
+        proEgg:cc.ProgressBar,  //鸡蛋进度
+        proFood:cc.ProgressBar,  //饥饿进度
+        proClean:cc.ProgressBar,  //清洁进度
+
         imgAvatar:cc.Sprite,  //头像
         
         preMsgBox:cc.Prefab,  //消息框预制体
@@ -51,10 +56,16 @@ cc.Class({
         prePanelDetail:cc.Prefab,  //个人记录
         prePanelProp:cc.Prefab,  //道具预制体
         prePanelShop:cc.Prefab,  //商店预制体
+        prePanelRank:cc.Prefab,  //排行榜预制体
+        prePanelInstruction:cc.Prefab,  //说明界面预制体
+
+        display:cc.Sprite,  //子域显示
 
 
         _hour:0,
         _money:0,  //钱
+        _thiefCount:0,  //小偷个数
+        _OpenSubDomain:false,  //打开开放数据域
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -112,11 +123,35 @@ cc.Class({
 
     start () {
         this.setDark();
+
+        if(cc.sys.platform==cc.sys.WECHAT_GAME){
+            this.tex = new cc.Texture2D();
+            var openDataContext = wx.getOpenDataContext();
+            this.sharedCanvas = openDataContext.canvas;
+            // this.sharedCanvas.width=cc.find("Canvas").width;
+            // this.sharedCanvas.height=cc.find("Canvas").height;
+            }
     },
 
 
     update (dt) {
         // this.setDark();
+        if(cc.sys.platform==cc.sys.WECHAT_GAME&&this._openSubDomain){
+            this._subUpdateTime+=dt;
+            //if(this._subUpdateTime>=0.2){
+            this._updaetSubDomainCanvas();
+            this._subUpdateTime=0;
+            //}
+
+            }
+    },
+    _updaetSubDomainCanvas () {
+        if (!this.tex) {
+            return;
+        }
+        this.tex.initWithElement(this.sharedCanvas);
+        this.tex.handleLoadedTexture();
+        this.display.spriteFrame = new cc.SpriteFrame(this.tex);
     },
     
     login(code,avatar,nickName,fid){
@@ -165,12 +200,20 @@ cc.Class({
         self.setMoney(data.money);
         self.txtLvl.string=data.lvl.toString();
         self.proLvl.progress=data.lvlExp/data.lvlFullExp;
+
+        self.txtEgg.string=data.eggNum.toString();
+        
+        
+        self.proClean.progress=data.cleanProgCurr/data.cleanProgFull;
+        self.proFood.progress=data.foodRemain/data.foodProgFull;
+        self.setProEgg(data.eggProgCurr/data.eggProgFull);
     },
 
     //更新吃饭
     updateDine(data){
         console.log("更新吃饭");
     },
+
 
     //设置钱
     setMoney(num){
@@ -223,7 +266,11 @@ cc.Class({
     getScore(){
         WX.postMessage({cmd:"GETSCORE"});
     },
-
+    //设置鸡蛋进度
+    setProEgg(pro){
+        this.proEgg.progress=pro;
+        this.proEgg.node.getChildByName("text").getComponent(cc.Label).string=parseInt(pro*100).toString();
+    },
     //显示提示框
     showTip(txt){
         let msgBox= cc.instantiate(this.preMsgBox);
@@ -273,6 +320,14 @@ cc.Class({
     //显示商店界面
     onShowPanelShop(){
         this.panels.createPanel(this.prePanelShop,"PanelShop");
+    },
+    //显示排行榜界面
+    onShowPanelRank(){
+        this.panels.createPanel(this.prePanelRank,"PanelRank");
+    },
+    //显示说明攻略界面
+    onShowPanelInstruction(){
+        this.panels.createPanel(this.prePanelInstruction,"PanelInstruction");
     },
 
     //测试

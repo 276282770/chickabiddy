@@ -30,6 +30,8 @@ cc.Class({
         // },
         ndBg:cc.Node,  //背景节点
         ndCtnt:cc.Node,  //根内容节点
+        preItem:cc.Prefab,  //项预制体
+        
         _panelReady:false,
     },
 
@@ -68,6 +70,19 @@ cc.Class({
         this.onShow();
     },
     load(){
-        Network.requestGetPropLst();
+        var self=this;
+        
+        Network.requestGetPropLst((res)=>{
+            if(res.result){
+
+                for(var i=0;i<res.data.length;i++){
+                    let newItem=cc.instantiate(self.preItem);
+                    newItem.parent=self.ndCtnt;
+                    let newItemScr=newItem.getComponent("ItemProp");
+                    newItemScr.fill(res.data[i].id,res.data[i].had);
+
+                }
+            }
+        });
     }
 });

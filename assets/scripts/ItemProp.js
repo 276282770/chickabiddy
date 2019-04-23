@@ -28,7 +28,10 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        _id:-1,  //道具ID
+        // ndUse:cc.Node,  //使用按钮节点
+        prePanelBuy:cc.Prefab,  //购买界面预制体
+        _cid:-1,  //道具ID
+        _had:false,  //是否拥有
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -41,19 +44,37 @@ cc.Class({
 
     // update (dt) {},
     //使用
-    onUse(){
+    onClick(){
+        if(this._had){
         Network.requestUseProp((res)=>{
             if(!res.result){
                 Global.game.showTip(res.data);
             }
-            Global.game.panels.deletePanel();
+            
         });
+        }else{
+            let newPanel= cc.instantiate(this.prePanelBuy);
+        newPanel.parent=cc.find("Canvas");
+        let newPanelScr=newPanel.getComponent("PanelBuy");
+        newPanelScr.load(this._cid);
+        }
+        Global.game.panels.deletePanel();
     },
 
-    fill(id){
+    fill(id,had){
         var self=this;
+        this._had=had;
+        this._cid=id;
         if(id){
-            cc.loader.loadRes("Prop/prop_"+id,function(err,tex){
+            let path;
+            if(had){
+                path="Prop/prop_"+id;
+            }
+            else{
+                // this.ndUse.active=false;
+                path="Prop/prop_"+id+"_g";
+            }
+            cc.loader.loadRes(path,function(err,tex){
                 if(!err){
                     self.node.getComponent(cc.Sprite).spriteFrame=new cc.SpriteFrame(tex);
                 }
