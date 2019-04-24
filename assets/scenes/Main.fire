@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.6299671679520411,
-      "y": 0.6299671679520411,
+      "x": 0.5330469196332625,
+      "y": 0.5330469196332625,
       "z": 1
     },
     "_quat": {
@@ -5766,7 +5766,7 @@
     },
     "component": "",
     "_componentId": "bfadc4iK9tDIKWz3zbAG9RL",
-    "handler": "onShowTipExpect",
+    "handler": "onShowPanelRank",
     "customEventData": ""
   },
   {
@@ -6553,7 +6553,7 @@
     },
     "component": "",
     "_componentId": "bfadc4iK9tDIKWz3zbAG9RL",
-    "handler": "onShowTipExpect",
+    "handler": "onShowPanelTittivate",
     "customEventData": ""
   },
   {

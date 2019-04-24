@@ -49,10 +49,11 @@ cc.Class({
         Network.requestUseProp((res)=>{
             if(!res.result){
                 Global.game.showTip(res.data);
+                Global.game.updateIndex();
             }
             
         });
-        }else{
+        }else{  //购买
             let newPanel= cc.instantiate(this.prePanelBuy);
         newPanel.parent=cc.find("Canvas");
         let newPanelScr=newPanel.getComponent("PanelBuy");
@@ -68,11 +69,11 @@ cc.Class({
         if(id){
             let path;
             if(had){
-                path="Prop/prop_"+id;
+                path="Shop/shop_"+id;
             }
             else{
                 // this.ndUse.active=false;
-                path="Prop/prop_"+id+"_g";
+                path="Shop/shop_"+id+"_g";
             }
             cc.loader.loadRes(path,function(err,tex){
                 if(!err){

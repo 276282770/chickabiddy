@@ -5,6 +5,7 @@ cc.Class({
 
     properties: {
 
+        ndBg:cc.Node,  //背景
         tabBtnWorld:cc.Button,  //世界排行榜按钮
         tabBtnWechat:cc.Button,  //微信排行榜
         ndCtntWorld:cc.Node,  //世界排行榜内容根节点
@@ -47,7 +48,7 @@ cc.Class({
     this.ndBg.runAction(cc.sequence( cc.moveTo(0.5,new cc.Vec2(this.ndBg.position.x,this.ndBg.height)),
         cc.callFunc(function(){self._isPanelReady=true;})
         ));
-        this.loadFriends();
+        // this.load();
     },
         //删除面板
         onClose(){
