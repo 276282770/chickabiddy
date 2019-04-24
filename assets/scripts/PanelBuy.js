@@ -118,10 +118,10 @@ cc.Class({
         console.log("加载:"+id);
         var self=this;
         Network.requestShopGoodsById(id,(res)=>{
-
+        
             if(res.result){
  
-                self.fill(res.data.id,res.data.name,res.data.desc,res.data.price);
+                self.fill(res.data.id,res.data.name,res.data.description,res.data.price);
             }
         });
     },

@@ -417,17 +417,13 @@ var Network={
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
-                backData.data=[];
-                for(var i=0;i<res.data.length;i++){
-                    let item={};
-                    item.id=res.data[i].id;
-                    item.name=res.data[i].name;
-                    item.price=res.data[i].price;
-                    item.durable=res.data[i].time;
-                    item.description=res.data[i].des;
-                    item.had=res.data[i].num>0;
-                    backData.data.push(item);
-                }
+                backData.data.id=res.data.id;
+                backData.data.name=res.data.name;
+                backData.data.price=res.data.price;
+                backData.data.durable=res.data.time;
+                backData.data.description=res.data.des;
+                backData.data.had=res.data.num>0;
+
             }else{
                 backData.data="";
             }
