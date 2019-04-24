@@ -12,7 +12,7 @@ var Network={
      * @param  {function} callback 回调函数
      */
     requestLogin(code,avatar,nickName,callback){
-        let url=this.domain+":81/load/load.action";
+        let url=this.domain+":83/load/load.action";
         let data={code:code,url:avatar,nickName:nickName};
         let backData={result:false,data:{}};
 
@@ -61,7 +61,7 @@ var Network={
     //请求首页信息
     requestIndexInfo:function(callback){
         let data={uid:Global.id};
-        let url=this.domain+":81/load/load.action";
+        let url=this.domain+":83/load/load.action";
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
@@ -202,9 +202,23 @@ var Network={
     },
     //收鸡蛋
     requestPickEgg(callback){
-        let backData=-1;
-
-        callback(backData);
+        let url=this.domain+"/egg/shoudan.action";
+        let data={uid:Global.id};
+        this.request(url,data,(res)=>{
+            var backData={};
+            backData.result=false;
+            backData.data=false;
+            if(res.state==200){
+                backData.result=true;
+            }else{
+                // switch(res.state){
+                    
+                // }
+                backData.data=res.tips.tips;
+            }
+            if(callback)
+            callback(backData);
+        });
     },
     //吃饭
     requestDine(id,callback){
@@ -215,7 +229,49 @@ var Network={
             if(res.state==200){
                 backData.result=true;
             }else{
-                backData.data="";
+                let tip="";
+                switch(res.state){
+                    case 214:tip="喂食失败 清洁度不够";break;
+                }
+                backData.data=tip;
+            }
+            if(callback)
+                callback(backData);
+        });
+    },
+    //洗澡
+    requestBath(callback){
+        let url=this.domain+":81/xizao/userself.action";
+        let data={uid:Global.id};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+            }else{
+                let tip="";
+                // switch(res.state){
+                //     case 214:tip="喂食失败 清洁度不够";break;
+                // }
+                backData.data=tip;
+            }
+            if(callback)
+                callback(backData);
+        });
+    },
+    //帮别人洗澡
+    requestBathHelp(id,callback){
+        let url=this.domain+":81/xizao/help.action";
+        let data={uid:Global.id,fid:id};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+            }else{
+                let tip="";
+                // switch(res.state){
+                //     case 214:tip="喂食失败 清洁度不够";break;
+                // }
+                backData.data=tip;
             }
             if(callback)
                 callback(backData);
@@ -631,7 +687,7 @@ var Network={
     },
     //点击小鸡说的话
     requestClickPlayer(callback){
-        let url=this.domain+":81/load/click.action";
+        let url=this.domain+":83/load/click.action";
         let data={uid:Global.id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{

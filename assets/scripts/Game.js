@@ -66,6 +66,14 @@ cc.Class({
         _money:0,  //钱
         _thiefCount:0,  //小偷个数
         _OpenSubDomain:false,  //打开开放数据域
+
+        _hungry:0,  //饥饿值
+        _drity:0,  //清洁值
+        _grow:0,  //成熟值
+
+        _rqstTm:0,  //请求倒计时
+        _rqstRate:5,  //请求频率
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -131,6 +139,7 @@ cc.Class({
             // this.sharedCanvas.width=cc.find("Canvas").width;
             // this.sharedCanvas.height=cc.find("Canvas").height;
             }
+        this._rqstTm=this._rqstRate;
     },
 
 
@@ -144,6 +153,12 @@ cc.Class({
             //}
 
             }
+        if(this._rqstTm>0){
+            this._rqstTm-=dt;
+        }else{
+            this._rqstTm=this._rqstRate;
+            this.updateIndex();
+        }
     },
     _updaetSubDomainCanvas () {
         if (!this.tex) {
@@ -185,6 +200,8 @@ cc.Class({
     },
     //更新首页
     updateIndex(){
+        if(Global.id==-1)
+            return;
         console.log("【更新首页】");
         var self=this;
         Network.requestIndexInfo((res)=>{
@@ -274,6 +291,8 @@ cc.Class({
     },
     //显示提示框
     showTip(txt){
+        if(txt==null||txt=="")
+            return;
         let msgBox= cc.instantiate(this.preMsgBox);
         msgBox.parent=this.node;
         let msgBoxScr=msgBox.getComponent("MsgBox");
@@ -329,6 +348,33 @@ cc.Class({
     //显示说明攻略界面
     onShowPanelInstruction(){
         this.panels.createPanel(this.prePanelInstruction,"PanelInstruction");
+    },
+    /**洗澡
+     *
+     *
+     */
+    onBath(){
+        var self=this;
+        Network.requestBath((res)=>{
+            if(res.result){
+                //播放洗澡动画
+                self.updateIndex();
+            }else{
+                self.showTip(res.data);
+            }
+        });
+    },
+    //收鸡蛋
+    onPickEgg(){
+        var self=this;
+        Network.requestPickEgg((res)=>{
+            if(res.result){
+                //播放收鸡蛋动画
+                self.updateIndex();
+            }else{
+                self.showTip(res.data);
+            }
+        });
     },
 
     //测试
