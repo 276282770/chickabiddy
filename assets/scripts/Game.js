@@ -239,9 +239,9 @@ cc.Class({
         console.log("更新吃饭");
         if(res.result){
             this.updateIndex();
-            player.playDine();
+            this.player.playDine();
         }else{
-            player.openSay(res.data);
+            this.player.openSay(res.data);
         }
     },
 

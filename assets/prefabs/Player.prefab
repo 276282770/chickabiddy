@@ -30,7 +30,7 @@
       }
     ],
     "_active": true,
-    "_level": 1,
+    "_level": 2,
     "_components": [
       {
         "__id__": 32
@@ -62,8 +62,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 360,
-      "y": 640,
+      "x": 0,
+      "y": 0,
       "z": 0
     },
     "_scale": {
@@ -345,7 +345,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -243,
+      "y": -339,
       "z": 0
     },
     "_scale": {

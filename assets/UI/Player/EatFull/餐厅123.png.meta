@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "9a182d44-76e9-478c-a7cd-f3e1813dd42d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "餐厅123": {
+      "ver": "1.0.3",
+      "uuid": "8766d95b-e6b8-40ea-a4ca-4ca7a3b33be9",
+      "rawTextureUuid": "9a182d44-76e9-478c-a7cd-f3e1813dd42d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 720,
+      "height": 762,
+      "rawWidth": 720,
+      "rawHeight": 762,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

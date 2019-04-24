@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "8b10e1fb-db54-4e92-bc86-64015e6488e1",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "餐厅吃饭3": {
+      "ver": "1.0.3",
+      "uuid": "05498043-19a3-42cd-9126-393a072f60a1",
+      "rawTextureUuid": "8b10e1fb-db54-4e92-bc86-64015e6488e1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 720,
+      "height": 1280,
+      "rawWidth": 720,
+      "rawHeight": 1280,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
