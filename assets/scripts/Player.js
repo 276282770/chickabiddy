@@ -109,6 +109,10 @@ cc.Class({
         this._state=0;
         this.animPlayer.play("player_normal");
     },
+    //进餐
+    playDine(){
+        console.log("-播放进餐动画");
+    },
     setRandomChangeTime(){
         let tm=Math.random()*15;
         if(tm<5)
@@ -119,6 +123,17 @@ cc.Class({
     onOpenInstruction(){
         this.onClickBg();
         Global.game.onShowPanelInstruction();
+    },
+    //小鸡说话
+    openSay(txt){
+        if(txt==null||txt=="")
+            return;
+        var self=this;
+        this.txtSay.string=txt;
+        self.txtSay.node.parent.active=true;
+        this.scheduleOnce(function(){
+            self.txtSay.node.parent.active=false;
+        },2)
     },
 
 });

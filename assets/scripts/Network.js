@@ -228,12 +228,13 @@ var Network={
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
+                backData.data=res.tips.tips;
             }else{
-                let tip="";
+                backData.data=res.data;
+
                 switch(res.state){
-                    case 214:tip="喂食失败 清洁度不够";break;
+                    case 214:backData.data="喂食失败 清洁度不够";break;
                 }
-                backData.data=tip;
             }
             if(callback)
                 callback(backData);
@@ -248,11 +249,7 @@ var Network={
             if(res.state==200){
                 backData.result=true;
             }else{
-                let tip="";
-                // switch(res.state){
-                //     case 214:tip="喂食失败 清洁度不够";break;
-                // }
-                backData.data=tip;
+                backData.data=res.tips.tips;
             }
             if(callback)
                 callback(backData);

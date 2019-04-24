@@ -41,20 +41,22 @@ cc.Class({
     onUse(){
         var self=this;
         Network.requestDine(this._cid,(res)=>{
-            if(res.result){
-                Global.game.panels.deletePanel();
-                Global.game.updateDine(res.data);
-            }else{
-                Global.game.showTip(res.data);
-            }
+            Global.game.panels.deletePanel();
+            Global.game.updateDine(res);
+            // if(res.result){
+            //     Global.game.panels.deletePanel();
+            //     Global.game.updateDine(res.data);
+            // }else{
+            //     Global.game.showTip(res.data);
+            // }
         });
         //本地测试
-        let res={result:true,data:10};
-        if(res.result){
-            Global.game.panels.deletePanel();
-            Global.game.updateDine(res.data);
-        }else{
-            Global.game.showTip(res.data);
-        }
+        // let res={result:true,data:10};
+        // if(res.result){
+        //     Global.game.panels.deletePanel();
+        //     Global.game.updateDine(res.data);
+        // }else{
+        //     Global.game.showTip(res.data);
+        // }
     },
 });

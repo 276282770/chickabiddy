@@ -11,6 +11,7 @@ var WX=require("WX");
 var Network=require("Network");
 var Common=require("Common");
 var PanelManager=require("PanelManager");
+var Player=require("Player");
 cc.Class({
     extends: cc.Component,
 
@@ -59,6 +60,9 @@ cc.Class({
         prePanelRank:cc.Prefab,  //排行榜预制体
         prePanelInstruction:cc.Prefab,  //说明界面预制体
 
+        player:Player,  //玩家
+
+
         display:cc.Sprite,  //子域显示
 
 
@@ -72,7 +76,7 @@ cc.Class({
         _grow:0,  //成熟值
 
         _rqstTm:0,  //请求倒计时
-        _rqstRate:5,  //请求频率
+        _rqstRate:60,  //请求频率
 
     },
 
@@ -221,15 +225,24 @@ cc.Class({
 
         self.txtEgg.string=data.eggNum.toString();
         
-        
         self.proClean.progress=data.cleanProgCurr/data.cleanProgFull;
-        self.proFood.progress=data.foodRemain/data.foodProgFull;
+        if(data.foodRemain<0){
+            self.proFood.progress=0;
+        }else{
+            self.proFood.progress=data.foodRemain/data.foodProgFull;
+        }
         self.setProEgg(data.eggProgCurr/data.eggProgFull);
     },
 
     //更新吃饭
-    updateDine(data){
+    updateDine(res){
         console.log("更新吃饭");
+        if(res.result){
+            this.updateIndex();
+            player.playDine();
+        }else{
+            player.openSay(res.data);
+        }
     },
 
 
@@ -358,6 +371,7 @@ cc.Class({
         Network.requestBath((res)=>{
             if(res.result){
                 //播放洗澡动画
+                self.player.openSay(res.data);
                 self.updateIndex();
             }else{
                 self.showTip(res.data);
