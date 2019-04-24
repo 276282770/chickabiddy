@@ -1,7 +1,7 @@
 var WX=require("WX");
 var Network={
     // domain:"",
-    domain:"http://132.232.211.116",  //域名
+    domain:"http://xj.xiajiwangluo.com",  //域名
 
     //封装微信http协议
     request(url,data,success){
@@ -458,13 +458,13 @@ var Network={
         },
         //使用道具
         requestUseProp(id,callback){
-            let url=this.domain+"";
-            let data={uid:Global.id,id:id};
+            let url=this.domain+":82/chicken/use.action";
+            let data={uid:Global.id,pid:id};
             var backData={result:false,data:{}};
             this.request(url,data,(res)=>{
                 if(res.state==200){
                     backData.result=true;
-                    backData.data=res.data;
+                    backData.data=res.tips.tips;
                 }else{
                     backData.data="";
                 }
@@ -651,7 +651,7 @@ var Network={
      * @param {*} callback 回调函数
      */
     requestThiefOut(id,callback){
-        let url=this.domain+"/chicken/Qugan.action";
+        let url=this.domain+":82/chicken/Qugan.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{

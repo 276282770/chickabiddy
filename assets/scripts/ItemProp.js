@@ -46,8 +46,9 @@ cc.Class({
     //使用
     onClick(){
         if(this._had){
-        Network.requestUseProp((res)=>{
-            if(!res.result){
+        Network.requestUseProp(this._cid,(res)=>{
+            if(res.result){
+                console.log("【使用道具卡 ");
                 Global.game.showTip(res.data);
                 Global.game.updateIndex();
             }

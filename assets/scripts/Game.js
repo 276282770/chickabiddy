@@ -185,6 +185,7 @@ cc.Class({
     },
     //更新首页
     updateIndex(){
+        console.log("【更新首页】");
         var self=this;
         Network.requestIndexInfo((res)=>{
             if(res.result){
