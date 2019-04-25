@@ -59,6 +59,8 @@ cc.Class({
         prePanelShop:cc.Prefab,  //商店预制体
         prePanelRank:cc.Prefab,  //排行榜预制体
         prePanelInstruction:cc.Prefab,  //说明界面预制体
+        prePanelThief:cc.Prefab,  //小偷预制体
+        prePlayerDine:cc.Prefab,  //吃东西预制体
 
         player:Player,  //玩家
 
@@ -239,7 +241,9 @@ cc.Class({
         console.log("更新吃饭");
         if(res.result){
             this.updateIndex();
-            this.player.playDine();
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            console.log(JSON.stringify(res));
+            this.onPlayPlayerDine(res.data.id);
         }else{
             this.player.openSay(res.data);
         }
@@ -287,6 +291,11 @@ cc.Class({
                 self.imgAvatar.spriteFrame=tex;
             }
         });
+    },
+    setPanelThief(data){
+        if(data.length>0){
+            
+        }
     },
 
     //设置分数
@@ -362,6 +371,13 @@ cc.Class({
     onShowPanelInstruction(){
         this.panels.createPanel(this.prePanelInstruction,"PanelInstruction");
     },
+    //播放吃饭动画
+    onPlayPlayerDine(id){
+        let dine=cc.instantiate(this.prePlayerDine);
+        dine.parent=this.node;
+        let dineScr=dine.getComponent("PlayerDine");
+        dineScr.fill(id);
+    },
     /**洗澡
      *
      *
@@ -394,16 +410,17 @@ cc.Class({
     //测试
     test(){
 
-        let imgA=cc.find("Canvas/New Sprite").getComponent(cc.Sprite);
-        let imgB=cc.find("Canvas/New Sprite(Splash)").getComponent(cc.Sprite);
-        let path="Shop/shop_"+5;
-        cc.loader.loadRes(path,function(err,tex){
-            if(!err){
-                imgA.spriteFrame=new cc.SpriteFrame(tex);
-                imgB.spriteFrame=new cc.SpriteFrame(tex);
-            }
+        // let imgA=cc.find("Canvas/New Sprite").getComponent(cc.Sprite);
+        // let imgB=cc.find("Canvas/New Sprite(Splash)").getComponent(cc.Sprite);
+        // let path="Shop/shop_"+5;
+        // cc.loader.loadRes(path,function(err,tex){
+        //     if(!err){
+        //         imgA.spriteFrame=new cc.SpriteFrame(tex);
+        //         imgB.spriteFrame=new cc.SpriteFrame(tex);
+        //     }
 
-        });
+        // });
+        this.onPlayPlayerDine(4);
  
     },
     //设置天黑天亮

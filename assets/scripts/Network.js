@@ -228,9 +228,10 @@ var Network={
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
+                backData.data.id=id;
                 backData.data=res.tips.tips;
             }else{
-                backData.data=res.data;
+                backData.data=res.tips.tips;
 
                 switch(res.state){
                     case 214:backData.data="喂食失败 清洁度不够";break;
@@ -710,6 +711,11 @@ var Network={
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
+                backData.data.say=res.data.beiqugan.tips;
+                backData.data.playerSay=res.qugan.tips;
+                backData.data.awardTxt=res.qugan.text;
+            }else{
+                backData.data="";
             }
             if(callback)
                 callback(backData);

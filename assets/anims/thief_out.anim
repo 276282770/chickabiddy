@@ -1,12 +1,12 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "thief_eat",
+  "_name": "thief_out",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 1.0166666666666666,
+  "_duration": 0.5166666666666667,
   "sample": 60,
   "speed": 1,
-  "wrapMode": "2",
+  "wrapMode": 1,
   "curveData": {
     "comps": {
       "cc.Sprite": {
@@ -18,15 +18,21 @@
             }
           },
           {
-            "frame": 0.5,
+            "frame": 0.16666666666666666,
             "value": {
-              "__uuid__": "27240e6f-034f-4057-ba25-7ed6422de5ec"
+              "__uuid__": "52ac6eb6-4039-45af-af9e-4c489100ea39"
             }
           },
           {
-            "frame": 1,
+            "frame": 0.3333333333333333,
             "value": {
-              "__uuid__": "f3d6a9d3-8799-4df8-b242-c8cf1a159e5e"
+              "__uuid__": "31e08b04-3565-4e8f-b880-2bb6053e7501"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "1e26f9ab-7c24-446a-b5da-b25427fc264b"
             }
           }
         ]

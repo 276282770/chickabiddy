@@ -8,6 +8,8 @@ cc.Class({
         txtName:cc.Label,  //物品名称
         txtDescript:cc.Label,  //物品说明
         txtCount:cc.Label,  //数量
+        
+        preDine:cc.Prefab,  //吃饭预制体
         _cid:-1,  //物品ID
     },
 
@@ -41,8 +43,11 @@ cc.Class({
     onUse(){
         var self=this;
         Network.requestDine(this._cid,(res)=>{
-            Global.game.panels.deletePanel();
-            Global.game.updateDine(res);
+            
+                Global.game.panels.deletePanel();
+                Global.game.updateDine(res);
+
+            
             // if(res.result){
             //     Global.game.panels.deletePanel();
             //     Global.game.updateDine(res.data);

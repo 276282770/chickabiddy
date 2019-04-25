@@ -34,6 +34,8 @@ cc.Class({
         animExtend:cc.Animation,  //扩展动画
         txtSay:cc.Label,  //小鸡说话
         ndPlayer:cc.Node,  //小鸡节点
+        spBgNormal:cc.SpriteFrame,  //正常的背景
+        spDine:cc.SpriteFrame,  //进餐的背景
 
         _state:0,  //小鸡状态  0正常，1被点击，2空闲
         _remainChangeTime:0,  //改变状态小鸡时间
@@ -112,6 +114,7 @@ cc.Class({
     //进餐
     playDine(){
         console.log("-播放进餐动画");
+        
     },
     setRandomChangeTime(){
         let tm=Math.random()*15;
