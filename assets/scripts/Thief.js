@@ -70,6 +70,10 @@ cc.Class({
     onOut(){
 
     },
+    //播放吃动画
+    playEat(){
+        this.ndThief.getComponent(cc.Animation).play("thief_eat");
+    },
     fill(id,name){
         this._cid=id;
         this.txtName.string=name;
