@@ -1,0 +1,37 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "player_cry",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.0166666666666666,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "38d84e50-d358-4f89-9d70-c0725268f815"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "8bdbc464-7897-4bdd-8c43-4fb9a338ca05"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "38d84e50-d358-4f89-9d70-c0725268f815"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

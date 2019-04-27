@@ -61,6 +61,7 @@ cc.Class({
         prePanelInstruction:cc.Prefab,  //说明界面预制体
         prePanelThief:cc.Prefab,  //小偷预制体
         prePlayerDine:cc.Prefab,  //吃东西预制体
+        prePlayerBath:cc.Prefab,  //洗澡动画预制体
 
         player:Player,  //玩家
 
@@ -378,6 +379,10 @@ cc.Class({
         let dineScr=dine.getComponent("PlayerDine");
         dineScr.fill(id);
     },
+    onPlayPlayerBath(){
+        let bath=cc.instantiate(this.prePlayerBath);
+        bath.parent=this.node;
+    },
     /**洗澡
      *
      *
@@ -387,6 +392,7 @@ cc.Class({
         Network.requestBath((res)=>{
             if(res.result){
                 //播放洗澡动画
+                self.onPlayPlayerBath();
                 self.player.openSay(res.data);
                 self.updateIndex();
             }else{
@@ -420,7 +426,9 @@ cc.Class({
         //     }
 
         // });
-        this.onPlayPlayerDine(4);
+        // this.onPlayPlayerDine(4);
+        this.onPlayPlayerBath();
+        // this.player.playCry();
  
     },
     //设置天黑天亮

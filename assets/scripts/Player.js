@@ -37,7 +37,7 @@ cc.Class({
         spBgNormal:cc.SpriteFrame,  //正常的背景
         spDine:cc.SpriteFrame,  //进餐的背景
 
-        _state:0,  //小鸡状态  0正常，1被点击，2空闲
+        _state:0,  //小鸡状态  0正常，1被点击，2空闲 3哭泣
         _remainChangeTime:0,  //改变状态小鸡时间
     },
 
@@ -115,6 +115,11 @@ cc.Class({
     playDine(){
         console.log("-播放进餐动画");
         
+    },
+    //播放哭动画
+    playCry(){
+        this.animPlayer.play("player_cry");
+        this._state=3;
     },
     setRandomChangeTime(){
         let tm=Math.random()*15;
