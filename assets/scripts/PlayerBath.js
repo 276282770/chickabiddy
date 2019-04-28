@@ -28,6 +28,7 @@ cc.Class({
         //     }
         // },
         backTime:2,  //返回时间
+        txtSay:cc.Label,  //说话
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -38,6 +39,11 @@ cc.Class({
         this.scheduleOnce(function(){
             this.node.destroy();
         },this.backTime);
+    },
+    fill(txt){
+        if(txt!=null&&txt!=""){
+            this.txtSay.string=txt;
+        }
     },
 
     // update (dt) {},

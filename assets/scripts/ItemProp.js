@@ -30,6 +30,7 @@ cc.Class({
         // },
         // ndUse:cc.Node,  //使用按钮节点
         prePanelBuy:cc.Prefab,  //购买界面预制体
+        txtCount:cc.Label,  //道具数量
         _cid:-1,  //道具ID
         _had:false,  //是否拥有
     },
@@ -63,14 +64,15 @@ cc.Class({
         Global.game.panels.deletePanel();
     },
 
-    fill(id,had){
+    fill(id,count){
         var self=this;
         this._had=had;
         this._cid=id;
         if(id){
             let path;
-            if(had){
+            if(count>0){
                 path="Shop/shop_"+id;
+                self.txtCount.string=count.toString();
             }
             else{
                 // this.ndUse.active=false;

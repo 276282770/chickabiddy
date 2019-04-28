@@ -27,6 +27,7 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
+        txtSay:cc.Label ,  //说话
         imgFood:cc.Sprite,  //食物图片
     },
 
@@ -40,8 +41,12 @@ cc.Class({
     onClose(){
         this.node.destroy();
     },
-    fill(id){
+    fill(id,sayText){
         var self=this;
+        if(sayText!=null&&sayText!=""){
+            this.txtSay.node.parent.getComponent(cc.Animation).play("say_open");
+            self.txtSay.string=sayText;
+        }
         cc.loader.loadRes("Shop/shop_"+id,function(err,tex){
             if(!err){
                 self.imgFood.spriteFrame=new cc.SpriteFrame(tex);

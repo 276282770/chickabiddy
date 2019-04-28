@@ -35,6 +35,7 @@ cc.Class({
         txtOtherEgg:cc.Label,  //偷来的鸡蛋
         txtMoney:cc.Label,  //钱
         txtLvl:cc.Label,  //等级
+        ndLvlUp:cc.Node,  //等级加速
         txtEgg:cc.Label,  //鸡蛋个数
         proLvl:cc.ProgressBar,  //等级进度
         proEgg:cc.ProgressBar,  //鸡蛋进度
@@ -225,6 +226,7 @@ cc.Class({
         self.setMoney(data.money);
         self.txtLvl.string=data.lvl.toString();
         self.proLvl.progress=data.lvlExp/data.lvlFullExp;
+        self.ndLvlUp.active=data.lvlUp;
 
         self.txtEgg.string=data.eggNum.toString();
         
@@ -239,12 +241,11 @@ cc.Class({
 
     //更新吃饭
     updateDine(res){
-        console.log("更新吃饭");
+     
         if(res.result){
             this.updateIndex();
-            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            console.log(JSON.stringify(res));
-            this.onPlayPlayerDine(res.data.id);
+
+            this.onPlayPlayerDine(res.data.id,res.data.say);
         }else{
             this.player.openSay(res.data);
         }
@@ -373,15 +374,17 @@ cc.Class({
         this.panels.createPanel(this.prePanelInstruction,"PanelInstruction");
     },
     //播放吃饭动画
-    onPlayPlayerDine(id){
+    onPlayPlayerDine(id,sayText){
         let dine=cc.instantiate(this.prePlayerDine);
         dine.parent=this.node;
         let dineScr=dine.getComponent("PlayerDine");
-        dineScr.fill(id);
+        dineScr.fill(id,sayText);
     },
-    onPlayPlayerBath(){
+    onPlayPlayerBath(sayText){
         let bath=cc.instantiate(this.prePlayerBath);
         bath.parent=this.node;
+        let bathScr= bath.getComponent("PlayerBath");
+        bathScr.fill(sayText);
     },
     /**洗澡
      *
@@ -392,8 +395,8 @@ cc.Class({
         Network.requestBath((res)=>{
             if(res.result){
                 //播放洗澡动画
-                self.onPlayPlayerBath();
-                self.player.openSay(res.data);
+                self.onPlayPlayerBath(res.data);
+                // self.player.openSay(res.data);
                 self.updateIndex();
             }else{
                 self.showTip(res.data);
@@ -426,8 +429,8 @@ cc.Class({
         //     }
 
         // });
-        // this.onPlayPlayerDine(4);
-        this.onPlayPlayerBath();
+        // this.onPlayPlayerDine(4,"你好，你好");
+        this.onPlayPlayerBath("你好，你好");
         // this.player.playCry();
  
     },

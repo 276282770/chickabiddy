@@ -29,6 +29,8 @@ var Network={
                 backData.data.lvlExp=res.data.currentExp;  //经验
                 backData.data.lvlFullExp=res.data.maxExp;  //升级所需经验
                 // backData.data.lvlProg=res.data.currentExp/res.data.maxExp;  //下一等级进度
+                backData.data.lvlUp=false;   //==================================================回来改成正式的
+
                 backData.data.selfEggNum=res.data.goodEgg;  //自己鸡蛋个数
                 backData.data.otherEggNum=res.data.badEgg;  //别人鸡蛋个数
                 backData.data.eggNum=res.data.waitGetEgg;  //未收鸡蛋个数
@@ -46,6 +48,7 @@ var Network={
                 backData.data.newDetail=res.data.unRead_dongtai;  //新动态
                 backData.data.newAnnouncement=res.data.unRead_gonggao;  //新公告
                 // backData.data.newWorldMsg=res.data.unRead_world;
+               
                 backData.data.state=0;
                 if(res.data.die==1)
                 backData.data.state=1;
@@ -72,6 +75,8 @@ var Network={
                 backData.data.lvlExp=res.data.currentExp;  //经验
                 backData.data.lvlFullExp=res.data.maxExp;  //升级所需经验
                 // backData.data.lvlProg=res.data.currentExp/res.data.maxExp;  //下一等级进度
+                backData.data.lvlUp=false;   //==================================================回来改成正式的
+
                 backData.data.selfEggNum=res.data.goodEgg;  //自己鸡蛋个数
                 backData.data.otherEggNum=res.data.badEgg;  //别人鸡蛋个数
                 backData.data.eggNum=res.data.waitGetEgg;  //未收鸡蛋个数
@@ -499,7 +504,7 @@ var Network={
                     item.name=res.data[i].name;
                     item.desc=res.data[i].desc;
                     item.price=res.data[i].price;
-                    item.had=res.data[i].num>0;
+                    item.count=res.data[i].num;
                     backData.data.push(item);
                     }
                     

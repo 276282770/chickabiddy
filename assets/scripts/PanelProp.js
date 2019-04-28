@@ -79,7 +79,7 @@ cc.Class({
                     let newItem=cc.instantiate(self.preItem);
                     newItem.parent=self.ndCtnt;
                     let newItemScr=newItem.getComponent("ItemProp");
-                    newItemScr.fill(res.data[i].id,res.data[i].had);
+                    newItemScr.fill(res.data[i].id,res.data[i].count);
 
                 }
             }

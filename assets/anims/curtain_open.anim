@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "curtain_open",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "left": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -171,
+                0
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                -779,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "right": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                170.5,
+                0
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                828,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}
