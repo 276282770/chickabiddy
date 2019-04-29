@@ -12,6 +12,7 @@ var Network=require("Network");
 var Common=require("Common");
 var PanelManager=require("PanelManager");
 var Player=require("Player");
+var OtherHome=require("OtherHome");
 cc.Class({
     extends: cc.Component,
 
@@ -64,7 +65,9 @@ cc.Class({
         prePlayerDine:cc.Prefab,  //吃东西预制体
         prePlayerBath:cc.Prefab,  //洗澡动画预制体
 
+
         player:Player,  //玩家
+        otherHome:OtherHome,  //别人家
 
 
         display:cc.Sprite,  //子域显示
@@ -373,6 +376,12 @@ cc.Class({
     onShowPanelInstruction(){
         this.panels.createPanel(this.prePanelInstruction,"PanelInstruction");
     },
+    //显示别人家
+    onShowOtherHome(id){
+        
+        this.otherHome.node.active=true;
+        this.otherHome.load(id);
+    },
     //播放吃饭动画
     onPlayPlayerDine(id,sayText){
         let dine=cc.instantiate(this.prePlayerDine);
@@ -430,8 +439,9 @@ cc.Class({
 
         // });
         // this.onPlayPlayerDine(4,"你好，你好");
-        this.onPlayPlayerBath("你好，你好");
+        // this.onPlayPlayerBath("你好，你好");
         // this.player.playCry();
+        this.onShowOtherHome(22);
  
     },
     //设置天黑天亮

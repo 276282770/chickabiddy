@@ -36,7 +36,7 @@ cc.Class({
 
         
 
-        _thiefData:[{id:-1,name:""},{id:-1,name:""}],
+        _thiefData:{},
 
         _isExtendOpen:false,
         _cid:-1,  //id
@@ -113,7 +113,25 @@ cc.Class({
     },
     //揍他
     onFight0(){
+        var self=this;
+        this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_close");
+        Network.requestThiefOut(self._thiefData[0].id,(res)=>{
+            if(res.result){
+                let data=res.result.data;
+                self.openSay0(data.say);
+                self.openSay1(data.otherSay);
+                   Global.game.player.openSay(data.playerSay);
+                   self.ndThief1.getComponent(cc.Animation).play("thief_out");
+                   self.ndThief0.getComponent(cc.Animation).play("thief_fit");
 
+                   self.scheduleOnce(function(){
+                    self.ndThief0.active=false;
+                    self.ndThief1.active=false;
+                    Global.game.showTip(data.awardTxt);
+                    self.onClose();
+                   },1);
+            }
+        });
     },
     //赶走
     onOut0(){

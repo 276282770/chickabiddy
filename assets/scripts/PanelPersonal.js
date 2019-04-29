@@ -16,8 +16,12 @@ cc.Class({
         imgAvatar:cc.Sprite,   //头像
         txtNickName:cc.Label,  //昵称
         txtID:cc.Label,  //ID
-        txtSelfEggCtnt:cc.Label,  //自己收获的蛋的个数
-        txtOtherEggCtnt:cc.Label,  //收取别人蛋的个数
+        txtSelfEggCount:cc.Label,  //自己收获的蛋的个数
+        txtOtherEggCount:cc.Label,  //收取别人蛋的个数
+        txtTotalEggCount:cc.Label,  //自己总收蛋个数
+        txtTotalOtherEggCount:cc.Label,  //总收别人蛋的个数
+        txtLoseEggCount:cc.Label,  //鸡蛋被偷的个数
+
         proExp:cc.ProgressBar,  //经验进度
         proEgg:cc.ProgressBar,  //鸡蛋进度
         proFood:cc.ProgressBar,  //食物进度

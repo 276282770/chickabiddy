@@ -29,7 +29,7 @@ var Network={
                 backData.data.lvlExp=res.data.currentExp;  //经验
                 backData.data.lvlFullExp=res.data.maxExp;  //升级所需经验
                 // backData.data.lvlProg=res.data.currentExp/res.data.maxExp;  //下一等级进度
-                backData.data.lvlUp=false;   //==================================================回来改成正式的
+                backData.data.lvlUp=res.data.double_exp>0;   
 
                 backData.data.selfEggNum=res.data.goodEgg;  //自己鸡蛋个数
                 backData.data.otherEggNum=res.data.badEgg;  //别人鸡蛋个数
@@ -75,7 +75,7 @@ var Network={
                 backData.data.lvlExp=res.data.currentExp;  //经验
                 backData.data.lvlFullExp=res.data.maxExp;  //升级所需经验
                 // backData.data.lvlProg=res.data.currentExp/res.data.maxExp;  //下一等级进度
-                backData.data.lvlUp=false;   //==================================================回来改成正式的
+                backData.data.lvlUp=res.data.double_exp>0;   
 
                 backData.data.selfEggNum=res.data.goodEgg;  //自己鸡蛋个数
                 backData.data.otherEggNum=res.data.badEgg;  //别人鸡蛋个数
@@ -207,6 +207,26 @@ var Network={
     },
     //收鸡蛋
     requestPickEgg(callback){
+        let url=this.domain+"/egg/shoudan.action";
+        let data={uid:Global.id};
+        this.request(url,data,(res)=>{
+            var backData={};
+            backData.result=false;
+            backData.data=false;
+            if(res.state==200){
+                backData.result=true;
+            }else{
+                // switch(res.state){
+                    
+                // }
+                backData.data=res.tips.tips;
+            }
+            if(callback)
+            callback(backData);
+        });
+    },
+    //收别人鸡蛋   ============================= 未完 =========================================
+    requestPickupOtherEgg(id,callback){
         let url=this.domain+"/egg/shoudan.action";
         let data={uid:Global.id};
         this.request(url,data,(res)=>{
@@ -719,6 +739,26 @@ var Network={
                 backData.data.say=res.data.beiqugan.tips;
                 backData.data.playerSay=res.qugan.tips;
                 backData.data.awardTxt=res.qugan.text;
+            }else{
+                backData.data="";
+            }
+            if(callback)
+                callback(backData);
+        });
+    },
+    //请求指定用户的信息  ==================== 未完 =========================
+    requestPersonInfo(id,callback){
+        let url=this.domain+"";
+        let data={uid:Global.id,fid:id};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.data.id=id;
+                backData.data.avatar="";
+                backData.data.nickName="";
+                backData.data.lvl=0;
+                backData.data.thiefs=[];
+                backData.data.eggCount=0;
             }else{
                 backData.data="";
             }

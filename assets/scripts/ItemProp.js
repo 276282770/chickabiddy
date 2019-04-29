@@ -32,7 +32,7 @@ cc.Class({
         prePanelBuy:cc.Prefab,  //购买界面预制体
         txtCount:cc.Label,  //道具数量
         _cid:-1,  //道具ID
-        _had:false,  //是否拥有
+        _count:0,  //数量
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -46,7 +46,7 @@ cc.Class({
     // update (dt) {},
     //使用
     onClick(){
-        if(this._had){
+        if(this._count>0){
         Network.requestUseProp(this._cid,(res)=>{
             if(res.result){
                 console.log("【使用道具卡 ");
@@ -66,7 +66,7 @@ cc.Class({
 
     fill(id,count){
         var self=this;
-        this._had=had;
+        this._had= count;
         this._cid=id;
         if(id){
             let path;
