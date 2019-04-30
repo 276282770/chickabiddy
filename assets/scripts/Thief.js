@@ -36,7 +36,7 @@ cc.Class({
 
         
 
-        _thiefData:{},
+        _thiefData:{default:[]},
 
         _isExtendOpen:false,
         _cid:-1,  //id
@@ -114,6 +114,7 @@ cc.Class({
     //揍他
     onFight0(){
         var self=this;
+        
         this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_close");
         Network.requestThiefOut(self._thiefData[0].id,(res)=>{
             if(res.result){

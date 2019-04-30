@@ -1,15 +1,15 @@
 {
   "ver": "2.2.0",
-  "uuid": "7756e162-2ec4-4fbf-a26c-394b2b312f57",
+  "uuid": "731a80ba-b5ce-4a59-b0ee-a6b902066609",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "subMetas": {
-    "qingjie 2": {
+    "iconjingyan": {
       "ver": "1.0.3",
-      "uuid": "f11d51d5-5507-4ce1-9466-03cd786432ed",
-      "rawTextureUuid": "7756e162-2ec4-4fbf-a26c-394b2b312f57",
+      "uuid": "79fad158-c963-495a-99b0-64304d5bd5eb",
+      "rawTextureUuid": "731a80ba-b5ce-4a59-b0ee-a6b902066609",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

@@ -249,7 +249,7 @@ var WX={
         /*
             game.json中添加
             "navigateToMiniProgramAppIdList": [
-                "appid"
+                "appid":
             ]
         */
     },

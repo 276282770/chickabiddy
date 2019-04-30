@@ -168,7 +168,7 @@ cc.Class({
             this._rqstTm-=dt;
         }else{
             this._rqstTm=this._rqstRate;
-            this.updateIndex();
+            // this.updateIndex();
         }
     },
     _updaetSubDomainCanvas () {
@@ -240,6 +240,10 @@ cc.Class({
             self.proFood.progress=data.foodRemain/data.foodProgFull;
         }
         self.setProEgg(data.eggProgCurr/data.eggProgFull);
+
+        if(data.thiefs!=null){
+            self.setPanelThief(data.thiefs);
+        }
     },
 
     //更新吃饭
@@ -297,9 +301,13 @@ cc.Class({
             }
         });
     },
+    //显示小偷界面
     setPanelThief(data){
         if(data.length>0){
-            
+            let thief= cc.instantiate( this.prePanelThief);
+            thief.parent=this.node;
+            let thiefScr=thief.getComponent("Thief");
+            thiefScr.setThief(data);
         }
     },
 
@@ -382,6 +390,7 @@ cc.Class({
         this.otherHome.node.active=true;
         this.otherHome.load(id);
     },
+
     //播放吃饭动画
     onPlayPlayerDine(id,sayText){
         let dine=cc.instantiate(this.prePlayerDine);
@@ -389,6 +398,7 @@ cc.Class({
         let dineScr=dine.getComponent("PlayerDine");
         dineScr.fill(id,sayText);
     },
+    //播放洗澡
     onPlayPlayerBath(sayText){
         let bath=cc.instantiate(this.prePlayerBath);
         bath.parent=this.node;

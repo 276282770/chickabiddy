@@ -75,9 +75,14 @@ cc.Class({
             if(res.result){
                 console.log("-----------------");
                 console.log(JSON.stringify(res.data));
-                self.txtSelfEggCtnt.string="下蛋数："+res.data.selfEggNum.toString();
-                self.txtOtherEggCtnt.string="偷蛋数："+res.data.otherEggNum.toString();
+                self.txtSelfEggCount.string=res.data.selfEggNum.toString();
+                self.txtOtherEggCount.string=res.data.otherEggNum.toString();
+                self.txtTotalEggCount.string=res.data.totalEggCount.toString();
+                self.txtTotalOtherEggCount.string=res.data.totalOtherEggCount.toString();
+                self.txtLoseEggCount.string=res.data.totalLoseEggCount.toString();
+
                 self.proExp.progress=res.data.lvlExp/res.data.lvlFullExp; 
+
                 self.txtExp.string=res.data.lvlExp.toString()+"/"+res.data.lvlFullExp.toString();
                 if(res.data.eggProgCurr>=0){
                     self.proEgg.progress=res.data.eggProgCurr/res.data.eggProgFull;
