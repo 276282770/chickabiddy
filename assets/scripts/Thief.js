@@ -86,6 +86,9 @@ cc.Class({
             self.node.destroy();
         })));
     },
+    onHide(){
+        this.node.runAction(cc.moveBy(1,0,1300));
+    },
     onShow(){
 
     },
@@ -129,7 +132,7 @@ cc.Class({
                     self.ndThief0.active=false;
                     self.ndThief1.active=false;
                     Global.game.showTip(data.awardTxt);
-                    self.onClose();
+                    self.onHide();
                    },1);
             }
         });
@@ -149,7 +152,7 @@ cc.Class({
                         self.ndThief0.active=false;
                         Global.game.showTip(data.awardTxt);
             if(!self.ndThief1.active){
-                self.onClose();
+                self.onHide();
                 
             }
         },1);

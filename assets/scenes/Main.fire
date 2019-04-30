@@ -14070,6 +14070,9 @@
     "ndHomeMask": {
       "__id__": 46
     },
+    "ndThief": {
+      "__id__": 114
+    },
     "panels": {
       "__id__": 241
     },
@@ -14108,9 +14111,6 @@
     },
     "prePanelInstruction": {
       "__uuid__": "8c5c9684-dd6a-4c1b-b048-d35bc2ea4ba8"
-    },
-    "prePanelThief": {
-      "__uuid__": "78cb0c14-c53b-4767-8e3b-dfc741d2bd1d"
     },
     "prePlayerDine": {
       "__uuid__": "d980d5aa-8a57-460d-893d-a9354a7a2cd7"

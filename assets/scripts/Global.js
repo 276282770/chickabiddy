@@ -7,4 +7,5 @@ window.Global={
         avatar:"",
     },
     money:0,
+    nextScene:"Main",
 };

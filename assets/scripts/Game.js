@@ -13,6 +13,7 @@ var Common=require("Common");
 var PanelManager=require("PanelManager");
 var Player=require("Player");
 var OtherHome=require("OtherHome");
+
 cc.Class({
     extends: cc.Component,
 
@@ -47,6 +48,7 @@ cc.Class({
         
         preMsgBox:cc.Prefab,  //消息框预制体
         ndHomeMask:cc.Node,  //主页遮罩
+        ndThief:cc.Node,  //小偷界面
 
         panels:PanelManager,  //面板管理
         prePanelFriends:cc.Prefab,  //朋友面板预制体
@@ -61,7 +63,7 @@ cc.Class({
         prePanelShop:cc.Prefab,  //商店预制体
         prePanelRank:cc.Prefab,  //排行榜预制体
         prePanelInstruction:cc.Prefab,  //说明界面预制体
-        prePanelThief:cc.Prefab,  //小偷预制体
+        // prePanelThief:cc.Prefab,  //小偷预制体
         prePlayerDine:cc.Prefab,  //吃东西预制体
         prePlayerBath:cc.Prefab,  //洗澡动画预制体
 

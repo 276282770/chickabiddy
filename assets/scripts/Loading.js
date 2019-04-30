@@ -38,13 +38,13 @@ cc.Class({
     start () {
 
         
-        cc.director.preloadScene("Main",(completedCount,totalCount,item)=>{
+        cc.director.preloadScene(Global.nextScene,(completedCount,totalCount,item)=>{
             var precent=completedCount/totalCount;
             this.progress=precent;
             this.lblProgress.string="加载中..."+ (parseInt(precent)*100).toString()+"%";
         },function(err,asset){
             if(err==null){
-                cc.director.loadScene("Main");
+                cc.director.loadScene(Global.nextScene);
             }
         });
     },
