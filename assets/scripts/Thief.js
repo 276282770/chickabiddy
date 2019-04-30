@@ -38,7 +38,8 @@ cc.Class({
 
         _thiefData:{default:[]},
 
-        _isExtendOpen:false,
+        _isExtendOpen0:false,
+        _isExtendOpen1:false,
         _cid:-1,  //id
         _pos0:{default:new cc.Vec2(-121,-293)},
         _pos1:{default:new cc.Vec2(156,-293)},
@@ -54,20 +55,25 @@ cc.Class({
     setThief(data){
         if(data.length>2)
             return;
-        if(data.length==1){
-            this._thiefData[0]=data;
-            this.ndThief0.active=true;
-            this.ndThief0.getChildByName("txtName").getComponent(cc.Label).string=data.name;
-        }
-        else if(data.length==2){
-            this._thiefData=data;
-            this.ndThief1.active=true;
-            this.ndThief1.getChildByName("txtName").getComponent(cc.Label).string=data[1].name;
+        if(data[0]!=null){
             this.ndThief0.active=true;
             this.ndThief0.getChildByName("txtName").getComponent(cc.Label).string=data[0].name;
-
+        }else{
+            this.ndThief0.active=false;
         }
-        
+        if(data[1]!=null){
+            this.ndThief1.active=true;
+            this.ndThief1.getChildByName("txtName").getComponent(cc.Label).string=data[1].name;
+        }else{
+            this.ndThief1.active=false;
+        }
+        this._thiefData=data;
+
+        if(this.thiefCount()>0){
+            this.onShow();
+        }else{
+            this.onHide();
+        }
     },
     addThief(data){
         if(!this.ndThief0.active){
@@ -90,19 +96,46 @@ cc.Class({
         this.node.runAction(cc.moveBy(1,0,1300));
     },
     onShow(){
-
+        this.node.position=new cc.Vec2(0,0);
     },
 
     // update (dt) {},
-    onClick0(){
+    onThiefClick(event,customerData){
+        if(customerData=="0"){
+            console.log("【点击第一个小鸡】");
         // this.ndBg.active=true;
-        if(!this._isExtendOpen){
-        // this.ndThief.getComponent(cc.Button).interactable=false;
-        this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_open");
-        this._isExtendOpen=true;
+         this.showExtend(0,!this._isExtendOpen0);
         }else{
-            this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_close");
-            this._isExtendOpen=false;
+            console.log("【点击第二个小鸡】");
+            this.showExtend(1,!this._isExtendOpen1);
+        }
+    },
+    //显示扩展
+    showExtend(idx,show){
+        if(idx==0){
+            if(show){
+                if(this._isExtendOpen0)
+                    return;
+                this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_open");
+                this._isExtendOpen0=true;
+            }else{
+                if(!this._isExtendOpen0)
+                    return;
+                this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_close");
+                this._isExtendOpen0=false;
+            }
+        }else{
+            if(show){
+                if(this._isExtendOpen1)
+                    return;
+                this.ndThief1.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_open");
+                this._isExtendOpen1=true;
+            }else{
+                if(!this._isExtendOpen1)
+                    return;
+                this.ndThief1.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_close");
+                this._isExtendOpen1=false;
+            }
         }
     },
     onClickBg(){
@@ -115,61 +148,93 @@ cc.Class({
         },0.2);
     },
     //揍他
-    onFight0(){
+    onFight(event,customerData){
         var self=this;
-        
-        this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_close");
-        Network.requestThiefOut(self._thiefData[0].id,(res)=>{
+        let idx;
+        let thief0,thief1;
+        if(customerData=="0"){
+            idx=0;
+            thief0=this.ndThief0;
+            thief1=this.ndThief1;
+        }else{
+            idx=1;
+            thief0=this.ndThief1;
+            thief1=this.ndThief0;
+        }
+        Network.requestHit(self._thiefData[idx].id,(res)=>{
             if(res.result){
-                let data=res.result.data;
-                self.openSay0(data.say);
-                self.openSay1(data.otherSay);
+                let data=res.data;
+                self.showExtend(idx,false);
+                self.showExtend(idx,false);
+                self.openSay(idx,data.say);
+                self.openSay(idx,data.otherSay);
                    Global.game.player.openSay(data.playerSay);
-                   self.ndThief1.getComponent(cc.Animation).play("thief_out");
-                   self.ndThief0.getComponent(cc.Animation).play("thief_fit");
+                   thief1.getComponent(cc.Animation).play("thief_out");
+                   thief0.getComponent(cc.Animation).play("thief_hit");
 
                    self.scheduleOnce(function(){
-                    self.ndThief0.active=false;
-                    self.ndThief1.active=false;
+                    thief0.active=false;
+                    thief1.active=false;
                     Global.game.showTip(data.awardTxt);
                     self.onHide();
-                   },1);
+                   },2);
             }
         });
+        
     },
     //赶走
-    onOut0(){
+    onOut(event,customerData){
         var self=this;
-        this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_close");
-        Network.requestThiefOut(self._thiefData[0].id,(res)=>{
+        let idx;
+        let thiefNode;
+        if(customerData==0){
+            idx=0;
+            thiefNode=this.ndThief0;
+        }else{
+            idx=1;
+            thiefNode=this.ndThief1;
+        }
+
+        this.showExtend(idx,false);
+        Network.requestDriveOff(self._thiefData[idx].id,(res)=>{
             if(res.result){
-                let data=res.result.data;
-                   self.openSay0(data.say);
+                self._thiefData[idx]=null;
+                let data=res.data;
+                   self.openSay(idx,data.say);
                    Global.game.player.openSay(data.playerSay);
-                    self.ndThief0.getComponent(cc.Animation).play("thief_out");
+                    thiefNode.getComponent(cc.Animation).play("thief_out");
 
                     self.scheduleOnce(function(){
-                        self.ndThief0.active=false;
+                        thiefNode.active=false;
                         Global.game.showTip(data.awardTxt);
-            if(!self.ndThief1.active){
+            if(self.thiefCount()==0){
                 self.onHide();
                 
             }
-        },1);
+        },2);
         }
         });
 
     },
-    openSay0(txt){
+    //小偷说
+    openSay(idx,txt){
         if(txt==null||txt=="")
             return;
-        let ndThiefSay0=self.ndThief0.getChildByName("Say");
-        this.ndThiefSay0.active=true;
-        ndThiefSay0.getChildByName("txtSay").getComponent(cc.Label).string=txt;
+            let thiefNode;
+        if(idx==0){
+            thiefNode=this.ndThief0;
+        }else{
+            thiefNode=this.ndThief1;
+        }
+        let ndThiefSay=thiefNode.getChildByName("Say");
+        ndThiefSay.active=true;
+        ndThiefSay.getChildByName("txtSay").getComponent(cc.Label).string=txt;
         this.scheduleOnce(function(){
-            this.ndThiefSay0.active=false;
+            ndThiefSay.active=false;
         },2);
     },
+    
+
     //播放吃动画
     playEat(){
         this.ndThief.getComponent(cc.Animation).play("thief_eat");
@@ -178,7 +243,13 @@ cc.Class({
         this._cid=id;
         this.txtName.string=name;
     },
+    //小偷数量
     thiefCount(){
-        
+       let result=0;
+       if(this._thiefData[0]!=null)
+        result++;
+        if(this._thiefData[1]!=null)
+        result++;
+        return result;  
     },
 });

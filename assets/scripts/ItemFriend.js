@@ -57,6 +57,7 @@ cc.Class({
      * @param  {int}  inc  索引
      */
     fillItem(id,lvl,nickname,avatar,canHelpBath,canStealFood,canStealEgg,isOtherStealFood,inc){
+
         var self=this;
         this._uid=id;
         this.txtLvl.string=lvl.toString();
@@ -74,6 +75,13 @@ cc.Class({
             }
         });
         
+    },
+    //点击
+    onClick(){
+        Global.otherPersonId=this._uid;
+        Global.nextScene="OtherHome";
+        cc.director.loadScene("Loading");
+       
     },
     // update (dt) {},
 });

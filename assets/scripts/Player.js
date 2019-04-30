@@ -71,7 +71,7 @@ cc.Class({
     //点击小鸡
     onClick(){
         console.log("点击小鸡");
-        if(Global.game._thiefCount>0){
+        if(cc.find("Canvas/Thief").active){
             Global.game.showTip("我的食物都快被抢光了..");
             return;
         }
@@ -136,6 +136,10 @@ cc.Class({
     openSay(txt){
         if(txt==null||txt=="")
             return;
+        if(cc.find("Canvas/Thief").active){
+            Global.game.showTip(txt);
+            return;
+        }
         var self=this;
         this.txtSay.string=txt;
         self.txtSay.node.parent.active=true;

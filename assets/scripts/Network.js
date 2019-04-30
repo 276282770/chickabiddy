@@ -51,13 +51,14 @@ var Network={
                 backData.data.cleanProgCurr=res.data.clean;
                 backData.data.cleanProgFull=86400;
 
-                backData.data.foodRemain=res.data.totalEatTime;  //食物剩余可以吃的时间
-                backData.data.foodProgFull=res.data.resEatTime;  //食物进度
+                backData.data.foodRemain=res.data.resEatTime;  //食物剩余可以吃的时间
+                backData.data.foodProgFull=res.data.totalEatTime;  //食物进度
                 // backData.data.foodProg=res.data.howLongEat_pre;  //食物进度
                 backData.data.newDetail=res.data.unRead_dongtai;  //新动态
                 backData.data.newAnnouncement=res.data.unRead_gonggao;  //新公告
                 // backData.data.newWorldMsg=res.data.unRead_world;
 
+                
                 backData.data.thiefs=res.data.badMan;  //小偷
                
                 backData.data.state=0;
@@ -65,6 +66,7 @@ var Network={
                 backData.data.state=1;
 
                 Global.id=backData.data.id;
+                Global.openid=res.data.openid;
             }else{
                 backData.data="";
             }
@@ -75,7 +77,7 @@ var Network={
     //请求首页信息
     requestIndexInfo:function(callback){
 
-        this.requestLogin(null,null,null,callback);
+        this.requestLogin(null,"","",callback);
 
         // let data={uid:Global.id};
         // let url=this.domain+":83/load/load.action";
@@ -154,7 +156,7 @@ var Network={
                 backData.data.friends=[];
                 for(var i=0;i<res.data.length;i++){
                     let friend={};
-                    friend.id=res.data[i].fid;
+                    friend.id=res.data[i].uid;
                     friend.nickName=res.data[i].nickName;  
                     friend.lvl=res.data[i].level;  //等级
                     friend.avatar=res.data[i].url;  //头像
@@ -241,21 +243,24 @@ var Network={
             callback(backData);
         });
     },
-    //收别人鸡蛋   ============================= 未完 =========================================
+    //收别人的鸡蛋
     requestPickupOtherEgg(id,callback){
-        let url=this.domain+"/egg/shoudan.action";
-        let data={uid:Global.id};
+        let url=this.domain+"/egg/toudan.action";
+        let data={uid:Global.id,fid:id};
         this.request(url,data,(res)=>{
             var backData={};
             backData.result=false;
-            backData.data=false;
+            backData.data={};
             if(res.state==200){
                 backData.result=true;
             }else{
-                // switch(res.state){
-                    
-                // }
-                backData.data=res.tips.tips;
+                switch(res.state){
+                    case 213:backData.data.say="没有多少蛋了，你就别下手了.";
+                    case 225:backData.data.tip="传入ID用户不存在";
+                    case 224:backData.data.tip="不能重复偷蛋(一波只能偷一个蛋)";
+                    case 226:backData.data.tip="不能偷自己";
+                }
+                
             }
             if(callback)
             callback(backData);
@@ -270,12 +275,12 @@ var Network={
             if(res.state==200){
                 backData.result=true;
                 backData.data.id=id;
-                backData.data=res.tips.tips;
+                backData.data.say=res.tips.tips;
             }else{
-                backData.data=res.tips.tips;
+                backData.data.say=res.tips.tips;
 
                 switch(res.state){
-                    case 214:backData.data="喂食失败 清洁度不够";break;
+                    case 214:backData.data.say="喂食失败 清洁度不够";break;
                 }
             }
             if(callback)
@@ -290,9 +295,12 @@ var Network={
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
-            }else{
-                backData.data=res.tips.tips;
             }
+                backData.data.say=res.tips.tips;
+                backData.data.tip="";
+                if(res.tips.text!=""&&res.tips.text!="空")
+                backData.data.tip=res.tips.text;
+            
             if(callback)
                 callback(backData);
         });
@@ -305,13 +313,9 @@ var Network={
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
-            }else{
-                let tip="";
-                // switch(res.state){
-                //     case 214:tip="喂食失败 清洁度不够";break;
-                // }
-                backData.data=tip;
             }
+                backData.data.tip=res.tips.text;
+                backData.data.say=res.tips.tips;
             if(callback)
                 callback(backData);
         });
@@ -325,7 +329,11 @@ var Network={
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
-                backData.data="";
+                backData.data.say=res.data.beizou.tips;
+                backData.data.otherSay=res.data.xiapao.tips;
+                backData.data.playerSay=res.data.zouren.tips;
+                backData.data.awardTxt=res.data.zouren.text;
+
             }else{
                 backData.data="";
             }
@@ -333,6 +341,21 @@ var Network={
                 callback(backData);
         });
     },
+    //点击小鸡说的话
+    requestClickPlayer(callback){
+        let url=this.domain+":83/load/click.action";
+        let data={uid:Global.id};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data.text=res.tips.tips;
+            }
+            if(callback)
+                callback(backData);
+        });
+    },
+
     //饭被偷吃，赶走
     //@id  偷吃者id
     requestDriveOff(id,callback){
@@ -342,6 +365,9 @@ var Network={
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
+                backData.data.say=res.data.beiqugan.tips;
+                backData.data.playerSay=res.data.qugan.tips;
+                backData.data.awardTxt=res.data.qugan.text;
             }else{
                 backData.data="";
             }
@@ -678,8 +704,8 @@ var Network={
                 backData.result=true;
                 
             }
-            backData.data.say=res.data.tips;
-                backData.data.award=res.data.text;
+            backData.data.say=res.tips.tips;
+            backData.data.award=res.tips.text;
             if(callback)
                 callback(backData);
         });
@@ -724,57 +750,25 @@ var Network={
                 callback(backData);
         });
     },
-    //点击小鸡说的话
-    requestClickPlayer(callback){
-        let url=this.domain+":83/load/click.action";
-        let data={uid:Global.id};
-        let backData={result:false,data:{}};
-        this.request(url,data,(res)=>{
-            if(res.state==200){
-                backData.result=true;
-                backData.data.text=res.tips.tips;
-            }
-            if(callback)
-                callback(backData);
-        });
-    },
 
-    /**
-     *驱赶
-     *
-     * @param {*} id  小偷ID
-     * @param {*} callback 回调函数
-     */
-    requestThiefOut(id,callback){
-        let url=this.domain+":82/chicken/Qugan.action";
+
+    //请求个人信息
+    requestPersonInfo(id,callback){
+        let url=this.domain+"/friend/toFriendHome.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
-                backData.data.say=res.data.beiqugan.tips;
-                backData.data.playerSay=res.qugan.tips;
-                backData.data.awardTxt=res.qugan.text;
-            }else{
-                backData.data="";
-            }
-            if(callback)
-                callback(backData);
-        });
-    },
-    //请求指定用户的信息  ==================== 未完 =========================
-    requestPersonInfo(id,callback){
-        let url=this.domain+"";
-        let data={uid:Global.id,fid:id};
-        let backData={result:false,data:{}};
-        this.request(url,data,(res)=>{
-            if(res.state==200){
                 backData.data.id=id;
-                backData.data.avatar="";
-                backData.data.nickName="";
-                backData.data.lvl=0;
-                backData.data.thiefs=[];
-                backData.data.eggCount=0;
+                backData.data.avatar=res.data.url;
+                backData.data.nickName=res.data.nickName;
+                backData.data.lvl=res.data.level;
+                backData.data.thiefs=res.data.badMan;
+                backData.data.eggCount=res.data.egg;
+                backData.data.canBath=res.data.xizao==1;
+                backData.data.canPickupEgg=res.data.toudan==1;
+                backData.data.say=res.tips.tips;
             }else{
                 backData.data="";
             }

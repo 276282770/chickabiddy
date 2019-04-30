@@ -37,7 +37,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
+    this.onShow();
     },
     onClose(){
         var self=this;
@@ -58,7 +58,7 @@ cc.Class({
         this.load();
     },
     onEnable(){
-        this.onShow();
+        
     },
     load(){
         var self=this;

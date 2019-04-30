@@ -56,6 +56,7 @@ cc.Class({
             
         });
         }else{  //购买
+            console.log("【购买道具卡】");
             let newPanel= cc.instantiate(this.prePanelBuy);
         newPanel.parent=cc.find("Canvas");
         let newPanelScr=newPanel.getComponent("PanelBuy");
@@ -66,7 +67,7 @@ cc.Class({
 
     fill(id,count){
         var self=this;
-        this._had= count;
+        this._count= count;
         this._cid=id;
         if(id){
             let path;

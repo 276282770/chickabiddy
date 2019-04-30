@@ -8,4 +8,5 @@ window.Global={
     },
     money:0,
     nextScene:"Main",
+    otherPersonId:-1,  //其它人的ID
 };

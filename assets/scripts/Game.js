@@ -250,13 +250,14 @@ cc.Class({
 
     //更新吃饭
     updateDine(res){
-     
+     console.log("================================");
+     console.log(JSON.stringify(res));
         if(res.result){
             this.updateIndex();
 
             this.onPlayPlayerDine(res.data.id,res.data.say);
         }else{
-            this.player.openSay(res.data);
+            this.player.openSay(res.data.say);
         }
     },
 
@@ -305,12 +306,13 @@ cc.Class({
     },
     //显示小偷界面
     setPanelThief(data){
-        if(data.length>0){
-            let thief= cc.instantiate( this.prePanelThief);
-            thief.parent=this.node;
-            let thiefScr=thief.getComponent("Thief");
+            if(data[0]==null&&data[1]==null)
+                return;
+            // this.ndThief.active=true;
+            let thiefScr=this.ndThief.getComponent("Thief");
             thiefScr.setThief(data);
-        }
+            
+        
     },
 
     //设置分数
@@ -364,6 +366,9 @@ cc.Class({
         this.panels.createPanel(this.prePanelAnnouncement,"PanelAnnouncement");
     },
     onShowPanelPersonal(){
+        console.log("=================================");
+        console.log(this.panels.node.childrenCount);
+        
         this.panels.createPanel(this.prePanelPersonal,"PanelPersonal");
     },
     //显示个人日志信息
@@ -420,7 +425,13 @@ cc.Class({
                 // self.player.openSay(res.data);
                 self.updateIndex();
             }else{
-                self.showTip(res.data);
+                if(res.data.say!=""){
+                    self.player.openSay(res.data.say);
+                }
+                if(res.data.tip!=""){
+                 self.showTip(res.data.tip);
+                }
+                
             }
         });
     },
@@ -450,10 +461,13 @@ cc.Class({
         //     }
 
         // });
+        
         // this.onPlayPlayerDine(4,"你好，你好");
         // this.onPlayPlayerBath("你好，你好");
         // this.player.playCry();
-        this.onShowOtherHome(22);
+        // this.onShowOtherHome(22);
+        let thiefScr=this.ndThief.getComponent("Thief");
+            thiefScr.setThief([{id:0,name:""},null]);
  
     },
     //设置天黑天亮
