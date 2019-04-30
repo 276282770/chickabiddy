@@ -42,9 +42,12 @@ cc.Class({
     // update (dt) {},
     
     /**链接到中原银行小程序
+     * "navigateToMiniProgramAppIdList": [
+                "wxeedb326f283fe740"
+            ]
      */
     onLinkBank(){
-        let appid="";
+        let appid="wxeedb326f283fe740";
         WX.navigateToMiniProgram(appid);
     },
     onShow(){
