@@ -38,6 +38,7 @@ cc.Class({
 
         _thiefData:{default:[]},
 
+ 
         _isExtendOpen0:false,
         _isExtendOpen1:false,
         _cid:-1,  //id
@@ -55,6 +56,14 @@ cc.Class({
     setThief(data){
         if(data.length>2)
             return;
+        for(var i=0;i<data.length;i++){
+            if(data[i]==null)
+                continue;
+            if(data[i].id==Global.id){
+                data[i].name="我";
+            }
+            data[i].name+="的小鸡";
+        }
         if(data[0]!=null){
             this.ndThief0.active=true;
             this.ndThief0.getChildByName("txtName").getComponent(cc.Label).string=data[0].name;
@@ -101,14 +110,38 @@ cc.Class({
 
     // update (dt) {},
     onThiefClick(event,customerData){
-        if(customerData=="0"){
-            console.log("【点击第一个小鸡】");
-        // this.ndBg.active=true;
-         this.showExtend(0,!this._isExtendOpen0);
+        if(customerData==null)
+            return;
+        let idx=parseInt(customerData);
+        let _isExtendOpen;
+        if(idx==0)
+            _isExtendOpen=this._isExtendOpen0;
+        else if(idx==1)
+        _isExtendOpen=this._isExtendOpen1;
+
+        console.log("【点击第"+idx+"个小鸡】");
+
+        if(this._thiefData[idx].id==Global.id){
+            Network.requestGoBackPlayer((res)=>{
+                if(res.result){
+                     Global.game.onBack();
+                }
+            });
+           
         }else{
-            console.log("【点击第二个小鸡】");
-            this.showExtend(1,!this._isExtendOpen1);
+            this.showExtend(0,!this._isExtendOpen);
         }
+
+
+        // if(customerData=="0"){
+        //     console.log("【点击第一个小鸡】");
+        // // this.ndBg.active=true;
+        // if(this._thiefData[0])
+        //  this.showExtend(0,!this._isExtendOpen0);
+        // }else{
+        //     console.log("【点击第二个小鸡】");
+        //     this.showExtend(1,!this._isExtendOpen1);
+        // }
     },
     //显示扩展
     showExtend(idx,show){
@@ -177,7 +210,7 @@ cc.Class({
                     thief1.active=false;
                     Global.game.showTip(data.awardTxt);
                     self.onHide();
-                   },2);
+                   },5);
             }
         });
         

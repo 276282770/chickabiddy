@@ -301,7 +301,7 @@
       "__uuid__": "3645e4cc-5f9f-44d8-8144-6be007bda3be"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -310,7 +310,7 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_state": 0,
     "_atlas": null,
     "_srcBlendFactor": 770,
@@ -397,9 +397,15 @@
     "_clips": [
       {
         "__uuid__": "4091d52b-a2c0-4f9f-8224-364ef7821cca"
+      },
+      {
+        "__uuid__": "386feda8-d45c-4915-aaae-58814d4bd31b"
+      },
+      {
+        "__uuid__": "e238ae9f-9aa4-433a-807d-37b7a6b237be"
       }
     ],
-    "playOnLoad": true,
+    "playOnLoad": false,
     "_id": ""
   },
   {
@@ -437,10 +443,14 @@
       "__id__": 1
     },
     "_enabled": true,
-    "backTime": 2,
     "txtSay": {
       "__id__": 4
     },
+    "animBath": {
+      "__id__": 10
+    },
+    "_awardTxt": "",
+    "_backTime": 10,
     "_id": ""
   },
   {

@@ -27,8 +27,12 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        backTime:2,  //返回时间
+        
         txtSay:cc.Label,  //说话
+        animBath:cc.Animation,  //洗澡动画
+        // animSay:cc.Animation,  //说话动画
+        _awardTxt:"",
+        _backTime:10,  //返回时间
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -38,12 +42,28 @@ cc.Class({
     start () {
         this.scheduleOnce(function(){
             this.node.destroy();
-        },this.backTime);
+            Global.game.showTip(this._awardTxt);
+        },this._backTime);
+        this.onPlayBath();
+        // this.onPlaySay();
     },
-    fill(txt){
+    fill(txt,awardTxt){
+        this._awardTxt=awardTxt;
         if(txt!=null&&txt!=""){
             this.txtSay.string=txt;
         }
+    },
+    //播放洗澡动画
+    onPlayBath(){
+        var self=this;
+        this.animBath.play("player_bath0");
+        this.scheduleOnce(function(){
+            self.animBath.play("player_bath1");
+        },0.4);
+    },
+    //播放说话动画
+    onPlaySay(){
+        this.animSay.play("say_open");
     },
 
     // update (dt) {},

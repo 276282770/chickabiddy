@@ -29,6 +29,8 @@ cc.Class({
         // },
         progress:{default:null,type:cc.ProgressBar,tooltip:"加载进度条"},
         lblProgress:{default:null,type:cc.Label,tooltip:"加载进度显示"},
+        _minTime:1,  //最小时间
+        _canLink:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -37,17 +39,29 @@ cc.Class({
 
     start () {
 
+        var self=this;
         
         cc.director.preloadScene(Global.nextScene,(completedCount,totalCount,item)=>{
             var precent=completedCount/totalCount;
-            this.progress=precent;
-            this.lblProgress.string="加载中..."+ (parseInt(precent)*100).toString()+"%";
+            self.progress=precent;
+            self.lblProgress.string="加载中..."+ (parseInt(precent)*100).toString()+"%";
         },function(err,asset){
             if(err==null){
-                cc.director.loadScene(Global.nextScene);
+                
+                if(self._minTime<=0){
+                    cc.director.loadScene(Global.nextScene);
+                }else{
+                    self._canLink=true;
+                }
             }
         });
     },
 
-    // update (dt) {},
+    update (dt) {
+        if(this._minTime<=0&&this._canLink){
+            cc.director.loadScene(Global.nextScene);
+        }else{
+            this._minTime-=dt;
+        }
+    },
 });

@@ -71,7 +71,8 @@ cc.Class({
     //点击小鸡
     onClick(){
         console.log("点击小鸡");
-        if(cc.find("Canvas/Thief").active){
+        let thiefcount=cc.find("Canvas/Thief").getComponent("Thief").thiefCoun;
+        if(thiefcount>0){
             Global.game.showTip("我的食物都快被抢光了..");
             return;
         }
@@ -102,6 +103,14 @@ cc.Class({
         self.ndPlayer.getComponent(cc.Button).interactable=true;
         this.ndExtend.active=false;
         },0.2);
+    },
+    //设置小鸡的状态
+    setState(num){
+        this._state=num;
+        switch(num){
+            case 0:this.playIdle();break;
+            case 3:this.playCry();break;
+        }
     },
     playIdle(){
         this._state=2;

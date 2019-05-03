@@ -112,6 +112,11 @@ cc.Class({
         Global.nextScene="Main";
         cc.director.loadScene("Loading");
     },
+        // //回家
+        // goHome(){
+        //     Global.nextScene="Main";
+        //     cc.director.loadScene("Loading");
+        // },
     //给它的小鸡洗澡
     onBath(){
         var self=this;

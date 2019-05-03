@@ -61,9 +61,13 @@ var Network={
                 
                 backData.data.thiefs=res.data.badMan;  //小偷
                
-                backData.data.state=0;
-                if(res.data.die==1)
-                backData.data.state=1;
+                backData.data.playerState=0;  //正常
+                if(res.data.die>0)
+                backData.data.playerState=1; //挨揍了
+                if(res.data.where!=0){
+                    backData.data.playerState=2;  //去别人家了
+                    backData.data.otherId=res.data.where;
+                }
 
                 Global.id=backData.data.id;
                 Global.openid=res.data.openid;
@@ -341,20 +345,7 @@ var Network={
                 callback(backData);
         });
     },
-    //点击小鸡说的话
-    requestClickPlayer(callback){
-        let url=this.domain+":83/load/click.action";
-        let data={uid:Global.id};
-        let backData={result:false,data:{}};
-        this.request(url,data,(res)=>{
-            if(res.state==200){
-                backData.result=true;
-                backData.data.text=res.tips.tips;
-            }
-            if(callback)
-                callback(backData);
-        });
-    },
+
 
     //饭被偷吃，赶走
     //@id  偷吃者id
@@ -370,6 +361,39 @@ var Network={
                 backData.data.awardTxt=res.data.qugan.text;
             }else{
                 backData.data="";
+            }
+            if(callback)
+                callback(backData);
+        });
+    }, 
+    //点击小鸡说的话
+    requestClickPlayer(callback){
+        let url=this.domain+":83/load/click.action";
+        let data={uid:Global.id};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data.text=res.tips.tips;
+            }
+            if(callback)
+                callback(backData);
+        });
+    },
+    
+    /**召回（找回）小鸡
+     *
+     *
+     * @param {*} callback  回调函数
+     */
+    requestGoBackPlayer(callback){
+        let url=this.domain+":82/chicken/comeback.action";
+        let data={uid:Global.id};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                // backData.data.text=res.tips.tips;
             }
             if(callback)
                 callback(backData);
@@ -775,6 +799,79 @@ var Network={
             if(callback)
                 callback(backData);
         });
+    },
+
+    /** 鸡蛋兑换金币信息
+     *
+     *
+     * @param {*} callback  回调函数
+     */
+    exchangeEgg2MoneyInfo(callback){
+        this.url=this.domain+"/egg/bili.action";
+        this.data={uid:Global.id};
+        this.backData={result:false,data:{}};
+        this.request(url,data,function(res){
+            if(res.state==200){
+                backData.result=true;
+                let data=backData.data;
+                data.selfEggCount=res.data.goodEgg;
+                data.otherEggCount=res.data.badEgg;
+                data.selfEggPrice=res.data.perbadegg;
+                data.otherEggPrice=res.data.pergoodegg;
+            }
+        });
+    },
+    /** 鸡蛋兑换钱
+     * 
+     *
+     * @param {*} count 数量
+     * @param {*} where 鸡蛋来源
+     * @param {*} callback 回调函数
+     */
+    exchangeEgg2Money(count,where,callback){
+        let url=this.domain+"/egg/sell.action";
+        let data={uid:Global.id,goodEgg:0,badEgg:0};
+        if(where=="self"){
+            data.goodEgg=count;
+        }else if(where=="other"){
+            data.badEgg=count;
+        }
+        let backData={result:false,data:{}};
+        this.request(url,data,function(res){
+            if(res.state==200){
+                backData.result=true;
+            }
+        });
+        if(callback)
+            callback(backData);
+    },
+    /**自己的鸡蛋兑换金币
+     *
+     *
+     * @param {*} count  自己鸡蛋的数量
+     * @param {*} callback  回调函数
+     */
+    exchangeSelfEgg2Money(count,callback){
+        this.exchangeEgg2Money(count,"self",callback);
+    },
+    /**别人的鸡蛋兑换金币
+     *
+     *
+     * @param {*} count  别人鸡蛋数量
+     * @param {*} callback  回调函数
+     */
+    exchageOtherEgg2Money(count,callback){
+        this.exchangeEgg2Money(count,"other",callback);
+    },
+
+    /**兑换真鸡蛋
+     *
+     *
+     * @param {*} count  数量
+     * @param {*} callback  回调函数
+     */
+    exchangeEgg2Egg(count,callback){
+
     },
 
    

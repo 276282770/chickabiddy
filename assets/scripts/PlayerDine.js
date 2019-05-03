@@ -36,7 +36,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        this.scheduleOnce(this.onClose,5);
+        this.scheduleOnce(this.onClose,10);
     },
     onClose(){
         this.node.destroy();

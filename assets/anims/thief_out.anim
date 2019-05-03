@@ -3,7 +3,7 @@
   "_name": "thief_out",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 0.5166666666666667,
+  "_duration": 0.6833333333333333,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -34,6 +34,10 @@
             "value": {
               "__uuid__": "1e26f9ab-7c24-446a-b5da-b25427fc264b"
             }
+          },
+          {
+            "frame": 0.6666666666666666,
+            "value": null
           }
         ]
       }
