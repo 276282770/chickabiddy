@@ -9169,7 +9169,7 @@
     },
     "component": "",
     "_componentId": "bfadc4iK9tDIKWz3zbAG9RL",
-    "handler": "onPlayPlayerBath",
+    "handler": "onBath",
     "customEventData": ""
   },
   {
