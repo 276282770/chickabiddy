@@ -808,18 +808,20 @@ var Network={
      * @param {*} callback  回调函数
      */
     exchangeEgg2MoneyInfo(callback){
-        this.url=this.domain+"/egg/bili.action";
-        this.data={uid:Global.id};
-        this.backData={result:false,data:{}};
+        let url=this.domain+"/egg/bili.action";
+        let data={uid:Global.id};
+        let backData={result:false,data:{}};
         this.request(url,data,function(res){
             if(res.state==200){
                 backData.result=true;
                 let data=backData.data;
-                data.selfEggCount=res.data.goodEgg;
-                data.otherEggCount=res.data.badEgg;
-                data.selfEggPrice=res.data.perbadegg;
-                data.otherEggPrice=res.data.pergoodegg;
+                data.selfEggCount=res.data.goodegg;
+                data.otherEggCount=res.data.badegg;
+                data.selfEggPrice=res.data.pergoodegg;
+                data.otherEggPrice=res.data.perbadegg;
             }
+            if(callback)
+                callback(backData);
         });
     },
     /** 鸡蛋兑换钱
@@ -839,12 +841,18 @@ var Network={
         }
         let backData={result:false,data:{}};
         this.request(url,data,function(res){
+
             if(res.state==200){
+         
                 backData.result=true;
-            }
-        });
-        if(callback)
+   
+            }if(callback){
             callback(backData);
+
+        }
+        });
+
+        
     },
     /**自己的鸡蛋兑换金币
      *
