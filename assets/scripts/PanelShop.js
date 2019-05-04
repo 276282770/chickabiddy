@@ -32,10 +32,12 @@ cc.Class({
         // spTabNormal:cc.SpriteFrame, //正常按钮的背景
         // spTabSelected:cc.SpriteFrame,  //当前按钮的背景
         btnTabShop:cc.Button,  //商店按钮
+        btnTabExchange:cc.Button,  //兑换按钮
         btnTabOther:cc.Button,  //其它按钮
         ndSvShop:cc.Node,
+        ndSvExchange:cc.Node,
         // ndSvOther:cc.Node,
-        txtMoney:cc.Label,  //钱
+   
         preItemShop:cc.Prefab,   //项预制体
 
         
@@ -49,72 +51,23 @@ cc.Class({
 
     start () {
         this.load();
+        this.onTab(this,0);
     },
     /**选择
      */
-    onTab(event,name){
-        console.log("点击按钮"+name);
-        switch(name){
-            case "all":{
-                this.btnTabAll.interactable=false;
-                this.btnTabHat.interactable=true;
-                this.btnTabClothes.interactable=true;
-                this.btnTabGlasses.interactable=true;
-                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame=this.spTabSelected;
-                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
+    onTab(event,customerData){
+console.log("点击按钮"+customerData);
 
-                this.ndSvAll.active=true;
-                this.ndSvHat.active=false;
-                this.ndSvGlasses.active=false;
-                this.ndSvClothes.active=false;
-            };break;
-            case "hat":{
-                this.btnTabAll.interactable=true;
-                this.btnTabHat.interactable=false;
-                this.btnTabClothes.interactable=true;
-                this.btnTabGlasses.interactable=true;
-                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame=this.spTabSelected;
-                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
+        var tabBtn=[this.btnTabShop,this.btnTabExchange];
+        var svNode=[this.ndSvShop,this.ndSvExchange];
 
-                this.ndSvAll.active=false;
-                this.ndSvHat.active=true;
-                this.ndSvGlasses.active=false;
-                this.ndSvClothes.active=false;
-            };break;
-            case "glasses":{
-                this.btnTabAll.interactable=true;
-                this.btnTabHat.interactable=true;
-                this.btnTabClothes.interactable=true;
-                this.btnTabGlasses.interactable=false;
-                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame=this.spTabSelected;
+        let idx=parseInt(customerData);
 
-                this.ndSvAll.active=false;
-                this.ndSvHat.active=false;
-                this.ndSvGlasses.active=true;
-                this.ndSvClothes.active=false;
-            };break;
-            case "clothes":{
-                this.btnTabAll.interactable=true;
-                this.btnTabHat.interactable=true;
-                this.btnTabClothes.interactable=false;
-                this.btnTabGlasses.interactable=true;
-                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame=this.spTabSelected;
-                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-
-                this.ndSvAll.active=false;
-                this.ndSvHat.active=false;
-                this.ndSvGlasses.active=false;
-                this.ndSvClothes.active=true;
-            };break;
+        for(var i=0;i<tabBtn.length;i++){
+            let me=i==idx;
+            tabBtn[i].node.getChildByName("honghengxian").active=me;
+            tabBtn[i].interactable=!me;
+            svNode[i].active=me;
         }
     },
 
@@ -194,7 +147,7 @@ cc.Class({
     load(){
         
         var self=this;
-        self.txtMoney.string=Global.money.toString();
+
         Network.requestShop(1,(res)=>{
             if(res.result){
                 var data=res.data;

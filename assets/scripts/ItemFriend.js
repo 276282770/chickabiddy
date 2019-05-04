@@ -64,17 +64,17 @@ cc.Class({
         this.txtNickname.string=nickname;
         this.ndCanHelpBath.active=canHelpBath;
         this.ndCanStealEgg.active=canStealEgg;
-        this.ndCanStealFood.active=canStealFood;
+        // this.ndCanStealFood.active=canStealFood;
         this.ndIsOtherStealFood.active=isOtherStealFood;
-        if(inc!=null&&inc%2==0){
-            this.node.getComponent(cc.Sprite).spriteFrame=this.spBg2;
-        }
+        // if(inc!=null&&inc%2==0){
+        //     this.node.getComponent(cc.Sprite).spriteFrame=this.spBg2;
+        // }
         cc.loader.load({url:avatar,type:"png"},function(err,tex){
             if(tex){
                 self.imgAvatar.spriteFrame=new cc.SpriteFrame(tex);
             }
         });
-        
+
     },
     //点击
     onClick(){

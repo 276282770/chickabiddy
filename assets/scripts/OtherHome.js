@@ -121,9 +121,13 @@ cc.Class({
     onBath(){
         var self=this;
         Network.requestBathHelp(this._uid,(res)=>{
+            var data=res.data;
             if(res.result){
-                var data=res.data;
+                
                 self.onPlayBath(data.say);
+            }
+            else{
+                self.player.openSay(data.say);
             }
             if(data.tip)
                 self.showTip(data.tip);

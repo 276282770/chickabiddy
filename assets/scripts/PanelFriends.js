@@ -31,6 +31,7 @@ cc.Class({
         ndBg:cc.Node,  //背景节点
         preItem:cc.Prefab,  //好友项预制体
         ndCtnt:cc.Node,  //好友列表根节点
+        txtUserId:cc.EditBox,  //用户ID
         _page:0,  //分页
         _isPanelReady:false,
         _inc:0,
@@ -72,7 +73,7 @@ cc.Class({
         this.show();
     },
     //添加好友
-    onAddFriend(){
+    onShare(){
         Global.game.onShare("tp=af&id="+Global.id);
     },
     //加载好友
@@ -134,6 +135,8 @@ cc.Class({
                         let friends=data.friends;
                 for(var i=0;i<friends.length;i++){
                     let newItem= cc.instantiate(this.preItem);
+                    if(!newItem)
+                        continue;
                     newItem.parent=this.ndCtnt;
                     let newItemScr= newItem.getComponent("ItemFriend");
                     newItemScr.fillItem(friends[i].id,friends[i].lvl,friends[i].nickName,friends[i].avatar,
@@ -141,5 +144,28 @@ cc.Class({
                     this._inc++;
                 }
                 this._page++;
+    },
+
+    /**添加好友
+     *
+     *
+     */
+    onAddFriend(){
+        var self=this;
+        if(this.txtUserId!=""){
+        let id=this.txtUserId.string;
+        console.log("【添加好友】");
+        Network.requestAddFriend(id,(res)=>{
+            if(res.result){
+            Global.game.showTip("添加好友成功");
+            }else{
+                Global.game.showTip("添加好友失败");
+            }
+            self.onClose();
+        });
+        }
+        else{
+            this.onShare();
+        }
     },
 });

@@ -234,6 +234,7 @@ cc.Class({
                 self.updateState(data);
             }
         });
+        this.setDark();
     },
     updateState(data) {
         var self = this;
@@ -516,15 +517,15 @@ cc.Class({
         // });
 
         // this.onPlayPlayerDine(4,"你好，你好");
-        // this.onPlayPlayerBath("你好，你好");
+        this.onPlayPlayerBath();
         // this.player.playCry();
         // this.onShowOtherHome(22);
         // let thiefScr=this.ndThief.getComponent("Thief");
         //     thiefScr.setThief([{id:0,name:""},null]);
         // this.player.playCry();
-        console.log(JSON.stringify(this.ndRight.position));
+        
         // this.ndRight.position.Y=0;
-        this.ndRight.position=new cc.Vec2(this.ndRight.x,0);
+       
 
     },
     //设置天黑天亮

@@ -190,7 +190,7 @@
       "__id__": 2
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -321,7 +321,7 @@
       "__id__": 2
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -347,8 +347,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 30
+      "width": 50,
+      "height": 50
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -357,8 +357,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 294,
-      "y": -140,
+      "x": 315,
+      "y": -115,
       "z": 0
     },
     "_scale": {
@@ -393,7 +393,7 @@
       "__uuid__": "af45d314-1499-4650-81ad-e751702f0e3a"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -501,8 +501,8 @@
     "_target": null,
     "_alignFlags": 33,
     "_left": 0,
-    "_right": 51,
-    "_top": 125,
+    "_right": 20,
+    "_top": 90,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -535,7 +535,7 @@
       "__id__": 2
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -719,7 +719,7 @@
       "__id__": 2
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -903,7 +903,7 @@
       "__id__": 2
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -1087,7 +1087,7 @@
       "__id__": 2
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -1278,7 +1278,7 @@
         "__id__": 41
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -2902,7 +2902,7 @@
         "__id__": 94
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -4175,7 +4175,7 @@
         "__id__": 135
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -5331,7 +5331,7 @@
         "__id__": 172
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -6277,7 +6277,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -544,
+      "y": -386,
       "z": 0
     },
     "_scale": {

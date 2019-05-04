@@ -46,8 +46,8 @@ cc.Class({
     fill(date,ctnt,inc){
         this.txtDate.string=date;
         this.txtCtnt.string=ctnt;
-        if(inc%2==0){
-            this.imgBg.spriteFrame=this.spBg2;
-        }
+        // if(inc%2==0){
+        //     this.imgBg.spriteFrame=this.spBg2;
+        // }
     },
 });

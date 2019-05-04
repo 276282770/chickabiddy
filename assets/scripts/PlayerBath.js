@@ -59,7 +59,7 @@ cc.Class({
         this.animBath.play("player_bath0");
         this.scheduleOnce(function(){
             self.animBath.play("player_bath1");
-        },0.4);
+        },1.37);
     },
     //播放说话动画
     onPlaySay(){

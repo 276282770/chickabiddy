@@ -17,14 +17,15 @@ var Network={
         let data;
         if(code!=null){
             data={code:code,url:avatar,nickName:nickName};
+            Global.user.nickName=nickName;
+            Global.user.avatar=avatar;
+
         }else{
             data={uid:Global.id};
         }
         let backData={result:false,data:{}};
 
-        Global.user.nickName=nickName;
-        Global.user.avatar=avatar;
-
+        
 
         this.request(url,data,(res)=>{
             if(res.state==200){
@@ -164,7 +165,7 @@ var Network={
                     friend.nickName=res.data[i].nickName;  
                     friend.lvl=res.data[i].level;  //等级
                     friend.avatar=res.data[i].url;  //头像
-                    friend.isHelpBath=res.data[i].xizao==1; //是否可以洗澡
+                    friend.isHelpBath=res.data[i].xizao==0; //是否可以洗澡
                     friend.isStealEgg=res.data[i].toudan==1;  //是否可以偷蛋
                     friend.isStealFood=res.data[i].food==1;  //是否可以偷饭
                     friend.isOtherStealFood=res.data[i].qugan==1;  //是否被人正在偷饭
@@ -259,10 +260,10 @@ var Network={
                 backData.result=true;
             }else{
                 switch(res.state){
-                    case 213:backData.data.say="没有多少蛋了，你就别下手了.";
-                    case 225:backData.data.tip="传入ID用户不存在";
-                    case 224:backData.data.tip="不能重复偷蛋(一波只能偷一个蛋)";
-                    case 226:backData.data.tip="不能偷自己";
+                    case 213:backData.data.say="没有多少蛋了，你就别下手了.";break;
+                    case 225:backData.data.tip="传入ID用户不存在";break;
+                    case 224:backData.data.tip="不能重复偷蛋(一波只能偷一个蛋)";break;
+                    case 226:backData.data.tip="不能偷自己";break;
                 }
                 
             }

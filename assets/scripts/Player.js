@@ -39,6 +39,7 @@ cc.Class({
 
         _state:0,  //小鸡状态  0正常，1被点击，2空闲 3哭泣
         _remainChangeTime:0,  //改变状态小鸡时间
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -76,13 +77,16 @@ cc.Class({
             Global.game.showTip("我的食物都快被抢光了..");
             return;
         }
+        if(this.ndExtend.active){
+            this.onClickBg();
+        }else{
         var self=this;
         this._state=1;
         this.ndBg.active=true;
         this.ndExtend.active=true;
         this.animPlayer.play("player_click");
         this.animExtend.play("player_extend_open");
-        this.ndPlayer.getComponent(cc.Button).interactable=false;
+        // this.ndPlayer.getComponent(cc.Button).interactable=false;
         Network.requestClickPlayer((res)=>{
             if(res.result){
 
@@ -90,6 +94,7 @@ cc.Class({
                 self.txtSay.string=res.data.text;
             }
         });
+        }
     },
     //点击背景
     onClickBg(){
@@ -100,7 +105,7 @@ cc.Class({
         self._state=0;
         self.ndBg.active=false;
         self.animPlayer.play("player_normal");
-        self.ndPlayer.getComponent(cc.Button).interactable=true;
+        // self.ndPlayer.getComponent(cc.Button).interactable=true;
         this.ndExtend.active=false;
         },0.2);
     },
@@ -145,7 +150,7 @@ cc.Class({
     openSay(txt){
         if(txt==null||txt=="")
             return;
-        if(cc.find("Canvas/Thief").active){
+        if(cc.find("Canvas/Thief").getComponent("Thief").thiefCount>0){
             Global.game.showTip(txt);
             return;
         }
