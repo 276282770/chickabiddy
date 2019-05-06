@@ -152,7 +152,7 @@ cc.Class({
      */
     onAddFriend(){
         var self=this;
-        if(this.txtUserId!=""){
+        if(this.txtUserId.string!=""){
         let id=this.txtUserId.string;
         console.log("【添加好友】");
         Network.requestAddFriend(id,(res)=>{

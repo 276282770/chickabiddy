@@ -43,7 +43,7 @@ cc.Class({
         
         cc.director.preloadScene(Global.nextScene,(completedCount,totalCount,item)=>{
             var precent=completedCount/totalCount;
-            self.progress=precent;
+            self.progress.progress=precent;
             
             self.lblProgress.string="加载中..."+ (parseInt(precent*100)).toString()+"%";
         },function(err,asset){
@@ -56,6 +56,7 @@ cc.Class({
                 }
             }
         });
+
     },
 
     update (dt) {

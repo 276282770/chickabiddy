@@ -783,6 +783,8 @@
     "lblProgress": {
       "__id__": 12
     },
+    "_minTime": 1,
+    "_canLink": false,
     "_id": "0a0RIP58dEz6wOV8ojAWXs"
   }
 ]
