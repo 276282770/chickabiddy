@@ -129,7 +129,7 @@ cc.Class({
             });
            
         }else{
-            this.showExtend(0,!this._isExtendOpen);
+            this.showExtend(idx,!_isExtendOpen);
         }
 
 
@@ -145,6 +145,7 @@ cc.Class({
     },
     //显示扩展
     showExtend(idx,show){
+  
         if(idx==0){
             if(show){
                 if(this._isExtendOpen0)
@@ -197,10 +198,12 @@ cc.Class({
         Network.requestHit(self._thiefData[idx].id,(res)=>{
             if(res.result){
                 let data=res.data;
+
+
                 self.showExtend(idx,false);
                 self.showExtend(idx,false);
                 self.openSay(idx,data.say);
-                self.openSay(idx,data.otherSay);
+                self.openSay(self._thiefData.length-1- idx,data.otherSay);
                    Global.game.player.openSay(data.playerSay);
                    thief1.getComponent(cc.Animation).play("thief_out");
                    thief0.getComponent(cc.Animation).play("thief_hit");
@@ -210,6 +213,7 @@ cc.Class({
                     thief1.active=false;
                     Global.game.showTip(data.awardTxt);
                     self.onHide();
+                    Global.game.updateIndex();
                    },5);
             }
         });
@@ -244,6 +248,7 @@ cc.Class({
                 self.onHide();
                 
             }
+            Global.game.updateIndex();
         },2);
         }
         });
@@ -264,7 +269,7 @@ cc.Class({
         ndThiefSay.getChildByName("txtSay").getComponent(cc.Label).string=txt;
         this.scheduleOnce(function(){
             ndThiefSay.active=false;
-        },2);
+        },3);
     },
     
 

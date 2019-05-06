@@ -260,7 +260,7 @@ cc.Class({
             if(data.thiefs[0]!=null||data.thiefs[1]!=null){
                 //有小偷
             self.ndRight.y=0;
-            self.player.node.y=-100;
+            self.player.node.y=-200;
             }else{
                 //没有小偷
             self.ndRight.y=349;
@@ -517,7 +517,7 @@ cc.Class({
         // });
 
         // this.onPlayPlayerDine(4,"你好，你好");
-        this.onPlayPlayerBath();
+        // this.onPlayPlayerBath();
         // this.player.playCry();
         // this.onShowOtherHome(22);
         // let thiefScr=this.ndThief.getComponent("Thief");
@@ -525,7 +525,7 @@ cc.Class({
         // this.player.playCry();
         
         // this.ndRight.position.Y=0;
-       
+       this.showTip("你好你好");
 
     },
     //设置天黑天亮

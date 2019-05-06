@@ -48,7 +48,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        this.onTab(null,"all");
+        // this.onTab(null,"all");
     },
     /**选择
      */

@@ -28,7 +28,7 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        // ndUse:cc.Node,  //使用按钮节点
+        ndUse:cc.Node,  //使用按钮节点
         prePanelBuy:cc.Prefab,  //购买界面预制体
         txtCount:cc.Label,  //道具数量
         _cid:-1,  //道具ID
@@ -47,6 +47,20 @@ cc.Class({
     //使用
     onClick(){
         if(this._count>0){
+
+        }else{  //购买
+            console.log("【购买道具卡】");
+            let newPanel= cc.instantiate(this.prePanelBuy);
+        newPanel.parent=cc.find("Canvas");
+        let newPanelScr=newPanel.getComponent("PanelBuy");
+        newPanelScr.load(this._cid);
+        Global.game.panels.deletePanel();
+        }
+        
+    },
+
+    //使用按钮点击
+    onUse(){
         Network.requestUseProp(this._cid,(res)=>{
             if(res.result){
                 console.log("【使用道具卡 ");
@@ -55,16 +69,8 @@ cc.Class({
             }
             
         });
-        }else{  //购买
-            console.log("【购买道具卡】");
-            let newPanel= cc.instantiate(this.prePanelBuy);
-        newPanel.parent=cc.find("Canvas");
-        let newPanelScr=newPanel.getComponent("PanelBuy");
-        newPanelScr.load(this._cid);
-        }
         Global.game.panels.deletePanel();
     },
-
     fill(id,count){
         var self=this;
         this._count= count;
@@ -76,7 +82,7 @@ cc.Class({
                 self.txtCount.string=count.toString();
             }
             else{
-                // this.ndUse.active=false;
+                this.ndUse.active=false;
                 path="Shop/shop_"+id+"_g";
             }
             cc.loader.loadRes(path,function(err,tex){

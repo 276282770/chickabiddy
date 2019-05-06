@@ -2,7 +2,7 @@
 var WX=require("WX");
 var Network={
     // domain:"",
-    domain:"http://xj.xiajiwangluo.com",  //域名
+    domain:"https://xj.xiajiwangluo.com",  //域名
 
     //封装微信http协议
     request(url,data,success){
@@ -13,7 +13,7 @@ var Network={
      * @param  {function} callback 回调函数
      */
     requestLogin(code,avatar,nickName,callback){
-        let url=this.domain+":83/load/load.action";
+        let url=this.domain+"/load/load.action";
         let data;
         if(code!=null){
             data={code:code,url:avatar,nickName:nickName};
@@ -85,7 +85,7 @@ var Network={
         this.requestLogin(null,"","",callback);
 
         // let data={uid:Global.id};
-        // let url=this.domain+":83/load/load.action";
+        // let url=this.domain+"/load/load.action";
         // let backData={result:false,data:{}};
         // this.request(url,data,(res)=>{
         //     if(res.state==200){
@@ -273,7 +273,7 @@ var Network={
     },
     //吃饭
     requestDine(id,callback){
-        let url=this.domain+":82/chicken/checkEat.action";
+        let url=this.domain+"/chicken/checkEat.action";
         let data={uid:Global.id,pid:id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -294,7 +294,7 @@ var Network={
     },
     //洗澡
     requestBath(callback){
-        let url=this.domain+":81/xizao/userself.action";
+        let url=this.domain+"/xizao/userself.action";
         let data={uid:Global.id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -312,7 +312,7 @@ var Network={
     },
     //帮别人洗澡
     requestBathHelp(id,callback){
-        let url=this.domain+":81/xizao/help.action";
+        let url=this.domain+"/xizao/help.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -328,7 +328,7 @@ var Network={
     //饭被偷吃，揍一顿
     //@id  被揍id
     requestHit(id,callback){
-        let url=this.domain+":82/chicken/Hit.action";
+        let url=this.domain+"/chicken/Hit.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -351,7 +351,7 @@ var Network={
     //饭被偷吃，赶走
     //@id  偷吃者id
     requestDriveOff(id,callback){
-        let url=this.domain+":82/chicken/Qugan.action";
+        let url=this.domain+"/chicken/Qugan.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -369,7 +369,7 @@ var Network={
     }, 
     //点击小鸡说的话
     requestClickPlayer(callback){
-        let url=this.domain+":83/load/click.action";
+        let url=this.domain+"/load/click.action";
         let data={uid:Global.id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -388,7 +388,7 @@ var Network={
      * @param {*} callback  回调函数
      */
     requestGoBackPlayer(callback){
-        let url=this.domain+":82/chicken/comeback.action";
+        let url=this.domain+"/chicken/comeback.action";
         let data={uid:Global.id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -422,7 +422,7 @@ var Network={
      * @param  {} callback  返回
      */
     requestTackABath(callback){
-        let url=this.domain+":81/xizao/userself.action";
+        let url=this.domain+"/xizao/userself.action";
         let data={uid:Global.id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -440,7 +440,7 @@ var Network={
      * @param  {Function} callback  返回
      */
     requestHelpTackABath(id,callback){
-        let url=this.domain+":81/xizao/help.action";
+        let url=this.domain+"/xizao/help.action";
         let data={uid:Global.id,fid:id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -504,7 +504,7 @@ var Network={
      * @param  {function} callback  返回
      */
     requestBuy(id,count,callback){
-        let url=this.domain+":81/shop/buyProp.action";
+        let url=this.domain+"/shop/buyProp.action";
         let data={uid:Global.id,pid:id,num:count};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -527,7 +527,7 @@ var Network={
      * @param  {function} callback 返回
      */
     requestShop(tp,callback){
-        let url=this.domain+":81/shop/shop.action";
+        let url=this.domain+"/shop/shop.action";
         let data={uid:Global.id,cls:tp};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -557,7 +557,7 @@ var Network={
      * @param {*} callback  回调
      */
     requestShopGoodsById(id,callback){
-        let url=this.domain+":81/shop/selectOne.action";
+        let url=this.domain+"/shop/selectOne.action";
         let data={pid:id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -579,7 +579,7 @@ var Network={
     },
         //获取道具
         requestGetPropLst(callback){
-            let url=this.domain+":81/shop/prop.action";
+            let url=this.domain+"/shop/prop.action";
             let data={uid:Global.id,cls:2};
             var backData={result:false,data:[]};
             this.request(url,data,(res)=>{
@@ -604,7 +604,7 @@ var Network={
         },
         //使用道具
         requestUseProp(id,callback){
-            let url=this.domain+":82/chicken/use.action";
+            let url=this.domain+"/chicken/use.action";
             let data={uid:Global.id,pid:id};
             var backData={result:false,data:{}};
             this.request(url,data,(res)=>{
@@ -622,7 +622,7 @@ var Network={
      * @param  {function} callback 回调函数
      */
     requestPackage(callback){
-        let url=this.domain+":81/shop/back.action";
+        let url=this.domain+"/shop/back.action";
         let data={uid:Global.id,cls:1};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -698,7 +698,7 @@ var Network={
     },
     //获取问题题目
     requestAnswerLst(callback){
-        let url=this.domain+":81/question/question.action";
+        let url=this.domain+"/question/question.action";
         let data={uid:Global.id};
         var backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -720,7 +720,7 @@ var Network={
     },
     //答题
     requestAnswer(id,a,callback){
-        let url=this.domain+":81/question/userAnswer.action";
+        let url=this.domain+"/question/userAnswer.action";
         let s=['A','B','C','D'];
         let data={uid:Global.id,qid:id,choice:s[a]};
         var backData={result:false,data:{}};
@@ -741,7 +741,7 @@ var Network={
      * @param {*} callback 回调函数
      */
     requestMission(callback){
-        let url=this.domain+":81/share/task.action";
+        let url=this.domain+"/share/task.action";
         let data={uid:Global.id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{
@@ -761,7 +761,7 @@ var Network={
      * @param {*} callback 回调函数
      */
     requestShare(callback){
-        let url=this.domain+":81/share/share.action";
+        let url=this.domain+"/share/share.action";
         let data={uid:Global.id};
         let backData={result:false,data:{}};
         this.request(url,data,(res)=>{

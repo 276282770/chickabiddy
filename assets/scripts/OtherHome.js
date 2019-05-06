@@ -76,7 +76,7 @@ cc.Class({
                 self.txtEggCount.string=data.eggCount.toString();
                 self._eggCount=data.eggCount;
                 self.txtLvl.string=data.lvl.toString();
-                self.txtNickname.string=data.nickName+"家的小鸡";
+                self.txtNickname.string=data.nickName;
                 self.ndThief.getComponent("Thief").setThief(data.thiefs);
                 
                 if(data.say!=""){
@@ -152,6 +152,10 @@ cc.Class({
     },
     test(){
         this.player.openSay("你好");
+    },
+    
+    updateIndex(){
+
     },
 
 });
