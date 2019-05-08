@@ -42,7 +42,7 @@
     "REMOTE_SERVER_ROOT": "https://xj.xiajiwangluo.com",
     "appid": "wx0663cc7af0bc185d",
     "orientation": "portrait",
-    "subContext": ""
+    "subContext": "SDC"
   },
   "xxteaKey": "c9ff712c-9da8-46",
   "zipCompressJs": true

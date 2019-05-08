@@ -41,7 +41,7 @@ cc.Class({
 
         var self=this;
         
-        cc.director.preloadScene(Global.nextScene,(completedCount,totalCount,item)=>{
+        cc.director.preloadScene(Global.scene.nextSceneName,(completedCount,totalCount,item)=>{
             var precent=completedCount/totalCount;
             self.progress.progress=precent;
             
@@ -49,21 +49,21 @@ cc.Class({
         },function(err,asset){
             if(err==null){
                 
-                if(self._minTime<=0){
-                    cc.director.loadScene(Global.nextScene);
-                }else{
-                    self._canLink=true;
-                }
+                // if(self._minTime<=0){
+                    cc.director.loadScene(Global.scene.nextSceneName);
+                // }else{
+                //     self._canLink=true;
+                // }
             }
         });
 
     },
 
     update (dt) {
-        if(this._minTime<=0&&this._canLink){
-            cc.director.loadScene(Global.nextScene);
-        }else{
-            this._minTime-=dt;
-        }
+        // if(this._minTime<=0&&this._canLink){
+        //     cc.director.loadScene(Global.scene.nextSceneName);
+        // }else{
+        //     this._minTime-=dt;
+        // }
     },
 });

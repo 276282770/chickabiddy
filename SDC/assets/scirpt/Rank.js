@@ -28,37 +28,50 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
+        preItem:{default:null,type:cc.Prefab,tooltip:"项预制体"},
+        ndCtnt:{default:null,type:cc.Node,tooltip:"项目根节点"},
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    start(){
 
-    start () {
-        var self=this;
-        WX.onMessage((data)=>self.rsvMessage(data));
-  
+        this.load();
+
     },
 
-    // update (dt) {},
-    
-    //接受主域消息
-    rsvMessage(data){
+    load(){
+        var self=this;
+        var dataLst=[];
+        WX.getFriendCloudStorage((res)=>{
+            for(var i=0;i<res.length;i++){
+            let openid=res[i].openid;
+            let nickname=res[i].nickname;
+            let avatarUrl=res[i].avatarUrl;
+            let KVDataValue=JSON.parse( res[i].KVDataList[0].value);
+            let score=KVDataValue.wxgame.score;
 
-        switch(data.cmd){
-            case "SETSCORE":this.setScore(data.para);break;
-            case "GETSCORE":this.getScore();break;
+            dataLst.push({nickname:nickname,avatar:avatarUrl,level:score,openId:openid});
+            }
+            self.sortList(dataLst);
+            for(var i=0;i<dataLst.length;i++){
+                let newItem=cc.instantiate(self.preItem);
+                newItem.getComponent("Item").fill((i+1).toString(),dataLst[i].nickname,dataLst[i].avatar,dataLst[i].level,dataLst[i].openId);
+                newItem.parent=self.ndCtnt;
+            }
+        });
+    },
+
+    sortList(lstData){
+        for(var i=0;i<lstData.length;i++){
+            for(var j=i+1;j<lstData.length;j++){
+                if(lstData[j].level>lstData[i].level){
+                    let tmpData=lstData[i];
+                    lstData[i]=lstData[j];
+                    lstData[j]=tmpData;
+                }
+            }
         }
     },
-    //发送分数
-    setScore(score){
-        WX.setUserCloudStorage(score);
-    },
-    //获取自己的分数
-    getScore(){
-        WX.getUserCloudStorage();
-    },
-    test(){
-        console.log("test");
-    },
+    
 });

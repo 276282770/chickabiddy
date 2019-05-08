@@ -3,10 +3,10 @@
   "_name": "player_idle",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 0.7666666666666667,
+  "_duration": 1.0166666666666666,
   "sample": 60,
-  "speed": 2,
-  "wrapMode": "22",
+  "speed": 1,
+  "wrapMode": "2",
   "curveData": {
     "comps": {
       "cc.Sprite": {
@@ -18,21 +18,39 @@
             }
           },
           {
-            "frame": 0.25,
+            "frame": 0.16666666666666666,
             "value": {
               "__uuid__": "f15b7c3e-e464-451e-942b-ab79ff30cfed"
             }
           },
           {
-            "frame": 0.5,
+            "frame": 0.3333333333333333,
             "value": {
               "__uuid__": "1d17761d-1196-4345-97ca-aa8978567faa"
             }
           },
           {
-            "frame": 0.75,
+            "frame": 0.5,
             "value": {
-              "__uuid__": "1d17761d-1196-4345-97ca-aa8978567faa"
+              "__uuid__": "c4eafd42-1ad3-4f68-be9b-ba139f197ba0"
+            }
+          },
+          {
+            "frame": 0.6666666666666666,
+            "value": {
+              "__uuid__": "b2d5f3b8-9c43-4f1f-b1fc-77862490dcc4"
+            }
+          },
+          {
+            "frame": 0.8333333333333334,
+            "value": {
+              "__uuid__": "d64389cc-2f87-43d3-a072-e6a42181c934"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "fedd5681-b4ee-43e9-80fd-3afce1e0cca6"
             }
           }
         ]

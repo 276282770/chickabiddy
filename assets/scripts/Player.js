@@ -37,9 +37,14 @@ cc.Class({
         spBgNormal:cc.SpriteFrame,  //正常的背景
         spDine:cc.SpriteFrame,  //进餐的背景
 
-        _state:0,  //小鸡状态  0正常，1被点击，2空闲 3哭泣
+        _state:0,  //小鸡状态  0正常，1被点击，2空闲， 3哭泣(被揍)， 4 挨饿， 5吃饭， 6洗澡 7不在家
+        _lastState:0,  //上一个状态
         _remainChangeTime:0,  //改变状态小鸡时间
 
+        _hungry:false,
+        _clean:false,
+        _bateu:false,
+        _outHome:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -72,7 +77,8 @@ cc.Class({
     //点击小鸡
     onClick(){
         console.log("点击小鸡");
-        let thiefcount=cc.find("Canvas/Thief").getComponent("Thief").thiefCoun;
+        // let thiefcount=cc.find("Canvas/Thief").getComponent("Thief").thiefCount;
+        let thiefcount=Global.game.thief.thiefCount
         if(thiefcount>0){
             Global.game.showTip("我的食物都快被抢光了..");
             return;
@@ -150,7 +156,8 @@ cc.Class({
     openSay(txt){
         if(txt==null||txt=="")
             return;
-        if(cc.find("Canvas/Thief").getComponent("Thief").thiefCount>0){
+        // if(cc.find("Canvas/Thief").getComponent("Thief").thiefCount>0){
+        if(Global.game.thief.thiefCount>0){
             Global.game.showTip(txt);
             return;
         }
@@ -161,5 +168,11 @@ cc.Class({
             self.txtSay.node.parent.active=false;
         },2)
     },
+    stateManager(){
 
+    },
+    
+    setPlayerCondition(bateu,outHome){
+        this._hungry=Global.game.
+    },
 });

@@ -179,13 +179,13 @@ var WX={
     //获取好友数据
     getFriendCloudStorage(callback){
         if(cc.sys.platform==cc.sys.WECHAT_GAME){
-            console.log("<- 获取好友数据");
+            console.log("<-【获取好友数据】");
             wx.getFriendCloudStorage({
                 keyList:["score"],
                 success:function(res){
                     if(callback){
                         callback(res.data);
-                        console.log("-> 获取好友数据："+JSON.stringify(res));
+                        console.log("->【获取好友数据】"+JSON.stringify(res));
                     }
                 },
             });

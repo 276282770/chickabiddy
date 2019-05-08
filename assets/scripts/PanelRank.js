@@ -43,10 +43,14 @@ cc.Class({
     // update (dt) {},
 
     //显示面板
-    show(){
+    onShow(){
         var self=this;
+    this.node.active=true;
     this.ndBg.runAction(cc.sequence( cc.moveTo(0.5,new cc.Vec2(this.ndBg.position.x,this.ndBg.height)),
-        cc.callFunc(function(){self._isPanelReady=true;})
+        cc.callFunc(function(){
+                self._isPanelReady=true;
+                // Global.game._OpenSubDomain=true;
+            })
         ));
         // this.load();
     },
@@ -62,7 +66,20 @@ cc.Class({
                     console.log("删除面板");
                 })));
         },
+    //隐藏面板
+    onHide(){
+        var self=this;
+        if(!this._isPanelReady)
+        return;
+        console.log("【隐藏好友面板】");
+        this.ndBg.runAction(cc.sequence( 
+            cc.moveTo(0.5,new cc.Vec2(this.ndBg.position.x,0)),
+            cc.callFunc(function(){
+                self.node.active=false;
+                // Global.game._OpenSubDomain=false;
+            })));
+    },
     onEnable(){
-        this.show();
+        // this.onShow();
     },
 });

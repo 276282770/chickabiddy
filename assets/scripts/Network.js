@@ -17,8 +17,8 @@ var Network={
         let data;
         if(code!=null){
             data={code:code,url:avatar,nickName:nickName};
-            Global.user.nickName=nickName;
-            Global.user.avatar=avatar;
+            // Global.user.nickName=nickName;
+            // Global.user.avatar=avatar;
 
         }else{
             data={uid:Global.id};
@@ -65,7 +65,7 @@ var Network={
                 backData.data.playerState=0;  //正常
                 if(res.data.die>0)
                 backData.data.playerState=1; //挨揍了
-                if(res.data.where!=0){
+                if(res.data.where>0){
                     backData.data.playerState=2;  //去别人家了
                     backData.data.otherId=res.data.where;
                 }
@@ -280,14 +280,15 @@ var Network={
             if(res.state==200){
                 backData.result=true;
                 backData.data.id=id;
-                backData.data.say=res.tips.tips;
-            }else{
-                backData.data.say=res.tips.tips;
-
-                switch(res.state){
-                    case 214:backData.data.say="喂食失败 清洁度不够";break;
-                }
             }
+                backData.data.say=res.tips.tips;
+            // }else{
+            //     backData.data.say=res.data.tips;
+
+            //     switch(res.state){
+            //         case 214:backData.data.say="喂食失败 清洁度不够";break;
+            //     }
+            // }
             if(callback)
                 callback(backData);
         });
@@ -592,6 +593,7 @@ var Network={
                     item.desc=res.data[i].desc;
                     item.price=res.data[i].price;
                     item.count=res.data[i].num;
+                    item.percent=res.data[i].url/res.data[i].time;
                     backData.data.push(item);
                     }
                     
@@ -794,6 +796,14 @@ var Network={
                 backData.data.canBath=res.data.xizao==1;
                 backData.data.canPickupEgg=res.data.toudan==1;
                 backData.data.say=res.tips.tips;
+
+                backData.data.playerState=0;  //正常
+                if(res.data.die>0)
+                backData.data.playerState=1; //挨揍了
+                if(res.data.where>0){
+                    backData.data.playerState=2;  //去别人家了
+                    backData.data.otherId=res.data.where;
+                }
             }else{
                 backData.data="";
             }

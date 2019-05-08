@@ -78,8 +78,8 @@ cc.Class({
     },
     //点击
     onClick(){
-        Global.otherPersonId=this._uid;
-        Global.nextScene="OtherHome";
+        Global.scene.otherUid=this._uid;
+        Global.scene.nextSceneName="OtherHome";
         cc.director.loadScene("Loading");
        
     },

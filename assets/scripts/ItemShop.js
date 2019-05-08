@@ -66,7 +66,7 @@ cc.Class({
     },
     //购买
     onBuy(){
-        Global.game.panels.deletePanel();
+        // Global.game.panels.deletePanel();
         let newPanel= cc.instantiate(this.prePanelBuy);
         newPanel.parent=cc.find("Canvas");
         let newPanelScr=newPanel.getComponent("PanelBuy");

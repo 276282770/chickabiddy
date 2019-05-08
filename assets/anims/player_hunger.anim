@@ -1,0 +1,37 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "player_hunger",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.0166666666666666,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "f6ca0561-b2e4-49ea-99bf-f2cc866a99f9"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "f8c2e7ae-cb76-4d63-a7e3-fb175ed9062f"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "f6ca0561-b2e4-49ea-99bf-f2cc866a99f9"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

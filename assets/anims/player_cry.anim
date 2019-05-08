@@ -3,7 +3,7 @@
   "_name": "player_cry",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 1.0166666666666666,
+  "_duration": 1.5166666666666666,
   "sample": 60,
   "speed": 1,
   "wrapMode": "2",
@@ -25,6 +25,12 @@
           },
           {
             "frame": 1,
+            "value": {
+              "__uuid__": "829c88b6-787c-4f97-9a4e-6bb5560ec487"
+            }
+          },
+          {
+            "frame": 1.5,
             "value": {
               "__uuid__": "38d84e50-d358-4f89-9d70-c0725268f815"
             }

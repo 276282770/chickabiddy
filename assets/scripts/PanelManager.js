@@ -67,4 +67,19 @@ cc.Class({
             // this.ndMask.active=false;
         }
     },
+    
+    /**显示面板（加动画）
+     *
+     *
+     */
+    showFx(){
+        this._panelScr.showFx();
+    },
+    /**  显示面板
+     *
+     *
+     */
+    show(){
+        this._panelScr.show();
+    },
 });

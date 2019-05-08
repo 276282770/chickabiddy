@@ -71,15 +71,21 @@ cc.Class({
         });
         Global.game.panels.deletePanel();
     },
-    fill(id,count){
+    fill(id,count,percent){
         var self=this;
         this._count= count;
         this._cid=id;
+        percent=1-percent;
         if(id){
             let path;
             if(count>0){
                 path="Shop/shop_"+id;
                 self.txtCount.string=count.toString();
+                if(percent!=1){
+                    self.ndUse.getComponent(cc.Button).interactable=false;
+                    self.ndUse.getChildByName("txtUse").getComponent(cc.Label).string="使用中..";
+                }
+                self.ndUse.getComponent(cc.ProgressBar).progress=percent;
             }
             else{
                 this.ndUse.active=false;

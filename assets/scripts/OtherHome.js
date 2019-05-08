@@ -8,8 +8,10 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
+
 var Network=require("Network");
 var Player=require("Player");
+var Thief=require("Thief");
 cc.Class({
     extends: cc.Component,
 
@@ -35,33 +37,42 @@ cc.Class({
         txtLvl:cc.Label,  //等级
         txtNickname:cc.Label,  //昵称
         ndThief:cc.Node,  //小偷
+        ndFindPlayer:cc.Node,  //寻找小鸡
 
         player:Player,  //
+        thief:Thief,  //小偷
         preMsgBox:cc.Prefab,  //消息框预制体
         prePlayerBath:cc.Prefab,  //洗澡预制体
 
+
+
         _uid:-1,  //用户ID
         _eggCount:0,  //鸡蛋数量
+        _state:0,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         Global.game=this;
+        this.iniNode();
     },
 
     start () {
         
-        this.load();
+        this.updateIndex();
+    },
+    iniNode(){
+        this.thief=this.ndThief.getComponent("Thief");
     },
 
     // update (dt) {},
 
     //填充
-    load(){
+    updateIndex(){
 
         var self=this;
-        this._uid=Global.otherPersonId;
+        this._uid=Global.scene.otherUid;
   
         Network.requestPersonInfo(this._uid,(res)=>{
             if(res.result){
@@ -82,6 +93,20 @@ cc.Class({
                 if(data.say!=""){
                     self.player.openSay(data.say);
                 }
+
+                self.ndFindPlayer.active = false;
+                if(data.playerState==0){
+                    self.player.setState(0);
+                }
+                if (data.playerState == 1) {
+        
+                    self.player.setState(3);
+                } else if (data.playerState == 2) {
+                    self.player.node.active = false;
+                    Global.scene.otherUid = data.otherId;
+                    self.ndFindPlayer.active = true;
+                }
+                console.log("==========================="+data.playerState);
             }
         });
     },
@@ -109,7 +134,7 @@ cc.Class({
 
     //返回
     onBack(){
-        Global.nextScene="Main";
+        Global.scene.nextSceneName="Main";
         cc.director.loadScene("Loading");
     },
         // //回家
@@ -154,8 +179,7 @@ cc.Class({
         this.player.openSay("你好");
     },
     
-    updateIndex(){
 
-    },
+
 
 });

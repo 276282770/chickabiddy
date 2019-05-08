@@ -12,6 +12,7 @@ var Network = require("Network");
 var Common = require("Common");
 var PanelManager = require("PanelManager");
 var Player = require("Player");
+var Thief=require("Thief");
 // var OtherHome=require("OtherHome");
 
 cc.Class({
@@ -52,6 +53,10 @@ cc.Class({
         ndWaitting: cc.Node,  //等待画面
         ndFindPlayer: cc.Node,  //寻找小鸡节点
         ndRight:cc.Node,  //右边按钮根节点
+        ndLeft:cc.Node,  //左边按钮根节点
+        ndPanelRank:cc.Node,  //排行榜面板节点
+        ndPlayerRoot:cc.Node,  //玩家根节点
+        ndThiefRoot:cc.Node,  //小偷根节点
 
         panels: PanelManager,  //面板管理
         prePanelFriends: cc.Prefab,  //朋友面板预制体
@@ -71,9 +76,12 @@ cc.Class({
         // prePanelThief:cc.Prefab,  //小偷预制体
         prePlayerDine: cc.Prefab,  //吃东西预制体
         prePlayerBath: cc.Prefab,  //洗澡动画预制体
+        prePlayer:cc.Prefab,  //玩家预制体
+        preThief:cc.Prefab,  //小偷预制体
 
 
         player: Player,  //玩家
+        thief:Thief,  //小偷
         // otherHome:OtherHome,  //别人家
 
 
@@ -83,7 +91,8 @@ cc.Class({
         _hour: 0,
         _money: 0,  //钱
         _thiefCount: 0,  //小偷个数
-        _OpenSubDomain: false,  //打开开放数据域
+        // _OpenSubDomain: false,  //打开开放数据域
+        _subUpdateTime:0,  //子域更新时间
 
         _hungry: 0,  //饥饿值
         _drity: 0,  //清洁值
@@ -97,8 +106,18 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        Global.game = this;
+
         var self = this;
+        Global.game = this;
+
+
+        this.iniNode();
+
+        if(Global.id!=-1){
+            this.updateIndex();
+            return;
+        }
+
         let query = WX.getLaunchOptionsSync();
         WX.login(code => {
 
@@ -156,38 +175,50 @@ cc.Class({
     start() {
         this.setDark();
 
-        if (cc.sys.platform == cc.sys.WECHAT_GAME) {
-            this.tex = new cc.Texture2D();
-            var openDataContext = wx.getOpenDataContext();
-            this.sharedCanvas = openDataContext.canvas;
+        // if (cc.sys.platform == cc.sys.WECHAT_GAME) {
+        //     this.tex = new cc.Texture2D();
+        //     var openDataContext = wx.getOpenDataContext();
+        //     this.sharedCanvas = openDataContext.canvas;
             // this.sharedCanvas.width=cc.find("Canvas").width;
             // this.sharedCanvas.height=cc.find("Canvas").height;
-        }
+            // this.sharedCanvas.height=538;
+        // }
+
         this._rqstTm = this._rqstRate;
+        // this._openSubDomain=true;
+
+        
+        this.openLastPanel();
     },
 
 
     update(dt) {
         // this.setDark();
-        if (cc.sys.platform == cc.sys.WECHAT_GAME && this._openSubDomain) {
-            this._subUpdateTime += dt;
-            //if(this._subUpdateTime>=0.2){
-            this._updaetSubDomainCanvas();
-            this._subUpdateTime = 0;
-            //}
+        // if (cc.sys.platform == cc.sys.WECHAT_GAME && this._openSubDomain) {
 
-        }
+        //     this._subUpdateTime += dt;
+        //     if(this._subUpdateTime>=0.2){
+
+        //     this._updaetSubDomainCanvas();
+        //     this._subUpdateTime = 0;
+        //     }
+
+        // }
         if (this._rqstTm > 0) {
             this._rqstTm -= dt;
+       
         } else {
+   
             this._rqstTm = this._rqstRate;
             // this.updateIndex();
         }
     },
     _updaetSubDomainCanvas() {
+
         if (!this.tex) {
             return;
         }
+
         this.tex.initWithElement(this.sharedCanvas);
         this.tex.handleLoadedTexture();
         this.display.spriteFrame = new cc.SpriteFrame(this.tex);
@@ -195,11 +226,14 @@ cc.Class({
 
     login(code, avatar, nickName, fid) {
         var self = this;
-        cc.loader.load({ url: avatar, type: "png" }, function (err, tex) {
-            if (!err) {
-                self.imgAvatar.spriteFrame = new cc.SpriteFrame(tex);
-            }
-        });
+        // cc.loader.load({ url: avatar, type: "png" }, function (err, tex) {
+        //     if (!err) {
+        //         self.imgAvatar.spriteFrame = new cc.SpriteFrame(tex);
+        //     }
+        // });
+                    Global.user.nickName=nickName;
+            Global.user.avatar=avatar;
+        console.log("设置全局函数‘头像’和‘昵称’");
         Network.requestLogin(code, avatar, nickName, (res) => {
             if (res.result) {
                 if (fid != null) {
@@ -222,6 +256,15 @@ cc.Class({
         });
 
     },
+    //初始化节点
+    iniNode(){
+        let playerNode=cc.instantiate(this.prePlayer);
+        playerNode.parent=this.ndPlayerRoot;
+        this.player=playerNode.getComponent("Player");
+        this.ndThief=cc.instantiate(this.preThief);
+        this.ndThief.parent=this.ndPlayerRoot;
+        this.thief=this.ndThief.getComponent("Thief");
+    },
     //更新首页
     updateIndex() {
         if (Global.id == -1)
@@ -234,10 +277,12 @@ cc.Class({
                 self.updateState(data);
             }
         });
+        // this.openLastPanel();
         this.setDark();
     },
     updateState(data) {
         var self = this;
+        self.setScore(data.lvl);
         self.setSelfEgg(data.selfEggNum);
         self.setOtherEgg(data.otherEggNum);
         self.setMoney(data.money);
@@ -260,15 +305,17 @@ cc.Class({
             if(data.thiefs[0]!=null||data.thiefs[1]!=null){
                 //有小偷
             self.ndRight.y=0;
+            self.ndLeft.y=0;
             self.player.node.y=-200;
             }else{
                 //没有小偷
             self.ndRight.y=349;
+            self.ndLeft.y=274;
             self.player.node.y=0;
         }
         }
-        
 
+        self.ndFindPlayer.active = false;
         if(data.playerState==0){
             self.player.setState(0);
         }
@@ -277,8 +324,27 @@ cc.Class({
             self.player.setState(3);
         } else if (data.playerState == 2) {
             self.player.node.active = false;
-            Global.otherPersonId = data.otherId;
+            Global.scene.otherUid = data.otherId;
             self.ndFindPlayer.active = true;
+        }
+        //更新头像
+        if(Global.user.avatar!=""){
+            cc.loader.load({ url: Global.user.avatar, type: "png" }, function (err, tex) {
+                if (!err) {
+                    self.imgAvatar.spriteFrame = new cc.SpriteFrame(tex);
+                }
+            });
+        }
+    },
+    //打开上一次面板
+    openLastPanel(){
+        let panelName=Global.scene.lastPanel;
+        if(panelName=="")
+            return;
+        switch(panelName){
+            case "PanelFriends":{
+                this.onShowPanelFriends();
+            };break;
         }
     },
 
@@ -343,9 +409,9 @@ cc.Class({
         if (data[0] == null && data[1] == null)
             return;
         // this.ndThief.active=true;
-        let thiefScr = this.ndThief.getComponent("Thief");
-        thiefScr.setThief(data);
-
+        // let thiefScr = this.ndThief.getComponent("Thief");
+        // thiefScr.setThief(data);
+        this.thief.setThief(data);
 
     },
 
@@ -371,10 +437,15 @@ cc.Class({
         let msgBoxScr = msgBox.getComponent("MsgBox");
         msgBoxScr.show(txt);
     },
-
     //显示朋友面板
-    onShowPanelFriends() {
+    onShowPanelFriends(){
         this.panels.createPanel(this.prePanelFriends, "PanelFriends");
+        this.panels.show();
+    },
+    //显示朋友面板
+    onShowFxPanelFriends() {
+        this.panels.createPanel(this.prePanelFriends, "PanelFriends");
+        this.panels.showFx();
     },
     /**显示链接面板
      */
@@ -419,7 +490,8 @@ cc.Class({
     },
     //显示排行榜界面
     onShowPanelRank() {
-        this.panels.createPanel(this.prePanelRank, "PanelRank");
+        // this.panels.createPanel(this.prePanelRank, "PanelRank");
+        this.ndPanelRank.getComponent("PanelRank").onShow();
     },
     //显示说明攻略界面
     onShowPanelInstruction() {
@@ -433,7 +505,7 @@ cc.Class({
     onShowPanelExchangeEgg2Egg() {
         this.panels.createPanel(this.prePanelExchangeEgg2Egg, "PanelExchangeEgg2Egg");
 
-    },       
+    },
      //显示鸡蛋兑换钱界面
     onShowPanelExchangeEgg2Money(){
         this.panels.createPanel(this.prePanelExchangeEgg2Money,"PanelExchangeEgg2Money");
@@ -488,15 +560,16 @@ cc.Class({
         Network.requestPickEgg((res) => {
             if (res.result) {
                 //播放收鸡蛋动画
-                self.updateIndex();
+
             } else {
                 self.showTip(res.data);
             }
+            self.updateIndex();
         });
     },
     //寻找小鸡
     onFindPlayer() {
-        Global.nextScene = "OtherHome";
+        Global.scene.nextSceneName = "OtherHome";
         cc.director.loadScene("Loading");
     },
 
@@ -523,7 +596,7 @@ cc.Class({
         // let thiefScr=this.ndThief.getComponent("Thief");
         //     thiefScr.setThief([{id:0,name:""},null]);
         // this.player.playCry();
-        
+
         // this.ndRight.position.Y=0;
        this.showTip("你好你好");
 
@@ -534,7 +607,7 @@ cc.Class({
         if (hour == this._hour)
             return;
         this._hour = hour;
-        if (hour >= 6 && hour <= 20) {
+        if (hour >= 6 && hour < 20) {
             this.ndHomeMask.active = false;
         } else {
             this.ndHomeMask.active = true;
