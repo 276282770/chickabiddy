@@ -41,8 +41,8 @@ cc.Class({
         _lastState:0,  //上一个状态
         _remainChangeTime:0,  //改变状态小鸡时间
 
-        _hungry:false,
-        _clean:false,
+        _hungry:0,
+        _clean:0,
         _bateu:false,
         _outHome:false,
     },
@@ -78,13 +78,10 @@ cc.Class({
     onClick(){
         console.log("点击小鸡");
         // let thiefcount=cc.find("Canvas/Thief").getComponent("Thief").thiefCount;
-        let thiefcount=Global.game.thief.thiefCount
-        if(thiefcount>0){
-            Global.game.showTip("我的食物都快被抢光了..");
-            return;
-        }
+
         if(this.ndExtend.active){
             this.onClickBg();
+
         }else{
         var self=this;
         this._state=1;
@@ -92,7 +89,15 @@ cc.Class({
         this.ndExtend.active=true;
         this.animPlayer.play("player_click");
         this.animExtend.play("player_extend_open");
-        // this.ndPlayer.getComponent(cc.Button).interactable=false;
+        // this.ndPlayer.getComponent(cc.Button).interactable=false;  
+
+
+        let thiefcount=Global.game.thief.thiefCount
+        if(thiefcount>0){
+            Global.game.showTip("我的食物都快被抢光了..");
+            return;
+        }
+
         Network.requestClickPlayer((res)=>{
             if(res.result){
 
@@ -117,18 +122,27 @@ cc.Class({
     },
     //设置小鸡的状态
     setState(num){
+        console.log("【设置小鸡状态】"+num.toString());
+        this._lastState=this._state;
         this._state=num;
+        
+        this.ndPlayer.active=true;
         switch(num){
-            case 0:this.playIdle();break;
+            case 0:this.playNormal();break;
+            case 2:this.playIdle();break;
             case 3:this.playCry();break;
+            case 4:this.playHunger();break;
+            case 6:this.playNormal();break;  //清洁========================缺动画
+            case 7:this.ndPlayer.active=false;
         }
+        
     },
     playIdle(){
-        this._state=2;
+        // this._state=2;
         this.animPlayer.play("player_idle");
     },
     playNormal(){
-        this._state=0;
+        // this._state=0;
         this.animPlayer.play("player_normal");
     },
     //进餐
@@ -139,7 +153,11 @@ cc.Class({
     //播放哭动画
     playCry(){
         this.animPlayer.play("player_cry");
-        this._state=3;
+        // this._state=3;
+    },
+    //播放饥饿动画
+    playHunger(){
+        this.animPlayer.play("player_hunger");
     },
     setRandomChangeTime(){
         let tm=Math.random()*15;
@@ -157,7 +175,7 @@ cc.Class({
         if(txt==null||txt=="")
             return;
         // if(cc.find("Canvas/Thief").getComponent("Thief").thiefCount>0){
-        if(Global.game.thief.thiefCount>0){
+        if(Global.game.thief.thiefCount>0||this._state==7){
             Global.game.showTip(txt);
             return;
         }
@@ -168,11 +186,28 @@ cc.Class({
             self.txtSay.node.parent.active=false;
         },2)
     },
+    //设置小鸡的状态
     stateManager(){
-
+        if(this._outHome){
+            this.setState(7);
+        }
+        else if(this._bateu){
+            this.setState(3);
+        }else if(this._clean<1){
+            this.setState(6);
+        }else if(this._hungry<1){
+            this.setState(4);
+        }else{
+            this.setState(0);
+        }
     },
     
-    setPlayerCondition(bateu,outHome){
-        this._hungry=Global.game.
+    setPlayerCondition(hungry,clean, bateu,outHome){
+        this._hungry=hungry;
+        this._clean=clean;
+        this._bateu=bateu;
+        this._outHome=outHome;
+
+        this.stateManager();
     },
 });

@@ -33,6 +33,7 @@ cc.Class({
         // },
 
         txtEggCount:cc.Label,  //鸡蛋个数
+        proEgg:cc.ProgressBar,  //鸡蛋的进度
         imgAvatar:cc.Sprite,  //头像
         txtLvl:cc.Label,  //等级
         txtNickname:cc.Label,  //昵称
@@ -43,6 +44,8 @@ cc.Class({
         thief:Thief,  //小偷
         preMsgBox:cc.Prefab,  //消息框预制体
         prePlayerBath:cc.Prefab,  //洗澡预制体
+
+
 
 
 
@@ -106,7 +109,8 @@ cc.Class({
                     Global.scene.otherUid = data.otherId;
                     self.ndFindPlayer.active = true;
                 }
-                console.log("==========================="+data.playerState);
+                //更新鸡蛋进度
+                self.proEgg.progress=data.eggProgress;
             }
         });
     },

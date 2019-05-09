@@ -106,6 +106,7 @@ cc.Class({
     },
     onShow(){
         this.node.position=new cc.Vec2(0,0);
+        console.log("Thief position="+this.node.position);
     },
 
     // update (dt) {},
@@ -130,6 +131,8 @@ cc.Class({
            
         }else{
             this.showExtend(idx,!_isExtendOpen);
+            if(!_isExtendOpen)
+            this.showExtend(1-idx,_isExtendOpen);
         }
 
 
@@ -196,15 +199,14 @@ cc.Class({
             thief1=this.ndThief0;
         }
         Network.requestHit(self._thiefData[idx].id,(res)=>{
+            let data=res.data;
             if(res.result){
-                let data=res.data;
+                
 
 
                 self.showExtend(idx,false);
                 self.showExtend(idx,false);
-                self.openSay(idx,data.say);
-                self.openSay(self._thiefData.length-1- idx,data.otherSay);
-                   Global.game.player.openSay(data.playerSay);
+
                    thief1.getComponent(cc.Animation).play("thief_out");
                    thief0.getComponent(cc.Animation).play("thief_hit");
 
@@ -216,6 +218,10 @@ cc.Class({
                     Global.game.updateIndex();
                    },5);
             }
+            console.log("==============="+JSON.stringify(data));
+                            self.openSay(idx,data.say);
+                self.openSay(self._thiefData.length-1- idx,data.otherSay);
+                   Global.game.player.openSay(data.playerSay);
         });
         
     },

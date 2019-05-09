@@ -67,8 +67,10 @@ var Network={
                 backData.data.playerState=1; //挨揍了
                 if(res.data.where>0){
                     backData.data.playerState=2;  //去别人家了
-                    backData.data.otherId=res.data.where;
                 }
+                backData.data.bateu=res.data.die>0;  
+                backData.data.outHome=res.data.where>0
+                backData.data.otherId=res.data.where;
 
                 Global.id=backData.data.id;
                 Global.openid=res.data.openid;
@@ -335,14 +337,15 @@ var Network={
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
-                backData.data.say=res.data.beizou.tips;
-                backData.data.otherSay=res.data.xiapao.tips;
-                backData.data.playerSay=res.data.zouren.tips;
-                backData.data.awardTxt=res.data.zouren.text;
 
-            }else{
-                backData.data="";
-            }
+                backData.data.awardTxt=res.data.zouren.text;
+            }   
+            if(res.data.beizou)
+                backData.data.say=res.data.beizou.tips;
+            if(res.data.xiapao)
+                backData.data.otherSay=res.data.xiapao.tips;
+            if(res.data.zouren)
+                backData.data.playerSay=res.data.zouren.tips;
             if(callback)
                 callback(backData);
         });
@@ -593,7 +596,10 @@ var Network={
                     item.desc=res.data[i].desc;
                     item.price=res.data[i].price;
                     item.count=res.data[i].num;
-                    item.percent=res.data[i].url/res.data[i].time;
+                    item.percent=0;
+                    if(res.data[i].url>=0){
+                        item.percent=res.data[i].url/res.data[i].time;
+                    }
                     backData.data.push(item);
                     }
                     
@@ -804,6 +810,7 @@ var Network={
                     backData.data.playerState=2;  //去别人家了
                     backData.data.otherId=res.data.where;
                 }
+                backData.data.eggProgress=res.data.eggTime/res.data.totalEggTime;
             }else{
                 backData.data="";
             }

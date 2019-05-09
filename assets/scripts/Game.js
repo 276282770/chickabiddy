@@ -101,6 +101,9 @@ cc.Class({
         _rqstTm: 0,  //请求倒计时
         _rqstRate: 60,  //请求频率
 
+        _ndLeftPos:new cc.Vec2(0,0),  //左边按钮坐标
+        _ndRightPos:new cc.Vec2(0,0),  //右边按钮坐标
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -189,6 +192,7 @@ cc.Class({
 
         
         this.openLastPanel();
+        
     },
 
 
@@ -262,8 +266,10 @@ cc.Class({
         playerNode.parent=this.ndPlayerRoot;
         this.player=playerNode.getComponent("Player");
         this.ndThief=cc.instantiate(this.preThief);
-        this.ndThief.parent=this.ndPlayerRoot;
+        this.ndThief.parent=this.ndThiefRoot;
         this.thief=this.ndThief.getComponent("Thief");
+        this._ndLeftPos=this.ndLeft.position;
+        this._ndRightPos=this.ndRight.position;
     },
     //更新首页
     updateIndex() {
@@ -309,24 +315,32 @@ cc.Class({
             self.player.node.y=-200;
             }else{
                 //没有小偷
-            self.ndRight.y=349;
-            self.ndLeft.y=274;
+            // self.ndRight.y=349;
+            // self.ndLeft.y=274;
             self.player.node.y=0;
+            self.ndRight.setPosition(self._ndRightPos);
+            self.ndLeft.setPosition(self._ndLeftPos);
         }
         }
 
-        self.ndFindPlayer.active = false;
-        if(data.playerState==0){
-            self.player.setState(0);
-        }
-        if (data.playerState == 1) {
+        
+        
+        // if(data.playerState==0){
+        //     self.player.setState(0);
+        // }
+        // if (data.playerState == 1) {
 
-            self.player.setState(3);
-        } else if (data.playerState == 2) {
-            self.player.node.active = false;
-            Global.scene.otherUid = data.otherId;
-            self.ndFindPlayer.active = true;
-        }
+        //     self.player.setState(3);
+        // } else if (data.playerState == 2) {
+        //     self.player.node.active = false;
+        //     Global.scene.otherUid = data.otherId;
+        //     self.ndFindPlayer.active = true;
+        // }
+ 
+        //更新角色
+        self.ndFindPlayer.active = data.outHome;
+        self.player.setPlayerCondition(data.foodRemain,data.cleanProgCurr,data.bateu,data.outHome);
+
         //更新头像
         if(Global.user.avatar!=""){
             cc.loader.load({ url: Global.user.avatar, type: "png" }, function (err, tex) {
@@ -335,6 +349,12 @@ cc.Class({
                 }
             });
         }
+
+        //更新升级
+        if(Global.user.level!=-1&&Global.user.level!=data.lvl){
+            self.onPlayLevelUp();
+        }
+        Global.user.level=data.lvl;
     },
     //打开上一次面板
     openLastPanel(){
@@ -531,6 +551,10 @@ cc.Class({
         let bathScr = bath.getComponent("PlayerBath");
         bathScr.fill(data.say, data.tip);
     },
+    //播放升级动画
+    onPlayLevelUp(){
+        this.node.getChildByName("PanelLevelUp").getComponent("PanelLevelUp").show();
+    },
     /**洗澡
      *
      *
@@ -598,8 +622,8 @@ cc.Class({
         // this.player.playCry();
 
         // this.ndRight.position.Y=0;
-       this.showTip("你好你好");
-
+    //    this.showTip("你好你好");
+        this.onPlayLevelUp();
     },
     //设置天黑天亮
     setDark() {

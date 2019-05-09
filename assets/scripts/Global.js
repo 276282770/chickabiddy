@@ -5,6 +5,7 @@ window.Global={
     user:{
         nickName:"",
         avatar:"",
+        level:-1,
     },
     money:0,
     scene:{
@@ -12,6 +13,7 @@ window.Global={
         otherUid:-1,  //其他人的用户id
         lastPanel:"",  //上一个面板
     },
+    
     
     otherPersonId:-1,  //其它人的ID
 };

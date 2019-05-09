@@ -2384,7 +2384,12 @@
     "spBgNormal": null,
     "spDine": null,
     "_state": 0,
+    "_lastState": 0,
     "_remainChangeTime": 0,
+    "_hungry": 0,
+    "_clean": 0,
+    "_bateu": false,
+    "_outHome": false,
     "_id": "78MrlnSTBPOpdQDr1iW/Qv"
   },
   {
@@ -7087,6 +7092,9 @@
     "txtEggCount": {
       "__id__": 16
     },
+    "proEgg": {
+      "__id__": 22
+    },
     "imgAvatar": {
       "__id__": 165
     },
@@ -7105,7 +7113,9 @@
     "player": {
       "__id__": 63
     },
-    "thief": null,
+    "thief": {
+      "__id__": 142
+    },
     "preMsgBox": {
       "__uuid__": "37ec4949-e9dc-4f11-8f7d-e8c18a360b23"
     },
