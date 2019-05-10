@@ -53,6 +53,10 @@ cc.Class({
     //兑换
     onExchange(){
         var self=this;
+        if(this._count==0){
+            Global.game.showTip("什么也没有发生!");
+            return;
+        }
         switch(this.mode){
             case 0:{
                 Network.exchageOtherEgg2Money(this._count,(res)=>{

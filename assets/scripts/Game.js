@@ -338,6 +338,9 @@ cc.Class({
         // }
  
         //更新角色
+        if(data.outHome){
+            Global.scene.otherUid = data.otherId;
+        }
         self.ndFindPlayer.active = data.outHome;
         self.player.setPlayerCondition(data.foodRemain,data.cleanProgCurr,data.bateu,data.outHome);
 
@@ -585,9 +588,10 @@ cc.Class({
             if (res.result) {
                 //播放收鸡蛋动画
 
-            } else {
-                self.showTip(res.data);
             }
+
+            self.showTip(res.data.tip);
+            self.player.openSay(res.data.say);
             self.updateIndex();
         });
     },

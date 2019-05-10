@@ -60,7 +60,15 @@ var Network={
                 // backData.data.newWorldMsg=res.data.unRead_world;
 
                 
-                backData.data.thiefs=res.data.badMan;  //小偷
+                // backData.data.thiefs=res.data.badMan;  //小偷
+                                //设置小偷信息
+                                let thiefs=res.data.badMan;
+                                backData.data.thiefs=[];
+                                for(var i=0;i<thiefs.length;i++){
+                                    if(thiefs[i]==null)
+                                        continue;
+                                    backData.data.thiefs.push({id:thiefs[i].id,name:thiefs[i].name,level:thiefs[i].level,avatarUrl:thiefs[i].url});
+                                }
                
                 backData.data.playerState=0;  //正常
                 if(res.data.die>0)
@@ -237,15 +245,12 @@ var Network={
         this.request(url,data,(res)=>{
             var backData={};
             backData.result=false;
-            backData.data=false;
+            backData.data={};
             if(res.state==200){
                 backData.result=true;
-            }else{
-                // switch(res.state){
-                    
-                // }
-                backData.data=res.tips.tips;
             }
+            backData.data.say=res.tips.tips;
+            backData.data.tip=res.tips.text;
             if(callback)
             callback(backData);
         });
@@ -797,9 +802,17 @@ var Network={
                 backData.data.avatar=res.data.url;
                 backData.data.nickName=res.data.nickName;
                 backData.data.lvl=res.data.level;
-                backData.data.thiefs=res.data.badMan;
+                //设置小偷信息
+                let thiefs=res.data.badMan;
+                backData.data.thiefs=[];
+                for(var i=0;i<thiefs.length;i++){
+                    if(thiefs[i]==null)
+                                        continue;
+                    backData.data.thiefs.push({id:thiefs[i].id,name:thiefs[i].name,level:thiefs[i].level,avatarUrl:thiefs[i].url});
+                }
+
                 backData.data.eggCount=res.data.egg;
-                backData.data.canBath=res.data.xizao==1;
+                backData.data.canBath=res.data.xizao==0;
                 backData.data.canPickupEgg=res.data.toudan==1;
                 backData.data.say=res.tips.tips;
 
