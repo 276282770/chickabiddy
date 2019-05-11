@@ -2592,6 +2592,7 @@
     "ndSvWechatRank": {
       "__id__": 42
     },
+    "oriPosY": -1,
     "_isPanelReady": false,
     "_id": ""
   },

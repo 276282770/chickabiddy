@@ -9,6 +9,7 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 var WX=require("WX");
+var Rank=require("Rank");
 cc.Class({
     extends: cc.Component,
 
@@ -28,7 +29,7 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-
+        rank:Rank,
     },
 
     start () {
@@ -46,6 +47,8 @@ cc.Class({
             case "SETSCORE":this.setScore(data.para);break;
             case "GETSCORE":this.getScore();break;
             case "SETOPENID":this.setOpenId(data.para);break;
+            case "scrollTouchEnd":this.scrollTouchEnd();break;
+            case "scroll":this.scroll(data);break;
         }
     },
     //发送分数
@@ -59,6 +62,12 @@ cc.Class({
     //设置用户的openid
     setOpenId(data){
         Global.openid=data;
+    },
+    scroll(data){
+        this.rank.scroll(data);
+    },
+    scrollTouchEnd(){
+        this.rank.scrollTouchEnd();
     },
     test(){
         console.log("test");

@@ -30,6 +30,7 @@ cc.Class({
         // },
         preItem:{default:null,type:cc.Prefab,tooltip:"项预制体"},
         ndCtnt:{default:null,type:cc.Node,tooltip:"项目根节点"},
+        sView:cc.ScrollView,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -71,6 +72,41 @@ cc.Class({
                     lstData[j]=tmpData;
                 }
             }
+        }
+    },
+    scroll(data){
+        let oriPos=this.sView.getScrollOffset();
+                let speed = 80;
+                let scrollTime = Math.abs(data.y/speed);
+                let moveScale = 1;
+                let movey = data.y*moveScale;
+                
+                if(!this.targetPos){
+                     this.targetPos = data.y;
+                     this.oriPosy = oriPos.y;
+                }
+                else{
+                    if ((data.y * this.targetPos) > 0)
+                    {
+                        movey = this.targetPos - (oriPos.y - this.oriPosy) + data.y*moveScale;
+                        this.targetPos = movey;
+                        this.oriPosy = oriPos.y;
+                    }
+                    else{
+                        this.targetPos = movey;
+                        this.oriPosy = oriPos.y;
+                    }
+                }
+                this.node.stopAllActions();
+                this.sView.scrollToOffset(new cc.Vec2(oriPos.x,oriPos.y+movey),scrollTime);
+    },
+    scrollTouchEnd(){
+        if(Math.abs(this.targetPos) > 50){
+            let is_abs = this.targetPos >0?1:-1;
+            let num =Math.floor( Math.abs(this.targetPos)/20);
+            let addedPos = 20*(num+1)/2;
+            this.isScrollEnded = true;
+            this.onMessage({cmd:"scroll",y:addedPos*is_abs});
         }
     },
     

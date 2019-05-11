@@ -32,9 +32,12 @@ cc.Class({
         preItem:cc.Prefab,  //好友项预制体
         ndCtnt:cc.Node,  //好友列表根节点
         txtUserId:cc.EditBox,  //用户ID
+        svFriend:cc.ScrollView,  //滚动视图
         _page:0,  //分页
         _isPanelReady:false,
         _inc:0,
+        _lstFriendData:[],  //好友数据
+        _partCount:5,  //每次加载几个数据
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -43,6 +46,8 @@ cc.Class({
 
     start () {
         Global.scene.lastPanel="PanelFriends";
+
+        this.svFriend.node.on('scroll-to-bottom', this.updatePanelPart, this);
     },
     
     show(){
@@ -88,14 +93,18 @@ cc.Class({
         var self=this;
         Network.requestFriendList(this._page,(res)=>{
             if(res.result){
-                self.updatePanel(res.data);
+                self._lstFriendData=res.data.friends;
+                // self.updatePanel(res.data);
+                self.updatePanelPart();
             }else{
                 //Global.game.showTip(res.data);
             }
         });
 
     },
-    updatePanel(data){
+    updatePanel()
+    {
+        
                         let friends=data.friends;
                 for(var i=0;i<friends.length;i++){
                     let newItem= cc.instantiate(this.preItem);
@@ -109,6 +118,26 @@ cc.Class({
                 }
                 this._page++;
     },
+    updatePanelPart(){
+        console.log("【更新好友数据】");
+        let data=this._lstFriendData;
+        let length=this._partCount;
+        if(length>this._lstFriendData.length-this.ndCtnt.childrenCount){
+            length=this._lstFriendData.length-this.ndCtnt.childrenCount;
+        }
+        let idx=this.ndCtnt.childrenCount;
+        for(var i=idx;i<idx+length;i++){
+            console.log(JSON.stringify(data[i]));
+            let newItem= cc.instantiate(this.preItem);
+            if(!newItem)
+                continue;
+            newItem.parent=this.ndCtnt;
+            let newItemScr= newItem.getComponent("ItemFriend");
+            newItemScr.fillItem(data[i].id,data[i].lvl,data[i].nickName,data[i].avatar,
+                data[i].isHelpBath,data[i].isStealFood,data[i].isStealEgg,data[i].isOtherStealFood,0);
+        }
+    },
+
 
     /**添加好友
      *

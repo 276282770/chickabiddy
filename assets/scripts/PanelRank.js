@@ -1,5 +1,6 @@
 
 var Network=require("Network");
+var WX=require("WX");
 cc.Class({
     extends: cc.Component,
 
@@ -13,12 +14,19 @@ cc.Class({
         ndSvWorldRank:cc.Node,  //sv世界排行榜根节点
         ndSvWechatRank:cc.Node,  //sv微信排行榜根节点
 
+        oriPosY:-1,
+
         _isPanelReady:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        var self=this;
+        this.ndCtntWechat.on(cc.Node.EventType.TOUCH_MOVE,self.onMouseMove,self);
+        this.ndCtntWechat.on(cc.Node.EventType.TOUCH_START,self.onMouseDown,self);
+        this.ndCtntWechat.on(cc.Node.EventType.TOUCH_END,self.onTouchEnd,self);
+    },
 
     start () {
 
@@ -71,7 +79,7 @@ cc.Class({
         var self=this;
         if(!this._isPanelReady)
         return;
-        console.log("【隐藏好友面板】");
+        console.log("【隐藏排行面板】");
         this.ndBg.runAction(cc.sequence( 
             cc.moveTo(0.5,new cc.Vec2(this.ndBg.position.x,0)),
             cc.callFunc(function(){
@@ -82,4 +90,17 @@ cc.Class({
     onEnable(){
         // this.onShow();
     },
+    onMouseMove(event){
+
+        let offY=event.getLocationY()-this.oriPosY;
+        this.oriPosY=event.getLocationY();
+        //if(offY>10)
+        WX.postMessage({cmd:"scroll",y:offY});
+},
+onMouseDown(event){
+    this.oriPosY=event.getLocationY();
+},
+onTouchEnd(event){
+    WX.postMessage({cmd:"scrollTouchEnd"});
+},
 });

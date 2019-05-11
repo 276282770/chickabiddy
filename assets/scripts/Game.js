@@ -176,7 +176,7 @@ cc.Class({
     },
 
     start() {
-        this.setDark();
+        // this.setDark();
 
         // if (cc.sys.platform == cc.sys.WECHAT_GAME) {
         //     this.tex = new cc.Texture2D();
@@ -284,7 +284,8 @@ cc.Class({
             }
         });
         // this.openLastPanel();
-        this.setDark();
+        // this.setDark();
+        
     },
     updateState(data) {
         var self = this;

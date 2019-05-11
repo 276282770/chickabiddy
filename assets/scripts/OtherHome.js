@@ -47,6 +47,7 @@ cc.Class({
 
         ndTipEgg: cc.Node,  //偷蛋提示
         ndTipBath: cc.Node,  //洗澡提示
+        
 
 
 
