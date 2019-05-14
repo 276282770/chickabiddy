@@ -99,7 +99,7 @@ cc.Class({
         _grow: 0,  //成熟值
 
         _rqstTm: 0,  //请求倒计时
-        _rqstRate: 60,  //请求频率
+        _rqstRate: 1,  //请求频率
 
         _ndLeftPos:new cc.Vec2(0,0),  //左边按钮坐标
         _ndRightPos:new cc.Vec2(0,0),  //右边按钮坐标
@@ -214,7 +214,7 @@ cc.Class({
         } else {
    
             this._rqstTm = this._rqstRate;
-            // this.updateIndex();
+            this.updateIndex();
         }
     },
     _updaetSubDomainCanvas() {
@@ -322,6 +322,11 @@ cc.Class({
             self.ndRight.setPosition(self._ndRightPos);
             self.ndLeft.setPosition(self._ndLeftPos);
         }
+        }
+
+        //如果有新公告自动弹出显示
+        if(data.newAnnouncement){
+            this.onShowPanelAnnouncement();
         }
 
         
@@ -601,7 +606,11 @@ cc.Class({
         Global.scene.nextSceneName = "OtherHome";
         cc.director.loadScene("Loading");
     },
-
+    //链接微信小程序
+    onLinkBank(){
+        let appid="wxeedb326f283fe740";
+        WX.navigateToMiniProgram(appid);
+    },
 
 
     //测试

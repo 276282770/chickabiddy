@@ -31,6 +31,9 @@ cc.Class({
         txtNo:{default:null,type:cc.Label,tooltip:"排名"},
         txtNickname:{default:null,type:cc.Label,tooltip:"昵称"},
         txtLevel:{default:null,type:cc.Label,tooltip:"等级"},
+        imgLevel:cc.Sprite,  //等级图
+        spLevels:[cc.SpriteFrame],  //头三名等级图片精灵
+        
 
         _openid:"",  //openId
     },
@@ -55,7 +58,11 @@ cc.Class({
      */
     fill(no,nickname,avatar,level,openId){
         var self=this;
-        this.txtNo.string=no.toString();
+        if(no<4){
+            this.imgLevel.spriteFrame=this.spLevels[no-1];
+        }else{
+            this.txtNo.string=no.toString();
+        }
         this.txtNickname.string=nickname;
         this.txtLevel.string=level.toString();
         if(avatar!=null&&avatar!=""){

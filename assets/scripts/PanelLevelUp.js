@@ -42,6 +42,6 @@ cc.Class({
         this._anim.play("panel_shortUp");
         this.scheduleOnce(function(){
             this._anim.play("panel_shortDown");
-        },2);
+        },3);
     },
 });

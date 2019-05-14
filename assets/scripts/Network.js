@@ -55,9 +55,9 @@ var Network={
                 backData.data.foodRemain=res.data.resEatTime;  //食物剩余可以吃的时间
                 backData.data.foodProgFull=res.data.totalEatTime;  //食物进度
                 // backData.data.foodProg=res.data.howLongEat_pre;  //食物进度
-                backData.data.newDetail=res.data.unRead_dongtai;  //新动态
-                backData.data.newAnnouncement=res.data.unRead_gonggao;  //新公告
-                // backData.data.newWorldMsg=res.data.unRead_world;
+                backData.data.newDetail=res.data.unRead_dongtai>0;  //新动态
+                backData.data.newAnnouncement=res.data.unRead_gonggao>0;  //新公告
+                // backData.data.newWorldMsg=res.data.unRead_world>0;
 
                 
                 // backData.data.thiefs=res.data.badMan;  //小偷

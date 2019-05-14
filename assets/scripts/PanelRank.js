@@ -17,6 +17,7 @@ cc.Class({
         oriPosY:-1,
 
         _isPanelReady:false,
+        _display:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -26,6 +27,7 @@ cc.Class({
         this.ndCtntWechat.on(cc.Node.EventType.TOUCH_MOVE,self.onMouseMove,self);
         this.ndCtntWechat.on(cc.Node.EventType.TOUCH_START,self.onMouseDown,self);
         this.ndCtntWechat.on(cc.Node.EventType.TOUCH_END,self.onTouchEnd,self);
+        this._display=this.ndCtntWechat.getChildByName("display");
     },
 
     start () {
@@ -58,6 +60,8 @@ cc.Class({
         cc.callFunc(function(){
                 self._isPanelReady=true;
                 // Global.game._OpenSubDomain=true;
+
+                // self._display.getComponent("WXSubContextView").enabled=true;
             })
         ));
         // this.load();
@@ -85,6 +89,7 @@ cc.Class({
             cc.callFunc(function(){
                 self.node.active=false;
                 // Global.game._OpenSubDomain=false;
+                // self._display.getComponent("WXSubContextView").enabled=false;
             })));
     },
     onEnable(){

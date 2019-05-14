@@ -37,7 +37,7 @@ cc.Class({
         _isPanelReady:false,
         _inc:0,
         _lstFriendData:[],  //好友数据
-        _partCount:5,  //每次加载几个数据
+        _partCount:7,  //每次加载几个数据
     },
 
     // LIFE-CYCLE CALLBACKS:
