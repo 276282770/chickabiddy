@@ -54,7 +54,7 @@ cc.Class({
         newPanel.parent=cc.find("Canvas");
         let newPanelScr=newPanel.getComponent("PanelBuy");
         newPanelScr.load(this._cid);
-        Global.game.panels.deletePanel();
+        // Global.game.panels.deletePanel();
         }
         
     },
@@ -78,7 +78,7 @@ cc.Class({
         percent=1-percent;
         if(id){
             let path;
-            if(count>0){
+            if(percent>0|| count>0){
                 path="Shop/shop_"+id;
                 self.txtCount.string=count.toString();
                 if(percent!=1){

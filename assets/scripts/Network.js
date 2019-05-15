@@ -1,4 +1,4 @@
- //中原银行appid:wxeedb326f283fe740
+
 var WX=require("WX");
 var Network={
     // domain:"",
@@ -784,6 +784,26 @@ var Network={
             }
             backData.data.title=res.data.text;
             backData.data.imageUrl=res.data.url;
+            if(callback)
+                callback(backData);
+        });
+    },
+    
+    /** 分享成功
+     *
+     *
+     * @param {*} callback  回调函数
+     */
+    requestShareSuccess(callback){
+        let url=this.domain+"/share/share.action";
+        let data={uid:Global.id,cls:1};
+        let backData={result:false,data:{}};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data.money=res.data.url;
+            }
+            backData.data.tip=res.data.text;
             if(callback)
                 callback(backData);
         });

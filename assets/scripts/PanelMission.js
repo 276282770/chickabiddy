@@ -32,6 +32,8 @@ cc.Class({
         prePanelAnswer:cc.Prefab,  //答题
         ndMiss0:cc.Node,  //任务0
         ndMiss1:cc.Node,  //任务1
+        spMissShareGray:cc.SpriteFrame,  //分享灰色
+        spMissAnswerGray:cc.SpriteFrame,  //答题灰色
         _panelReady:false,
     },
 
@@ -86,10 +88,14 @@ cc.Class({
         var self=this;
         Network.requestMission((res)=>{
             if(res.result){
-                if(res.data.miss0Cmplt)
-                self.ndMiss0.getChildByName("txtComplete").active=true;
-                if(res.data.miss1Cmplt)
-                self.ndMiss1.getChildByName("txtComplete").active=true;
+                if(res.data.miss0Cmplt){
+                    // self.ndMiss0.getChildByName("txtComplete").active=true;
+                    self.ndMiss0.getChildByName("btnOK").getComponent(cc.Sprite).spriteFrame=this.spMissShareGray;
+                }
+                if(res.data.miss1Cmplt){
+                    // self.ndMiss1.getChildByName("txtComplete").active=true;
+                    self.ndMiss1.getChildByName("btnOK").getComponent(cc.Sprite).spriteFrame=this.spMissAnswerGray;
+                }
             }
         });
     },

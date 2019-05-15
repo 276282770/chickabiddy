@@ -147,6 +147,7 @@ cc.Class({
         //     console.log("【点击第二个小鸡】");
         //     this.showExtend(1,!this._isExtendOpen1);
         // }
+        this.isShowedExtend();
     },
     //显示扩展
     showExtend(idx, show) {
@@ -176,6 +177,20 @@ cc.Class({
                 this._isExtendOpen1 = false;
             }
         }
+    },
+    /** 是否有显示的扩展
+     *
+     *
+     * @returns
+     */
+    isShowedExtend(){
+        let result=false;
+        result=result|this._isExtendOpen0;
+        result=result|this._isExtendOpen1;
+
+        Global.game.showCtrl(!result);
+
+        return result;    
     },
     onClickBg() {
         var self = this;

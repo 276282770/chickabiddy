@@ -16,7 +16,8 @@ cc.Class({
 
         oriPosY:-1,
 
-        _isPanelReady:false,
+        _isPanelReady:true,
+
         _display:cc.Node,
     },
 
@@ -28,6 +29,7 @@ cc.Class({
         this.ndCtntWechat.on(cc.Node.EventType.TOUCH_START,self.onMouseDown,self);
         this.ndCtntWechat.on(cc.Node.EventType.TOUCH_END,self.onTouchEnd,self);
         this._display=this.ndCtntWechat.getChildByName("display");
+
     },
 
     start () {
@@ -54,8 +56,13 @@ cc.Class({
 
     //显示面板
     onShow(){
+
+    
         var self=this;
+        if(!this._isPanelReady)
+            return;
     this.node.active=true;
+    self._isPanelReady=false;
     this.ndBg.runAction(cc.sequence( cc.moveTo(0.5,new cc.Vec2(this.ndBg.position.x,this.ndBg.height)),
         cc.callFunc(function(){
                 self._isPanelReady=true;
@@ -83,11 +90,14 @@ cc.Class({
         var self=this;
         if(!this._isPanelReady)
         return;
+        this._isPanelReady=false;
         console.log("【隐藏排行面板】");
         this.ndBg.runAction(cc.sequence( 
             cc.moveTo(0.5,new cc.Vec2(this.ndBg.position.x,0)),
             cc.callFunc(function(){
                 self.node.active=false;
+
+                self._isPanelReady=true;
                 // Global.game._OpenSubDomain=false;
                 // self._display.getComponent("WXSubContextView").enabled=false;
             })));
