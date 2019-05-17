@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.38741455078125,
-      "y": 0.38741455078125,
+      "x": 0.38760986328125,
+      "y": 0.38760986328125,
       "z": 1
     },
     "_quat": {
@@ -2193,9 +2193,7 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": {
-      "__id__": 48
-    },
+    "target": null,
     "component": "",
     "_componentId": "7607fXhVkRFIZd+m6xo46os",
     "handler": "onClick",

@@ -82,8 +82,16 @@ cc.Class({
 
         if (this.thiefCount() > 0) {
             this.onShow();
+            let isExtendShowed=this._isExtendOpen0|this._isExtendOpen1;
+            if(isExtendShowed){
+                Global.game.showCtrl(false);
+            }else{
+                Global.game.showCtrl(true);
+            }
         } else {
             this.onHide();
+
+            Global.game.showCtrl(true);
         }
     },
     addThief(data) {

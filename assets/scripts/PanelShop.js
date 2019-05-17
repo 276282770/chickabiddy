@@ -47,11 +47,13 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
-
-    start () {
+    onLoad () {
         this.load();
         this.onTab(this,0);
+    },
+
+    start () {
+        
     },
     /**选择
      */

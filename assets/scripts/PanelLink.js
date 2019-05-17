@@ -50,6 +50,15 @@ cc.Class({
         let appid="wxeedb326f283fe740";
         WX.navigateToMiniProgram(appid);
     },
+    //链接到中原银行惠生活app
+    onLink_HuiShenghuo(){
+        Global.game.onLink_HuiShenghuo();
+    },
+    //链接到中原银行信用卡app
+    onLink_XinYongKa(){
+        Global.game.onLink_XinYongKa();
+    },
+
     onShow(){
         var self=this;
         let h=this.ndBg.height;

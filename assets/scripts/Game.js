@@ -107,8 +107,8 @@ cc.Class({
 
         //分享用
         _shareFlag: false,  //是否调用了分享接口
-        _shareTime: new Date(),  //分享前的时间
-        _shareDelay: 3,  //分享关键延迟
+        _shareTime: null,  //分享前的时间
+        _shareDelay: 2,  //分享关键延迟
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -353,6 +353,7 @@ cc.Class({
                 // self.ndRight.y=0;
                 // self.ndLeft.y=0;
                 self.player.node.y = -200;
+                
             } else {
                 //没有小偷
                 // self.ndRight.y=349;
@@ -360,9 +361,10 @@ cc.Class({
                 self.player.node.y = 0;
                 // self.ndRight.setPosition(self._ndRightPos);
                 // self.ndLeft.setPosition(self._ndLeftPos);
-                self.showCtrl(true);
+                
+                // self.showCtrl(true);
             }
-            self.showCtrl(true);
+
         }
 
         //如果有新公告自动弹出显示
@@ -567,15 +569,18 @@ cc.Class({
     //显示鸡蛋兑换鸡蛋界面
     onShowPanelExchangeEgg2Egg() {
         this.panels.createPanel(this.prePanelExchangeEgg2Egg, "PanelExchangeEgg2Egg");
-    },
-    //显示鸡蛋兑换鸡蛋界面
-    onShowPanelExchangeEgg2Egg() {
-        this.panels.createPanel(this.prePanelExchangeEgg2Egg, "PanelExchangeEgg2Egg");
 
     },
     //显示鸡蛋兑换钱界面
-    onShowPanelExchangeEgg2Money() {
-        this.panels.createPanel(this.prePanelExchangeEgg2Money, "PanelExchangeEgg2Money");
+    onShowPanelExchangeEgg2Money(event,customerData) {
+        this.panels.createPanel(this.prePanelExchangeEgg2Money, "PanelExchangeEgg2Money");  
+        console.log(this.panels._panelScr.name);
+        this.panels._panelScr.fill(customerData);
+    },
+    //显示兑换面板
+    onShowPanelExchange(){
+        this.onShowPanelShop();
+        this.panels._panelScr.onTab(this,1);
     },
     // //显示别人家
     // onShowOtherHome(id){

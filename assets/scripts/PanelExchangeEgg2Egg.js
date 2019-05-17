@@ -19,6 +19,7 @@ cc.Class({
         //     }
         // },
         
+        
 
         _exchangeCount:0,  //兑换数量
     },
@@ -43,7 +44,11 @@ cc.Class({
             Global.game.showTip(res.data);
         });
     },
+
     onClose(){
         this.node.destroy();
+    },
+    load(){
+
     },
 });
