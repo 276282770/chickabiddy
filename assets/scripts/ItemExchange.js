@@ -94,7 +94,7 @@ cc.Class({
                 //         Global.game.showTip("兑换失败");
                 //     }
                 // })
-                // Global.game.onShowPanelExchangeEgg2Egg();
+                Global.game.onShowPanelExchangeEgg2Egg();
             };break;
         }
         Global.game.panels.deletePanel();

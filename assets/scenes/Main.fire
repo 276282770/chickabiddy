@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.32804145481505725,
-      "y": 0.32804145481505725,
+      "x": 0.36856730432277496,
+      "y": 0.36856730432277496,
       "z": 1
     },
     "_quat": {
@@ -11477,6 +11477,9 @@
     },
     "prePanelInstruction": {
       "__uuid__": "8c5c9684-dd6a-4c1b-b048-d35bc2ea4ba8"
+    },
+    "prePanelExchange": {
+      "__uuid__": "2b76aa9a-c91a-42b1-b199-197acabe4c8d"
     },
     "prePanelExchangeEgg2Egg": {
       "__uuid__": "8e278aa3-a600-4586-9808-b3194dfe6444"

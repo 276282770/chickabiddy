@@ -662,8 +662,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "",
-    "_N$string": "",
+    "_string": "0",
+    "_N$string": "0",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -793,8 +793,8 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "f0035CyXRFDDawpBcKcVWut",
-    "handler": "onBuy",
+    "_componentId": "fe595Om8rNHDbN9yOzqJizV",
+    "handler": "onExchange",
     "customEventData": ""
   },
   {

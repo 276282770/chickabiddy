@@ -19,9 +19,14 @@ cc.Class({
         //     }
         // },
         
-        
+        txtCode:cc.EditBox,  //验证码
+        txtCount:cc.Label,  //兑换数量
 
-        _exchangeCount:0,  //兑换数量
+        prePanelExchangeEgg2EggConfirm:cc.Prefab,  //兑换确认面板预制体
+
+        _exchangeCount:0,  //兑换数量(真鸡蛋数量)
+        _eggCount:0,  //鸡蛋数量
+        _ratio:0,   //比率
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -29,26 +34,68 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
+        this.load();
     },
 
     
     //兑换
     onExchange(){
-        var self=this;
-        Network.exchangeEgg2Egg(self._exchangeCount,(res)=>{
-            if(res.result){
-                Global.game.updateIndex();
-            }
-            self.onClose();
-            Global.game.showTip(res.data);
-        });
+        // var self=this;
+        // Network.exchangeEgg2Egg(self._exchangeCount,(res)=>{
+        //     if(res.result){
+        //         Global.game.updateIndex();
+        //     }
+        //     self.onClose();
+        //     Global.game.showTip(res.data);
+        // });
+        if(this._exchangeCount==0){
+            Global.game.showTip("对不起，兑换数量必须大于0个");
+            return;
+        }
+        let newPanel=cc.instantiate(this.prePanelExchangeEgg2EggConfirm);
+        newPanel.parent=cc.find("Canvas/Panels");
+        let newPanelScr=newPanel.getComponent("PanelExchangeEgg2EggConfirm");
+        newPanelScr.fill(this.txtCode.string,this._exchangeCount);
+        this.onClose();
+    },
+    //添加
+    add(){
+        let num=this._exchangeCount+1;
+        let max=parseInt(this._eggCount*this._ratio);
+        if(num>max)
+            return;
+        this.setExchangeCount(num);
+    },
+    //减少
+    desc(){
+        let num=this._exchangeCount-1;
+        if(num<0)
+            return;
+        this.setExchangeCount(num);
+    },
+    //最大兑换量
+    all(){
+        this._exchangeCount=parseInt(this._eggCount*this._ratio);
+        this.txtCount.string=this._exchangeCount.toString();
+        
+    },
+    setExchangeCount(num){
+        this._exchangeCount=num;
+        this.txtCount.string=this._exchangeCount.toString();
     },
 
     onClose(){
         this.node.destroy();
     },
     load(){
+        var self=this;
+        Network.exchangeEgg2MoneyInfo((res)=>{
+            if(res.result){
+                self._ratio=res.data.egg2eggRatio;
+                self._eggCount=res.data.selfEggCount;
 
+                self.all();
+            }
+        });
     },
 });

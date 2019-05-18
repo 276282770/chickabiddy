@@ -72,6 +72,7 @@ cc.Class({
         prePanelShop: cc.Prefab,  //商店预制体
         prePanelRank: cc.Prefab,  //排行榜预制体
         prePanelInstruction: cc.Prefab,  //说明界面预制体
+        prePanelExchange:cc.Prefab,  //鸡蛋兑换界面
         prePanelExchangeEgg2Egg: cc.Prefab,  //鸡蛋兑换鸡蛋面板预制体
         prePanelExchangeEgg2Money: cc.Prefab,  //鸡蛋兑换钱面板预制体
         // prePanelThief:cc.Prefab,  //小偷预制体
@@ -568,8 +569,9 @@ cc.Class({
     },
     //显示鸡蛋兑换鸡蛋界面
     onShowPanelExchangeEgg2Egg() {
-        this.panels.createPanel(this.prePanelExchangeEgg2Egg, "PanelExchangeEgg2Egg");
-
+        //this.panels.createPanel(this.prePanelExchangeEgg2Egg, "PanelExchangeEgg2Egg");
+        var newPanel= cc.instantiate(this.prePanelExchangeEgg2Egg);
+        newPanel.parent=cc.find("Canvas");
     },
     //显示鸡蛋兑换钱界面
     onShowPanelExchangeEgg2Money(event,customerData) {
@@ -579,8 +581,7 @@ cc.Class({
     },
     //显示兑换面板
     onShowPanelExchange(){
-        this.onShowPanelShop();
-        this.panels._panelScr.onTab(this,1);
+        this.panels.createPanel(this.prePanelExchange, "PanelExchange");
     },
     // //显示别人家
     // onShowOtherHome(id){

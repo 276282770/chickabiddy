@@ -61,15 +61,17 @@ cc.Class({
         Network.exchangeEgg2MoneyInfo((res) => {
             if (res.result) {
                 if (md == 0) {
-                    self.imgEgg.spriteframe = self.spOtherEgg;
+                    self.imgEgg.spriteFrame = self.spOtherEgg;
                     self.txtDesc.string = "将收获他人的鸡蛋兑换成金币可以购买食物、经验卡、装扮等道具.";
                     self.txtRate.string = "1:" + res.data.otherEggPrice.toString();
+                    self._ratio=res.data.otherEggPrice;
                     self._ownCount=res.data.otherEggCount;
                 }
                 else if (md == 1) {
-                    self.imgEgg.spriteframe = self.spSelfEgg;
+                    self.imgEgg.spriteFrame = self.spSelfEgg;
                     self.txtDesc.string = "将收获的鸡蛋兑换成金币可以购买食物、经验卡、装扮等道具.";
                     self.txtRate.string = "1:" + res.data.selfEggPrice.toString();
+                    self._ratio=res.data.selfEggPrice;
                     self._ownCount=res.data.selfEggCount;
                 }
             }

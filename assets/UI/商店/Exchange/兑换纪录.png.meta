@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "574c2dd4-8852-499b-ae82-3337162650e9",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "兑换纪录": {
+      "ver": "1.0.3",
+      "uuid": "037e4f56-7609-4d83-9c98-ca193bcf6b87",
+      "rawTextureUuid": "574c2dd4-8852-499b-ae82-3337162650e9",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": -0.5,
+      "trimX": 0,
+      "trimY": 1,
+      "width": 134,
+      "height": 30,
+      "rawWidth": 134,
+      "rawHeight": 31,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
