@@ -198,6 +198,9 @@ cc.Class({
             this.ndTipBath.active = true;
         }
     },
+    showCtrl(){
+
+    },
 
     test() {
         this.player.openSay("你好");

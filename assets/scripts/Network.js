@@ -8,6 +8,15 @@ var Network = {
     request(url, data, success) {
         WX.request(url, data, "POST", success);
     },
+    /**  统计
+     *
+     *
+     * @param {*} data  任务
+     */
+    requestStatistics(key,value){
+        let url = this.domain + "/tongji/tongji_shop.action";
+        let data={key:value}
+    },
     /**登录
      * @param  {string} code 微信code
      * @param  {function} callback 回调函数
