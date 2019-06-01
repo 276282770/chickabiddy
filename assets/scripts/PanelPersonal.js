@@ -21,6 +21,7 @@ cc.Class({
         txtTotalEggCount:cc.Label,  //自己总收蛋个数
         txtTotalOtherEggCount:cc.Label,  //总收别人蛋的个数
         txtLoseEggCount:cc.Label,  //鸡蛋被偷的个数
+        txtMoney:cc.Label,  //钱
 
         proExp:cc.ProgressBar,  //经验进度
         proEgg:cc.ProgressBar,  //鸡蛋进度
@@ -80,6 +81,7 @@ cc.Class({
                 self.txtTotalEggCount.string=res.data.totalEggCount.toString();
                 self.txtTotalOtherEggCount.string=res.data.totalOtherEggCount.toString();
                 self.txtLoseEggCount.string=res.data.totalLoseEggCount.toString();
+                self.txtMoney.string=res.data.money.toString();
 
                 self.proExp.progress=res.data.lvlExp/res.data.lvlFullExp; 
 

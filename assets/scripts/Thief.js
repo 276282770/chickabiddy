@@ -44,6 +44,7 @@ cc.Class({
         _cid: -1,  //id
         _pos0: { default: new cc.Vec2(-121, -293) },
         _pos1: { default: new cc.Vec2(156, -293) },
+        _lastThiefCount:-1,  //上一次小偷的个数
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -51,7 +52,7 @@ cc.Class({
     // onLoad () {},
 
     start() {
-
+        console.log("======================="+this._lastThiefCount);
     },
     setThief(data) {
         if (data.length > 2)
@@ -83,16 +84,17 @@ cc.Class({
         if (this.thiefCount() > 0) {
             this.onShow();
             let isExtendShowed=this._isExtendOpen0|this._isExtendOpen1;
-            if(isExtendShowed){
-                Global.game.showCtrl(false);
-            }else{
-                Global.game.showCtrl(true);
-            }
+            // if(isExtendShowed){
+            //     Global.game.showCtrl(false);
+            // }else{
+            //     Global.game.showCtrl(true);
+            // }
         } else {
             this.onHide();
 
-            Global.game.showCtrl(true);
+            // Global.game.showCtrl(true);
         }
+        this._lastThiefCount=this.thiefCount();
     },
     addThief(data) {
         if (!this.ndThief0.active) {
@@ -112,11 +114,13 @@ cc.Class({
         })));
     },
     onHide() {
-        this.node.runAction(cc.moveBy(1, 0, 1300));
+        // this.node.runAction(cc.moveBy(1, 0, 1300));
+        this.node.active=false;
     },
     onShow() {
-        this.node.position = new cc.Vec2(0, 0);
-        console.log("Thief position=" + this.node.position);
+        this.node.active=true;
+        // this.node.position = new cc.Vec2(0, 0);
+        // console.log("Thief position=" + this.node.position);
     },
 
     // update (dt) {},
@@ -164,24 +168,24 @@ cc.Class({
             if (show) {
                 if (this._isExtendOpen0)
                     return;
-                this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_open");
+                this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("thief_extend_open");
                 this._isExtendOpen0 = true;
             } else {
                 if (!this._isExtendOpen0)
                     return;
-                this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_close");
+                this.ndThief0.getChildByName("Extend").getComponent(cc.Animation).play("thief_extend_close");
                 this._isExtendOpen0 = false;
             }
         } else {
             if (show) {
                 if (this._isExtendOpen1)
                     return;
-                this.ndThief1.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_open");
+                this.ndThief1.getChildByName("Extend").getComponent(cc.Animation).play("thief_extend_open");
                 this._isExtendOpen1 = true;
             } else {
                 if (!this._isExtendOpen1)
                     return;
-                this.ndThief1.getChildByName("Extend").getComponent(cc.Animation).play("player_extend_close");
+                this.ndThief1.getChildByName("Extend").getComponent(cc.Animation).play("thief_extend_close");
                 this._isExtendOpen1 = false;
             }
         }
@@ -196,14 +200,14 @@ cc.Class({
         result=result|this._isExtendOpen0;
         result=result|this._isExtendOpen1;
 
-        Global.game.showCtrl(!result);
+        // Global.game.showCtrl(!result);
 
         return result;    
     },
     onClickBg() {
         var self = this;
 
-        this.ndExtend.getComponent(cc.Animation).play("player_extend_open");
+        this.ndExtend.getComponent(cc.Animation).play("thief_extend_open");
         this.scheduleOnce(function () {
             this.ndBg.active = false;
             this.ndThief.getComponent(cc.Button).interactable = true;
@@ -243,7 +247,7 @@ cc.Class({
                     Global.game.updateIndex();
                 }, 5);
             }
-            console.log("===============" + JSON.stringify(data));
+
             self.openSay(idx, data.say);
             self.openSay(self._thiefData.length - 1 - idx, data.otherSay);
             Global.game.player.openSay(data.playerSay);

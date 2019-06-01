@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "d831d31b-f500-4ffa-925d-3ac5fbec620c",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "自动门2": {
+      "ver": "1.0.3",
+      "uuid": "0513e1be-796c-4a32-a4bd-920b0dbbdcc5",
+      "rawTextureUuid": "d831d31b-f500-4ffa-925d-3ac5fbec620c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 51,
+      "trimX": 0,
+      "trimY": 100,
+      "width": 362,
+      "height": 978,
+      "rawWidth": 362,
+      "rawHeight": 1280,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

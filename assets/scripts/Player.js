@@ -45,6 +45,8 @@ cc.Class({
         _clean:0,
         _bateu:false,
         _outHome:false,
+        _uid:-1,  //id
+        _isMe:false,  //是本人吗？
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -78,6 +80,8 @@ cc.Class({
     onClick(){
         console.log("点击小鸡");
         // let thiefcount=cc.find("Canvas/Thief").getComponent("Thief").thiefCount;
+        if(!this._isMe)
+        return;
 
         if(this.ndExtend.active){
             this.onClickBg();
@@ -210,4 +214,30 @@ cc.Class({
 
         this.stateManager();
     },
+    /** 设置小鸡缩放
+     * @param normal 正常，small 缩小
+     */
+    setPlayerScale(para){
+        
+        switch(para){
+            case "normal":{
+                this.ndPlayer.setScale(1);
+                this.ndPlayer.y=-150;
+                this.ndExtend.setScale(1);
+                this.txtSay.node.parent.setScale(1);
+            };break;
+            case "small":{
+                this.ndPlayer.setScale(0.5);
+                this.ndPlayer.y=-400;
+                this.ndExtend.setScale(1.5);
+                this.txtSay.node.parent.setScale(1.5);
+            };break;
+        }
+    },
+    setId(id){
+        this._uid=id;
+        if(id==Global.id){
+            this._isMe=true;
+        }
+    }
 });

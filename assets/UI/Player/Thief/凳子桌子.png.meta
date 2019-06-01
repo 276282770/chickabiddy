@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "76bb3782-3376-45e0-a43d-53abc66976d7",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "凳子桌子": {
+      "ver": "1.0.3",
+      "uuid": "783c884c-4c4c-4b52-bc46-8be00ee32cbf",
+      "rawTextureUuid": "76bb3782-3376-45e0-a43d-53abc66976d7",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1045,
+      "height": 423,
+      "rawWidth": 1045,
+      "rawHeight": 423,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

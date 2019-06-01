@@ -31,6 +31,7 @@ cc.Class({
         txtSay:cc.Label,  //说话
         animBath:cc.Animation,  //洗澡动画
         // animSay:cc.Animation,  //说话动画
+        animDoor:cc.Animation,  //门动画
         _awardTxt:"",
         _backTime:10,  //返回时间
     },
@@ -46,6 +47,12 @@ cc.Class({
         },this._backTime);
         this.onPlayBath();
         // this.onPlaySay();
+        this.scheduleOnce(function(){
+            this.onCloseDoor();
+        },1);
+    },
+    update(){
+
     },
     fill(txt,awardTxt){
         this._awardTxt=awardTxt;
@@ -64,6 +71,13 @@ cc.Class({
     //播放说话动画
     onPlaySay(){
         this.animSay.play("say_open");
+    },
+    onCloseDoor(){
+        this.animDoor.play("door_close");
+    },
+    //链接
+    onLink(){
+        this.game.onLink_HuiShenghuo();
     },
 
     // update (dt) {},

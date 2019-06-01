@@ -46,9 +46,12 @@ cc.Class({
         proClean: cc.ProgressBar,  //清洁进度
 
         imgAvatar: cc.Sprite,  //头像
+        imgBg:cc.Sprite,  //背景
+
+        spBgs:[cc.SpriteFrame],  //背景 0 正常背景，1有小偷时
 
         preMsgBox: cc.Prefab,  //消息框预制体
-        ndHomeMask: cc.Node,  //主页遮罩
+        // ndHomeMask: cc.Node,  //主页遮罩
         ndThief: cc.Node,  //小偷界面
         ndWaitting: cc.Node,  //等待画面
         ndFindPlayer: cc.Node,  //寻找小鸡节点
@@ -58,6 +61,9 @@ cc.Class({
         ndPanelRank: cc.Node,  //排行榜面板节点
         ndPlayerRoot: cc.Node,  //玩家根节点
         ndThiefRoot: cc.Node,  //小偷根节点
+        ndCloud:cc.Node,  //云彩节点
+        ndEgg:cc.Node,  //鸡蛋节点
+        ndTV:cc.Node,  //TV节点
 
         panels: PanelManager,  //面板管理
         prePanelFriends: cc.Prefab,  //朋友面板预制体
@@ -80,6 +86,7 @@ cc.Class({
         prePlayerBath: cc.Prefab,  //洗澡动画预制体
         prePlayer: cc.Prefab,  //玩家预制体
         preThief: cc.Prefab,  //小偷预制体
+        // preCloud:cc.Prefab,  //云彩预制体
 
 
         player: Player,  //玩家
@@ -101,7 +108,7 @@ cc.Class({
         _grow: 0,  //成熟值
 
         _rqstTm: 0,  //请求倒计时
-        _rqstRate: 1,  //请求频率
+        _rqstRate: 5,  //请求频率
 
         _ndLeftPos: new cc.Vec2(0, 0),  //左边按钮坐标
         _ndRightPos: new cc.Vec2(0, 0),  //右边按钮坐标
@@ -110,6 +117,8 @@ cc.Class({
         _shareFlag: false,  //是否调用了分享接口
         _shareTime: null,  //分享前的时间
         _shareDelay: 2,  //分享关键延迟
+
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -305,6 +314,7 @@ cc.Class({
         let playerNode = cc.instantiate(this.prePlayer);
         playerNode.parent = this.ndPlayerRoot;
         this.player = playerNode.getComponent("Player");
+        this.player.setId(Global.id);
         this.ndThief = cc.instantiate(this.preThief);
         this.ndThief.parent = this.ndThiefRoot;
         this.thief = this.ndThief.getComponent("Thief");
@@ -348,22 +358,59 @@ cc.Class({
         self.setProEgg(data.eggProgCurr / data.eggProgFull);
 
         if (data.thiefs != null) {
-            self.setPanelThief(data.thiefs);
+            let currentThiefsCount=0;  //现在小偷数量
+            let originalThiefsCount=self.thief._lastThiefCount;  //原来小偷数量
+            //计算现在小偷数量
+            if(data.thiefs[0]!=null)
+             currentThiefsCount++;
+            if(data.thiefs[1]!=null)
+                currentThiefsCount++;
+            
+                console.log("【设置小偷】本次小偷数量{"+currentThiefsCount+"},上次小偷数量{"+originalThiefsCount+"}");
+            //如果小偷被弄完时
+            if(currentThiefsCount==0&&originalThiefsCount>0){
+            
+                self.onCloudClose();
+                self.scheduleOnce(function(){
+                  self.backgroundScale("normal");
+                  self.onCloudOpen();
+                },2);
+
+            }
+            //如果进来小偷时
+            if(currentThiefsCount>0&&originalThiefsCount<=0){
+
+                if(originalThiefsCount==-1){
+                    self.backgroundScale("small");
+                }else{
+
+                self.onCloudClose();
+                self.scheduleOnce(function(){
+                  self.backgroundScale("small");
+                  self.onCloudOpen();
+                },2);
+                }
+            }
+            self.thief.setThief(data.thiefs);
+            // self.setPanelThief(data.thiefs);
             if (data.thiefs[0] != null || data.thiefs[1] != null) {
                 //有小偷
+     
                 // self.ndRight.y=0;
                 // self.ndLeft.y=0;
-                self.player.node.y = -200;
-                
+                // self.player.node.y = -200;
+                // self.ndThief.active=true;
             } else {
                 //没有小偷
+   
                 // self.ndRight.y=349;
                 // self.ndLeft.y=274;
-                self.player.node.y = 0;
+                // self.player.node.y = 0;
                 // self.ndRight.setPosition(self._ndRightPos);
                 // self.ndLeft.setPosition(self._ndLeftPos);
                 
                 // self.showCtrl(true);
+                // self.ndThief.active=false;
             }
 
         }
@@ -408,6 +455,7 @@ cc.Class({
             self.onPlayLevelUp();
         }
         Global.user.level = data.lvl;
+
     },
     //打开上一次面板
     openLastPanel() {
@@ -671,6 +719,37 @@ cc.Class({
         this.ndRight.active = isShow;
         // this.ndDown.active=isShow;
     },
+    //云彩关闭
+    onCloudClose(){
+        let _cloud=this.ndCloud.getComponent("Cloud");
+        _cloud.playClose();
+    },
+    //云彩显示
+    onCloudOpen(){
+        let _cloud=this.ndCloud.getComponent("Cloud");
+        _cloud.playOpen();
+    },
+    //背景缩放
+    backgroundScale(para){
+        switch(para){
+            case "normal":{
+                this.imgBg.spriteFrame=this.spBgs[0];
+                this.player.setPlayerScale(para);
+                this.ndEgg.setScale(1.2);
+                this.ndEgg.setPosition(-242,-446);
+                this.ndTV.active=true;
+                this.ndThiefRoot.active=false;
+            };break;
+            case "small":{
+                this.imgBg.spriteFrame=this.spBgs[1];
+                this.player.setPlayerScale(para);
+                this.ndEgg.setScale(0.7);
+                this.ndEgg.setPosition(-186,-480);
+                this.ndTV.active=false;
+                this.ndThiefRoot.active=true;
+            };break;
+        }
+    },
 
 
     //测试
@@ -687,7 +766,7 @@ cc.Class({
 
         // });
 
-        // this.onPlayPlayerDine(4,"你好，你好");
+        this.onPlayPlayerDine(4,"你好，你好");
         // this.onPlayPlayerBath();
         // this.player.playCry();
         // this.onShowOtherHome(22);
@@ -697,7 +776,9 @@ cc.Class({
 
         // this.ndRight.position.Y=0;
         //    this.showTip("你好你好");
-        this.onPlayLevelUp();
+        // this.onPlayLevelUp();
+        // this.onCloudClose();
+
     },
     //设置天黑天亮
     setDark() {
@@ -706,9 +787,9 @@ cc.Class({
             return;
         this._hour = hour;
         if (hour >= 6 && hour < 20) {
-            this.ndHomeMask.active = false;
+            // this.ndHomeMask.active = false;
         } else {
-            this.ndHomeMask.active = true;
+            // this.ndHomeMask.active = true;
         }
         console.log("现在时刻：" + hour + "点");
     },

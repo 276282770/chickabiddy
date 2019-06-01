@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "cloud_close",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "云1": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                1260
+              ]
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": [
+                0,
+                546
+              ]
+            }
+          ]
+        }
+      },
+      "云2": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                -1633
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                0,
+                -84
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

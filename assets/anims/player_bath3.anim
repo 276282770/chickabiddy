@@ -1,0 +1,37 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "player_bath3",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.5166666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "7382c298-3f0e-4c57-9a89-3d67805c63e8"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "6663e0e1-9239-4e11-9242-e3622673778e"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "6663e0e1-9239-4e11-9242-e3622673778e"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

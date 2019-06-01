@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "36a05037-565a-4e44-a4d3-0cfda404f66c",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "餐厅后景": {
+      "ver": "1.0.3",
+      "uuid": "10618df2-8a1f-476d-87cd-271900cdca8b",
+      "rawTextureUuid": "36a05037-565a-4e44-a4d3-0cfda404f66c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 720,
+      "height": 1280,
+      "rawWidth": 720,
+      "rawHeight": 1280,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

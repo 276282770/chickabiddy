@@ -38,24 +38,36 @@ cc.Class({
         txtLvl: cc.Label,  //等级
         txtNickname: cc.Label,  //昵称
         ndThief: cc.Node,  //小偷
+        ndThiefRoot: cc.Node,
         ndFindPlayer: cc.Node,  //寻找小鸡
+        ndPlayerRoot: cc.Node,
+        ndEgg: cc.Node,  //鸡蛋节点
+        ndTV: cc.Node,  //电视
+        ndCloud: cc.Node,  //云彩节点
 
         player: Player,  //
+
         thief: Thief,  //小偷
         preMsgBox: cc.Prefab,  //消息框预制体
         prePlayerBath: cc.Prefab,  //洗澡预制体
 
+        prePlayer: cc.Prefab,  //小鸡预制体
+        preThief: cc.Prefab,  //小偷预制体
+
         ndTipEgg: cc.Node,  //偷蛋提示
         ndTipBath: cc.Node,  //洗澡提示
-        
 
 
+        imgBg: cc.Sprite,  //背景
 
+        spBgs: [cc.SpriteFrame],  //背景 0 正常背景，1有小偷时
 
 
         _uid: -1,  //用户ID
         _eggCount: 0,  //鸡蛋数量
         _state: 0,
+
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -70,6 +82,12 @@ cc.Class({
         this.updateIndex();
     },
     iniNode() {
+        let playerNode = cc.instantiate(this.prePlayer);
+        playerNode.parent = this.ndPlayerRoot;
+        this.player = playerNode.getComponent("Player");
+        this.player.setId(Global.otherPersonId);
+        this.ndThief = cc.instantiate(this.preThief);
+        this.ndThief.parent = this.ndThiefRoot;
         this.thief = this.ndThief.getComponent("Thief");
     },
 
@@ -95,7 +113,7 @@ cc.Class({
                 self._eggCount = data.eggCount;
                 self.txtLvl.string = data.lvl.toString();
                 self.txtNickname.string = data.nickName;
-                self.ndThief.getComponent("Thief").setThief(data.thiefs);
+                // self.ndThief.getComponent("Thief").setThief(data.thiefs);
 
                 if (data.say != "") {
                     self.player.openSay(data.say);
@@ -116,8 +134,49 @@ cc.Class({
                 //更新鸡蛋进度
                 self.proEgg.progress = data.eggProgress;
 
-                console.log("====================="+data.canPickupEgg+" "+data.canBath);
-                self.setTip(data.canPickupEgg,data.canBath);
+                self.setTip(data.canPickupEgg, data.canBath);
+
+                //小偷方法
+                if (data.thiefs != null) {
+                    let currentThiefsCount = 0;  //现在小偷数量
+                    let originalThiefsCount = self.thief._lastThiefCount;  //原来小偷数量
+                    //计算现在小偷数量
+                    if (data.thiefs[0] != null)
+                        currentThiefsCount++;
+                    if (data.thiefs[1] != null)
+                        currentThiefsCount++;
+
+                    //如果小偷被弄完时
+                    if (currentThiefsCount == 0 && originalThiefsCount > 0) {
+                        self.onCloudClose();
+                        self.scheduleOnce(function () {
+                            self.backgroundScale("normal");
+                            self.onCloudOpen();
+                        }, 2);
+                    }
+                    //如果进来小偷时
+                    if (currentThiefsCount > 0 && originalThiefsCount <= 0) {
+                        if(originalThiefsCount==-1){
+                            self.backgroundScale("small");
+                        }else{
+                            self.onCloudClose();
+                            self.scheduleOnce(function () {
+                                self.backgroundScale("small");
+                                self.onCloudOpen();
+                            }, 2);
+                        }
+                    }
+                    if (data.thiefs[0] != null || data.thiefs[1] != null) {
+                        //有小偷
+                 
+
+                    } else {
+                        //没有小偷
+                      
+                    }
+                    self.thief.setThief(data.thiefs);
+                }
+
             }
         });
     },
@@ -198,9 +257,47 @@ cc.Class({
             this.ndTipBath.active = true;
         }
     },
-    showCtrl(){
+    showCtrl() {
 
     },
+    //背景缩放
+    backgroundScale(para) {
+        switch (para) {
+            case "normal": {
+                this.imgBg.spriteFrame = this.spBgs[0];
+                this.player.setPlayerScale(para);
+                this.ndEgg.setScale(1.2);
+                this.ndEgg.setPosition(-242, -446);
+                this.ndTV.active = true;
+                this.ndThiefRoot.active = false;
+            }; break;
+            case "small": {
+                this.imgBg.spriteFrame = this.spBgs[1];
+                this.player.setPlayerScale(para);
+                this.ndEgg.setScale(0.7);
+                this.ndEgg.setPosition(-186, -480);
+                this.ndTV.active = false;
+                this.ndThiefRoot.active = true;
+            }; break;
+        }
+    },
+    //云彩关闭
+    onCloudClose() {
+        let _cloud = this.ndCloud.getComponent("Cloud");
+        _cloud.playClose();
+    },
+    //云彩显示
+    onCloudOpen() {
+        let _cloud = this.ndCloud.getComponent("Cloud");
+        _cloud.playOpen();
+    },
+    //链接微信小程序  中原银行信用卡
+    onLink_XinYongKa() {
+        WX.navigateToMiniProgram(Global.miniProgramAppIdList[1]);
+    },
+
+
+
 
     test() {
         this.player.openSay("你好");
