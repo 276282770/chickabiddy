@@ -766,12 +766,12 @@ cc.Class({
 
         // });
 
-        this.onPlayPlayerDine(4,"你好，你好");
+        // this.onPlayPlayerDine(4,"你好，你好");
         // this.onPlayPlayerBath();
         // this.player.playCry();
         // this.onShowOtherHome(22);
-        // let thiefScr=this.ndThief.getComponent("Thief");
-        //     thiefScr.setThief([{id:0,name:""},null]);
+        let thiefScr=this.ndThief.getComponent("Thief");
+            thiefScr.setThief([{id:0,name:""},null]);
         // this.player.playCry();
 
         // this.ndRight.position.Y=0;
