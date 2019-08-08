@@ -55,10 +55,15 @@ cc.Class({
             dataLst.push({nickname:nickname,avatar:avatarUrl,level:score,openId:openid});
             }
             self.sortList(dataLst);
+            if(self.preItem!=null){
             for(var i=0;i<dataLst.length;i++){
+                
                 let newItem=cc.instantiate(self.preItem);
                 newItem.getComponent("Item").fill((i+1).toString(),dataLst[i].nickname,dataLst[i].avatar,dataLst[i].level,dataLst[i].openId);
                 newItem.parent=self.ndCtnt;
+                }
+            }else{
+                console.log("X好友排行项预制体预制体不能为空");
             }
         });
     },

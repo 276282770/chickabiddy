@@ -5395,7 +5395,7 @@
     "node": {
       "__id__": 146
     },
-    "_enabled": true,
+    "_enabled": false,
     "_spriteFrame": {
       "__uuid__": "1c216e2f-3042-4ef2-a259-10b51ea18697"
     },
@@ -5435,7 +5435,7 @@
       "__id__": 145
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 2,
     "_components": [
       {

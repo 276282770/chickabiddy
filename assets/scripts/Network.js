@@ -859,6 +859,11 @@ var Network = {
                 callback(backData);
         });
     },
+    //获取链接小程序appid
+    getLinkAppid(tp,callback){
+        let backData={result:false,data:{}};
+        callback(backData);
+    },
 
     /** 鸡蛋兑换金币信息
      *

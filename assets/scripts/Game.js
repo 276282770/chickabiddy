@@ -701,12 +701,22 @@ cc.Class({
     //链接微信小程序 中原银行惠生活
     onLink_HuiShenghuo() {
         // let appid="wxeedb326f283fe740";
-        let appid = Global.miniProgramAppIdList[0];
-        WX.navigateToMiniProgram(appid);
+        // let appid = Global.miniProgramAppIdList[0];
+        // WX.navigateToMiniProgram(appid);
+        Network.getLinkAppid("zhongyuanyinhanghuishenghuo",(res)=>{
+            if(res.result){
+                WX.navigateToMiniProgram(res.data);
+            }
+        })
     },
     //链接微信小程序  中原银行信用卡
     onLink_XinYongKa() {
-        WX.navigateToMiniProgram(Global.miniProgramAppIdList[1]);
+        // WX.navigateToMiniProgram(Global.miniProgramAppIdList[1]);
+        Network.getLinkAppid("zhongyuanyinhanghuishenghuo",(res)=>{
+            if(res.result){
+                WX.navigateToMiniProgram(res.data);
+            }
+        })
     },
 
     /** 显示控制按钮

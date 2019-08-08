@@ -59,15 +59,20 @@ cc.Class({
     fill(no,nickname,avatar,level,openId){
         var self=this;
         if(no<4){
+            if(this.imgLevel!=null)
             this.imgLevel.spriteFrame=this.spLevels[no-1];
         }else{
+            if(this.txtNo!=null)
             this.txtNo.string=no.toString();
         }
+        if(this.txtNickname!=null)
         this.txtNickname.string=nickname;
+        if(this.txtLevel!=null)
         this.txtLevel.string=level.toString();
         if(avatar!=null&&avatar!=""){
             cc.loader.load({url:avatar,type:'png'},function(err,tex){
                 if(!err){
+                    if(self.imgAvatar!=null)
                     self.imgAvatar.spriteFrame=new cc.SpriteFrame(tex);
                 }
             });
