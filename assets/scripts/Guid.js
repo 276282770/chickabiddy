@@ -27,14 +27,20 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        spTipOtherBath:cc.AnimationClip, //别人洗澡提示精灵
-        spTipFriend: cc.AnimationClip,  //好友提示精灵
-        spTipMission: cc.AnimationClip,  //任务提示精灵
-        spTipShop: cc.AnimationClip,//商店提示精灵
-        spTipFood: cc.AnimationClip,//食物提示精灵
-        spTipPickupEgg: cc.AnimationClip,//收鸡蛋提示精灵
-        spTipOtherPickupEgg: cc.AnimationClip,//收别人鸡蛋提示精灵
-        spTipOtherBath: cc.AnimationClip,//别人洗澡提示精灵
+        spTipOtherBath:cc.SpriteFrame, //别人洗澡提示精灵
+        spTipFriend: cc.SpriteFrame,  //好友提示精灵
+        spTipMission: cc.SpriteFrame,  //任务提示精灵
+        spTipShop: cc.SpriteFrame,//商店提示精灵
+        spTipFood: cc.SpriteFrame,//食物提示精灵
+        spTipPickupEgg: cc.SpriteFrame,//收鸡蛋提示精灵
+        spTipOtherPickupEgg: cc.SpriteFrame,//收别人鸡蛋提示精灵
+        spTipOtherBath: cc.SpriteFrame,//别人洗澡提示精灵
+
+        ndBackground:cc.Node,  //背景节点
+
+        imgBase:cc.Sprite,  //基础图
+        _animBase:cc.Animation,
+
 
     },
 
@@ -43,8 +49,26 @@ cc.Class({
     // onLoad () {},
 
     start() {
-
+        if(this.imgBase!=null)
+        this._animBase=this.imgBase.getComponent(cc.Animation);
     },
 
     // update (dt) {},
+
+    /**显示朋友提示
+     */
+    showTipFriend(){
+        this.showBackground();
+        this.imgBase.spriteFrame=this.spTipFriend;
+        this._animBase.play();
+    },
+    /**显示背景节点 */
+    showBackground(){
+        this.ndBackground.active=true;
+    },
+    /** 关闭
+     */
+    closeImage(){
+        this.ndBackground.active=false;
+    },
 });
