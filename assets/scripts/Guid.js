@@ -36,12 +36,25 @@ cc.Class({
         spTipOtherPickupEgg: cc.SpriteFrame,//收别人鸡蛋提示精灵
         spTipOtherBath: cc.SpriteFrame,//别人洗澡提示精灵
 
+        ndPointoutBath:cc.Node,  //指出洗澡节点
+        ndPointoutFriend:cc.Node,  //指出好友节点
+        ndPointoutMission:cc.Node,  //指出任务节点
+        ndPointoutAllow:cc.Node,  //指出箭头节点
+        ndPointoutShop:cc.Node,  //指出商店节点
+        ndPointoutPickupEgg:cc.Node,  //指出拾取鸡蛋节点
+        ndPointoutFood:cc.Node,  //指出食物节点
+
         ndBackground:cc.Node,  //背景节点
 
+
         imgBase:cc.Sprite,  //基础图
+        controllButtons:[cc.Button],  //控制按钮
+
         _animBase:cc.Animation,
+        _currentStep:1,
+        _showTipboxTime:0,
 
-
+        
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -71,4 +84,44 @@ cc.Class({
     closeImage(){
         this.ndBackground.active=false;
     },
+    //第一步
+    step1(){
+        this.showTipFriend();
+    },
+    step1_pointout(){
+        this.ndPointoutBath.active=true;
+    },
+    //点击背景
+    background_onClick(){
+        let sec=new Date().getSeconds();
+        if(Math.abs(sec-this._showTipboxTime<2)){
+            return;
+        }
+        switch(_currentStep){
+            case 1:{
+                
+            };break;
+        }
+    },
+    //显示提示框
+    showTipBox(sprite){
+        this._showTipboxTime=new Date().getSeconds();
+        this.showBackground();
+        this.imgBase.spriteFrame=sprite;
+        this._animBase.play();
+    },
+
+    //启用指定按钮
+    enableButton(idx){
+        this.controllButtons[idx].interactable=true;
+    },
+    //禁用所有按钮
+    disableAllButton(){
+        for(var i=0;i<this.controllButtons.length;i++){
+            this.controllButtons[i].interactable=false;
+        }
+    },
+    runStep(){
+
+    }
 });

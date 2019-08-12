@@ -109,13 +109,15 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_defaultClip": null,
+    "_defaultClip": {
+      "__uuid__": "795579ca-3686-4a54-92a4-90ce98afac98"
+    },
     "_clips": [
       {
         "__uuid__": "795579ca-3686-4a54-92a4-90ce98afac98"
       }
     ],
-    "playOnLoad": false,
+    "playOnLoad": true,
     "_id": ""
   },
   {
@@ -124,7 +126,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "2da7b009-616c-42f5-8e3c-f5a824ea587d"
     },
     "fileId": "34WgLQvmZEa7z2TJKpT+uq",
     "sync": false
