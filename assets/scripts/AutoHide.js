@@ -49,6 +49,13 @@ cc.Class({
         }else{
             this.onShow();
         }
+        //引导
+        
+        let guide=cc.find("Canvas/Guid").getComponent("Guid");
+        guide.hidePoint();
+        if(guide._isGuid){
+            guide.background_onClick();
+        }
     },
     onHide(){
         var self=this;

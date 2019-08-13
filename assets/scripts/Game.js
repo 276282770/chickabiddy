@@ -13,6 +13,7 @@ var Common = require("Common");
 var PanelManager = require("PanelManager");
 var Player = require("Player");
 var Thief = require("Thief");
+var Guid=require("Guid");
 // var OtherHome=require("OtherHome");
 
 cc.Class({
@@ -92,6 +93,8 @@ cc.Class({
         player: Player,  //玩家
         thief: Thief,  //小偷
         // otherHome:OtherHome,  //别人家
+        guide:Guid,  //指引
+
 
 
         display: cc.Sprite,  //子域显示
@@ -117,6 +120,9 @@ cc.Class({
         _shareFlag: false,  //是否调用了分享接口
         _shareTime: null,  //分享前的时间
         _shareDelay: 2,  //分享关键延迟
+
+        //引导用
+        _buyCount:0,  //买东西的个数
 
 
     },
@@ -260,6 +266,12 @@ cc.Class({
             if (res.result) {
                 if (fid != null) {
                     Network.requestAddFriend(fid, function (res) { });
+                }
+                if(res.data.isNewPlayer){
+                    if(!this.guide._isGuid){
+                        this.guide._isGuid=true;
+                    this.guide.step();
+                    }
                 }
                 self.updateState(res.data);
                 self.ndWaitting.active = false;
@@ -566,6 +578,8 @@ cc.Class({
     onShowFxPanelFriends() {
         this.panels.createPanel(this.prePanelFriends, "PanelFriends");
         this.panels.showFx();
+        //引导
+        this.guide.hidePoint();
     },
     /**显示链接面板
      */
@@ -581,11 +595,18 @@ cc.Class({
      */
     onShowPanelMission() {
         this.panels.createPanel(this.prePanelMission, "PanelMission");
+        //引导
+        if(this.guide._isGuid){
+            this.guide.hidePoint();
+            this.guide._isGuid=false;
+        }
     },
     /**显示背包面板
      */
     onShowPanelPackage() {
         this.panels.createPanel(this.prePanelPackage, "PanelPackage");
+        //引导
+        this.guide.hidePoint();
     },
     onShowPanelAnnouncement() {
         this.panels.createPanel(this.prePanelAnnouncement, "PanelAnnouncement");
@@ -605,6 +626,8 @@ cc.Class({
     //显示商店界面
     onShowPanelShop() {
         this.panels.createPanel(this.prePanelShop, "PanelShop");
+        //引导
+        this.guide.hidePoint();
     },
     //显示排行榜界面
     onShowPanelRank() {
@@ -662,6 +685,7 @@ cc.Class({
      */
     onBath() {
         var self = this;
+        this.guide.hidePoint();
         Network.requestBath((res) => {
             if (res.result) {
                 //播放洗澡动画
@@ -692,6 +716,8 @@ cc.Class({
             self.player.openSay(res.data.say);
             self.updateIndex();
         });
+        //引导
+        this.guide.hidePoint();
     },
     //寻找小鸡
     onFindPlayer() {

@@ -40,6 +40,11 @@ cc.Class({
     },
     onClose(){
         this.node.destroy();
+        //引导4
+        let guide=cc.find("Canvas/Guid").getComponent("Guid");
+        if(guide._isGuid){
+            guide.stepSchedule(4);
+        }
     },
     fill(id,sayText){
         var self=this;

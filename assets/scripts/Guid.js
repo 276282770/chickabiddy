@@ -27,7 +27,7 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        spTipOtherBath:cc.SpriteFrame, //别人洗澡提示精灵
+        spTipBath:cc.SpriteFrame, //洗澡提示精灵
         spTipFriend: cc.SpriteFrame,  //好友提示精灵
         spTipMission: cc.SpriteFrame,  //任务提示精灵
         spTipShop: cc.SpriteFrame,//商店提示精灵
@@ -54,12 +54,15 @@ cc.Class({
         _currentStep:1,
         _showTipboxTime:0,
 
-        
+        _isGuid:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
+
+    //1.洗澡->2.商城->3.吃饭->4.好友->5.任务
+    //收鸡蛋
 
     start() {
         if(this.imgBase!=null)
@@ -71,9 +74,7 @@ cc.Class({
     /**显示朋友提示
      */
     showTipFriend(){
-        this.showBackground();
-        this.imgBase.spriteFrame=this.spTipFriend;
-        this._animBase.play();
+        this.showTipBox(this.spTipFriend);
     },
     /**显示背景节点 */
     showBackground(){
@@ -86,22 +87,73 @@ cc.Class({
     },
     //第一步
     step1(){
-        this.showTipFriend();
+        this.showTipBox(this.spTipBath);
     },
     step1_pointout(){
         this.ndPointoutBath.active=true;
     },
     //点击背景
     background_onClick(){
+        
         let sec=new Date().getSeconds();
         if(Math.abs(sec-this._showTipboxTime<2)){
             return;
         }
-        switch(_currentStep){
+        this.hideTipBox();
+        switch(this._currentStep){
             case 1:{
-                
+                //显示洗澡小手
+                this.enableButton(8);
+                this.ndPointoutBath.active=true;
+            };break;
+            case 2:{
+                this.enableButton(0);
+                this.enableButton(3);
+                let isShow=cc.find("Canvas/Right").getComponent("AutoHide")._isShow;
+                if(isShow){
+                    this.ndPointoutShop.active=true;
+                }else{
+                    this.ndPointoutAllow.active=true;
+                }
+            };break;
+            case 3:{
+                this.enableButton(7);
+                this.ndPointoutFood.active=true;
+            };break
+            case 4:{
+                this.enableButton(6);
+                this.ndPointoutFriend.active=true;
+            };break;
+            case 5:{
+                this.enableButton(9);
+                this.ndPointoutMission.active=true;
+            };break;
+            case 8:{
+                this.ndPointoutPickupEgg.active=true;
             };break;
         }
+    },
+    step(num){
+        if(!this._isGuid)
+            return;
+        if(num){
+            this._currentStep=num;
+        }
+        this.disableAllButton();
+        switch(this._currentStep){
+            case 1:{
+                this.step1();
+
+            };break;//提示洗澡
+            case 2:this.showTipBox(this.spTipShop);break;//提示商店
+            case 3:this.showTipBox(this.spTipFood);break;//提示吃饭
+            case 4:this.showTipBox(this.spTipFriend);break;//提示好友
+            case 5:this.showTipBox(this.spTipMission);break;//提示任务
+        }
+    },
+    //延迟执行步骤
+    stepSchedule(num){
+        this.scheduleOnce(this.step(num),2);
     },
     //显示提示框
     showTipBox(sprite){
@@ -109,6 +161,22 @@ cc.Class({
         this.showBackground();
         this.imgBase.spriteFrame=sprite;
         this._animBase.play();
+    },
+    //隐藏提示框
+    hideTipBox(){
+        this.ndBackground.active=false;
+    },
+    //隐藏所有手指
+    hidePoint(){
+        // if(this._isGuid){
+           this.ndPointoutBath.active=false;
+           this.ndPointoutFriend.active=false;
+           this.ndPointoutMission.active=false;
+           this.ndPointoutAllow.active=false;
+           this.ndPointoutShop.active=false;
+           this.ndPointoutPickupEgg.active=false;
+           this.ndPointoutFood.active=false;
+        // }
     },
 
     //启用指定按钮
@@ -121,7 +189,15 @@ cc.Class({
             this.controllButtons[i].interactable=false;
         }
     },
-    runStep(){
-
-    }
+    // 测试
+    runStep(obj,customerEventData){
+        console.log(customerEventData);
+        this._isGuid=true;
+        this.step(parseInt( customerEventData));
+    },
+    //提示收鸡蛋
+    step_egg(){
+        this._currentStep=8;
+        this.showTipBox(this.spTipPickupEgg);
+    },
 });

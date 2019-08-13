@@ -8,7 +8,7 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-var Network=require("Network");
+var Network = require("Network");
 cc.Class({
     extends: cc.Component,
 
@@ -28,136 +28,145 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        ndBg:cc.Node,  //背景
+        ndBg: cc.Node,  //背景
         // spTabNormal:cc.SpriteFrame, //正常按钮的背景
         // spTabSelected:cc.SpriteFrame,  //当前按钮的背景
-        btnTabShop:cc.Button,  //商店按钮
-        btnTabExchange:cc.Button,  //兑换按钮
-        btnTabOther:cc.Button,  //其它按钮
-        ndSvShop:cc.Node,
-        ndSvExchange:cc.Node,
+        btnTabShop: cc.Button,  //商店按钮
+        btnTabExchange: cc.Button,  //兑换按钮
+        btnTabOther: cc.Button,  //其它按钮
+        ndSvShop: cc.Node,
+        ndSvExchange: cc.Node,
         // ndSvOther:cc.Node,
-   
-        preItemShop:cc.Prefab,   //项预制体
 
-        
+        preItemShop: cc.Prefab,   //项预制体
 
-        _panelReady:false,
+
+
+        _panelReady: false,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         this.load();
-        this.onTab(this,0);
+        this.onTab(this, 0);
     },
 
-    start () {
-        
+    start() {
+
     },
     /**选择
      */
-    onTab(event,customerData){
-console.log("点击按钮"+customerData);
+    onTab(event, customerData) {
+        console.log("点击按钮" + customerData);
 
-        var tabBtn=[this.btnTabShop,this.btnTabExchange];
-        var svNode=[this.ndSvShop,this.ndSvExchange];
+        var tabBtn = [this.btnTabShop, this.btnTabExchange];
+        var svNode = [this.ndSvShop, this.ndSvExchange];
 
-        let idx=parseInt(customerData);
+        let idx = parseInt(customerData);
 
-        for(var i=0;i<tabBtn.length;i++){
-            let me=i==idx;
-            tabBtn[i].node.getChildByName("honghengxian").active=me;
-            tabBtn[i].interactable=!me;
-            svNode[i].active=me;
+        for (var i = 0; i < tabBtn.length; i++) {
+            let me = i == idx;
+            tabBtn[i].node.getChildByName("honghengxian").active = me;
+            tabBtn[i].interactable = !me;
+            svNode[i].active = me;
         }
     },
 
-    onTabBtn(name){
-        switch(name){
-            case "all":{
-                this.btnTabAll.interactable=false;
-                this.btnTabHat.interactable=true;
-                this.btnTabClothes.interactable=true;
-                this.btnTabGlasses.interactable=true;
-                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame=this.spTabSelected;
-                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-            };break;
-            case "hat":{
-                this.btnTabAll.interactable=true;
-                this.btnTabHat.interactable=false;
-                this.btnTabClothes.interactable=true;
-                this.btnTabGlasses.interactable=true;
-                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame=this.spTabSelected;
-                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-            };break;
-            case "glasses":{
-                this.btnTabAll.interactable=true;
-                this.btnTabHat.interactable=true;
-                this.btnTabClothes.interactable=true;
-                this.btnTabGlasses.interactable=false;
-                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame=this.spTabSelected;
-            };break;
-            case "clothes":{
-                this.btnTabAll.interactable=true;
-                this.btnTabHat.interactable=true;
-                this.btnTabClothes.interactable=false;
-                this.btnTabGlasses.interactable=true;
-                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame=this.spTabSelected;
-                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame=this.spTabNormal;
-            };break;
+    onTabBtn(name) {
+        switch (name) {
+            case "all": {
+                this.btnTabAll.interactable = false;
+                this.btnTabHat.interactable = true;
+                this.btnTabClothes.interactable = true;
+                this.btnTabGlasses.interactable = true;
+                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame = this.spTabSelected;
+                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+            }; break;
+            case "hat": {
+                this.btnTabAll.interactable = true;
+                this.btnTabHat.interactable = false;
+                this.btnTabClothes.interactable = true;
+                this.btnTabGlasses.interactable = true;
+                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame = this.spTabSelected;
+                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+            }; break;
+            case "glasses": {
+                this.btnTabAll.interactable = true;
+                this.btnTabHat.interactable = true;
+                this.btnTabClothes.interactable = true;
+                this.btnTabGlasses.interactable = false;
+                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame = this.spTabSelected;
+            }; break;
+            case "clothes": {
+                this.btnTabAll.interactable = true;
+                this.btnTabHat.interactable = true;
+                this.btnTabClothes.interactable = false;
+                this.btnTabGlasses.interactable = true;
+                this.btnTabAll.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+                this.btnTabHat.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+                this.btnTabClothes.node.getComponent(cc.Sprite).spriteFrame = this.spTabSelected;
+                this.btnTabGlasses.node.getComponent(cc.Sprite).spriteFrame = this.spTabNormal;
+            }; break;
         }
     },
-    onShow(){
-        let h=this.ndBg.height;
-        let x=this.ndBg.position.x;
+    onShow() {
+        let h = this.ndBg.height;
+        let x = this.ndBg.position.x;
         this.ndBg.runAction(cc.sequence(
-            cc.moveTo(0.5,x,h),
-            cc.callFunc(()=>{
-                this._panelReady=true;
+            cc.moveTo(0.5, x, h),
+            cc.callFunc(() => {
+                this._panelReady = true;
             })
         ));
     },
-    onClose(){
-        if(!this._panelReady)
+    onClose() {
+        if (!this._panelReady)
             return;
-        let x=this.ndBg.position.x;
-            this.ndBg.runAction(cc.sequence(
-                cc.moveTo(0.5,x,0),
-                cc.callFunc(()=>{
-                    this.node.destroy();
-                })
-            ));
+        let x = this.ndBg.position.x;
+        this.ndBg.runAction(cc.sequence(
+            cc.moveTo(0.5, x, 0),
+            cc.callFunc(() => {
+                //引导3
+                if(Global.game._buyCount>0){
+                let guide=cc.find("Canvas/Guid").getComponent("Guid");
+                if(guide._isGuid){
+                    guide.stepSchedule(3);
+                }
+            }
+             
+            this.node.destroy();
+
+            })
+        ));
     },
-    onEnable(){
+    onEnable() {
         this.onShow();
     },
     //
-    onTabOther(){
+    onTabOther() {
         Global.game.onShowTipExpect();
     },
     //加载
-    load(){
-        
-        var self=this;
+    load() {
 
-        Network.requestShop(1,(res)=>{
-            if(res.result){
-                var data=res.data;
-                for(var i=0;i<data.length;i++){
-                    let item=cc.instantiate(self.preItemShop);
-                    item.parent=self.ndSvShop.getChildByName("view").getChildByName("content");
-                    let itemScr=item.getComponent("ItemShop");
-                    itemScr.fill(data[i].id,data[i].name,data[i].description,data[i].price);
+        var self = this;
+
+        Network.requestShop(1, (res) => {
+            if (res.result) {
+                var data = res.data;
+                for (var i = 0; i < data.length; i++) {
+                    let item = cc.instantiate(self.preItemShop);
+                    item.parent = self.ndSvShop.getChildByName("view").getChildByName("content");
+                    let itemScr = item.getComponent("ItemShop");
+                    itemScr.fill(data[i].id, data[i].name, data[i].description, data[i].price);
                 }
             }
         });

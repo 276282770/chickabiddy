@@ -79,6 +79,11 @@ cc.Class({
                 self.node.destroy();
                 Global.scene.lastPanel="";
                 console.log("删除面板");
+                //引导5
+                let guide=cc.find("Canvas/Guid").getComponent("Guid");
+                if(guide._isGuid){
+                    guide.stepSchedule(5);
+                }
             })));
     },
     // onEnable(){

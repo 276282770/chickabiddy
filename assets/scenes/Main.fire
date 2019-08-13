@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.32607953293045383,
-      "y": 0.32607953293045383,
+      "x": 0.38509753543323544,
+      "y": 0.38509753543323544,
       "z": 1
     },
     "_quat": {
@@ -2390,7 +2390,7 @@
       "__id__": 39
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 3,
     "_components": [
       {
@@ -5001,7 +5001,7 @@
       "__id__": 121
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -5680,7 +5680,7 @@
       "__id__": 140
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -6155,7 +6155,7 @@
       "__id__": 154
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -6694,7 +6694,7 @@
       "__id__": 163
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -7233,7 +7233,7 @@
       "__id__": 179
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -7544,7 +7544,7 @@
       "__id__": 195
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -13651,7 +13651,7 @@
     },
     "component": "",
     "_componentId": "db47e4VLEtLr4EHnR6Ep9B1",
-    "handler": "closeImage",
+    "handler": "background_onClick",
     "customEventData": ""
   },
   {
@@ -13662,8 +13662,8 @@
       "__id__": 359
     },
     "_enabled": true,
-    "spTipOtherBath": {
-      "__uuid__": "9d8248c8-87f3-4245-ab68-80921a789526"
+    "spTipBath": {
+      "__uuid__": "1b7d6d6f-611b-4171-a337-9117911f1a95"
     },
     "spTipFriend": {
       "__uuid__": "47ce5299-1acd-446d-9c8a-3cc068342f2a"
@@ -13683,6 +13683,9 @@
     "spTipOtherPickupEgg": {
       "__uuid__": "4c95775f-829e-4d85-a012-eb266bcad25f"
     },
+    "spTipOtherBath": {
+      "__uuid__": "9d8248c8-87f3-4245-ab68-80921a789526"
+    },
     "ndPointoutBath": {
       "__id__": 187
     },
@@ -13701,17 +13704,60 @@
     "ndPointoutPickupEgg": {
       "__id__": 56
     },
-    "ndPointoutFood": null,
+    "ndPointoutFood": {
+      "__id__": 171
+    },
     "ndBackground": {
       "__id__": 360
     },
     "imgBase": {
       "__id__": 362
     },
-    "controllButtons": [],
+    "controllButtons": [
+      {
+        "__id__": 146
+      },
+      {
+        "__id__": 113
+      },
+      {
+        "__id__": 118
+      },
+      {
+        "__id__": 127
+      },
+      {
+        "__id__": 132
+      },
+      {
+        "__id__": 137
+      },
+      {
+        "__id__": 160
+      },
+      {
+        "__id__": 176
+      },
+      {
+        "__id__": 192
+      },
+      {
+        "__id__": 201
+      },
+      {
+        "__id__": 95
+      },
+      {
+        "__id__": 62
+      },
+      {
+        "__id__": 224
+      }
+    ],
     "_animBase": null,
     "_currentStep": 1,
     "_showTipboxTime": 0,
+    "_isGuid": false,
     "_id": "2a5NkVALtHgrzLpC3mBPYY"
   },
   {
@@ -13911,6 +13957,9 @@
     },
     "player": null,
     "thief": null,
+    "guide": {
+      "__id__": 367
+    },
     "display": null,
     "_hour": 0,
     "_money": 0,
@@ -14298,7 +14347,7 @@
     },
     "component": "",
     "_componentId": "db47e4VLEtLr4EHnR6Ep9B1",
-    "handler": "showTipFriend",
-    "customEventData": ""
+    "handler": "runStep",
+    "customEventData": "1"
   }
 ]

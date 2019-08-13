@@ -49,6 +49,7 @@ cc.Class({
         // this.onPlaySay();
         this.scheduleOnce(function(){
             this.onCloseDoor();
+            cc.find("Canvas/Guid").getComponent("Guid").stepSchedule(2);
         },1);
     },
     update(){

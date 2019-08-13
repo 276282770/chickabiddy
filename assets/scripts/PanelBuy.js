@@ -107,6 +107,9 @@ cc.Class({
             if(res.result){
                 Global.game.addMoneyEff(-self._num*self._unitPrice);
                 Global.game.showTip("购买成功");
+
+                //引导
+                cc.find("Canvas/Game").getComponent("Game")._buyCount=this._num;
             }else{
                 Global.game.showTip(res.data);
             }

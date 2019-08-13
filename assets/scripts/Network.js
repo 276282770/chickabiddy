@@ -37,8 +37,13 @@ var Network = {
 
 
         this.request(url, data, (res) => {
-            if (res.state == 200) {
+            if (res.state == 200||res.state==199) {
                 backData.result = true;
+                if(res.state==199){
+                    backData.data.isNewPlayer=true;
+                }else{
+                    backData.data.isNewPlayer=false;
+                }
                 // backData.data={};
                 backData.data.id = res.data.uid;  //id
                 backData.data.lvl = res.data.level;  //等级
