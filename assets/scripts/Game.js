@@ -238,7 +238,7 @@ cc.Class({
         } else {
 
             this._rqstTm = this._rqstRate;
-            this.updateIndex();
+            // this.updateIndex();
         }
     },
     _updaetSubDomainCanvas() {

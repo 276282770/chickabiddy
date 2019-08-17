@@ -27,10 +27,8 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        spAllow:[cc.SpriteFrame],  //箭头
-        ndAllow:cc.Node,  
-        _isShow:false,  //是否在显示
-        _ready:true,  //是否准备好
+        ndXiaoJi:cc.Node, //小鸡
+        camera:cc.Camera,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -38,54 +36,22 @@ cc.Class({
     // onLoad () {},
 
     start () {
- 
-    },
-
-    // update (dt) {},
-
-    onToggleShow(){
-        if(this._isShow){
-            this.onHide();
-        }else{
-            this.onShow();
-        }
-        //引导
         
-        let guide=cc.find("Canvas/Guid").getComponent("Guid");
-        guide.hidePoint();
-        if(guide._isGuid){
-            guide.background_onClick();
-        }
+        //  var action=cc.moveTo(5,new cc.Vec2(100,2));
+        //  this.ndXiaoJi.runAction(action);
+         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+         node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
+            console.log('Mouse down');
+          }, this);
     },
-    onHide(){
-        var self=this;
 
-        if(!this._ready)
-        return;
-        this._ready=false;
-        this.node.runAction(cc.sequence(
-            cc.moveBy(0.5,-this.node.width,0),
-            cc.callFunc(function(){
-                self._ready=true;
-                self.ndAllow.getComponent(cc.Sprite).spriteFrame=self.spAllow[0];
-            })
-        ));
-        this._isShow=false;
+    update (dt) {
+        this.followXJ();
     },
-    onShow(){
-        var self=this;
+    followXJ(){
+        var pos=this.ndXiaoJi.position;
+        if(pos<)
+        this.camera.node.position=pos;
+    },
 
-        if(!this._ready)
-        return;
-        this._ready=false;
-        this.node.runAction(cc.sequence(
-            cc.moveBy(0.5,this.node.width,0),
-            cc.callFunc(function(){
-   
-                self._ready=true;
-                self.ndAllow.getComponent(cc.Sprite).spriteFrame=self.spAllow[1];
-            })
-        ));
-        this._isShow=true
-    }
 });

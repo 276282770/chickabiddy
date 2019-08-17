@@ -51,7 +51,7 @@ cc.Class({
         controllButtons:[cc.Button],  //控制按钮
 
         _animBase:cc.Animation,
-        _currentStep:1,
+        _currentSteps:1,
         _showTipboxTime:0,
 
         _isGuid:false,
@@ -67,7 +67,9 @@ cc.Class({
     start() {
         if(this.imgBase!=null)
         this._animBase=this.imgBase.getComponent(cc.Animation);
+        
     },
+
 
     // update (dt) {},
 
@@ -100,7 +102,7 @@ cc.Class({
             return;
         }
         this.hideTipBox();
-        switch(this._currentStep){
+        switch(this._currentSteps){
             case 1:{
                 //显示洗澡小手
                 this.enableButton(8);
@@ -134,13 +136,34 @@ cc.Class({
         }
     },
     step(num){
+        console.log("---------------------");
+        console.log("执行");
         if(!this._isGuid)
             return;
         if(num){
-            this._currentStep=num;
+            this._currentSteps=num;
         }
+        console.log("000000000000000000000000000("+this._currentSteps);
         this.disableAllButton();
-        switch(this._currentStep){
+        switch(this._currentSteps){
+            case 1:{
+                this.step1();
+
+            };break;//提示洗澡
+            case 2:this.showTipBox(this.spTipShop);break;//提示商店
+            case 3:this.showTipBox(this.spTipFood);break;//提示吃饭
+            case 4:this.showTipBox(this.spTipFriend);break;//提示好友
+            case 5:this.showTipBox(this.spTipMission);break;//提示任务
+        }
+    },
+    stepDefault(){
+        console.log("---------------------");
+        console.log("执行");
+        if(!this._isGuid)
+            return;
+        console.log("111111111111111111111111111("+this._currentSteps);
+        this.disableAllButton();
+        switch(this._currentSteps){
             case 1:{
                 this.step1();
 
@@ -153,7 +176,9 @@ cc.Class({
     },
     //延迟执行步骤
     stepSchedule(num){
-        this.scheduleOnce(this.step(num),2);
+        console.log("************************("+num);
+        this._currentSteps=num;
+        this.scheduleOnce(this.stepDefault,2);
     },
     //显示提示框
     showTipBox(sprite){
@@ -197,7 +222,7 @@ cc.Class({
     },
     //提示收鸡蛋
     step_egg(){
-        this._currentStep=8;
+        this._currentSteps=8;
         this.showTipBox(this.spTipPickupEgg);
     },
 });

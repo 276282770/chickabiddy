@@ -109,7 +109,7 @@ cc.Class({
                 Global.game.showTip("购买成功");
 
                 //引导
-                cc.find("Canvas/Game").getComponent("Game")._buyCount=this._num;
+                cc.find("Canvas").getComponent("Game")._buyCount=self._num;
             }else{
                 Global.game.showTip(res.data);
             }

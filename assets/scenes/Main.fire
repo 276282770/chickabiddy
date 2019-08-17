@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.38509753543323544,
-      "y": 0.38509753543323544,
+      "x": 0.45447998046875,
+      "y": 0.45447998046875,
       "z": 1
     },
     "_quat": {
@@ -13384,7 +13384,7 @@
         "__id__": 361
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 3,
     "_components": [
       {
@@ -13755,7 +13755,7 @@
       }
     ],
     "_animBase": null,
-    "_currentStep": 1,
+    "_currentSteps": 1,
     "_showTipboxTime": 0,
     "_isGuid": false,
     "_id": "2a5NkVALtHgrzLpC3mBPYY"
@@ -13983,6 +13983,7 @@
     "_shareFlag": false,
     "_shareTime": null,
     "_shareDelay": 3,
+    "_buyCount": 0,
     "_id": "f46LL4+WtNd4790wKzuFrp"
   },
   {
@@ -14348,6 +14349,6 @@
     "component": "",
     "_componentId": "db47e4VLEtLr4EHnR6Ep9B1",
     "handler": "runStep",
-    "customEventData": "1"
+    "customEventData": "2"
   }
 ]
