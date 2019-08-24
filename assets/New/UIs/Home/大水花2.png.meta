@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "c2db5bef-b372-4d0c-aed0-194f02787dba",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "大水花2": {
+      "ver": "1.0.3",
+      "uuid": "a6f7ddf1-86a0-4c26-b106-0ef08c33809f",
+      "rawTextureUuid": "c2db5bef-b372-4d0c-aed0-194f02787dba",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": -0.5,
+      "trimX": 11,
+      "trimY": 2,
+      "width": 126,
+      "height": 33,
+      "rawWidth": 147,
+      "rawHeight": 36,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

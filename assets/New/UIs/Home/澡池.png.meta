@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "79131840-4121-4088-a361-f03b59a38864",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "澡池": {
+      "ver": "1.0.3",
+      "uuid": "d30016f6-4fae-4f8a-83d4-f5f48d18f848",
+      "rawTextureUuid": "79131840-4121-4088-a361-f03b59a38864",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 574,
+      "height": 329,
+      "rawWidth": 574,
+      "rawHeight": 329,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

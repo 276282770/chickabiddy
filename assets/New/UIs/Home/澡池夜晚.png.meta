@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "7e4cb5f1-8193-4885-abd7-699ad68f28c5",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "澡池夜晚": {
+      "ver": "1.0.3",
+      "uuid": "f0927c0c-bf9b-412e-bea3-e4261a55dbcf",
+      "rawTextureUuid": "7e4cb5f1-8193-4885-abd7-699ad68f28c5",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 574,
+      "height": 329,
+      "rawWidth": 574,
+      "rawHeight": 329,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

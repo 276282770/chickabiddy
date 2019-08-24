@@ -9,7 +9,7 @@ window.Global={
     },
     money:0,
     scene:{
-        nextSceneName:"Main",  //下一个场景名称
+        nextSceneName:"Main2",  //下一个场景名称
         otherUid:-1,  //其他人的用户id
         lastPanel:"",  //上一个面板
     },

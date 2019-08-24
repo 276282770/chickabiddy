@@ -1,7 +1,7 @@
 
 var WX = require("WX");
 var Network = {
-    // domain:"",
+    // domain:"http://192.168.0.244:8080/ROOT",
     domain: "https://xj.xiajiwangluo.com",  //域名
 
     //封装微信http协议
@@ -37,12 +37,15 @@ var Network = {
 
 
         this.request(url, data, (res) => {
-            if (res.state == 200||res.state==199) {
+            if (res.state == 200||res.state==199||res.state==198) {
                 backData.result = true;
-                if(res.state==199){
+
+                backData.data.isNewPlayer=false;
+                backData.data.isFirstLayingEgg=false;
+                if(res.state==198){
                     backData.data.isNewPlayer=true;
-                }else{
-                    backData.data.isNewPlayer=false;
+                }else if(res.state==199){
+                    backData.data.isFirstLayingEgg=true;
                 }
                 // backData.data={};
                 backData.data.id = res.data.uid;  //id
@@ -535,7 +538,7 @@ var Network = {
                 backData.result = "购买成功";
             } else {
                 let err = "";
-                switch (state) {
+                switch (res.state) {
                     case 222: err = "购买商品不存在"; break;
                 }
 

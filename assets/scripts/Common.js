@@ -24,9 +24,29 @@ var Common={
     //分享成功
     shareSuccess(){
         Network.requestShareSuccess((res) => {
-            
-
+        
         });
+    },
+    /**向量相减 */
+    vector2Subtract(vec1,vec2){
+        let result=new cc.Vec2(0,0);
+        result.x=vec1.x-vec2.x;
+        result.y=vec1.y-vec2.y;
+        return result;
+    },
+    /**向量相加 */
+    vector2Add(vec1,vec2){
+        let result=new cc.Vec2(0,0);
+        result.x=vec1.x+vec2.x;
+        result.y=vec1.y+vec2.y;
+        return result;
+    },
+    /**向量相乘 */
+    vector2Multiply(vec,num){
+        let result=new cc.vec2(0,0);
+        result.x=vec.x*num;
+        result.y=vec.y*num;
+        return result;
     },
 };
 

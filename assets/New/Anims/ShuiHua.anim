@@ -1,0 +1,31 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "ShuiHua",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.0166666666666666,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "079bda3d-9379-429a-b591-76efdbebac6c"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "a6f7ddf1-86a0-4c26-b106-0ef08c33809f"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

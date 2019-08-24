@@ -13,7 +13,7 @@ var Common = require("Common");
 var PanelManager = require("PanelManager");
 var Player = require("Player");
 var Thief = require("Thief");
-var Guid=require("Guid");
+var Guid = require("Guid");
 // var OtherHome=require("OtherHome");
 
 cc.Class({
@@ -47,9 +47,9 @@ cc.Class({
         proClean: cc.ProgressBar,  //清洁进度
 
         imgAvatar: cc.Sprite,  //头像
-        imgBg:cc.Sprite,  //背景
+        imgBg: cc.Sprite,  //背景
 
-        spBgs:[cc.SpriteFrame],  //背景 0 正常背景，1有小偷时
+        spBgs: [cc.SpriteFrame],  //背景 0 正常背景，1有小偷时
 
         preMsgBox: cc.Prefab,  //消息框预制体
         // ndHomeMask: cc.Node,  //主页遮罩
@@ -62,9 +62,9 @@ cc.Class({
         ndPanelRank: cc.Node,  //排行榜面板节点
         ndPlayerRoot: cc.Node,  //玩家根节点
         ndThiefRoot: cc.Node,  //小偷根节点
-        ndCloud:cc.Node,  //云彩节点
-        ndEgg:cc.Node,  //鸡蛋节点
-        ndTV:cc.Node,  //TV节点
+        ndCloud: cc.Node,  //云彩节点
+        ndEgg: cc.Node,  //鸡蛋节点
+        ndTV: cc.Node,  //TV节点
 
         panels: PanelManager,  //面板管理
         prePanelFriends: cc.Prefab,  //朋友面板预制体
@@ -79,7 +79,7 @@ cc.Class({
         prePanelShop: cc.Prefab,  //商店预制体
         prePanelRank: cc.Prefab,  //排行榜预制体
         prePanelInstruction: cc.Prefab,  //说明界面预制体
-        prePanelExchange:cc.Prefab,  //鸡蛋兑换界面
+        prePanelExchange: cc.Prefab,  //鸡蛋兑换界面
         prePanelExchangeEgg2Egg: cc.Prefab,  //鸡蛋兑换鸡蛋面板预制体
         prePanelExchangeEgg2Money: cc.Prefab,  //鸡蛋兑换钱面板预制体
         // prePanelThief:cc.Prefab,  //小偷预制体
@@ -93,7 +93,7 @@ cc.Class({
         player: Player,  //玩家
         thief: Thief,  //小偷
         // otherHome:OtherHome,  //别人家
-        guide:Guid,  //指引
+        guide: Guid,  //指引
 
 
 
@@ -122,7 +122,7 @@ cc.Class({
         _shareDelay: 2,  //分享关键延迟
 
         //引导用
-        _buyCount:0,  //买东西的个数
+        _buyCount: 0,  //买东西的个数
 
 
     },
@@ -217,6 +217,7 @@ cc.Class({
 
         this.openLastPanel();
 
+        
     },
 
 
@@ -238,7 +239,7 @@ cc.Class({
         } else {
 
             this._rqstTm = this._rqstRate;
-            // this.updateIndex();
+            this.updateIndex();
         }
     },
     _updaetSubDomainCanvas() {
@@ -267,14 +268,16 @@ cc.Class({
                 if (fid != null) {
                     Network.requestAddFriend(fid, function (res) { });
                 }
-                if(res.data.isNewPlayer){
-                    if(!this.guide._isGuid){
-                        this.guide._isGuid=true;
-                    this.guide.step();
+                if (res.data.isNewPlayer) {
+                    if (!self.guide._isGuid) {
+                        self.guide._isGuid = true;
+                        self.guide.step();
                     }
                 }
                 self.updateState(res.data);
                 self.ndWaitting.active = false;
+
+                
             }
         });
     },
@@ -343,6 +346,10 @@ cc.Class({
             if (res.result) {
                 let data = res.data;
                 self.updateState(data);
+                if (res.data.isFirstLayingEgg) {
+                    self.guide.step_egg();
+                }
+
             }
         });
         // this.openLastPanel();
@@ -370,57 +377,57 @@ cc.Class({
         self.setProEgg(data.eggProgCurr / data.eggProgFull);
 
         if (data.thiefs != null) {
-            let currentThiefsCount=0;  //现在小偷数量
-            let originalThiefsCount=self.thief._lastThiefCount;  //原来小偷数量
+            let currentThiefsCount = 0;  //现在小偷数量
+            let originalThiefsCount = self.thief._lastThiefCount;  //原来小偷数量
             //计算现在小偷数量
-            if(data.thiefs[0]!=null)
-             currentThiefsCount++;
-            if(data.thiefs[1]!=null)
+            if (data.thiefs[0] != null)
                 currentThiefsCount++;
-            
-                console.log("【设置小偷】本次小偷数量{"+currentThiefsCount+"},上次小偷数量{"+originalThiefsCount+"}");
+            if (data.thiefs[1] != null)
+                currentThiefsCount++;
+
+            console.log("【设置小偷】本次小偷数量{" + currentThiefsCount + "},上次小偷数量{" + originalThiefsCount + "}");
             //如果小偷被弄完时
-            if(currentThiefsCount==0&&originalThiefsCount>0){
-            
+            if (currentThiefsCount == 0 && originalThiefsCount > 0) {
+
                 self.onCloudClose();
-                self.scheduleOnce(function(){
-                  self.backgroundScale("normal");
-                  self.onCloudOpen();
-                },2);
+                self.scheduleOnce(function () {
+                    self.backgroundScale("normal");
+                    self.onCloudOpen();
+                }, 2);
 
             }
             //如果进来小偷时
-            if(currentThiefsCount>0&&originalThiefsCount<=0){
+            if (currentThiefsCount > 0 && originalThiefsCount <= 0) {
 
-                if(originalThiefsCount==-1){
+                if (originalThiefsCount == -1) {
                     self.backgroundScale("small");
-                }else{
+                } else {
 
-                self.onCloudClose();
-                self.scheduleOnce(function(){
-                  self.backgroundScale("small");
-                  self.onCloudOpen();
-                },2);
+                    self.onCloudClose();
+                    self.scheduleOnce(function () {
+                        self.backgroundScale("small");
+                        self.onCloudOpen();
+                    }, 2);
                 }
             }
             self.thief.setThief(data.thiefs);
             // self.setPanelThief(data.thiefs);
             if (data.thiefs[0] != null || data.thiefs[1] != null) {
                 //有小偷
-     
+
                 // self.ndRight.y=0;
                 // self.ndLeft.y=0;
                 // self.player.node.y = -200;
                 // self.ndThief.active=true;
             } else {
                 //没有小偷
-   
+
                 // self.ndRight.y=349;
                 // self.ndLeft.y=274;
                 // self.player.node.y = 0;
                 // self.ndRight.setPosition(self._ndRightPos);
                 // self.ndLeft.setPosition(self._ndLeftPos);
-                
+
                 // self.showCtrl(true);
                 // self.ndThief.active=false;
             }
@@ -596,9 +603,9 @@ cc.Class({
     onShowPanelMission() {
         this.panels.createPanel(this.prePanelMission, "PanelMission");
         //引导
-        if(this.guide._isGuid){
+        if (this.guide._isGuid) {
             this.guide.hidePoint();
-            this.guide._isGuid=false;
+            this.guide._isGuid = false;
         }
     },
     /**显示背包面板
@@ -641,17 +648,17 @@ cc.Class({
     //显示鸡蛋兑换鸡蛋界面
     onShowPanelExchangeEgg2Egg() {
         //this.panels.createPanel(this.prePanelExchangeEgg2Egg, "PanelExchangeEgg2Egg");
-        var newPanel= cc.instantiate(this.prePanelExchangeEgg2Egg);
-        newPanel.parent=cc.find("Canvas");
+        var newPanel = cc.instantiate(this.prePanelExchangeEgg2Egg);
+        newPanel.parent = cc.find("Canvas");
     },
     //显示鸡蛋兑换钱界面
-    onShowPanelExchangeEgg2Money(event,customerData) {
-        this.panels.createPanel(this.prePanelExchangeEgg2Money, "PanelExchangeEgg2Money");  
+    onShowPanelExchangeEgg2Money(event, customerData) {
+        this.panels.createPanel(this.prePanelExchangeEgg2Money, "PanelExchangeEgg2Money");
         console.log(this.panels._panelScr.name);
         this.panels._panelScr.fill(customerData);
     },
     //显示兑换面板
-    onShowPanelExchange(){
+    onShowPanelExchange() {
         this.panels.createPanel(this.prePanelExchange, "PanelExchange");
     },
     // //显示别人家
@@ -687,6 +694,7 @@ cc.Class({
         var self = this;
         this.guide.hidePoint();
         Network.requestBath((res) => {
+
             if (res.result) {
                 //播放洗澡动画
                 self.onPlayPlayerBath(res.data);
@@ -729,8 +737,8 @@ cc.Class({
         // let appid="wxeedb326f283fe740";
         // let appid = Global.miniProgramAppIdList[0];
         // WX.navigateToMiniProgram(appid);
-        Network.getLinkAppid("zhongyuanyinhanghuishenghuo",(res)=>{
-            if(res.result){
+        Network.getLinkAppid("zhongyuanyinhanghuishenghuo", (res) => {
+            if (res.result) {
                 WX.navigateToMiniProgram(res.data);
             }
         })
@@ -738,8 +746,8 @@ cc.Class({
     //链接微信小程序  中原银行信用卡
     onLink_XinYongKa() {
         // WX.navigateToMiniProgram(Global.miniProgramAppIdList[1]);
-        Network.getLinkAppid("zhongyuanyinhanghuishenghuo",(res)=>{
-            if(res.result){
+        Network.getLinkAppid("zhongyuanyinhanghuishenghuo", (res) => {
+            if (res.result) {
                 WX.navigateToMiniProgram(res.data);
             }
         })
@@ -756,34 +764,34 @@ cc.Class({
         // this.ndDown.active=isShow;
     },
     //云彩关闭
-    onCloudClose(){
-        let _cloud=this.ndCloud.getComponent("Cloud");
+    onCloudClose() {
+        let _cloud = this.ndCloud.getComponent("Cloud");
         _cloud.playClose();
     },
     //云彩显示
-    onCloudOpen(){
-        let _cloud=this.ndCloud.getComponent("Cloud");
+    onCloudOpen() {
+        let _cloud = this.ndCloud.getComponent("Cloud");
         _cloud.playOpen();
     },
     //背景缩放
-    backgroundScale(para){
-        switch(para){
-            case "normal":{
-                this.imgBg.spriteFrame=this.spBgs[0];
+    backgroundScale(para) {
+        switch (para) {
+            case "normal": {
+                this.imgBg.spriteFrame = this.spBgs[0];
                 this.player.setPlayerScale(para);
                 this.ndEgg.setScale(1.2);
-                this.ndEgg.setPosition(-242,-446);
-                this.ndTV.active=true;
-                this.ndThiefRoot.active=false;
-            };break;
-            case "small":{
-                this.imgBg.spriteFrame=this.spBgs[1];
+                this.ndEgg.setPosition(-242, -446);
+                this.ndTV.active = true;
+                this.ndThiefRoot.active = false;
+            }; break;
+            case "small": {
+                this.imgBg.spriteFrame = this.spBgs[1];
                 this.player.setPlayerScale(para);
                 this.ndEgg.setScale(0.7);
-                this.ndEgg.setPosition(-186,-480);
-                this.ndTV.active=false;
-                this.ndThiefRoot.active=true;
-            };break;
+                this.ndEgg.setPosition(-186, -480);
+                this.ndTV.active = false;
+                this.ndThiefRoot.active = true;
+            }; break;
         }
     },
 
@@ -806,8 +814,8 @@ cc.Class({
         // this.onPlayPlayerBath();
         // this.player.playCry();
         // this.onShowOtherHome(22);
-        let thiefScr=this.ndThief.getComponent("Thief");
-            thiefScr.setThief([{id:0,name:""},null]);
+        let thiefScr = this.ndThief.getComponent("Thief");
+        thiefScr.setThief([{ id: 0, name: "" }, null]);
         // this.player.playCry();
 
         // this.ndRight.position.Y=0;

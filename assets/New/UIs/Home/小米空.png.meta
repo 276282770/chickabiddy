@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "c61c0645-afac-4d2f-8dc3-5ecc8d759829",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "小米空": {
+      "ver": "1.0.3",
+      "uuid": "a2b46654-be7c-4857-92ed-f6e6c5732da4",
+      "rawTextureUuid": "c61c0645-afac-4d2f-8dc3-5ecc8d759829",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 182,
+      "height": 72,
+      "rawWidth": 182,
+      "rawHeight": 72,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

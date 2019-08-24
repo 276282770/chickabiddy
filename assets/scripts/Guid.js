@@ -96,9 +96,9 @@ cc.Class({
     },
     //点击背景
     background_onClick(){
-        
+        console.log("-【引导】点击背景");
         let sec=new Date().getSeconds();
-        if(Math.abs(sec-this._showTipboxTime<2)){
+        if(Math.abs(sec-this._showTipboxTime)<2){
             return;
         }
         this.hideTipBox();
@@ -136,14 +136,12 @@ cc.Class({
         }
     },
     step(num){
-        console.log("---------------------");
-        console.log("执行");
         if(!this._isGuid)
             return;
         if(num){
             this._currentSteps=num;
         }
-        console.log("000000000000000000000000000("+this._currentSteps);
+        console.log("【引导】执行步骤#"+this._currentSteps);
         this.disableAllButton();
         switch(this._currentSteps){
             case 1:{
@@ -157,11 +155,9 @@ cc.Class({
         }
     },
     stepDefault(){
-        console.log("---------------------");
-        console.log("执行");
         if(!this._isGuid)
             return;
-        console.log("111111111111111111111111111("+this._currentSteps);
+        console.log("【引导】延迟执行步骤#"+this._currentSteps);
         this.disableAllButton();
         switch(this._currentSteps){
             case 1:{
@@ -176,7 +172,7 @@ cc.Class({
     },
     //延迟执行步骤
     stepSchedule(num){
-        console.log("************************("+num);
+        console.log("【引导】传入参数："+num);
         this._currentSteps=num;
         this.scheduleOnce(this.stepDefault,2);
     },

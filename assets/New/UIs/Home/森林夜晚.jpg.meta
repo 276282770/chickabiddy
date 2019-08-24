@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "77c2f988-4d9e-49ce-83ce-9ce08731f842",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "森林夜晚": {
+      "ver": "1.0.3",
+      "uuid": "d69b4e81-d433-4a77-af3f-0da03daa9fe2",
+      "rawTextureUuid": "77c2f988-4d9e-49ce-83ce-9ce08731f842",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 3794,
+      "height": 2937,
+      "rawWidth": 3794,
+      "rawHeight": 2937,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

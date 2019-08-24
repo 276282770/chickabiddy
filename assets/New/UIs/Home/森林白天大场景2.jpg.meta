@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "2c2d3596-b8af-46b2-9f89-058050f0f010",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "森林白天大场景2": {
+      "ver": "1.0.3",
+      "uuid": "01adf526-0cfe-4a0b-9546-77b2bc70518d",
+      "rawTextureUuid": "2c2d3596-b8af-46b2-9f89-058050f0f010",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1791,
+      "height": 1387,
+      "rawWidth": 1791,
+      "rawHeight": 1387,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
