@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "b14378d5-82db-494f-8b0b-c02514dbaf95",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "个人界面鸡蛋图标": {
+      "ver": "1.0.3",
+      "uuid": "23cb15f5-a969-4ffe-9b1a-b18ee9d25532",
+      "rawTextureUuid": "b14378d5-82db-494f-8b0b-c02514dbaf95",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 51,
+      "height": 51,
+      "rawWidth": 51,
+      "rawHeight": 51,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

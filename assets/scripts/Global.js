@@ -3,7 +3,7 @@ window.Global={
     openid:"",
     game:null,
     user:{
-        nickName:"",
+        nickName:"123",
         avatar:"",
         level:-1,
     },

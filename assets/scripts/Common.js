@@ -48,6 +48,10 @@ var Common={
         result.y=vec.y*num;
         return result;
     },
+    /**获取两个向量之间的距离 */
+    getDistance(vec1,vec2){
+        return Math.sqrt(Math.pow(vec2.x-vec1.x,2)+Math.pow(vec2.y-vec1.y,2));
+    },
 };
 
 

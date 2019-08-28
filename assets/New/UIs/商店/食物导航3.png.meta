@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "fd2f0efd-d5fd-4b94-a1df-1a58c186d09c",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "食物导航3": {
+      "ver": "1.0.3",
+      "uuid": "c7e22f0a-e8d1-4ac3-b3aa-405f2112f45a",
+      "rawTextureUuid": "fd2f0efd-d5fd-4b94-a1df-1a58c186d09c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -1,
+      "offsetY": 0,
+      "trimX": 3,
+      "trimY": 0,
+      "width": 640,
+      "height": 94,
+      "rawWidth": 648,
+      "rawHeight": 94,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

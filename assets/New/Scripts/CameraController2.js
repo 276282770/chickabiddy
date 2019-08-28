@@ -66,9 +66,9 @@ cc.Class({
     moveBy(pos){
         this._isFollow=false;
         let targetPos = new cc.Vec2(this.node.position.x-pos.x,this.node.position.y-pos.y);
-        console.log(JSON.stringify( targetPos));
+        // console.log(JSON.stringify( targetPos));
         targetPos=this.clampPos(targetPos);
-        console.log(JSON.stringify( targetPos));
+        // console.log(JSON.stringify( targetPos));
         this.node.position=targetPos;
         // this.node.position=new cc.Vec2(this.node.position.x+100,this.node.position.y);
         this.node.stopAllActions();
@@ -78,14 +78,14 @@ cc.Class({
     backAuto(){
         let self=this;
         this.node.stopAllActions();
-        this.node.runAction(cc.moveTo(0.5,this.offsetPos()),cc.callFunc(
+        this.node.runAction(cc.moveTo(0.8,this.offsetPos()),cc.callFunc(
             function(){
                 self._isFollow=true;
             }
         ));
     },
     clampPos(posSour){
-        console.log(this.minX+" "+this.minY+" "+this.maxX+" "+this.maxY);
+        // console.log(this.minX+" "+this.minY+" "+this.maxX+" "+this.maxY);
         let pos = posSour;
         if (pos.x > 0) {
             pos.x = Math.min(this.maxX, pos.x);

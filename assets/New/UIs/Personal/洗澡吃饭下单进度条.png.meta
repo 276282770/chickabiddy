@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "ecb52cff-ecf4-435e-85ad-252cd9b17cf3",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "洗澡吃饭下单进度条": {
+      "ver": "1.0.3",
+      "uuid": "ba40c5b9-b891-48ac-b645-44d04fd61ab8",
+      "rawTextureUuid": "ecb52cff-ecf4-435e-85ad-252cd9b17cf3",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 552,
+      "height": 27,
+      "rawWidth": 552,
+      "rawHeight": 27,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

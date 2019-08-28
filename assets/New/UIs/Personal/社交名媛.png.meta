@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "d6e8b2c4-530a-4b13-a2b2-c7d7b02cee5e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "社交名媛": {
+      "ver": "1.0.3",
+      "uuid": "e5627ba3-ef61-43db-8a4c-c9aa2c684ecc",
+      "rawTextureUuid": "d6e8b2c4-530a-4b13-a2b2-c7d7b02cee5e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -1,
+      "offsetY": 0.5,
+      "trimX": 1,
+      "trimY": 0,
+      "width": 117,
+      "height": 115,
+      "rawWidth": 121,
+      "rawHeight": 116,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

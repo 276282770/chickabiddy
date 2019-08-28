@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "6c2a5e17-fd0c-4fba-953b-253a229d306a",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "道具小鸡": {
+      "ver": "1.0.3",
+      "uuid": "9ea17d06-1581-4841-bc2e-98f42e563651",
+      "rawTextureUuid": "6c2a5e17-fd0c-4fba-953b-253a229d306a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 1.5,
+      "trimX": 2,
+      "trimY": 0,
+      "width": 181,
+      "height": 184,
+      "rawWidth": 185,
+      "rawHeight": 187,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

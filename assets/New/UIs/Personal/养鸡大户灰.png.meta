@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "2a376c17-b871-4d7d-90a6-413bc105a898",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "养鸡大户灰": {
+      "ver": "1.0.3",
+      "uuid": "8906ca75-1fe4-47e6-896b-c984b09fe91b",
+      "rawTextureUuid": "2a376c17-b871-4d7d-90a6-413bc105a898",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -1.5,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 116,
+      "height": 114,
+      "rawWidth": 121,
+      "rawHeight": 116,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "053ed78a-23d9-41ee-a0f2-ca9aaef062a6",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "洗澡吃饭下单进度框": {
+      "ver": "1.0.3",
+      "uuid": "f8d43ce9-0c0f-436c-bb92-03012ec60876",
+      "rawTextureUuid": "053ed78a-23d9-41ee-a0f2-ca9aaef062a6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 2,
+      "trimX": 1,
+      "trimY": 7,
+      "width": 558,
+      "height": 33,
+      "rawWidth": 560,
+      "rawHeight": 51,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

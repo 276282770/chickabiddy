@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "9e1ed8c1-bb61-4725-9357-385300458161",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "偷蛋专家": {
+      "ver": "1.0.3",
+      "uuid": "d710f898-59f2-4599-92bd-1b161c42dff9",
+      "rawTextureUuid": "9e1ed8c1-bb61-4725-9357-385300458161",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 3,
+      "width": 117,
+      "height": 110,
+      "rawWidth": 121,
+      "rawHeight": 116,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

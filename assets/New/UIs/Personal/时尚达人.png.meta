@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "eb531a21-1467-4f72-b2d1-1bf205ec8fdc",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "时尚达人": {
+      "ver": "1.0.3",
+      "uuid": "1cc3413f-d467-4044-9217-25eac0b39ce4",
+      "rawTextureUuid": "eb531a21-1467-4f72-b2d1-1bf205ec8fdc",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 0,
+      "width": 116,
+      "height": 116,
+      "rawWidth": 121,
+      "rawHeight": 116,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

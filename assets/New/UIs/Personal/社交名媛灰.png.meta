@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "27ac33dc-75a0-43df-afb1-afa62f74f60d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "社交名媛灰": {
+      "ver": "1.0.3",
+      "uuid": "ff4308b0-7aa3-47a7-9d1c-0167ab8e62cb",
+      "rawTextureUuid": "27ac33dc-75a0-43df-afb1-afa62f74f60d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -1,
+      "offsetY": 0.5,
+      "trimX": 1,
+      "trimY": 0,
+      "width": 117,
+      "height": 115,
+      "rawWidth": 121,
+      "rawHeight": 116,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

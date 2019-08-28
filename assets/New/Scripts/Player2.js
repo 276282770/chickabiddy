@@ -25,6 +25,11 @@ cc.Class({
         _horizontal:0,
         _vertical:0,
         _rigid:cc.RigidBody,  //刚体
+        _isBath:false,
+
+        _isMoveToTargetX:false,
+        _originalPosition:new cc.Vec2(0,0),  //小鸡原始坐标
+        _pool:cc.Node,  //水池节点
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -39,6 +44,7 @@ cc.Class({
 
     start () {
         this._rigid=this.node.getComponent(cc.RigidBody);
+        this._originalPosition=this.node.position;
         // this.node.position=new cc.Vec2(0,0);
         // this.node.position=Common.vector2Add(this.node.position,new cc.Vec2(0,50));
 
@@ -48,6 +54,7 @@ cc.Class({
         // this.move(dt);
         // console.log(JSON.stringify( this.node.position));
         // this._rigid.applyForceToCenter(new cc.v2(10000,0));
+
     },
     onKeyDown: function (event) {
         switch(event.keyCode) {
@@ -58,7 +65,7 @@ cc.Class({
                 case cc.macro.KEY.up:this._vertical=1;break;
                 case cc.macro.KEY.down:this._vertical=-1;break;
         }
-        console.log("按下"+this._horizontal+" "+this._vertical);
+        // console.log("按下"+this._horizontal+" "+this._vertical);
         this.move();
         // this.node.position=new cc.Vec2(this.node.position.x+1,this.node.position.y+this._vertical*this.speed*dt);
         // this._rigid.applyForceToCenter(new cc.Vec2(10000,0));
@@ -85,5 +92,48 @@ cc.Class({
             this._rigid.applyForceToCenter(new cc.Vec2(this._horizontal*this.speed,this._vertical*this.jumpSpeed));
         }
     },
+    //移动小鸡到指定位置
+    moveTo(targetPos,callback){
+        this.node.stopAllActions();
+         this.node.runAction(cc.sequence(cc.moveTo(Common.getDistance(this.node.position,targetPos)/150,targetPos),
+         cc.callFunc(callback)));
+  
+    },
+    //移动小鸡到指定X坐标
+    moveToX(){
+
+    },
+    //检测洗澡
+    checkBath(){
+        if(!this._isBath&&this.getPositionX()<=-700){
+
+        }
+    },
+    //获取x坐标
+    getPositionX(){
+        return this.node.position.x;
+    },
+    //设置是否显示
+    setActive(show){
+        this.node.active=show;
+    },
+    //去洗澡
+    goBath(){
+        var self=this;
+        self.getPool();
+        let targetPos=Common.vector2Add(this._pool.position,this._pool.getChildByName("playerPos").position);
+        this.moveTo(targetPos,function(){
+            console.log("走完了");
+            // self.node.active=false;
+            self._pool.getComponent(cc.Animation).play("bath");
+            
+        })
+    },
+    //获取pool
+    getPool(){
+        this._pool=cc.find("Canvas/Pool");
+        return this._pool;
+    },
+    
 
 });

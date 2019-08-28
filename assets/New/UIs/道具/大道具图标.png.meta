@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "4fd5a9ba-7468-4e91-b01b-ddc14f1788bd",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "大道具图标": {
+      "ver": "1.0.3",
+      "uuid": "c24fdcae-6027-48e2-99f5-258bdf97e5ab",
+      "rawTextureUuid": "4fd5a9ba-7468-4e91-b01b-ddc14f1788bd",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": -0.5,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 135,
+      "height": 168,
+      "rawWidth": 138,
+      "rawHeight": 169,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
