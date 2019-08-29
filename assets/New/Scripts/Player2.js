@@ -1,5 +1,6 @@
 var Common=require("Common");
 
+
 cc.Class({
     extends: cc.Component,
 
@@ -30,6 +31,8 @@ cc.Class({
         _isMoveToTargetX:false,
         _originalPosition:new cc.Vec2(0,0),  //小鸡原始坐标
         _pool:cc.Node,  //水池节点
+        _lunchBox:cc.Node,  //饭盒节点
+        _cam:null,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -47,7 +50,8 @@ cc.Class({
         this._originalPosition=this.node.position;
         // this.node.position=new cc.Vec2(0,0);
         // this.node.position=Common.vector2Add(this.node.position,new cc.Vec2(0,50));
-
+        this._cam=cc.find("Canvas/Main Camera").getComponent("CameraController2");
+        console.log(this._cam.moveSpeed);
     },
 
     update (dt) {
@@ -120,6 +124,7 @@ cc.Class({
     //去洗澡
     goBath(){
         var self=this;
+        this._cam._isFollow=true;
         self.getPool();
         let targetPos=Common.vector2Add(this._pool.position,this._pool.getChildByName("playerPos").position);
         this.moveTo(targetPos,function(){
@@ -134,6 +139,32 @@ cc.Class({
         this._pool=cc.find("Canvas/Pool");
         return this._pool;
     },
-    
-
+    //获取饭盒节点
+    getLunchBox(){
+        this._lunchBox=cc.find("Canvas/LunchBox");
+        return this._lunchBox;
+    },
+    //回到原点
+    goBack(){
+        this._cam._isFollow=true;
+        this.moveTo(this._originalPosition,function(){
+            console.log("走完了");
+        });
+    },
+    //去吃饭
+    goDine(){
+        var self=this;
+        this._cam._isFollow=true;
+        self.getLunchBox();
+        let targetPos=Common.vector2Add(this._lunchBox.position,this._lunchBox.getChildByName("playerPos").position);
+        this.moveTo(targetPos,function(){
+            console.log("走完了");
+            // self.node.active=false;
+            // self._pool.getComponent(cc.Animation).play("bath");
+            
+        })
+    },
+    onClick(){
+        this.goBack();
+    }
 });

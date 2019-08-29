@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "fd84991f-0a33-47da-8e9a-b9f0559f5f59",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "洗澡图标": {
+      "ver": "1.0.3",
+      "uuid": "cd529c76-5b5b-4931-8add-f1773d88e255",
+      "rawTextureUuid": "fd84991f-0a33-47da-8e9a-b9f0559f5f59",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 58,
+      "height": 50,
+      "rawWidth": 61,
+      "rawHeight": 54,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

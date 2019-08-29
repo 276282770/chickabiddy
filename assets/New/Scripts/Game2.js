@@ -73,7 +73,7 @@ cc.Class({
 
         display: cc.Sprite,  //子域显示
 
-        preBuy:cc.Prefab,//临时 购买
+        preBuy: cc.Prefab,//临时 购买
 
 
         _hour: 0,
@@ -102,12 +102,87 @@ cc.Class({
 
     },
 
-    // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad() {
+        var self = this;
+        Global.game = this;
+
+
+        this.iniNode();
+
+        if (Global.id != -1) {
+            this.updateIndex();
+            return;
+        }
+
+        let query = WX.getLaunchOptionsSync();
+        WX.login(code => {
+
+            self.ndWaitting.active = true;
+
+            let avatar;
+            let nickName;
+            // code="aaa";
+            WX.getSetting((isAuth) => {
+                if (!isAuth) {
+                    WX.createUserInfoButton(
+                        function (data) {
+                            avatar = data.avatarUrl;
+                            nickName = data.nickName;
+                            if (query.tp != null && query.tp == "af") {
+                                self.login(code, avatar, nickName, query.id);
+                            } else {
+                                self.login(code, avatar, nickName);
+                            }
+                        }
+                    );
+                }
+                else {
+                    WX.getUserInfo((res) => {
+                        avatar = res.avatarUrl;
+                        nickName = res.nickName;
+                        if (query.tp != null && query.tp == "af") {
+                            self.login(code, avatar, nickName, query.id);
+                        } else {
+                            self.login(code, avatar, nickName);
+                        }
+                    });
+                }
+            });
+
+        });
+
+        WX.onShow((res) => {
+
+            if (res.tp) {
+
+                //添加好友
+                if (res.tp == "af") {
+
+                    Network.requestAddFriend(res.id, function (res) { });
+                }
+            }
+
+            this.checkShareSuccess();
+
+        });
+
+    },
 
     start() {
-        console.log("昵称："+Global.user.nickName);
+
+    },
+    //初始化节点
+    iniNode() {
+        // let playerNode = cc.instantiate(this.prePlayer);
+        // playerNode.parent = this.ndPlayerRoot;
+        // this.player = playerNode.getComponent("Player");
+        // this.player.setId(Global.id);
+        // this.ndThief = cc.instantiate(this.preThief);
+        // this.ndThief.parent = this.ndThiefRoot;
+        // this.thief = this.ndThief.getComponent("Thief");
+        // this._ndLeftPos = this.ndLeft.position;
+        // this._ndRightPos = this.ndRight.position;
     },
 
     // update (dt) {},
@@ -122,6 +197,15 @@ cc.Class({
         // player.setActive(true);
 
     },
+    //洗澡
+    onBath() {
+        this.player.goBath();
+    },
+
+    //吃饭
+    onDine() {
+        this.player.goDine();
+    },
 
     /**显示个人面板 */
     onShowPanelPersonal() {
@@ -130,5 +214,33 @@ cc.Class({
     //显示道具界面
     onShowPanelProp() {
         this.panels.createPanel(this.prePanelProp, "PanelProp");
+    },
+    //显示朋友面板
+    onShowFxPanelFriends() {
+        this.panels.createPanel(this.prePanelFriends, "PanelFriends");
+        this.panels.showFx();
+        //引导
+        this.guide.hidePoint();
+    },
+    /**显示任务面板
+ */
+    onShowPanelMission() {
+        this.panels.createPanel(this.prePanelMission, "PanelMission");
+        //引导
+        if (this.guide._isGuid) {
+            this.guide.hidePoint();
+            this.guide._isGuid = false;
+        }
+    },
+    //显示商店界面
+    onShowPanelShop() {
+        this.panels.createPanel(this.prePanelShop, "PanelShop");
+        //引导
+        this.guide.hidePoint();
+    },
+    //显示排行榜界面
+    onShowPanelRank() {
+        // this.panels.createPanel(this.prePanelRank, "PanelRank");
+        this.ndPanelRank.getComponent("PanelRank").onShow();
     },
 });
