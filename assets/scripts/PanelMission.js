@@ -79,8 +79,9 @@ cc.Class({
     onAnswer(){
         var self=this;
         let panel=cc.instantiate(self.prePanelAnswer);
-        panel.parent=cc.find("Canvas");
+        // panel.parent=cc.find("Canvas");
         // Global.game.panels.createPanel(self.prePanelAnswer,"PanelAnswer");
+        panel.parent=Global.game.panels.node;
 
         this.node.destroy();
     },

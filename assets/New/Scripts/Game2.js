@@ -243,4 +243,13 @@ cc.Class({
         // this.panels.createPanel(this.prePanelRank, "PanelRank");
         this.ndPanelRank.getComponent("PanelRank").onShow();
     },
+    //显示提示框
+    showTip(txt) {
+        if (txt == null || txt == "")
+            return;
+        let msgBox = cc.instantiate(this.preMsgBox);
+        msgBox.parent = this.node;
+        let msgBoxScr = msgBox.getComponent("MsgBox");
+        msgBoxScr.show(txt);
+    },
 });

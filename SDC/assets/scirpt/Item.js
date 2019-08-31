@@ -34,6 +34,7 @@ cc.Class({
         imgLevel:cc.Sprite,  //等级图
         spLevels:[cc.SpriteFrame],  //头三名等级图片精灵
         
+        
 
         _openid:"",  //openId
     },

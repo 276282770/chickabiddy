@@ -31,6 +31,7 @@ cc.Class({
         preItem:{default:null,type:cc.Prefab,tooltip:"项预制体"},
         ndCtnt:{default:null,type:cc.Node,tooltip:"项目根节点"},
         sView:cc.ScrollView,
+        preItem2:cc.Prefab,//项预制体2
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -59,6 +60,33 @@ cc.Class({
             for(var i=0;i<dataLst.length;i++){
                 
                 let newItem=cc.instantiate(self.preItem);
+                newItem.getComponent("Item").fill((i+1).toString(),dataLst[i].nickname,dataLst[i].avatar,dataLst[i].level,dataLst[i].openId);
+                newItem.parent=self.ndCtnt;
+                }
+            }else{
+                console.log("X好友排行项预制体预制体不能为空");
+            }
+        });
+    },
+    //加载第二种项预制体
+    load2(){
+        var self=this;
+        var dataLst=[];
+        WX.getFriendCloudStorage((res)=>{
+            for(var i=0;i<res.length;i++){
+            let openid=res[i].openid;
+            let nickname=res[i].nickname;
+            let avatarUrl=res[i].avatarUrl;
+            let KVDataValue=JSON.parse( res[i].KVDataList[0].value);
+            let score=KVDataValue.wxgame.score;
+
+            dataLst.push({nickname:nickname,avatar:avatarUrl,level:score,openId:openid});
+            }
+            self.sortList(dataLst);
+            if(self.preItem!=null){
+            for(var i=0;i<dataLst.length;i++){
+                
+                let newItem=cc.instantiate(self.preItem2);
                 newItem.getComponent("Item").fill((i+1).toString(),dataLst[i].nickname,dataLst[i].avatar,dataLst[i].level,dataLst[i].openId);
                 newItem.parent=self.ndCtnt;
                 }
@@ -114,5 +142,16 @@ cc.Class({
             this.onMessage({cmd:"scroll",y:addedPos*is_abs});
         }
     },
-    
+    setStyle(data){
+        this.ndCtnt.removeAllChildren();
+        switch(data){
+            case 0:{
+                this.load();
+            };break;
+            case 1:{
+                this.load2();
+            };break;
+        }
+    },
+
 });

@@ -49,6 +49,7 @@ cc.Class({
             case "SETOPENID":this.setOpenId(data.para);break;
             case "scrollTouchEnd":this.scrollTouchEnd();break;
             case "scroll":this.scroll(data);break;
+            case "SETSTYLE":this.setStyle(data.para);break;
         }
     },
     //发送分数
@@ -68,6 +69,9 @@ cc.Class({
     },
     scrollTouchEnd(){
         this.rank.scrollTouchEnd();
+    },
+    setStyle(data){
+        this.rank.setStyle(data);
     },
     test(){
         console.log("test");

@@ -78,7 +78,8 @@ cc.Class({
     backAuto(){
         let self=this;
         this.node.stopAllActions();
-        this.node.runAction(cc.moveTo(0.8,this.offsetPos()),cc.callFunc(
+        let pos=this.clampPos(this.offsetPos());
+        this.node.runAction(cc.moveTo(0.8,pos),cc.callFunc(
             function(){
                 self._isFollow=true;
             }

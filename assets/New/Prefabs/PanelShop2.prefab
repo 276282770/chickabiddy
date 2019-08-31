@@ -336,8 +336,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 64,
-      "height": 1
+      "width": 143,
+      "height": 35
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -347,7 +347,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -22,
+      "y": 0,
       "z": 0
     },
     "_scale": {
@@ -379,7 +379,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "720da8a1-a276-4c4e-8d2e-c91316a6f398"
+      "__uuid__": "4e27c748-44cd-42aa-a6c5-e2e37528c22e"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -412,7 +412,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 0,
-    "_bottom": -5,
+    "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -445,7 +445,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "810d5c2c-2d7c-416f-81b7-9f4b6d9bf6f2"
+      "__uuid__": "a5255345-a95f-4170-bbec-17be8090b6cc"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -590,7 +590,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 144,
+      "width": 143,
       "height": 35
     },
     "_anchorPoint": {
@@ -655,8 +655,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 64,
-      "height": 1
+      "width": 143,
+      "height": 35
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -666,7 +666,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -18.5,
+      "y": 0,
       "z": 0
     },
     "_scale": {
@@ -698,7 +698,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "720da8a1-a276-4c4e-8d2e-c91316a6f398"
+      "__uuid__": "ce6062e7-2053-46c9-992d-fd7868f57e2a"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -731,7 +731,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 0,
-    "_bottom": -5,
+    "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -764,7 +764,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "09b94166-5696-4f4d-8db6-54e49f0d33d1"
+      "__uuid__": "cfa30bfd-6089-460c-a448-a248f3d6f905"
     },
     "_type": 0,
     "_sizeMode": 1,

@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "ab827e39-84e9-4b0f-af28-02e036674bc7",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "商城食物按钮高亮": {
+      "ver": "1.0.3",
+      "uuid": "4e27c748-44cd-42aa-a6c5-e2e37528c22e",
+      "rawTextureUuid": "ab827e39-84e9-4b0f-af28-02e036674bc7",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 143,
+      "height": 35,
+      "rawWidth": 143,
+      "rawHeight": 35,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -51,7 +51,7 @@ cc.Class({
         // this.node.position=new cc.Vec2(0,0);
         // this.node.position=Common.vector2Add(this.node.position,new cc.Vec2(0,50));
         this._cam=cc.find("Canvas/Main Camera").getComponent("CameraController2");
-        console.log(this._cam.moveSpeed);
+
     },
 
     update (dt) {

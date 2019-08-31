@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "71050910-7dc2-4ef0-8d9c-f3987874d87a",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "好友列表偷蛋": {
+      "ver": "1.0.3",
+      "uuid": "f8903d7f-792e-4705-ba14-c95e5abe4e22",
+      "rawTextureUuid": "71050910-7dc2-4ef0-8d9c-f3987874d87a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 48,
+      "height": 53,
+      "rawWidth": 48,
+      "rawHeight": 53,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

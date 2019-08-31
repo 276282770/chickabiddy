@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "b7b30be5-933b-4545-b921-20c79ad0a3c0",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "答题奖励50金币图": {
+      "ver": "1.0.3",
+      "uuid": "610c6ffa-d273-410f-9be6-105a1d77ecaf",
+      "rawTextureUuid": "b7b30be5-933b-4545-b921-20c79ad0a3c0",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -4.5,
+      "offsetY": 2.5,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 409,
+      "height": 351,
+      "rawWidth": 418,
+      "rawHeight": 356,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
