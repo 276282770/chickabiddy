@@ -243,6 +243,11 @@ cc.Class({
         // this.panels.createPanel(this.prePanelRank, "PanelRank");
         this.ndPanelRank.getComponent("PanelRank").onShow();
     },
+    /**显示装扮面板
+ */
+    onShowPanelTittivate() {
+        this.panels.createPanel(this.prePanelTittivate, "PanelTittivate2");
+    },
     //显示提示框
     showTip(txt) {
         if (txt == null || txt == "")

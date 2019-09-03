@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "f790bace-ed70-4a79-9fb5-0fcee405d95b",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "装扮页模特小鸡": {
+      "ver": "1.0.3",
+      "uuid": "73ab68e3-2828-4223-a727-b172c20c901a",
+      "rawTextureUuid": "f790bace-ed70-4a79-9fb5-0fcee405d95b",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 315,
+      "height": 323,
+      "rawWidth": 315,
+      "rawHeight": 323,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -52,6 +52,14 @@ var Common={
     getDistance(vec1,vec2){
         return Math.sqrt(Math.pow(vec2.x-vec1.x,2)+Math.pow(vec2.y-vec1.y,2));
     },
+    /**加载资源图片 */
+    loadRes(path,image){
+        cc.loader.loadRes(path,function(err,tex){
+            if(!err){
+                image.spriteFrame=new cc.SpriteFrame(tex);
+            }
+        });
+    },
 };
 
 

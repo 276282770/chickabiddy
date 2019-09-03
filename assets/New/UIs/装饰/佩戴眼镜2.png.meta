@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "18138647-2f9f-49c4-bfcf-5382aa745a07",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "佩戴眼镜2": {
+      "ver": "1.0.3",
+      "uuid": "c4cde18f-e570-45b0-b945-bb4797be78bd",
+      "rawTextureUuid": "18138647-2f9f-49c4-bfcf-5382aa745a07",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 7,
+      "width": 211,
+      "height": 79,
+      "rawWidth": 215,
+      "rawHeight": 93,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

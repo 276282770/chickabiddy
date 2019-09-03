@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "25bf232b-5d69-42ba-8ca4-083556f2a124",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "佩戴帽子2": {
+      "ver": "1.0.3",
+      "uuid": "738384b5-2e63-4f54-805c-5afd465903f0",
+      "rawTextureUuid": "25bf232b-5d69-42ba-8ca4-083556f2a124",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -2,
+      "offsetY": -0.5,
+      "trimX": 0,
+      "trimY": 13,
+      "width": 224,
+      "height": 108,
+      "rawWidth": 228,
+      "rawHeight": 133,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

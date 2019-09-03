@@ -3,9 +3,11 @@ var WX = require("WX");
 var Network = {
     // domain:"http://192.168.0.244:8080/ROOT",
     domain: "https://xj.xiajiwangluo.com",  //域名
+    backData:{result:false,data:{}},
 
     //封装微信http协议
     request(url, data, success) {
+        data.uid=Global.id;
         WX.request(url, data, "POST", success);
     },
     /**  统计
@@ -993,6 +995,19 @@ var Network = {
                 callback(backData);
             }
         });
+    },
+    /**获取装扮 */
+    getMyTittivate(callback){
+
+        this.backData.result=true;
+        this.backData.data=[
+            {id:10,type:0,name:"小帽子",isUse:false},
+            {id:11,type:0,name:"小帽子1",isUse:true},
+            {id:20,type:1,name:"小眼睛",isUse:true},
+            {id:21,type:1,name:"小眼睛2",isUse:false},
+            {id:22,type:1,name:"小眼睛3",isUse:false},
+        ];
+        callback(this.backData);
     },
     
 

@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "f5b79d03-9dce-49e0-80f0-6420dee4b4f1",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "金币奖励彩色": {
+      "ver": "1.0.3",
+      "uuid": "ff05e60d-715b-4073-a09d-e63bb00ed7a7",
+      "rawTextureUuid": "f5b79d03-9dce-49e0-80f0-6420dee4b4f1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 94,
+      "height": 93,
+      "rawWidth": 94,
+      "rawHeight": 93,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

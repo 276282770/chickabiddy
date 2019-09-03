@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.2293803272679794,
-      "y": 0.2293803272679794,
+      "x": 0.4462158203124994,
+      "y": 0.4462158203124994,
       "z": 1
     },
     "_quat": {
@@ -3926,7 +3926,7 @@
     },
     "component": "",
     "_componentId": "9d957SnEpxAJLu9Y+dG/KiT",
-    "handler": "",
+    "handler": "onShowPanelTittivate",
     "customEventData": ""
   },
   {
@@ -8697,7 +8697,9 @@
       "__uuid__": "b71dc49b-ae2e-4c1f-bf31-046f361311bf"
     },
     "prePanelLink": null,
-    "prePanelTittivate": null,
+    "prePanelTittivate": {
+      "__uuid__": "06b16b20-1788-4348-8a3d-7e1e7d60d1a0"
+    },
     "prePanelMission": {
       "__uuid__": "95670cfa-aea8-476b-9453-007bed27db3d"
     },
