@@ -433,6 +433,7 @@ cc.Class({
         msgBox.parent = this.node;
         let msgBoxScr = msgBox.getComponent("MsgBox");
         msgBoxScr.show(txt);
+        
     },
     //显示个人日志信息
     onShowPanelDetail() {
