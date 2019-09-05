@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "5ef037c8-e544-44ed-a191-d3b36adae7b1",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "橙色购买": {
+      "ver": "1.0.3",
+      "uuid": "2e09ab37-1925-452a-96a4-e766ddbe07df",
+      "rawTextureUuid": "5ef037c8-e544-44ed-a191-d3b36adae7b1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 59,
+      "height": 59,
+      "rawWidth": 61,
+      "rawHeight": 61,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

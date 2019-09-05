@@ -996,7 +996,7 @@ var Network = {
             }
         });
     },
-    /**获取装扮 */
+    /**获取我的装扮 */
     getMyTittivate(callback){
 
         this.backData.result=true;
@@ -1008,6 +1008,34 @@ var Network = {
             {id:22,type:1,name:"小眼睛3",isUse:false},
         ];
         callback(this.backData);
+    },
+    /**保存装扮 */
+    saveMyTittivate(idArr,callback){
+        let data={};
+        this.backData.result=true;
+        callback(this.backData);
+    },
+    /**获取签到信息 */
+    getSignin(callback){
+        let backData={result:false,data:{}};
+        backData.result=true;
+        backData.data=[
+            {isFinish:true,num:10},
+            {isFinish:true,num:10},
+            {isFinish:true,num:10},
+            {isFinish:true,num:10},
+            {isFinish:true,num:10},
+            {isFinish:true,num:10},
+            {isFinish:true,num:10},
+        ];
+    },
+    /**签到 */
+    signin(callback){
+        let url=this.domain+"/daySignin.action";
+        
+        let backData={result:false,data:{}};
+        backData.result=true;
+        callback(backData)
     },
     
 

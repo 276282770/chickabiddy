@@ -592,6 +592,7 @@ cc.Class({
         //引导
         this.guide.hidePoint();
     },
+    //显示公告
     onShowPanelAnnouncement() {
         this.panels.createPanel(this.prePanelAnnouncement, "PanelAnnouncement");
     },

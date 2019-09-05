@@ -137,5 +137,17 @@ cc.Class({
                 Common.loadRes(path,this.imgModeFront[i]);
             }
         }
-    }
+    },
+    //保存装扮
+    onSave(){
+        var self=this;
+        Network.saveMyTittivate(this._save,(res)=>{
+            if(res.result){
+                Global.game.player.tittivate(self._save);
+                Global.game.player.showTip("保存装扮成功");
+            }else{
+                Global.game.showTip(res.data);
+            }
+        });
+    },
 });

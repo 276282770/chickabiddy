@@ -56,6 +56,7 @@ cc.Class({
         prePanelExchange: cc.Prefab,  //鸡蛋兑换界面
         prePanelExchangeEgg2Egg: cc.Prefab,  //鸡蛋兑换鸡蛋面板预制体
         prePanelExchangeEgg2Money: cc.Prefab,  //鸡蛋兑换钱面板预制体
+        prePanelSignin: cc.Prefab,  //签到界面
         // prePanelThief:cc.Prefab,  //小偷预制体
         prePlayerDine: cc.Prefab,  //吃东西预制体
         prePlayerBath: cc.Prefab,  //洗澡动画预制体
@@ -168,6 +169,174 @@ cc.Class({
         });
 
     },
+    login(code, avatar, nickName, fid) {
+        var self = this;
+        // cc.loader.load({ url: avatar, type: "png" }, function (err, tex) {
+        //     if (!err) {
+        //         self.imgAvatar.spriteFrame = new cc.SpriteFrame(tex);
+        //     }
+        // });
+        Global.user.nickName = nickName;
+        Global.user.avatar = avatar;
+        console.log("设置全局函数‘头像’和‘昵称’");
+        Network.requestLogin(code, avatar, nickName, (res) => {
+            if (res.result) {
+                if (fid != null) {
+                    Network.requestAddFriend(fid, function (res) { });
+                }
+                if (res.data.isNewPlayer) {
+                    if (!self.guide._isGuid) {
+                        self.guide._isGuid = true;
+                        self.guide.step();
+                    }
+                }
+                self.updateState(res.data);
+                self.ndWaitting.active = false;
+
+
+            }
+        });
+    },
+    //更新首页
+    updateIndex() {
+        if (Global.id == -1)
+            return;
+        console.log("【更新首页】");
+        var self = this;
+        Network.requestIndexInfo((res) => {
+            if (res.result) {
+                let data = res.data;
+                self.updateState(data);
+                if (res.data.isFirstLayingEgg) {
+                    self.guide.step_egg();
+                }
+
+            }
+        });
+        // this.openLastPanel();
+        // this.setDark();
+
+    },
+    updateState(data) {
+        var self = this;
+        self.setScore(data.lvl);
+        self.setSelfEgg(data.selfEggNum);
+        self.setOtherEgg(data.otherEggNum);
+        self.setMoney(data.money);
+        self.txtLvl.string = data.lvl.toString();
+        self.proLvl.progress = data.lvlExp / data.lvlFullExp;
+        self.ndLvlUp.active = data.lvlUp;
+
+        self.txtEgg.string = data.eggNum.toString();
+
+        self.proClean.progress = data.cleanProgCurr / data.cleanProgFull;
+        if (data.foodRemain < 0) {
+            self.proFood.progress = 0;
+        } else {
+            self.proFood.progress = data.foodRemain / data.foodProgFull;
+        }
+        self.setProEgg(data.eggProgCurr / data.eggProgFull);
+
+        if (data.thiefs != null) {
+            let currentThiefsCount = 0;  //现在小偷数量
+            let originalThiefsCount = self.thief._lastThiefCount;  //原来小偷数量
+            //计算现在小偷数量
+            if (data.thiefs[0] != null)
+                currentThiefsCount++;
+            if (data.thiefs[1] != null)
+                currentThiefsCount++;
+
+            console.log("【设置小偷】本次小偷数量{" + currentThiefsCount + "},上次小偷数量{" + originalThiefsCount + "}");
+            //如果小偷被弄完时
+            if (currentThiefsCount == 0 && originalThiefsCount > 0) {
+
+                self.onCloudClose();
+                self.scheduleOnce(function () {
+                    self.backgroundScale("normal");
+                    self.onCloudOpen();
+                }, 2);
+
+            }
+            //如果进来小偷时
+            if (currentThiefsCount > 0 && originalThiefsCount <= 0) {
+
+                if (originalThiefsCount == -1) {
+                    self.backgroundScale("small");
+                } else {
+
+                    self.onCloudClose();
+                    self.scheduleOnce(function () {
+                        self.backgroundScale("small");
+                        self.onCloudOpen();
+                    }, 2);
+                }
+            }
+            self.thief.setThief(data.thiefs);
+            // self.setPanelThief(data.thiefs);
+            if (data.thiefs[0] != null || data.thiefs[1] != null) {
+                //有小偷
+
+                // self.ndRight.y=0;
+                // self.ndLeft.y=0;
+                // self.player.node.y = -200;
+                // self.ndThief.active=true;
+            } else {
+                //没有小偷
+
+                // self.ndRight.y=349;
+                // self.ndLeft.y=274;
+                // self.player.node.y = 0;
+                // self.ndRight.setPosition(self._ndRightPos);
+                // self.ndLeft.setPosition(self._ndLeftPos);
+
+                // self.showCtrl(true);
+                // self.ndThief.active=false;
+            }
+
+        }
+
+        //如果有新公告自动弹出显示
+        if (data.newAnnouncement) {
+            this.onShowPanelAnnouncement();
+        }
+
+
+
+        // if(data.playerState==0){
+        //     self.player.setState(0);
+        // }
+        // if (data.playerState == 1) {
+
+        //     self.player.setState(3);
+        // } else if (data.playerState == 2) {
+        //     self.player.node.active = false;
+        //     Global.scene.otherUid = data.otherId;
+        //     self.ndFindPlayer.active = true;
+        // }
+
+        //更新角色
+        if (data.outHome) {
+            Global.scene.otherUid = data.otherId;
+        }
+        self.ndFindPlayer.active = data.outHome;
+        self.player.setPlayerCondition(data.foodRemain, data.cleanProgCurr, data.bateu, data.outHome);
+
+        //更新头像
+        if (Global.user.avatar != "") {
+            cc.loader.load({ url: Global.user.avatar, type: "png" }, function (err, tex) {
+                if (!err) {
+                    self.imgAvatar.spriteFrame = new cc.SpriteFrame(tex);
+                }
+            });
+        }
+
+        //更新升级
+        if (Global.user.level != -1 && Global.user.level != data.lvl) {
+            self.onPlayLevelUp();
+        }
+        Global.user.level = data.lvl;
+
+    },
 
     start() {
 
@@ -248,6 +417,14 @@ cc.Class({
     onShowPanelTittivate() {
         this.panels.createPanel(this.prePanelTittivate, "PanelTittivate2");
     },
+    //显示签到界面
+    onShowPanelSignin() {
+        this.panels.createPanel(this.prePanelSignin, "PanelSignin");
+    },
+    //显示公告
+    onShowPanelAnnouncement() {
+        this.panels.createPanel(this.prePanelAnnouncement, "PanelAnnouncement");
+    },
     //显示提示框
     showTip(txt) {
         if (txt == null || txt == "")
@@ -257,4 +434,9 @@ cc.Class({
         let msgBoxScr = msgBox.getComponent("MsgBox");
         msgBoxScr.show(txt);
     },
+    //显示个人日志信息
+    onShowPanelDetail() {
+        this.panels.createPanel(this.prePanelDetail, "PanelDetail");
+    },
+
 });

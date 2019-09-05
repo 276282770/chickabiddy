@@ -166,5 +166,9 @@ cc.Class({
     },
     onClick(){
         this.goBack();
-    }
+    },
+    //装扮
+    tittivate(data){
+        
+    },
 });
