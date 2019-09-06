@@ -364,6 +364,11 @@ cc.Class({
         this._money = num;
         // this.txtMoney.string = this._money.toString();
     },
+    //设置鸡蛋进度
+    setProEgg(pro) {
+        this.proEgg.progress = pro;
+        // this.proEgg.node.getChildByName("text").getComponent(cc.Label).string = parseInt(pro * 100).toString();
+    },
 
     //洗澡
     bath() {
@@ -454,6 +459,10 @@ cc.Class({
     //显示个人日志信息
     onShowPanelDetail() {
         this.panels.createPanel(this.prePanelDetail, "PanelDetail");
+    },
+    //播放升级动画
+    onPlayLevelUp() {
+        // this.node.getChildByName("PanelLevelUp").getComponent("PanelLevelUp").show();
     },
 
 });

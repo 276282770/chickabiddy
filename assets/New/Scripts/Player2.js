@@ -189,4 +189,7 @@ cc.Class({
     setTittivate(data){
         this._tittivate=data;
     },
+    setPlayerCondition(){
+
+    },
 });

@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.44621582031249585,
-      "y": 0.44621582031249585,
+      "x": 0.3199267586423938,
+      "y": 0.3199267586423938,
       "z": 1
     },
     "_quat": {
@@ -10577,8 +10577,12 @@
     "ndLvlUp": {
       "__id__": 82
     },
-    "txtEgg": null,
-    "proLvl": null,
+    "txtEgg": {
+      "__id__": 32
+    },
+    "proLvl": {
+      "__id__": 85
+    },
     "proEgg": {
       "__id__": 37
     },
@@ -10586,7 +10590,9 @@
       "__id__": 63
     },
     "proClean": null,
-    "imgAvatar": null,
+    "imgAvatar": {
+      "__id__": 72
+    },
     "imgBg": null,
     "spBgs": [],
     "preMsgBox": {
@@ -10599,16 +10605,24 @@
     "ndFindPlayer": {
       "__id__": 22
     },
-    "ndRight": null,
-    "ndLeft": null,
-    "ndDown": null,
+    "ndRight": {
+      "__id__": 137
+    },
+    "ndLeft": {
+      "__id__": 108
+    },
+    "ndDown": {
+      "__id__": 90
+    },
     "ndPanelRank": {
       "__id__": 157
     },
     "ndPlayerRoot": null,
     "ndThiefRoot": null,
     "ndCloud": null,
-    "ndEgg": null,
+    "ndEgg": {
+      "__id__": 27
+    },
     "ndTV": null,
     "panels": {
       "__id__": 155
