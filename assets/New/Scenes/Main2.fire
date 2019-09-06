@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.3199267586423938,
-      "y": 0.3199267586423938,
+      "x": 0.37783115415160357,
+      "y": 0.37783115415160357,
       "z": 1
     },
     "_quat": {
@@ -4541,7 +4541,7 @@
     },
     "component": "",
     "_componentId": "9d957SnEpxAJLu9Y+dG/KiT",
-    "handler": "onDine",
+    "handler": "onShowPanelPackage",
     "customEventData": ""
   },
   {

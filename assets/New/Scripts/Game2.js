@@ -240,7 +240,7 @@ cc.Class({
         }
         self.setProEgg(data.eggProgCurr / data.eggProgFull);
 
-        if (data.thiefs != null&&self.thief!=null) {
+        if (data.thiefs != null && self.thief != null) {
             let currentThiefsCount = 0;  //现在小偷数量
             let originalThiefsCount = self.thief._lastThiefCount;  //原来小偷数量
             //计算现在小偷数量
@@ -369,6 +369,12 @@ cc.Class({
         this.proEgg.progress = pro;
         // this.proEgg.node.getChildByName("text").getComponent(cc.Label).string = parseInt(pro * 100).toString();
     },
+    //添加钱
+    addMoneyEff(num) {
+        // this._money += num;
+        // this.txtMoney.string = this._money.toString();
+        // this.txtMoney.node.getComponent(cc.Animation).play();
+    },
 
     //洗澡
     bath() {
@@ -419,8 +425,8 @@ cc.Class({
     onShowPanelShop() {
         this.panels.createPanel(this.prePanelShop, "PanelShop");
         //引导
-        if(this.guide!=null)
-        this.guide.hidePoint();
+        if (this.guide != null)
+            this.guide.hidePoint();
     },
     //显示排行榜界面
     onShowPanelRank() {
@@ -445,6 +451,7 @@ cc.Class({
     onShowPanelPackage() {
         this.panels.createPanel(this.prePanelPackage, "PanelPackage");
         //引导
+        if(this.guide!=null)
         this.guide.hidePoint();
     },
     //显示提示框
@@ -479,50 +486,50 @@ cc.Class({
             self.updateIndex();
         });
         //引导
-        if(this.guide!=null)
-        this.guide.hidePoint();
+        if (this.guide != null)
+            this.guide.hidePoint();
     },
-        //分享
-        onShare(tp) {
-            var self = this;
-            Network.requestShare((res) => {
-    
-                let title = res.data.title;
-                let imageUrl = res.data.imageUrl;
-                WX.shareAppMessage(title, imageUrl, tp);
-    
-                self._shareFlag = true;
-                self._shareTime = new Date();
-            });
-    
-        },
-        //分享成功
-        shareSuccess() {
-            var self = this;
-            Network.requestShareSuccess((res) => {
-                if (res.result) {
-                    self.addMoneyEff(res.data.money);
-                }
-                self.showTip(res.data.tip);
-            });
-        },
-    
-        /** 检查是否分享成功
-         *
-         *
-         * @returns
-         */
-        checkShareSuccess() {
-            if (!this._shareFlag) {
-                return;
+    //分享
+    onShare(tp) {
+        var self = this;
+        Network.requestShare((res) => {
+
+            let title = res.data.title;
+            let imageUrl = res.data.imageUrl;
+            WX.shareAppMessage(title, imageUrl, tp);
+
+            self._shareFlag = true;
+            self._shareTime = new Date();
+        });
+
+    },
+    //分享成功
+    shareSuccess() {
+        var self = this;
+        Network.requestShareSuccess((res) => {
+            if (res.result) {
+                self.addMoneyEff(res.data.money);
             }
-            this._shareFlag = false;
-            let tm = (new Date().getTime() - this._shareTime.getTime()) / 1000;
-            console.log("【分享延迟时间】" + tm + "s");
-            if (tm < this._shareDelay) {
-                this.showTip("分享失败");
-                return;
-            }
-            this.shareSuccess();
-        },
+            self.showTip(res.data.tip);
+        });
+    },
+
+    /** 检查是否分享成功
+     *
+     *
+     * @returns
+     */
+    checkShareSuccess() {
+        if (!this._shareFlag) {
+            return;
+        }
+        this._shareFlag = false;
+        let tm = (new Date().getTime() - this._shareTime.getTime()) / 1000;
+        console.log("【分享延迟时间】" + tm + "s");
+        if (tm < this._shareDelay) {
+            this.showTip("分享失败");
+            return;
+        }
+        this.shareSuccess();
+    },
 });

@@ -6,6 +6,7 @@ cc.Class({
 
         items:[cc.Node],
 
+        _signinData:null,
     },
 
 
@@ -20,6 +21,7 @@ cc.Class({
         Network.getSignin((res)=>{
             if(res.result){
                 let data=res.data;
+                self._signinData=data;
                 for(var i=0;i<self.items.length;i++){
                     if(data[i]!=null){
                         self.items[i].getChildByName("signined").active=data[i].isFinish;
@@ -36,7 +38,8 @@ cc.Class({
         var self=this;
         Network.signin((res)=>{
             if(res.result){
-                Global.game.showTip("签到成功");
+                // Global.game.showTip("签到成功");
+                self.showSignin();
             }else{
                 Global.game.showTip(res.data);
             }
@@ -45,4 +48,15 @@ cc.Class({
     onClose() {
         this.node.destroy();
     },
+    showSignin(){
+        let idx=0;
+        for(var i=0;i<this._signinData.length;i++){
+            if(this._signinData[i].isFinish){
+                idx=i+1;
+            }else{
+                break;
+            }
+        }
+        this.items[idx].getChildByName("signined").active=true;
+    }
 });

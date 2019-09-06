@@ -1,14 +1,15 @@
 
 var WX = require("WX");
 var Network = {
-    // domain:"http://192.168.0.244:8080/ROOT",
+    // domain:"http://192.168.0.142:8080",
     domain: "https://xj.xiajiwangluo.com",  //域名
     backData:{result:false,data:{}},
 
     //封装微信http协议
     request(url, data, success) {
-        if(Global.id!=-1)
+        if(Global.id!=-1){
         data.uid=Global.id;
+        }
         WX.request(url, data, "POST", success);
     },
     /**  统计
@@ -1018,25 +1019,41 @@ var Network = {
     },
     /**获取签到信息 */
     getSignin(callback){
+        let url=this.domain+"/signin.action";
         let backData={result:false,data:{}};
-        backData.result=true;
-        backData.data=[
-            {isFinish:true,num:10},
-            {isFinish:true,num:10},
-            {isFinish:true,num:10},
-            {isFinish:true,num:10},
-            {isFinish:true,num:10},
-            {isFinish:true,num:10},
-            {isFinish:true,num:10},
-        ];
+        this.request(url,{},(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data=[];
+                for(var i=0;i<res.data.length;i++){
+                    if(i<res.currentPage){
+                        backData.data.push({isFinish:true,num:res.data[i]});
+                    }else{
+                        backData.data.push({isFinish:false,num:res.data[i]});
+                    }
+                }
+            }else{
+                backData.data=res.tips;
+            }
+            callback(backData);
+        });
     },
     /**签到 */
     signin(callback){
         let url=this.domain+"/daySignin.action";
         
         let backData={result:false,data:{}};
-        backData.result=true;
-        callback(backData)
+        this.request(url,{},(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data=res.currentPage;
+            }else{
+                backData.data=res.data;
+            }
+            callback(backData);
+        });
+        
+        
     },
     
 

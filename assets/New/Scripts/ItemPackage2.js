@@ -37,7 +37,7 @@ cc.Class({
         this.txtName.string=name;
         this.txtDescript.string=descript;
         this.txtCount.string=count.toString();
-        let path="Shop/shop_"+id;
+        let path="Shop2/shop_"+id;
         cc.loader.loadRes(path,function(err,tex){
             if(!err){
                 self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);

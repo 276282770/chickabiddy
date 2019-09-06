@@ -467,7 +467,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "38ea0iM3slCGoRgEP4XKR8C",
+    "_componentId": "10bb7aXswlMmLH2PBBcM14s",
     "handler": "onClose",
     "customEventData": ""
   },
@@ -1736,12 +1736,12 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "38ea0iM3slCGoRgEP4XKR8C",
+    "_componentId": "10bb7aXswlMmLH2PBBcM14s",
     "handler": "onClose",
     "customEventData": ""
   },
   {
-    "__type__": "38ea0iM3slCGoRgEP4XKR8C",
+    "__type__": "10bb7aXswlMmLH2PBBcM14s",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1755,7 +1755,7 @@
       "__id__": 20
     },
     "preItemPackage": {
-      "__uuid__": "a32d52ef-bf14-4204-bd59-ada4dce0e1e1"
+      "__uuid__": "45a1165b-642b-471b-aa8f-81f74782744b"
     },
     "_panelReady": false,
     "_id": ""
