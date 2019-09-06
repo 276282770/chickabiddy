@@ -67,9 +67,9 @@ cc.Class({
                 self.txtQuestion.string = res.data.q;
 
                 self.ndAnswer[0].getChildByName("txtAnswer").getComponent(cc.Label).string = res.data.a0;
-                self.ndAnswer[1].getChildByName("txtAnswer").getComponent(cc.Label).string = res.data.a0;
-                self.ndAnswer[2].getChildByName("txtAnswer").getComponent(cc.Label).string = res.data.a0;
-                self.ndAnswer[3].getChildByName("txtAnswer").getComponent(cc.Label).string = res.data.a0;
+                self.ndAnswer[1].getChildByName("txtAnswer").getComponent(cc.Label).string = res.data.a1;
+                self.ndAnswer[2].getChildByName("txtAnswer").getComponent(cc.Label).string = res.data.a2;
+                self.ndAnswer[3].getChildByName("txtAnswer").getComponent(cc.Label).string = res.data.a3;
             } else {
 
                 self.txtQuestion.string = "今天测试已经结束，请明天再过来吧";

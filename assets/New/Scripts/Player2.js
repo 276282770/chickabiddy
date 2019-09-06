@@ -192,4 +192,7 @@ cc.Class({
     setPlayerCondition(){
 
     },
+    openSay(text){
+
+    }
 });

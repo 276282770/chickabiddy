@@ -451,7 +451,7 @@ cc.Class({
         if (txt == null || txt == "")
             return;
         let msgBox = cc.instantiate(this.preMsgBox);
-        msgBox.parent = this.node;
+        msgBox.parent = cc.find("Canvas/UICanvas");
         let msgBoxScr = msgBox.getComponent("MsgBox");
         msgBoxScr.show(txt);
 
