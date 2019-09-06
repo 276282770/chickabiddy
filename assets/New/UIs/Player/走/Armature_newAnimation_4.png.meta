@@ -1,6 +1,6 @@
 {
   "ver": "2.2.0",
-  "uuid": "4f8ff4cd-90ea-4c88-8998-0ede7cd7053e",
+  "uuid": "10dc07dc-6c22-4d5d-9c77-df29d96d214e",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -8,8 +8,8 @@
   "subMetas": {
     "Armature_newAnimation_4": {
       "ver": "1.0.3",
-      "uuid": "e7aa1d3a-b3ad-45df-81b0-646673a7de85",
-      "rawTextureUuid": "4f8ff4cd-90ea-4c88-8998-0ede7cd7053e",
+      "uuid": "71414536-d259-4ab1-9786-c71821f1886b",
+      "rawTextureUuid": "10dc07dc-6c22-4d5d-9c77-df29d96d214e",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

@@ -425,6 +425,13 @@ cc.Class({
     onShowPanelAnnouncement() {
         this.panels.createPanel(this.prePanelAnnouncement, "PanelAnnouncement");
     },
+    /**显示背包面板
+ */
+    onShowPanelPackage() {
+        this.panels.createPanel(this.prePanelPackage, "PanelPackage");
+        //引导
+        this.guide.hidePoint();
+    },
     //显示提示框
     showTip(txt) {
         if (txt == null || txt == "")
@@ -433,7 +440,7 @@ cc.Class({
         msgBox.parent = this.node;
         let msgBoxScr = msgBox.getComponent("MsgBox");
         msgBoxScr.show(txt);
-        
+
     },
     //显示个人日志信息
     onShowPanelDetail() {

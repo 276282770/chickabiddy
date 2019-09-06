@@ -22,6 +22,7 @@ cc.Class({
         // },
         speed:1,  //移动速度
         jumpSpeed:200000,  //跳跃速度
+        animBody:cc.Animation,  //身体动画
 
         _horizontal:0,
         _vertical:0,
@@ -98,14 +99,30 @@ cc.Class({
     },
     //移动小鸡到指定位置
     moveTo(targetPos,callback){
+        var self=this;
         this.node.stopAllActions();
+        this.animBody.node.scaleX=this.getDirectionX(targetPos);
+
+        this.animBody.play("player2_walk");
          this.node.runAction(cc.sequence(cc.moveTo(Common.getDistance(this.node.position,targetPos)/150,targetPos),
-         cc.callFunc(callback)));
-  
+         cc.callFunc(function(){
+             self.animBody.play("player2_idle");
+             self.animBody.node.scaleX=1;
+             callback();
+            })
+         ));
+         
     },
     //移动小鸡到指定X坐标
     moveToX(){
 
+    },
+    //获取小鸡要去的方向
+    getDirectionX(targetPos){
+        var result=targetPos.x-this.node.x;
+        result=Common.clamp(result,-1,1);
+        console.log(result);
+        return result;
     },
     //检测洗澡
     checkBath(){
