@@ -1700,7 +1700,7 @@
     },
     "component": "",
     "_componentId": "9d957SnEpxAJLu9Y+dG/KiT",
-    "handler": "",
+    "handler": "onPickEgg",
     "customEventData": ""
   },
   {

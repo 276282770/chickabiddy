@@ -240,7 +240,7 @@ cc.Class({
         }
         self.setProEgg(data.eggProgCurr / data.eggProgFull);
 
-        if (data.thiefs != null) {
+        if (data.thiefs != null&&self.thief!=null) {
             let currentThiefsCount = 0;  //现在小偷数量
             let originalThiefsCount = self.thief._lastThiefCount;  //原来小偷数量
             //计算现在小偷数量
@@ -464,5 +464,64 @@ cc.Class({
     onPlayLevelUp() {
         // this.node.getChildByName("PanelLevelUp").getComponent("PanelLevelUp").show();
     },
+    //收鸡蛋
+    onPickEgg() {
+        var self = this;
+        Network.requestPickEgg((res) => {
+            if (res.result) {
+                //播放收鸡蛋动画
 
+            }
+
+            self.showTip(res.data.tip);
+            self.player.openSay(res.data.say);
+            self.updateIndex();
+        });
+        //引导
+        if(this.guide!=null)
+        this.guide.hidePoint();
+    },
+        //分享
+        onShare(tp) {
+            var self = this;
+            Network.requestShare((res) => {
+    
+                let title = res.data.title;
+                let imageUrl = res.data.imageUrl;
+                WX.shareAppMessage(title, imageUrl, tp);
+    
+                self._shareFlag = true;
+                self._shareTime = new Date();
+            });
+    
+        },
+        //分享成功
+        shareSuccess() {
+            var self = this;
+            Network.requestShareSuccess((res) => {
+                if (res.result) {
+                    self.addMoneyEff(res.data.money);
+                }
+                self.showTip(res.data.tip);
+            });
+        },
+    
+        /** 检查是否分享成功
+         *
+         *
+         * @returns
+         */
+        checkShareSuccess() {
+            if (!this._shareFlag) {
+                return;
+            }
+            this._shareFlag = false;
+            let tm = (new Date().getTime() - this._shareTime.getTime()) / 1000;
+            console.log("【分享延迟时间】" + tm + "s");
+            if (tm < this._shareDelay) {
+                this.showTip("分享失败");
+                return;
+            }
+            this.shareSuccess();
+        },
 });
