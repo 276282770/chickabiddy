@@ -662,7 +662,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "f3de05c8-2d36-42a8-b0e7-3284bcbeb806"
+      "__uuid__": "bfd95699-0d1d-44d2-8e3a-2ec8eb88d324"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -837,13 +837,13 @@
     ],
     "spBuyBtn": [
       {
-        "__uuid__": "e8d642f5-0120-4786-a26a-0e51c7d4654c"
+        "__uuid__": "bfd95699-0d1d-44d2-8e3a-2ec8eb88d324"
       },
       {
-        "__uuid__": "15c10a65-3d5a-43de-ada4-e76f4b40ff87"
+        "__uuid__": "dab62937-780d-4a15-a40e-b643d9f900f7"
       },
       {
-        "__uuid__": "f3de05c8-2d36-42a8-b0e7-3284bcbeb806"
+        "__uuid__": "2e09ab37-1925-452a-96a4-e766ddbe07df"
       }
     ],
     "imgBg": {

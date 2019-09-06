@@ -419,6 +419,7 @@ cc.Class({
     onShowPanelShop() {
         this.panels.createPanel(this.prePanelShop, "PanelShop");
         //引导
+        if(this.guide!=null)
         this.guide.hidePoint();
     },
     //显示排行榜界面

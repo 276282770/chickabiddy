@@ -37,7 +37,7 @@ cc.Class({
     fill(id,name,desc,price){
         var self=this;
         this._cid=id;
-        cc.loader.loadRes("Shop/shop_"+id,function(err,tex){
+        cc.loader.loadRes("Shop2/shop_"+id,function(err,tex){
             if(!err){
                 self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
             }
@@ -54,8 +54,8 @@ cc.Class({
     onBuy(){
         // Global.game.panels.deletePanel();
         let newPanel= cc.instantiate(this.prePanelBuy);
-        newPanel.parent=cc.find("Canvas");
-        let newPanelScr=newPanel.getComponent("PanelBuy");
+        newPanel.parent=cc.find("Canvas/UICanvas");
+        let newPanelScr=newPanel.getComponent("PanelBuy2");
         newPanelScr.load(this._cid);
     },
 });
