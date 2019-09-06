@@ -7,6 +7,7 @@ var Network = {
 
     //封装微信http协议
     request(url, data, success) {
+        if(Global.id!=-1)
         data.uid=Global.id;
         WX.request(url, data, "POST", success);
     },

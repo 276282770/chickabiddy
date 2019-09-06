@@ -34,6 +34,7 @@ cc.Class({
         _pool:cc.Node,  //水池节点
         _lunchBox:cc.Node,  //饭盒节点
         _cam:null,
+        _tittivate:null,  //装扮
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -185,7 +186,7 @@ cc.Class({
         this.goBack();
     },
     //装扮
-    tittivate(data){
-        
+    setTittivate(data){
+        this._tittivate=data;
     },
 });

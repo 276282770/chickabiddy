@@ -13,6 +13,8 @@ cc.Class({
         txtOtherEgg: cc.Label,  //偷来的鸡蛋
         txtMoney: cc.Label,  //钱
         txtLvl: cc.Label,  //等级
+        imgLvl: cc.Sprite,  //等级图片
+        spLvls: [cc.SpriteFrame],//等级外框精灵
         ndLvlUp: cc.Node,  //等级加速
         txtEgg: cc.Label,  //鸡蛋个数
         proLvl: cc.ProgressBar,  //等级进度
@@ -219,17 +221,18 @@ cc.Class({
     },
     updateState(data) {
         var self = this;
-        self.setScore(data.lvl);
-        self.setSelfEgg(data.selfEggNum);
-        self.setOtherEgg(data.otherEggNum);
+        // self.setScore(data.lvl);
+        // self.setSelfEgg(data.selfEggNum);
+        // self.setOtherEgg(data.otherEggNum);
         self.setMoney(data.money);
         self.txtLvl.string = data.lvl.toString();
+        self.imgLvl.spriteFrame = self.spLvls[parseInt(data.lvl / 10)];
         self.proLvl.progress = data.lvlExp / data.lvlFullExp;
         self.ndLvlUp.active = data.lvlUp;
 
         self.txtEgg.string = data.eggNum.toString();
 
-        self.proClean.progress = data.cleanProgCurr / data.cleanProgFull;
+        // self.proClean.progress = data.cleanProgCurr / data.cleanProgFull;
         if (data.foodRemain < 0) {
             self.proFood.progress = 0;
         } else {
@@ -355,6 +358,12 @@ cc.Class({
     },
 
     // update (dt) {},
+
+    //设置钱
+    setMoney(num) {
+        this._money = num;
+        // this.txtMoney.string = this._money.toString();
+    },
 
     //洗澡
     bath() {
