@@ -15,8 +15,11 @@ cc.Class({
 
         preItemShop: cc.Prefab,   //项预制体
         preItemTittive:cc.Prefab,  //商店装扮项预制体
+        ndTittivateTabs:[cc.Node],  //装扮切换页
 
-
+        _tittivate:[],  //装扮
+        _serverTittivateTypeId:[],
+        
 
         _panelReady: false,
     },
@@ -29,7 +32,8 @@ cc.Class({
     },
 
     start() {
-
+        this._serverTittivateTypeId[0]=7;
+        this._serverTittivateTypeId[1]=3;
     },
     /**选择
      */
@@ -46,6 +50,22 @@ cc.Class({
             tabBtn[i].node.getChildByName("honghengxian").active = me;
             tabBtn[i].interactable = !me;
             svNode[i].active = me;
+        }
+    },
+    onSwitchTittivate(event,customerData){
+        let idx=parseInt(customerData);
+        console.log(idx);
+        if(this._tittivate.length>0){
+            for(var i=0;i<this.ndTittivateTabs.length;i++){
+                if(idx==i){
+                    this.ndTittivateTabs[i].interactable=false;
+                    this.ndTittivateTabs[i].children[0].active=true;
+                }else{
+                    this.ndTittivateTabs[i].interactable=true;
+                    this.ndTittivateTabs[i].children[0].active=false;
+                }
+            }
+            this.loadTittivate(idx);
         }
     },
 
@@ -101,5 +121,27 @@ cc.Class({
             }
         });
 
+        Network.getTittivate((res)=>{
+            if(res.result){
+                self._tittivate=res.data;
+                self.loadTittivate(0);
+            }else{
+                Global.game.showTip(res.data);
+            }
+
+        });
+
+    },
+    //加载装扮
+    loadTittivate(type){
+        let content=this.ndSvTittive.getComponent(cc.ScrollView).content;
+        content.removeAllChildren;
+        for(var i=0;i<this._tittivate.length;i++){
+            if(this._tittivate[i].type==this._serverTittivateTypeId[type]){
+                let item=cc.instantiate(this.preItemTittive);
+                item.parent=content;
+                item.getComponent("ItemShopTittivate2").init(this._tittivate[i]);
+            }
+        }
     },
 });

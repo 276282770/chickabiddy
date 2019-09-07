@@ -45,7 +45,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        this.init(this.cid,0);
+        // this.init(this.cid,0);
     },
 
     // update (dt) {},
@@ -85,21 +85,21 @@ cc.Class({
         if(id){
             let path;
             if(percent>0|| count>0){
-                path="Shop/shop_"+id;
+                path="Shop2/shop_"+id;
                 self.txtCount.string=count.toString();
                 if(percent!=1){
                     self.ndUse.getComponent(cc.Button).interactable=false;
-                    self.ndUse.getChildByName("txtUse").getComponent(cc.Label).string="使用中..";
+                    // self.ndUse.getChildByName("txtUse").getComponent(cc.Label).string="使用中..";
                 }
-                self.ndUse.getComponent(cc.ProgressBar).progress=percent;
+                // self.ndUse.getComponent(cc.ProgressBar).progress=percent;
             }
             else{
                 this.ndUse.active=false;
-                path="Shop/shop_"+id+"_g";
+                // path="Shop/shop_"+id+"_g";
             }
             cc.loader.loadRes(path,function(err,tex){
                 if(!err){
-                    self.node.getComponent(cc.Sprite).spriteFrame=new cc.SpriteFrame(tex);
+                    self.node.getChildByName("bg").getComponent(cc.Sprite).spriteFrame=new cc.SpriteFrame(tex);
                 }
             });
         }
@@ -112,7 +112,7 @@ cc.Class({
         if(id==1){
             this.imgBg.spriteFrame=this.spBg[0];
             this.imgTip.spriteFrame=this.spTip[0];
-        }else if(id==2){
+        }else if(id==6){
             this.imgBg.spriteFrame=this.spBg[1];
             this.imgTip.spriteFrame=this.spTip[1];
         }

@@ -55,7 +55,7 @@
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 1
+      "y": 0.5
     },
     "_position": {
       "__type__": "cc.Vec3",
@@ -129,7 +129,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -72,
+      "y": 20,
       "z": 0
     },
     "_scale": {
@@ -253,7 +253,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "txtCount",
+    "_name": "txtPrice",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -322,8 +322,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "10",
-    "_N$string": "10",
+    "_string": "0",
+    "_N$string": "0",
     "_fontSize": 25,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -427,7 +427,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": -1,
-      "y": -160,
+      "y": -68,
       "z": 0
     },
     "_scale": {
@@ -606,10 +606,15 @@
     "txtName": {
       "__id__": 12
     },
-    "txtCount": null,
-    "prePanelBuy": null,
+    "txtPrice": {
+      "__id__": 7
+    },
+    "prePanelBuy": {
+      "__uuid__": "f0929950-e6d9-40ca-9ee6-6628379e8a3a"
+    },
     "_tId": -1,
     "_type": -1,
+    "_desc": "",
     "_parent": null,
     "_isUse": false,
     "_id": ""

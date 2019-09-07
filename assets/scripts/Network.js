@@ -1,8 +1,11 @@
 
 var WX = require("WX");
+var Common=require("Common");
 var Network = {
-    // domain:"http://192.168.0.142:8080",
-    domain: "https://xj.xiajiwangluo.com",  //域名
+    domain:"http://192.168.0.142:8080",
+    // domain: "https://xj.xiajiwangluo.com",  //域名
+
+
     backData:{result:false,data:{}},
 
     //封装微信http协议
@@ -1017,6 +1020,47 @@ var Network = {
         this.backData.result=true;
         callback(this.backData);
     },
+    /**获取所有装扮 */
+    getTittivate(callback){
+        let url=this.domain+"/shop/allClothes.action";
+        let backData={};
+        this.request(url,{},(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data=[];
+                for(var i=0;i<res.data.length;i++){
+                    backData.data.push({
+                        id:res.data[i].id,
+                        name:res.data[i].name,
+                        desc:res.data[i].des,
+                        type:res.data[i].clas,
+                        price:res.data[i].price,
+                    });
+                }
+            }else{
+                backData.result=false;
+                backData.data=res.data;
+            }
+            callback(backData);
+        });
+        let temp={"state":200,"data":[{"id":7,"clas":3,"name":"复古帽子","url":"http://","des":"小鸡的帽子","price":1,"time":0},{"id":9,"clas":5,"name":"阳光眼镜","url":"http://","des":"小鸡的眼镜","price":1,"time":0},{"id":10,"clas":3,"name":"阳光帽子","url":"http://","des":"小鸡的帽子","price":1,"time":0},{"id":11,"clas":5,"name":"蹦迪眼镜","url":"http://","des":"小鸡的眼镜","price":1,"time":0},{"id":12,"clas":5,"name":"靓仔眼镜","url":"http://","des":"小鸡的眼镜","price":1,"time":0}],"tips":null,"currentPage":999999780};
+        backData.result=true;
+        backData.data=[];
+        for(var i=0;i<temp.data.length;i++){
+            backData.data.push({
+                id:temp.data[i].id,
+                name:temp.data[i].name,
+                desc:temp.data[i].des,
+                type:temp.data[i].clas,
+                price:temp.data[i].price,
+            });
+        }
+        callback(backData);
+    },
+    /**根据类别获取装扮 */
+    getTittivateByType(type,callback){
+        let url=this.domain+"";
+    },
     /**获取签到信息 */
     getSignin(callback){
         let url=this.domain+"/signin.action";
@@ -1055,6 +1099,7 @@ var Network = {
         
         
     },
+    
     
 
 

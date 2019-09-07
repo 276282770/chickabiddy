@@ -10,12 +10,13 @@ cc.Class({
 
         imgGoods:cc.Sprite,  //物品
         txtName:cc.Label,  //物品名称
-        txtCount:cc.Label,  //数量
+        txtPrice:cc.Label,  //数量
 
         prePanelBuy:cc.Prefab,  //购买界面
 
         _tId:-1,
         _type:-1,
+        _desc:"",
         _parent:null,
         _isUse:false,
     },
@@ -34,7 +35,10 @@ cc.Class({
         var self=this;
         this._tId=data.id;
         this._type=data.type;
-        this._parent=parent;
+        this._desc=data.desc,
+        this._price=data.price,
+
+        this.txtPrice=data.price.toString();
         this.txtName.string=data.name;
         cc.loader.loadRes("Shop2/shop_"+data.type.toString()+"_"+data.id.toString(),function(err,tex){
             if(!err){
@@ -64,6 +68,8 @@ cc.Class({
         //     this.unSel();
         // }
         // this._parent.onSelect(this._type,this._tId,this._isUse);
-        
+        var item=cc.instantiate(this.prePanelBuy);
+        item.getComponent("PanelBuy2").fill(this._tId,this._name,this._desc,this._price);
+        item.parent=cc.find("Canvas/UICanvas");
     }
 });

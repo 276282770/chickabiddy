@@ -25,7 +25,7 @@ cc.Class({
                 for(var i=0;i<self.items.length;i++){
                     if(data[i]!=null){
                         self.items[i].getChildByName("signined").active=data[i].isFinish;
-                        self.items[i].getChildByName("txtCount").getComponent(cc.Label).string=data[i].num.toString();
+                        self.items[i].getChildByName("txtCount").getComponent(cc.Label).string=data[i].num.toString()+"+?";
                     }
                 }
             }else{
@@ -38,7 +38,7 @@ cc.Class({
         var self=this;
         Network.signin((res)=>{
             if(res.result){
-                // Global.game.showTip("签到成功");
+                Global.game.showTip("签到成功,增加"+res.data.toString()+"金币");
                 self.showSignin();
             }else{
                 Global.game.showTip(res.data);
