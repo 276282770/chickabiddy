@@ -454,6 +454,11 @@ cc.Class({
         if(this.guide!=null)
         this.guide.hidePoint();
     },
+        /**显示链接面板
+     */
+    onShowPanelLink() {
+        this.panels.createPanel(this.prePanelLink, "PanelLink");
+    },
     //显示提示框
     showTip(txt) {
         if (txt == null || txt == "")
