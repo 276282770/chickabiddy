@@ -23,6 +23,12 @@ cc.Class({
         speed:1,  //移动速度
         jumpSpeed:200000,  //跳跃速度
         animBody:cc.Animation,  //身体动画
+        ndSay:cc.Node,  //说话节点
+        sayTime:2,//说话停留时间
+
+        imgHat:cc.Sprite,  //帽子
+        imgGlass:cc.Sprite,  //眼镜
+        imgHornor:cc.Sprite,  //荣誉
 
         _horizontal:0,
         _vertical:0,
@@ -48,6 +54,7 @@ cc.Class({
     },
 
     start () {
+        this._tittivate={hat:-1,glass:-1,hornor:-1};
         this._rigid=this.node.getComponent(cc.RigidBody);
         this._originalPosition=this.node.position;
         // this.node.position=new cc.Vec2(0,0);
@@ -113,6 +120,21 @@ cc.Class({
             })
          ));
          
+    },
+    //跳着走
+    jumpBy(targetPos,callback){
+        var self=this;
+        this.node.stopAllActions();
+        this.animBody.node.scaleX=this.getDirectionX(targetPos);
+
+        this.animBody.play("player2_walk");
+         this.node.runAction(cc.sequence(cc.jumpBy(Common.getDistance(this.node.position,targetPos)/150,targetPos),
+         cc.callFunc(function(){
+             self.animBody.play("player2_idle");
+             self.animBody.node.scaleX=1;
+             callback();
+            })
+         ));
     },
     //移动小鸡到指定X坐标
     moveToX(){
@@ -186,13 +208,38 @@ cc.Class({
         this.goBack();
     },
     //装扮
-    setTittivate(data){
+    setTittivateData(data){
+        if(data.hat!=this._tittivate.hat){
+
+        }
         this._tittivate=data;
+
     },
+    setTittivate(type,id){
+        let path="Tittivate/type";
+        switch(type){
+            case "hat":{
+                path+="3_"
+            };break;
+        }
+        path+=id.toString();
+
+    },
+
+
+
     setPlayerCondition(){
 
     },
-    openSay(text){
 
+    //说话
+    openSay(text){
+        this.ndSay.getComponent(cc.Animation).play("fadeIn");
+        this.ndSay.getChildByName("Text").getComponent(cc.Label).string=text;
+        this.unschedule(this.hideSay);
+        this.scheduleOnce(this.hideSay,this.sayTime);
+    },
+    hideSay(){
+        this.ndSay.opacity=0;
     }
 });

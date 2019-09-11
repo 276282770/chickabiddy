@@ -33,7 +33,7 @@ cc.Class({
     },
 
     start() {
-
+        this.changeToType2();
     },
     onTab(event, customData) {
         switch (customData) {
@@ -119,4 +119,7 @@ cc.Class({
     onTouchEnd(event) {
         WX.postMessage({ cmd: "scrollTouchEnd" });
     },
+    changeToType2(){
+        WX.postMessage({cmd:"SETSTYLE",para:1});
+    }
 });

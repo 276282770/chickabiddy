@@ -2,8 +2,8 @@
 var WX = require("WX");
 var Common=require("Common");
 var Network = {
-    domain:"http://192.168.0.142:8080",
-    // domain: "https://xj.xiajiwangluo.com",  //域名
+    // domain:"http://192.168.0.142:8080",
+    domain: "https://xj.xiajiwangluo.com",  //域名
 
 
     backData:{result:false,data:{}},

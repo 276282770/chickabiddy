@@ -39,7 +39,6 @@ cc.Class({
     start(){
 
         this.load();
-
     },
 
     load(){

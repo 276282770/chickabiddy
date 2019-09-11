@@ -431,7 +431,7 @@ cc.Class({
     //显示排行榜界面
     onShowPanelRank() {
         // this.panels.createPanel(this.prePanelRank, "PanelRank");
-        this.ndPanelRank.getComponent("PanelRank").onShow();
+        this.ndPanelRank.getComponent("PanelRank2").onShow();
     },
     /**显示装扮面板
  */
