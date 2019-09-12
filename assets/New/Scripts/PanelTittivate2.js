@@ -92,16 +92,20 @@ cc.Class({
     loadData() {
         var self = this;
         Network.getMyTittivate((res) => {
-            let data = res.data;
+            let data = res.data.had;
             if (res.result) {
                 for (var i = 0; i < data.length; i++) {
                     let item = cc.instantiate(self.preItem);
                     item.parent = self._pages[data[i].type].content;
                     item.getComponent("ItemTittivate2").init(data[i], this);
-                    if(data[i].isUse){
-                        self._save[data[i].type]=data[i].id;
-                    }
+                    // if(data[i].isUse){
+                    //     self._save[data[i].type]=data[i].id;
+                    // }
                 }
+                self._save[0]=res.data.use.hat;
+                self._save[1]=res.data.use.glass;
+                self._save[2]=res.data.use.hornor;
+
                 self.updateMode();
             }
         })
@@ -133,7 +137,7 @@ cc.Class({
             if(this._save[i]==-1){
                 this.imgModeFront[i].spriteFrame=null;
             }else{
-                let path="Tittivate/"+i.toString()+"_"+this._save[i].toString();
+                let path="Tittivate/"+Global.tittiTypeString[i]+"_"+this._save[i].toString();
                 Common.loadRes(path,this.imgModeFront[i]);
             }
         }

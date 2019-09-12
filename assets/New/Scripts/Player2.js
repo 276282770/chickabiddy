@@ -1,4 +1,4 @@
-var Common=require("Common");
+var Common = require("Common");
 
 
 cc.Class({
@@ -20,63 +20,72 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        speed:1,  //移动速度
-        jumpSpeed:200000,  //跳跃速度
-        animBody:cc.Animation,  //身体动画
-        ndSay:cc.Node,  //说话节点
-        sayTime:2,//说话停留时间
+        speed: 1,  //移动速度
+        jumpSpeed: 200000,  //跳跃速度
+        animBody: cc.Animation,  //身体动画
+        ndSay: cc.Node,  //说话节点
+        sayTime: 2,//说话停留时间
 
-        imgHat:cc.Sprite,  //帽子
-        imgGlass:cc.Sprite,  //眼镜
-        imgHornor:cc.Sprite,  //荣誉
+        imgHat: cc.Sprite,  //帽子
+        imgGlass: cc.Sprite,  //眼镜
+        imgHornor: cc.Sprite,  //荣誉
 
-        _horizontal:0,
-        _vertical:0,
-        _rigid:cc.RigidBody,  //刚体
-        _isBath:false,
+        _horizontal: 0,
+        _vertical: 0,
+        _rigid: cc.RigidBody,  //刚体
+        _isBath: false,
 
-        _isMoveToTargetX:false,
-        _originalPosition:new cc.Vec2(0,0),  //小鸡原始坐标
-        _pool:cc.Node,  //水池节点
-        _lunchBox:cc.Node,  //饭盒节点
-        _cam:null,
-        _tittivate:null,  //装扮
+        _isMoveToTargetX: false,
+        _originalPosition: new cc.Vec2(0, 0),  //小鸡原始坐标
+        _pool: cc.Node,  //水池节点
+        _lunchBox: cc.Node,  //饭盒节点
+        _cam: null,
+        _tittivate: null,  //装扮
+        _imgTitti: null,//装扮图片
+ 
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         cc.director.getPhysicsManager().enabled = true;
-        cc.director.getCollisionManager().enabled=true;
+        cc.director.getCollisionManager().enabled = true;
         cc.director.getCollisionManager().enabledDebugDraw = true;
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
     },
 
-    start () {
-        this._tittivate={hat:-1,glass:-1,hornor:-1};
-        this._rigid=this.node.getComponent(cc.RigidBody);
-        this._originalPosition=this.node.position;
+    start() {
+        this._tittivate = { hat: -1, glass: -1, hornor: -1 };
+        this._rigid = this.node.getComponent(cc.RigidBody);
+        this._originalPosition = this.node.position;
         // this.node.position=new cc.Vec2(0,0);
         // this.node.position=Common.vector2Add(this.node.position,new cc.Vec2(0,50));
-        this._cam=cc.find("Canvas/Main Camera").getComponent("CameraController2");
+        this._cam = cc.find("Canvas/Main Camera").getComponent("CameraController2");
+        this._imgTitti = { hat: this.imgHat, glass: this.imgGlass, hornor: this.imgHornor };
+        
 
+        this.temp();
+    },
+    temp(){
+        this.setTittivateData({hat:10,glass:12,hornor:100});
+        // this.setTittivate(Global.tittiTypeString[1],12);
     },
 
-    update (dt) {
+    update(dt) {
         // this.move(dt);
         // console.log(JSON.stringify( this.node.position));
         // this._rigid.applyForceToCenter(new cc.v2(10000,0));
 
     },
     onKeyDown: function (event) {
-        switch(event.keyCode) {
+        switch (event.keyCode) {
             case cc.macro.KEY.right:
-                this._horizontal=1;
+                this._horizontal = 1;
                 break;
-                case cc.macro.KEY.left:this._horizontal=-1;break;
-                case cc.macro.KEY.up:this._vertical=1;break;
-                case cc.macro.KEY.down:this._vertical=-1;break;
+            case cc.macro.KEY.left: this._horizontal = -1; break;
+            case cc.macro.KEY.up: this._vertical = 1; break;
+            case cc.macro.KEY.down: this._vertical = -1; break;
         }
         // console.log("按下"+this._horizontal+" "+this._vertical);
         this.move();
@@ -85,161 +94,197 @@ cc.Class({
         // this._rigid.applyForceToCenter(new cc.v2(100000,0));
     },
     onKeyUp: function (event) {
-        switch(event.keyCode) {
+        switch (event.keyCode) {
             case cc.macro.KEY.a:
-                this._horizontal=0;
+                this._horizontal = 0;
                 break;
-                case cc.macro.KEY.left:this._horizontal=0;break;
-                case cc.macro.KEY.up:this._vertical=0;break;
-                case cc.macro.KEY.down:this._vertical=0;break;
+            case cc.macro.KEY.left: this._horizontal = 0; break;
+            case cc.macro.KEY.up: this._vertical = 0; break;
+            case cc.macro.KEY.down: this._vertical = 0; break;
         }
         // console.log("松开"+this._horizontal+" "+this._vertical);
         // this.move(0.02);
     },
     //移动
-    move(){
-        if(this._horizontal!=0||this._vertical!=0){
+    move() {
+        if (this._horizontal != 0 || this._vertical != 0) {
             // this.node.position=new cc.Vec2(this.node.position.x+this.speed*this._horizontal,this.node.position.y+this._vertical*this.speed);
             // console.log("【移动】#"+JSON.stringify(this.node.position));
             // this._rigid.linearVelocity =0;
-            this._rigid.applyForceToCenter(new cc.Vec2(this._horizontal*this.speed,this._vertical*this.jumpSpeed));
+            this._rigid.applyForceToCenter(new cc.Vec2(this._horizontal * this.speed, this._vertical * this.jumpSpeed));
         }
     },
     //移动小鸡到指定位置
-    moveTo(targetPos,callback){
-        var self=this;
+    moveTo(targetPos, callback) {
+        var self = this;
         this.node.stopAllActions();
-        this.animBody.node.scaleX=this.getDirectionX(targetPos);
-
+        this.animBody.node.scaleX = this.getDirectionX(targetPos);
+        this.switchTittivateSide(false);
         this.animBody.play("player2_walk");
-         this.node.runAction(cc.sequence(cc.moveTo(Common.getDistance(this.node.position,targetPos)/150,targetPos),
-         cc.callFunc(function(){
-             self.animBody.play("player2_idle");
-             self.animBody.node.scaleX=1;
-             callback();
+        this.node.runAction(cc.sequence(cc.moveTo(Common.getDistance(this.node.position, targetPos) / 150, targetPos),
+            cc.callFunc(function () {
+                self.animBody.play("player2_idle");
+                self.animBody.node.scaleX = 1;
+                self.switchTittivateSide(true);
+                callback();
             })
-         ));
-         
+        ));
+
     },
     //跳着走
-    jumpBy(targetPos,callback){
-        var self=this;
+    jumpBy(targetPos, callback) {
+        var self = this;
         this.node.stopAllActions();
-        this.animBody.node.scaleX=this.getDirectionX(targetPos);
+        this.animBody.node.scaleX = this.getDirectionX(targetPos);
 
         this.animBody.play("player2_walk");
-         this.node.runAction(cc.sequence(cc.jumpBy(Common.getDistance(this.node.position,targetPos)/150,targetPos),
-         cc.callFunc(function(){
-             self.animBody.play("player2_idle");
-             self.animBody.node.scaleX=1;
-             callback();
+        this.node.runAction(cc.sequence(cc.jumpBy(Common.getDistance(this.node.position, targetPos) / 150, targetPos),
+            cc.callFunc(function () {
+                self.animBody.play("player2_idle");
+                self.animBody.node.scaleX = 1;
+                callback();
             })
-         ));
+        ));
     },
     //移动小鸡到指定X坐标
-    moveToX(){
+    moveToX() {
 
     },
     //获取小鸡要去的方向
-    getDirectionX(targetPos){
-        var result=targetPos.x-this.node.x;
-        result=Common.clamp(result,-1,1);
+    getDirectionX(targetPos) {
+        var result = targetPos.x - this.node.x;
+        result = Common.clamp(result, -1, 1);
         console.log(result);
         return result;
     },
     //检测洗澡
-    checkBath(){
-        if(!this._isBath&&this.getPositionX()<=-700){
+    checkBath() {
+        if (!this._isBath && this.getPositionX() <= -700) {
 
         }
     },
     //获取x坐标
-    getPositionX(){
+    getPositionX() {
         return this.node.position.x;
     },
     //设置是否显示
-    setActive(show){
-        this.node.active=show;
+    setActive(show) {
+        this.node.active = show;
     },
     //去洗澡
-    goBath(){
-        var self=this;
-        this._cam._isFollow=true;
+    goBath() {
+        var self = this;
+        this._cam._isFollow = true;
         self.getPool();
-        let targetPos=Common.vector2Add(this._pool.position,this._pool.getChildByName("playerPos").position);
-        this.moveTo(targetPos,function(){
+        let targetPos = Common.vector2Add(this._pool.position, this._pool.getChildByName("playerPos").position);
+        this.moveTo(targetPos, function () {
             console.log("走完了");
             // self.node.active=false;
             self._pool.getComponent(cc.Animation).play("bath");
-            
+
         })
     },
     //获取pool
-    getPool(){
-        this._pool=cc.find("Canvas/Pool");
+    getPool() {
+        this._pool = cc.find("Canvas/Pool");
         return this._pool;
     },
     //获取饭盒节点
-    getLunchBox(){
-        this._lunchBox=cc.find("Canvas/LunchBox");
+    getLunchBox() {
+        this._lunchBox = cc.find("Canvas/LunchBox");
         return this._lunchBox;
     },
     //回到原点
-    goBack(){
-        this._cam._isFollow=true;
-        this.moveTo(this._originalPosition,function(){
+    goBack() {
+        this._cam._isFollow = true;
+        this.moveTo(this._originalPosition, function () {
             console.log("走完了");
         });
     },
     //去吃饭
-    goDine(){
-        var self=this;
-        this._cam._isFollow=true;
+    goDine() {
+        var self = this;
+        this._cam._isFollow = true;
         self.getLunchBox();
-        let targetPos=Common.vector2Add(this._lunchBox.position,this._lunchBox.getChildByName("playerPos").position);
-        this.moveTo(targetPos,function(){
+        let targetPos = Common.vector2Add(this._lunchBox.position, this._lunchBox.getChildByName("playerPos").position);
+        this.moveTo(targetPos, function () {
             console.log("走完了");
             // self.node.active=false;
             // self._pool.getComponent(cc.Animation).play("bath");
-            
+
         })
     },
-    onClick(){
-        this.goBack();
+    onClick() {
+        this.goDine();
     },
     //装扮
-    setTittivateData(data){
-        if(data.hat!=this._tittivate.hat){
-
+    setTittivateData(data) {
+        if (data.hat != this._tittivate.hat) {
+            this._tittivate.hat = data.hat;
+            this.setTittivate("hat", this._tittivate.hat);
         }
-        this._tittivate=data;
-
-    },
-    setTittivate(type,id){
-        let path="Tittivate/type";
-        switch(type){
-            case "hat":{
-                path+="3_"
-            };break;
+        if (data.glass != this._tittivate.glass) {
+            this._tittivate.glass = data.glass;
+            this.setTittivate("glass", this._tittivate.glass);
         }
-        path+=id.toString();
-
+        if (data.hornor != this._tittivate.hornor) {
+            this._tittivate.hornor = data.hornor;
+            this.setTittivate("hornor", this._tittivate.hornor);
+        }
+    },
+    setTittivate(type, id) {
+        let path = "Tittivate/" + type + "_" + id.toString();
+        let image;
+        // switch (type) {
+        //     case "hat": {image = this.imgHat;}; break;
+        //     case "glass":image=this.imgGlass;break;
+        //     case "hornor":image=this.imgHornor;break;
+        // }
+        image = this._imgTitti[type];
+        Common.loadRes(path, image);
+    },
+    //设置装扮侧面
+    setTittivateSide(type, id) {
+        let path = "Tittivate/" + type + "_" + id.toString();
+        let image;
+        switch (type) {
+            // case "hat": {image = this.imgHat;}; break;
+            case "glass": path += "_side"; break;
+            case "hornor": path = null; break;
+        }
+        image = this._imgTitti[type];
+        Common.loadRes(path, image);
+    },
+    //切换侧面和正面装扮
+    switchTittivateSide(yes) {
+        for (var i = 0; i < Global.tittiTypeString.length; i++) {
+            let tittiType=Global.tittiTypeString[i];
+            if (yes) { 
+                this.setTittivate(tittiType,this._tittivate[tittiType]);
+            }else{
+                this.setTittivateSide(tittiType,this._tittivate[tittiType]);
+            }
+        }
     },
 
 
 
-    setPlayerCondition(){
+    setPlayerCondition() {
 
     },
 
     //说话
-    openSay(text){
+    openSay(text) {
         this.ndSay.getComponent(cc.Animation).play("fadeIn");
-        this.ndSay.getChildByName("Text").getComponent(cc.Label).string=text;
+        this.ndSay.getChildByName("Text").getComponent(cc.Label).string = text;
         this.unschedule(this.hideSay);
-        this.scheduleOnce(this.hideSay,this.sayTime);
+        this.scheduleOnce(this.hideSay, this.sayTime);
     },
-    hideSay(){
-        this.ndSay.opacity=0;
-    }
+    hideSay() {
+        this.ndSay.opacity = 0;
+    },
+    //获取配置装扮
+    getConfigTitti(){
+        this.setTittivateData(Global.tittivate);
+    },
 });

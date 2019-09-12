@@ -65,8 +65,12 @@ var Common={
     },
     /**加载资源图片 */
     loadRes(path,image){
+        if(path==null){
+            image.spriteFrame=null;
+            return;
+        }
         cc.loader.loadRes(path,function(err,tex){
-            if(!err){
+            if(err==null){
                 image.spriteFrame=new cc.SpriteFrame(tex);
             }
         });

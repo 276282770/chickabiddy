@@ -1003,22 +1003,30 @@ var Network = {
     },
     /**获取我的装扮 */
     getMyTittivate(callback){
-
+        let uri=this.domain+"/shop/GetAllYourDressUp.action";
         this.backData.result=true;
-        this.backData.data=[
-            {id:10,type:0,name:"小帽子",isUse:false},
-            {id:11,type:0,name:"小帽子1",isUse:true},
-            {id:20,type:1,name:"小眼睛",isUse:true},
-            {id:21,type:1,name:"小眼睛2",isUse:false},
-            {id:22,type:1,name:"小眼睛3",isUse:false},
-        ];
+        this.backData.data={had:[
+            {id:7,type:0,name:"小帽子"},
+            {id:11,type:0,name:"小帽子1"},
+            {id:9,type:1,name:"小眼睛"},
+            {id:11,type:1,name:"小眼睛2"},
+            {id:12,type:1,name:"小眼睛3"},
+        ],use:{hat:-1,glass:-1,hornor:-1}};
         callback(this.backData);
     },
     /**保存装扮 */
     saveMyTittivate(idArr,callback){
-        let data={};
-        this.backData.result=true;
-        callback(this.backData);
+        let url=this.domain+"/chicken/changeClothes.action";
+        let data=idArr;
+        let backData={result:false};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+            }else{
+                backData.data=res.data;
+            }
+            callback(backData);
+        })
     },
     /**获取所有装扮 */
     getTittivate(callback){
@@ -1059,7 +1067,6 @@ var Network = {
     },
     /**根据类别获取装扮 */
     getTittivateByType(type,callback){
-        let url=this.domain+"";
     },
     /**获取签到信息 */
     getSignin(callback){
