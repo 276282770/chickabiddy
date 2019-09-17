@@ -75,7 +75,14 @@ var Common={
             }
         });
     },
-    
+    /**加载图片 */
+    load(url,image){
+        cc.loader.load(url,function(err,tex){
+            if(!err){
+                image.spriteFrame=new cc.SpriteFrame(tex);
+            }
+        });
+    }
 
 };
 

@@ -5,26 +5,13 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+
         speed: 1,  //移动速度
         jumpSpeed: 200000,  //跳跃速度
         animBody: cc.Animation,  //身体动画
         ndSay: cc.Node,  //说话节点
         sayTime: 2,//说话停留时间
+        ndTitti: cc.Node,  //装扮节点
 
         imgHat: cc.Sprite,  //帽子
         imgGlass: cc.Sprite,  //眼镜
@@ -35,6 +22,9 @@ cc.Class({
         _rigid: cc.RigidBody,  //刚体
         _isBath: false,
 
+        _state: 0,  //小鸡状态  0正常，1被点击，2空闲， 3哭泣(被揍)， 4 挨饿， 5吃饭， 6洗澡 7不在家
+        _lastState: 0,  //上一个状态
+        _remainChangeTime: 0,  //改变状态小鸡时间
         _isMoveToTargetX: false,
         _originalPosition: new cc.Vec2(0, 0),  //小鸡原始坐标
         _pool: cc.Node,  //水池节点
@@ -42,7 +32,7 @@ cc.Class({
         _cam: null,
         _tittivate: null,  //装扮
         _imgTitti: null,//装扮图片
- 
+        _lastState: -1,  //上一个状态
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -63,12 +53,12 @@ cc.Class({
         // this.node.position=Common.vector2Add(this.node.position,new cc.Vec2(0,50));
         this._cam = cc.find("Canvas/Main Camera").getComponent("CameraController2");
         this._imgTitti = { hat: this.imgHat, glass: this.imgGlass, hornor: this.imgHornor };
-        
+
 
         this.temp();
     },
-    temp(){
-        this.setTittivateData({hat:10,glass:12,hornor:100});
+    temp() {
+        this.setTittivateData({ hat: 10, glass: 12, hornor: 100 });
         // this.setTittivate(Global.tittiTypeString[1],12);
     },
 
@@ -146,6 +136,10 @@ cc.Class({
             })
         ));
     },
+    //跳到
+    jumpTo(targetPos, callback) {
+        this.node.runAction(cc.jumpTo(2, targetPos, 100, 1));
+    },
     //移动小鸡到指定X坐标
     moveToX() {
 
@@ -180,7 +174,7 @@ cc.Class({
         this.moveTo(targetPos, function () {
             console.log("走完了");
             // self.node.active=false;
-            self._pool.getComponent(cc.Animation).play("bath");
+            self._pool.getChildByName("Bath").getComponent(cc.Animation).play("Player2_poolBath");
 
         })
     },
@@ -196,9 +190,11 @@ cc.Class({
     },
     //回到原点
     goBack() {
+        var self=this;
         this._cam._isFollow = true;
         this.moveTo(this._originalPosition, function () {
             console.log("走完了");
+            self.updateHomeState();
         });
     },
     //去吃饭
@@ -211,11 +207,15 @@ cc.Class({
             console.log("走完了");
             // self.node.active=false;
             // self._pool.getComponent(cc.Animation).play("bath");
-
+            self.playEatting();
+            self.scheduleOnce(self.goBack, 5);
         })
     },
     onClick() {
-        this.goDine();
+        // this.goDine();
+        // let pos=cc.v2(-651,-448);
+        // this.jumpTo(pos,function(){});
+        this.playSmoke();
     },
     //装扮
     setTittivateData(data) {
@@ -258,18 +258,54 @@ cc.Class({
     //切换侧面和正面装扮
     switchTittivateSide(yes) {
         for (var i = 0; i < Global.tittiTypeString.length; i++) {
-            let tittiType=Global.tittiTypeString[i];
-            if (yes) { 
-                this.setTittivate(tittiType,this._tittivate[tittiType]);
-            }else{
-                this.setTittivateSide(tittiType,this._tittivate[tittiType]);
+            let tittiType = Global.tittiTypeString[i];
+            if (yes) {
+                this.setTittivate(tittiType, this._tittivate[tittiType]);
+            } else {
+                this.setTittivateSide(tittiType, this._tittivate[tittiType]);
             }
         }
     },
 
 
+    //设置小鸡的状态
+    stateManager() {
+        if (this._outHome) {
+            this.setState(7);
+        }
+        else if (this._bateu) {
+            this.setState(3);
+        } else if (this._clean < 1) {
+            this.setState(6);
+        } else if (this._hungry < 1) {
+            this.setState(4);
+        } else {
+            this.setState(0);
+        }
+    },
+    setPlayerCondition(hungry, clean, beaten, outHome) {
+        this._hungry = hungry;
+        this._clean = clean;
+        this._beaten = beaten;
+        this._outHome = outHome;
 
-    setPlayerCondition() {
+        this.stateManager();
+    },
+    //设置小鸡的状态
+    setState(num) {
+        console.log("【设置小鸡状态】" + num.toString());
+        this._lastState = this._state;
+        this._state = num;
+
+        this.node.active = true;
+        switch (num) {
+            case 0: this.playNormal(); break;
+            case 2: this.playIdle(); break;
+            case 3: this.playCry(); break;
+            case 4: this.playHunger(); break;
+            case 6: this.playNormal(); break;  //清洁========================缺动画
+            case 7: this.node.active = false;
+        }
 
     },
 
@@ -284,7 +320,45 @@ cc.Class({
         this.ndSay.opacity = 0;
     },
     //获取配置装扮
-    getConfigTitti(){
+    getConfigTitti() {
         this.setTittivateData(Global.tittivate);
+    },
+    //播放被打动画
+    playFighting() {
+        this.ndTitti.active = false;
+        this.animBody.play("player2_fighting");
+        // this.scheduleOnce(function(){
+        //     this.animBody.play
+        // },2)
+    },
+    //播放吃饭动画
+    playEatting() {
+        this.animBody.play("player2_eatting");
+
+    },
+    playIdle() {
+
+    },
+    playNormal() {
+
+    },
+    playSmoke(){
+        this.animBody.play("player2_smoke");
+    },
+    //延迟更新主页
+    updateHomeState(delay) {
+        if (!delay) {
+            Global.game.updateIndex();
+        } else {
+            this.scheduleOnce(function () {
+                Global.game.updateIndex();
+            }, delay);
+        }
+    },
+    //延迟清除本身
+    destoryDelay(delay) {
+        this.scheduleOnce(function () {
+            this.node.destory();
+        }, delay);
     },
 });

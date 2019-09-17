@@ -514,6 +514,30 @@ var Network = {
                 callback(backData);
         });
     },
+    /**获取世界排行榜 */
+    getWorldRank(callback){
+        let url=this.domain+"/tongji/worldRank.action";
+        let data={};
+        let backData={result:false};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                backData.data=[];
+                let data=res.data;
+                for(var i=0;i<data.length;i++){
+                    backData.data.push({
+                        id:data[i].user.id,
+                        avatarUrl:data[i].user.url,
+                        nickname:data[i].user.nickname,
+                        level:data[i].user.level
+                    });
+                }
+            }else{
+                backData.data=res.data;
+            }
+            callback(backData);
+        });
+    },
 
 
 
@@ -1106,7 +1130,90 @@ var Network = {
         
         
     },
-    
+    //给别人喂食
+    giveOtherFood(targetId,goodsId){
+        let url=this.domain+"/chicken/feedTheOtherChickens.action";
+        let data={fid:targetId,pid:goodsId};
+        let backData={result:false};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+            }else{
+                backData.data=res.data;
+            }
+            callback(backData);
+        });
+    },
+    /**使用蹭饭卡 */
+    stealingFood(targetId,callback){
+        let url=this.domain+"/chicken/useCengMealCard.action";
+        let data={fid:targetId};
+        let backData={result:false};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+            }else{
+                backData.data=res.data;
+            }
+            callback(backData);
+        });
+    },
+    /**请客吃饭 */
+    treatFood(targetId,callback){
+        let url=this.domain+"/chicken/invite.action";
+        let data={fid:targetId};
+        let backData={result:false};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+            }else{
+                backData.data=res.data;
+            }
+            callback(backData);
+        });
+    },
+    /**改变小鸡游戏的风格 */
+    changeGameStyle(type,callback){
+        let url=this.domain+"/chicken/SwitchToStyle.action";
+        let data={style:'A'};
+        let backData={result:false};
+        if(type==1){
+            data.style='B';
+        }
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+            }else{
+                backData.data=res.data;
+            }
+            callback(backData);
+        })
+    },
+    /**获取小鸡的荣誉 */
+    getHornor(callback){
+        let url=this.domain+"/ChickenMeadl.action";
+        let data={};
+        let backData={result:false};
+        this.request(url,data,(res)=>{
+            if(res.state==200){
+                backData.result=true;
+                let data=res.data;
+                backData.data={
+                    isRichEgg:data.LargeChicken,
+                    richEggNum:data.numberOfEggs,
+                    isBeautiful:data.fashionInsider,
+                    beautifulNum:data.numberOfClothes,
+                    isOverlap:data.helpingOthers,
+                    overlapNum:data.numberOfHelpingOthers,
+                    isStealEgg:data.stealAnEggExpert,
+                    stealEggNum:data.stealEggCount
+                };
+            }else{
+                backData.data=res.data;
+            }
+            callback(backData);
+        })
+    },
     
 
 
