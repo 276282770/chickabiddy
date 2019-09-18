@@ -37,6 +37,7 @@ cc.Class({
         this.changeToType2();
         this.loadData();
 
+        
     },
     onTab(event, customData) {
         switch (customData) {

@@ -14,12 +14,12 @@ cc.Class({
 
 
         preItemShop: cc.Prefab,   //项预制体
-        preItemTittive:cc.Prefab,  //商店装扮项预制体
-        ndTittivateTabs:[cc.Node],  //装扮切换页
+        preItemTittive: cc.Prefab,  //商店装扮项预制体
+        ndTittivateTabs: [cc.Node],  //装扮切换页
 
-        _tittivate:[],  //装扮
-        _serverTittivateTypeId:[],
-        
+        _tittivate: [],  //装扮
+        _serverTittivateTypeId: [],
+
 
         _panelReady: false,
     },
@@ -27,13 +27,14 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        this.load();
+
         this.onTab(this, 0);
     },
 
     start() {
-        this._serverTittivateTypeId[0]=7;
-        this._serverTittivateTypeId[1]=3;
+        this._serverTittivateTypeId[0] = 5;
+        this._serverTittivateTypeId[1] = 3;
+        this.load();
     },
     /**选择
      */
@@ -52,17 +53,16 @@ cc.Class({
             svNode[i].active = me;
         }
     },
-    onSwitchTittivate(event,customerData){
-        let idx=parseInt(customerData);
-        console.log(idx);
-        if(this._tittivate.length>0){
-            for(var i=0;i<this.ndTittivateTabs.length;i++){
-                if(idx==i){
-                    this.ndTittivateTabs[i].interactable=false;
-                    this.ndTittivateTabs[i].children[0].active=true;
-                }else{
-                    this.ndTittivateTabs[i].interactable=true;
-                    this.ndTittivateTabs[i].children[0].active=false;
+    onSwitchTittivate(event, customerData) {
+        let idx = parseInt(customerData);
+        if (this._tittivate.length > 0) {
+            for (var i = 0; i < this.ndTittivateTabs.length; i++) {
+                if (idx == i) {
+                    this.ndTittivateTabs[i].interactable = false;
+                    this.ndTittivateTabs[i].children[0].active = true;
+                } else {
+                    this.ndTittivateTabs[i].interactable = true;
+                    this.ndTittivateTabs[i].children[0].active = false;
                 }
             }
             this.loadTittivate(idx);
@@ -88,14 +88,19 @@ cc.Class({
             cc.moveTo(0.5, x, 0),
             cc.callFunc(() => {
                 //引导3
-                if(Global.game._buyCount>0){
-                let guide=cc.find("Canvas/Guid").getComponent("Guid");
-                if(guide._isGuid){
-                    guide.stepSchedule(3);
+                if (Global.game._buyCount > 0) {
+                    let ndGuide = cc.find("Canvas/Guid");
+                    if (ndGuide != null) {
+
+
+                        let guide = ndGuide.getComponent("Guid");
+                        if (guide._isGuid) {
+                            guide.stepSchedule(3);
+                        }
+                    }
                 }
-            }
-             
-            this.node.destroy();
+
+                this.node.destroy();
 
             })
         ));
@@ -121,11 +126,11 @@ cc.Class({
             }
         });
 
-        Network.getTittivate((res)=>{
-            if(res.result){
-                self._tittivate=res.data;
+        Network.getTittivate((res) => {
+            if (res.result) {
+                self._tittivate = res.data;
                 self.loadTittivate(0);
-            }else{
+            } else {
                 Global.game.showTip(res.data);
             }
 
@@ -133,13 +138,17 @@ cc.Class({
 
     },
     //加载装扮
-    loadTittivate(type){
-        let content=this.ndSvTittive.getComponent(cc.ScrollView).content;
-        content.removeAllChildren;
-        for(var i=0;i<this._tittivate.length;i++){
-            if(this._tittivate[i].type==this._serverTittivateTypeId[type]){
-                let item=cc.instantiate(this.preItemTittive);
-                item.parent=content;
+    loadTittivate(type) {
+
+        let content = this.ndSvTittive.getComponent(cc.ScrollView).content;
+        content.removeAllChildren();
+
+        for (var i = 0; i < this._tittivate.length; i++) {
+
+            if (this._tittivate[i].type == this._serverTittivateTypeId[type]) {
+
+                let item = cc.instantiate(this.preItemTittive);
+                item.parent = content;
                 item.getComponent("ItemShopTittivate2").init(this._tittivate[i]);
             }
         }

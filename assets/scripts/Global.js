@@ -13,12 +13,14 @@ window.Global={
         otherUid:-1,  //其他人的用户id
         lastPanel:"",  //上一个面板
     },
+    sceneCode:0,  //0 自己家里 ； 1 别人家里
     tittivate:{  //装扮
         hat:-1,  //帽子ID
         glass:-1,  //眼镜ID
         hornor:-1,  //荣誉
     },
     tittiTypeString:["hat", "glass", "hornor"],//装扮类型
+    serverTittivateTypeId:[3,5,4],  //服务器装扮类型ID
             /*
             game.json中添加
             "navigateToMiniProgramAppIdList": [

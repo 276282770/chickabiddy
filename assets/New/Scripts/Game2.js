@@ -192,6 +192,7 @@ cc.Class({
                         self.guide.step();
                     }
                 }
+                self.createScene(res.data);
                 self.updateState(res.data);
                 self.ndWaitting.active = false;
 
@@ -342,7 +343,9 @@ cc.Class({
     },
 
     start() {
-
+        // this.imgAvatar.spriteFrame
+        let url="https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoUKHzOAPWsTtrO1HN051ftksO32fdFtpgOBPxat6S0eVGQ6uXcibgGXLxBv6MYJ8G35MbMnbxuy5Q/132";
+        Common.load(url,this.imgAvatar);
     },
     //初始化节点
     iniNode() {
@@ -355,6 +358,11 @@ cc.Class({
         // this.thief = this.ndThief.getComponent("Thief");
         // this._ndLeftPos = this.ndLeft.position;
         // this._ndRightPos = this.ndRight.position;
+    },
+    //创建场景
+    createScene(data){
+        //背景
+        let newPlayer=
     },
 
     // update (dt) {},

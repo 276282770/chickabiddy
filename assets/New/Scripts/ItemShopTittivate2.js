@@ -38,17 +38,17 @@ cc.Class({
         this._desc=data.desc,
         this._price=data.price,
 
-        this.txtPrice=data.price.toString();
+        this.txtPrice.string=data.price.toString();
         this.txtName.string=data.name;
-        cc.loader.loadRes("Shop2/shop_"+data.type.toString()+"_"+data.id.toString(),function(err,tex){
+        cc.loader.loadRes("Shop2/shop_"+data.id.toString(),function(err,tex){
             if(!err){
                 self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
             }
         });
-        if(data.isUse){
-            data.isUse=true;
-            this.onSel();
-        }
+        // if(data.isUse){
+        //     data.isUse=true;
+        //     this.onSel();
+        // }
     },
     //选中
     onSel(){

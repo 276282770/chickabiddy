@@ -19,11 +19,11 @@ cc.Class({
         this.txtName.string=nickname;
         this.txtLvl.string=lvl.toString();
         if(no>=3){
-            this.txtNo.string=no.toString();
+            this.txtNo.string=(no+1).toString();
         }else{
             this.imgNo.spriteFrame=this.spNo[no];
         }
-        let lvlIdx=Math.min(lvl%10,3);
+        let lvlIdx=Math.min(parseInt(lvl/10),3);
         this.imgLvl.spriteFrame=this.spLvl[lvlIdx];
         Common.load(avatarUrl,this.imgAvatar);
     },

@@ -1,5 +1,5 @@
 var Common = require("Common");
-
+var Network=require("Network");
 
 cc.Class({
     extends: cc.Component,
@@ -10,6 +10,7 @@ cc.Class({
         jumpSpeed: 200000,  //跳跃速度
         animBody: cc.Animation,  //身体动画
         ndSay: cc.Node,  //说话节点
+        ndName:cc.Node,  //名字
         sayTime: 2,//说话停留时间
         ndTitti: cc.Node,  //装扮节点
 
@@ -33,6 +34,10 @@ cc.Class({
         _tittivate: null,  //装扮
         _imgTitti: null,//装扮图片
         _lastState: -1,  //上一个状态
+
+        _uid:-1,  //小鸡ID
+        _isMe:false,  //是否是本人,
+        _isThief:false,  //是否是小偷
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -55,11 +60,29 @@ cc.Class({
         this._imgTitti = { hat: this.imgHat, glass: this.imgGlass, hornor: this.imgHornor };
 
 
-        this.temp();
+        
     },
-    temp() {
-        this.setTittivateData({ hat: 10, glass: 12, hornor: 100 });
-        // this.setTittivate(Global.tittiTypeString[1],12);
+
+    //设置小鸡
+    setPlayerData(id,name,level,tittiData,state) {
+        this.setData(id,name,level,tittiData,state);
+    },
+    setThiefData(id,name,level,tittiData,state){
+        this._isThief=true;
+        this.setData(id,name,level,tittiData,state);
+    },
+    setData(id,name,level,tittiData,state){
+        if(id==Global.id){
+            this._isMe=true;
+            name="我的小鸡";
+            if(Global.sceneCode==0){
+                this.ndName.active=false;
+            }
+        }
+        this.ndName.getChildByName("txtLevel").string=level.toString();
+        this.ndName.getChildByName("txtName").string=name;
+        this.setThiefData(tittiData);
+        this.setState(state);
     },
 
     update(dt) {
@@ -212,10 +235,22 @@ cc.Class({
         })
     },
     onClick() {
-        // this.goDine();
-        // let pos=cc.v2(-651,-448);
-        // this.jumpTo(pos,function(){});
-        this.playSmoke();
+        var self=this;
+        if(this._isMe){
+            if(Global.sceneCode==0){
+                //在家
+                Network.requestClickPlayer((res)=>{
+                    if(res.result){
+                        self.openSay(res.data.text);
+                    }else{
+                        // self.openSay(res.data);
+                    }
+                });
+            }else if(Global.sceneCode==1){
+                //在别人家
+                
+            }
+        }
     },
     //装扮
     setTittivateData(data) {

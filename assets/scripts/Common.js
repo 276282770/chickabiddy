@@ -69,18 +69,23 @@ var Common={
             image.spriteFrame=null;
             return;
         }
-        cc.loader.loadRes(path,function(err,tex){
-            if(err==null){
-                image.spriteFrame=new cc.SpriteFrame(tex);
+        cc.loader.loadRes(path,cc.SpriteFrame,function(err,tex){
+            if(!err){
+                image.spriteFrame=tex;
             }
         });
     },
     /**加载图片 */
     load(url,image){
-        cc.loader.load(url,function(err,tex){
-            if(!err){
+        if(url==null){
+            image.spriteFrame=null;
+            return;
+        }
+        
+        cc.loader.load({url:url,type:'png'},function(err,tex){
+            if(!err)
                 image.spriteFrame=new cc.SpriteFrame(tex);
-            }
+            
         });
     }
 
