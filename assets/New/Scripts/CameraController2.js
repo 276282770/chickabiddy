@@ -23,17 +23,24 @@ cc.Class({
 
     start() {
         if(this.ndTarget==null){
-        this.ndTarget = cc.find("Canvas/Player");
+        // this.ndTarget = cc.find("Canvas/Player");
+            if(Global.game.player!=null)
+            this.ndTarget=Global.game.player.node;
         }
         // this._offset = new cc.Vec2(this.node.position.x - this.ndTarget.position.x,this.node.position.y - this.ndTarget.position.y);
+        if(this.ndTarget!=null)
         this._offset=Common.vector2Subtract(this.node.position,this.ndTarget.position);
 
     },
 
     update(dt) {
-        if (this._isFollow) {
+        if (this._isFollow&&this.ndTarget!=null) {
             this.node.position = this.followTarget();
         }
+    },
+    setTarget(target){
+        this.ndTarget=target;
+        this._offset=Common.vector2Subtract(this.node.position,this.ndTarget.position);
     },
     //跟踪目标
     followTarget() {

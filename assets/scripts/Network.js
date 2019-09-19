@@ -101,7 +101,7 @@ var Network = {
                     backData.data.playerState = 2;  //去别人家了
                 }
                 backData.data.bateu = res.data.die > 0;
-                backData.data.outHome = res.data.where > 0
+                backData.data.outHome = res.data.where > 0;
                 backData.data.otherId = res.data.where;
 
                 Global.id = backData.data.id;
@@ -1226,6 +1226,27 @@ var Network = {
             }
             callback(backData);
         })
+    },
+    //获取游戏风格
+    getStyle(callback){
+        let url=this.domain+"";
+        let data={};
+        let backData={result:false,data:{}};
+
+        backData.result=true;
+        backData.data=0;
+
+        callback(backData);
+    },
+    //设置游戏风格
+    setStyle(style,callback){
+        let url=this.domain+"/chicken/SwitchToStyle.action";
+        let data={};
+        let backData={result:false,data:{}};
+
+        backData.result=true;
+        if(callback)
+        callback(backData);
     },
     
 

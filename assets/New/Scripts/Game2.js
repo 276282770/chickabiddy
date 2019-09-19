@@ -5,6 +5,7 @@ var Player = require("Player2");
 var PanelManager = require("PanelManager");
 var Thief = require("Thief");
 var Guid = require("Guid");
+var CameraController=require("CameraController2");
 cc.Class({
     extends: cc.Component,
 
@@ -41,6 +42,7 @@ cc.Class({
         ndCloud: cc.Node,  //云彩节点
         ndEgg: cc.Node,  //鸡蛋节点
         ndTV: cc.Node,  //TV节点
+        ndPanelLevelUp:cc.Node,  //升级节点
 
         panels: PanelManager,  //面板管理
         prePanelFriends: cc.Prefab,  //朋友面板预制体
@@ -77,6 +79,7 @@ cc.Class({
         display: cc.Sprite,  //子域显示
 
         preBuy: cc.Prefab,//临时 购买
+        camera:CameraController,//摄像机控制
 
 
         _hour: 0,
@@ -103,13 +106,15 @@ cc.Class({
         //引导用
         _buyCount: 0,  //买东西的个数
 
+       
+
     },
 
 
     onLoad() {
         var self = this;
         Global.game = this;
-
+        
 
         this.iniNode();
 
@@ -343,9 +348,6 @@ cc.Class({
     },
 
     start() {
-        // this.imgAvatar.spriteFrame
-        let url="https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoUKHzOAPWsTtrO1HN051ftksO32fdFtpgOBPxat6S0eVGQ6uXcibgGXLxBv6MYJ8G35MbMnbxuy5Q/132";
-        Common.load(url,this.imgAvatar);
     },
     //初始化节点
     iniNode() {
@@ -361,8 +363,14 @@ cc.Class({
     },
     //创建场景
     createScene(data){
+
         //背景
-        let newPlayer=
+        // let newPlayer=cc.instantiate(this.prePlayer);
+        // newPlayer.parent=cc.find("Canvas/PlayerRoot");
+        // let newPlayerSrc=newPlayer.getComponent("Player2");
+        // newPlayerSrc.setPlayerData(data.id,"",data.lvl,null,data.playerState);
+        // this.player=newPlayerSrc;
+        
     },
 
     // update (dt) {},
@@ -483,7 +491,8 @@ cc.Class({
     },
     //播放升级动画
     onPlayLevelUp() {
-        // this.node.getChildByName("PanelLevelUp").getComponent("PanelLevelUp").show();
+        this.ndPanelLevelUp.active=true;
+        this.ndPanelLevelUp.getComponent("PanelLevelUp2").show();
     },
     //收鸡蛋
     onPickEgg() {

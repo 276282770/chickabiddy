@@ -18,6 +18,8 @@ cc.Class({
         imgGlass: cc.Sprite,  //眼镜
         imgHornor: cc.Sprite,  //荣誉
 
+        type:0,  //0 自己的小鸡， 1，小偷   2，别人的小鸡 
+
         _horizontal: 0,
         _vertical: 0,
         _rigid: cc.RigidBody,  //刚体
@@ -36,8 +38,8 @@ cc.Class({
         _lastState: -1,  //上一个状态
 
         _uid:-1,  //小鸡ID
-        _isMe:false,  //是否是本人,
-        _isThief:false,  //是否是小偷
+        // _isMe:false,  //是否是本人,
+        // _isThief:false,  //是否是小偷
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -65,15 +67,19 @@ cc.Class({
 
     //设置小鸡
     setPlayerData(id,name,level,tittiData,state) {
+
         this.setData(id,name,level,tittiData,state);
     },
     setThiefData(id,name,level,tittiData,state){
-        this._isThief=true;
+        // this._isThief=true;
+        this.type=1;
         this.setData(id,name,level,tittiData,state);
     },
     setData(id,name,level,tittiData,state){
+
         if(id==Global.id){
-            this._isMe=true;
+            // this._isMe=true;
+            this.type=0;
             name="我的小鸡";
             if(Global.sceneCode==0){
                 this.ndName.active=false;
@@ -81,7 +87,6 @@ cc.Class({
         }
         this.ndName.getChildByName("txtLevel").string=level.toString();
         this.ndName.getChildByName("txtName").string=name;
-        this.setThiefData(tittiData);
         this.setState(state);
     },
 
@@ -236,7 +241,7 @@ cc.Class({
     },
     onClick() {
         var self=this;
-        if(this._isMe){
+        if(this.type==0){
             if(Global.sceneCode==0){
                 //在家
                 Network.requestClickPlayer((res)=>{

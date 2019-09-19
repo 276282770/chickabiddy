@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "727814da-592d-492e-a1ed-84a7e2780c19",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "养鸡吃蛋": {
+      "ver": "1.0.3",
+      "uuid": "cf408873-570f-477e-9317-5cb0b93cb1c3",
+      "rawTextureUuid": "727814da-592d-492e-a1ed-84a7e2780c19",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 1.5,
+      "offsetY": 1,
+      "trimX": 7,
+      "trimY": 8,
+      "width": 401,
+      "height": 427,
+      "rawWidth": 412,
+      "rawHeight": 445,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
