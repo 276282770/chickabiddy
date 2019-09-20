@@ -293,9 +293,7 @@
       "__id__": 4
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "ebc47bc4-b6f9-4177-ad51-344448f52e20"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -394,9 +392,7 @@
       "__id__": 7
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "a787f2b0-e129-49b1-842f-c8d17d6d7476"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -495,9 +491,7 @@
       "__id__": 10
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "8e41baf3-fbb7-4536-83fd-9cc7ecaaf004"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -693,6 +687,9 @@
       },
       {
         "__uuid__": "d9520c06-1bec-4888-845d-972f77980480"
+      },
+      {
+        "__uuid__": "14fef926-47da-40f5-b467-95cad799a4e6"
       }
     ],
     "playOnLoad": true,
@@ -1270,6 +1267,7 @@
     "imgHornor": {
       "__id__": 11
     },
+    "type": 0,
     "_horizontal": 0,
     "_vertical": 0,
     "_rigid": null,
@@ -1289,8 +1287,6 @@
     "_tittivate": null,
     "_imgTitti": null,
     "_uid": -1,
-    "_isMe": false,
-    "_isThief": false,
     "_id": ""
   },
   {

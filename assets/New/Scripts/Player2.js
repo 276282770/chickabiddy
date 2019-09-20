@@ -62,7 +62,7 @@ cc.Class({
         this._imgTitti = { hat: this.imgHat, glass: this.imgGlass, hornor: this.imgHornor };
 
 
-        
+        this.setTittivateData({ hat: 10, glass: 9, hornor: 100 });
     },
 
     //设置小鸡
@@ -166,7 +166,17 @@ cc.Class({
     },
     //跳到
     jumpTo(targetPos, callback) {
-        this.node.runAction(cc.jumpTo(2, targetPos, 100, 1));
+        var self = this;
+        this.node.stopAllActions();
+        this.animBody.node.scaleX = this.getDirectionX(targetPos);
+        this.animBody.play("player2_jumpTo");
+        this.node.runAction(cc.sequence(cc.jumpTo(2, targetPos, 100, 1),cc.callFunc(
+            function(){
+                self.animBody.play("player2_idle");
+                if(callback)
+                callback;
+            }
+        )));
     },
     //移动小鸡到指定X坐标
     moveToX() {
@@ -240,6 +250,9 @@ cc.Class({
         })
     },
     onClick() {
+        this.goDine();
+        return;
+
         var self=this;
         if(this.type==0){
             if(Global.sceneCode==0){
@@ -382,6 +395,7 @@ cc.Class({
     playNormal() {
 
     },
+    //播放烟雾
     playSmoke(){
         this.animBody.play("player2_smoke");
     },
