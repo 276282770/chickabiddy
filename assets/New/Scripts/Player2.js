@@ -1,5 +1,5 @@
 var Common = require("Common");
-var Network=require("Network");
+var Network = require("Network");
 
 cc.Class({
     extends: cc.Component,
@@ -10,7 +10,7 @@ cc.Class({
         jumpSpeed: 200000,  //跳跃速度
         animBody: cc.Animation,  //身体动画
         ndSay: cc.Node,  //说话节点
-        ndName:cc.Node,  //名字
+        ndName: cc.Node,  //名字
         sayTime: 2,//说话停留时间
         ndTitti: cc.Node,  //装扮节点
 
@@ -18,14 +18,17 @@ cc.Class({
         imgGlass: cc.Sprite,  //眼镜
         imgHornor: cc.Sprite,  //荣誉
 
-        type:0,  //0 自己的小鸡， 1，小偷   2，别人的小鸡 
+        type: 0,  //0 自己的小鸡， 1，小偷   2，别人的小鸡 
+
+
 
         _horizontal: 0,
         _vertical: 0,
         _rigid: cc.RigidBody,  //刚体
         _isBath: false,
 
-        _state: 0,  //小鸡状态  0正常，1被点击，2空闲， 3哭泣(被揍)， 4 挨饿， 5吃饭， 6洗澡 7不在家
+        _state: 0,  //小鸡状态  0正常，1被点击，2空闲， 3哭泣(被揍)， 4 挨饿， 5吃饭， 6洗澡 7不在家  20.偷吃
+
         _lastState: 0,  //上一个状态
         _remainChangeTime: 0,  //改变状态小鸡时间
         _isMoveToTargetX: false,
@@ -37,9 +40,12 @@ cc.Class({
         _imgTitti: null,//装扮图片
         _lastState: -1,  //上一个状态
 
-        _uid:-1,  //小鸡ID
+        _uid: -1,  //小鸡ID
         // _isMe:false,  //是否是本人,
         // _isThief:false,  //是否是小偷
+
+        _remainChangeTime: 0,
+        _isAction:false,  //小鸡是否在行动
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -63,39 +69,48 @@ cc.Class({
 
 
         this.setTittivateData({ hat: 10, glass: 9, hornor: 100 });
+
+
     },
 
     //设置小鸡
-    setPlayerData(id,name,level,tittiData,state) {
+    setPlayerData(id, name, level, tittiData, state) {
 
-        this.setData(id,name,level,tittiData,state);
+        this.setData(id, name, level, tittiData, state);
     },
-    setThiefData(id,name,level,tittiData,state){
+    setThiefData(id, name, level, tittiData, state) {
         // this._isThief=true;
-        this.type=1;
-        this.setData(id,name,level,tittiData,state);
+        this.type = 1;
+        this.setData(id, name, level, tittiData, state);
     },
-    setData(id,name,level,tittiData,state){
+    setData(id, name, level, tittiData, state) {
 
-        if(id==Global.id){
+        if (id == Global.id) {
             // this._isMe=true;
-            this.type=0;
-            name="我的小鸡";
-            if(Global.sceneCode==0){
-                this.ndName.active=false;
+            this.type = 0;
+            name = "我的小鸡";
+            if (Global.sceneCode == 0) {
+                this.ndName.active = false;
             }
         }
-        this.ndName.getChildByName("txtLevel").string=level.toString();
-        this.ndName.getChildByName("txtName").string=name;
+        this.ndName.getChildByName("txtLevel").string = level.toString();
+        this.ndName.getChildByName("txtName").string = name;
+        if(state!=null)
         this.setState(state);
     },
 
     update(dt) {
-        // this.move(dt);
-        // console.log(JSON.stringify( this.node.position));
-        // this._rigid.applyForceToCenter(new cc.v2(10000,0));
-
+        if (this.type == 0) {
+            if (this._remainChangeTime <= 0) {
+                this.randomChangeState_idle();
+                this._remainChangeTime = Math.max(5, Math.random() * 20);
+            } else {
+                if(!this._isAction)
+                this._remainChangeTime -= dt;
+            }
+        }
     },
+
     onKeyDown: function (event) {
         switch (event.keyCode) {
             case cc.macro.KEY.right:
@@ -170,11 +185,14 @@ cc.Class({
         this.node.stopAllActions();
         this.animBody.node.scaleX = this.getDirectionX(targetPos);
         this.animBody.play("player2_jumpTo");
-        this.node.runAction(cc.sequence(cc.jumpTo(2, targetPos, 100, 1),cc.callFunc(
-            function(){
+        this.node.runAction(cc.sequence(cc.jumpTo(2, targetPos, 100, 1), cc.callFunc(
+            function () {
                 self.animBody.play("player2_idle");
-                if(callback)
-                callback;
+
+                if (callback) {
+
+                    callback();
+                }
             }
         )));
     },
@@ -186,7 +204,6 @@ cc.Class({
     getDirectionX(targetPos) {
         var result = targetPos.x - this.node.x;
         result = Common.clamp(result, -1, 1);
-        console.log(result);
         return result;
     },
     //检测洗澡
@@ -206,15 +223,40 @@ cc.Class({
     //去洗澡
     goBath() {
         var self = this;
+        this._isAction=true;
         this._cam._isFollow = true;
         self.getPool();
         let targetPos = Common.vector2Add(this._pool.position, this._pool.getChildByName("playerPos").position);
         this.moveTo(targetPos, function () {
             console.log("走完了");
             // self.node.active=false;
-            self._pool.getChildByName("Bath").getComponent(cc.Animation).play("Player2_poolBath");
+            // self._pool.getChildByName("Bath").getComponent(cc.Animation).play("Player2_poolBath");
 
+            self.playSmoke();  //播放泡沫
+            self.scheduleOnce(function () {
+                cc.find("Canvas/ClothBucket").getComponent("ClothBucket2").setFull(true);//衣服篓填满
+                self.showTitti(false);
+                let targ = Common.vector2Add(self._pool.position, new cc.Vec2(0, 100));
+                self.jumpTo(targ, function () {
+                    self._pool.getComponent("Pool").onBath();
+                    self.node.active = false;
+                });
+            }, 1);
         })
+    },
+    //去洗澡回来
+    goBathBack() {
+        var self = this;
+        this.node.active = true;
+        let targetPos = Common.vector2Add(this._pool.position, this._pool.getChildByName("playerPos").position);
+        this.jumpTo(targetPos, function () {
+            self.playSmoke();
+            self.scheduleOnce(function () {
+                self.showTitti(true);
+                cc.find("Canvas/ClothBucket").getComponent("ClothBucket2").setFull(false);//衣服篓填满
+                self.goBack();
+            }, 1)
+        });
     },
     //获取pool
     getPool() {
@@ -228,16 +270,18 @@ cc.Class({
     },
     //回到原点
     goBack() {
-        var self=this;
+        var self = this;
         this._cam._isFollow = true;
         this.moveTo(this._originalPosition, function () {
             console.log("走完了");
             self.updateHomeState();
+            self._isAction=false;
         });
     },
     //去吃饭
     goDine() {
         var self = this;
+        this._isAction=true;
         this._cam._isFollow = true;
         self.getLunchBox();
         let targetPos = Common.vector2Add(this._lunchBox.position, this._lunchBox.getChildByName("playerPos").position);
@@ -250,23 +294,26 @@ cc.Class({
         })
     },
     onClick() {
+
+
+
         this.goDine();
         return;
 
-        var self=this;
-        if(this.type==0){
-            if(Global.sceneCode==0){
+        var self = this;
+        if (this.type == 0) {
+            if (Global.sceneCode == 0) {
                 //在家
-                Network.requestClickPlayer((res)=>{
-                    if(res.result){
+                Network.requestClickPlayer((res) => {
+                    if (res.result) {
                         self.openSay(res.data.text);
-                    }else{
+                    } else {
                         // self.openSay(res.data);
                     }
                 });
-            }else if(Global.sceneCode==1){
+            } else if (Global.sceneCode == 1) {
                 //在别人家
-                
+
             }
         }
     },
@@ -357,9 +404,10 @@ cc.Class({
             case 3: this.playCry(); break;
             case 4: this.playHunger(); break;
             case 6: this.playNormal(); break;  //清洁========================缺动画
-            case 7: this.node.active = false;
+            case 7: this.node.active = false;break;
+            // case 20:
         }
-
+        
     },
 
     //说话
@@ -390,14 +438,21 @@ cc.Class({
 
     },
     playIdle() {
-
+        this.animBody.play("player2_idle");
     },
     playNormal() {
-
+        this.animBody.play("player2_normal");
     },
     //播放烟雾
-    playSmoke(){
-        this.animBody.play("player2_smoke");
+    playSmoke() {
+        this.animBody.node.getChildByName("front").getComponent(cc.Animation).play("player2_smoke");
+    },
+    //播放偷吃动画
+    playEatting_thief(){
+        this.animBody.play();
+    },
+    cleanSmoke() {
+
     },
     //延迟更新主页
     updateHomeState(delay) {
@@ -415,4 +470,43 @@ cc.Class({
             this.node.destory();
         }, delay);
     },
+    //是否显示装扮
+    showTitti(isShow) {
+        this.animBody.node.getChildByName("Titti").active = isShow;
+    },
+    randomChangeState_idle() {
+        // let rnd=Math.max(5, Math.random()*20);
+        this.node.stopAllActions();
+        let rnd = Math.random() * 20;
+        let nextState;   // 1.正常  2.空闲  3.行走
+    
+        if (rnd >= 14) {
+            nextState = 3;
+        } else if (rnd >= 7) {
+            nextState = 2;
+        } else {
+            nextState = 1
+        }
+        switch (nextState) {
+            case 1: this.playNormal();break;
+            case 2: this.playIdle();break;
+            case 3: this.randomWalk();break;
+        }
+        this.openSay("发现来家里俩晕鸡儿...");
+    },
+    //随机行走
+    randomWalk() {
+        var self = this;
+        let dir=new Date().getSeconds()%2==0?1:-1;
+        let rnd = parseInt(Math.random() * 400)*dir;
+        let target = new cc.v2(rnd, this.node.position.y);
+        this.moveTo(target, function () {
+            // if (new Date().getSeconds() % 2 == 0) {
+            //     self.randomWalk();
+            // }
+            // self.randomWalk();
+        })
+    },
+
+
 });

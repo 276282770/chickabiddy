@@ -12,7 +12,12 @@ cc.Class({
     // onLoad () {},
 
     start() {
-
+        let data=[{id:2,name:"侠盗猎车手",level:100},{
+            id:1,
+            name:"小子别跑",
+            level:80,
+        }];
+        this.setData(data);
     },
 
     // update (dt) {},
@@ -25,9 +30,10 @@ cc.Class({
             if (datas[i] == null) {
                 this.thiefs.node.active = false;
             } else {
-                if (this.thiefs[i].node.active = false) {
-                    this.thiefs[i].node.position=this.positions[i];
-                    this.thiefs[i].setThiefData(datas[i].id, datas[i].name, datas[i].level, null, null);
+                if (this.thiefs[i].node.active == false) {
+                    // this.thiefs[i].node.position=this.positions[i];
+                    this.thiefs[i].node.active=true;
+                    this.thiefs[i].setThiefData(datas[i].id, datas[i].name, datas[i].level, null, 20);
                     this.thiefs.play("thief2_eatting");
                 }
             }

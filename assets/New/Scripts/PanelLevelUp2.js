@@ -82,7 +82,7 @@ cc.Class({
         this.ndPlayer.runAction(cc.sequence(cc.jumpTo(0.6, target, 100, 1),
             cc.callFunc(
                 function () {
-                    self._animPlayer.play("player2_idle");
+                    // self._animPlayer.play("player2_idle");
                     if (callback)
                         callback();
                 }

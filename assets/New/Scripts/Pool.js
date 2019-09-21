@@ -34,6 +34,14 @@ cc.Class({
     },
     //停止洗澡
     stopBath(){
-
+        this.node.getChildByName("bath2").active=false;
+    },
+    onBath(){
+        var self=this;
+        this.node.getChildByName("bath2").active=true;
+        this.scheduleOnce(function(){
+            self.stopBath();
+            Global.game.player.goBathBack();
+        },5);
     },
 });
