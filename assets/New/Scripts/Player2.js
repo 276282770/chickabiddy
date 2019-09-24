@@ -20,6 +20,8 @@ cc.Class({
 
         type: 0,  //0 自己的小鸡， 1，小偷   2，别人的小鸡 
 
+        ndEx:cc.Node,  //扩展节点
+
 
 
         _horizontal: 0,
@@ -46,6 +48,9 @@ cc.Class({
 
         _remainChangeTime: 0,
         _isAction:false,  //小鸡是否在行动
+        // _canClick:true,  //是否可以点击
+        _isShowExtend:false,  //是否显示扩展
+        _thiefCtrl:null,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -64,13 +69,13 @@ cc.Class({
         this._originalPosition = this.node.position;
         // this.node.position=new cc.Vec2(0,0);
         // this.node.position=Common.vector2Add(this.node.position,new cc.Vec2(0,50));
-        this._cam = cc.find("Canvas/Main Camera").getComponent("CameraController2");
+        this._cam = Global.game.camera;
         this._imgTitti = { hat: this.imgHat, glass: this.imgGlass, hornor: this.imgHornor };
 
-
+        this._thiefCtrl=cc.find("Canvas/PlayerRoot").getComponent("ThiefController2");
         this.setTittivateData({ hat: 10, glass: 9, hornor: 100 });
 
-
+       
     },
 
     //设置小鸡
@@ -81,6 +86,7 @@ cc.Class({
     setThiefData(id, name, level, tittiData, state) {
         // this._isThief=true;
         this.type = 1;
+        this.ndEx=this.node.getChildByName("Extend2");
         this.setData(id, name, level, tittiData, state);
     },
     setData(id, name, level, tittiData, state) {
@@ -93,10 +99,11 @@ cc.Class({
                 this.ndName.active = false;
             }
         }
-        this.ndName.getChildByName("txtLevel").string = level.toString();
-        this.ndName.getChildByName("txtName").string = name;
+        this.ndName.getChildByName("txtLevel").getComponent(cc.Label).string = level.toString();
+        this.ndName.getChildByName("txtName").getComponent(cc.Label).string = name;
         if(state!=null)
         this.setState(state);
+
     },
 
     update(dt) {
@@ -105,7 +112,7 @@ cc.Class({
                 this.randomChangeState_idle();
                 this._remainChangeTime = Math.max(5, Math.random() * 20);
             } else {
-                if(!this._isAction)
+                if(!this._isAction&&!this._isShowExtend)
                 this._remainChangeTime -= dt;
             }
         }
@@ -294,12 +301,10 @@ cc.Class({
         })
     },
     onClick() {
-
-
-
-        this.goDine();
-        return;
-
+        if(this._isAction){
+            return;
+        }
+        
         var self = this;
         if (this.type == 0) {
             if (Global.sceneCode == 0) {
@@ -311,9 +316,15 @@ cc.Class({
                         // self.openSay(res.data);
                     }
                 });
+                this.tollageExtend();
             } else if (Global.sceneCode == 1) {
                 //在别人家
 
+            }
+        }else if(this.type==1){
+            if(this.checkExtendState(this.ndEx)!=0){
+                this.tollageExtend();
+                this._thiefCtrl.onClick(this);
             }
         }
     },
@@ -426,31 +437,32 @@ cc.Class({
     },
     //播放被打动画
     playFighting() {
-        this.ndTitti.active = false;
+        // this.ndTitti.active = false;
         this.animBody.play("player2_fighting");
         // this.scheduleOnce(function(){
         //     this.animBody.play
         // },2)
     },
+
     //播放吃饭动画
     playEatting() {
+
         this.animBody.play("player2_eatting");
 
     },
     playIdle() {
+        this.switchTittivateSide(true);
         this.animBody.play("player2_idle");
     },
     playNormal() {
+        this.switchTittivateSide(true);
         this.animBody.play("player2_normal");
     },
     //播放烟雾
     playSmoke() {
         this.animBody.node.getChildByName("front").getComponent(cc.Animation).play("player2_smoke");
     },
-    //播放偷吃动画
-    playEatting_thief(){
-        this.animBody.play();
-    },
+
     cleanSmoke() {
 
     },
@@ -507,6 +519,94 @@ cc.Class({
             // self.randomWalk();
         })
     },
+    //显示扩展
+    showExtend(){
+        this.ndEx.active=true;
+        this.node.stopAllActions();
+        this._state=1;
+        this.switchTittivateSide(true);
+        this._isShowExtend=true;
+        this.ndEx.getComponent(cc.Animation).play("player2_extend");
+    },
+    hideExtend(){
+        this.ndEx.getComponent(cc.Animation).play("player2_extend_close");
+        this._state=0;
+        this._isShowExtend=false;
+    },
+    closeExtend(){
+        this.ndEx.active=false;
+    },
+    tollageExtend(){
+        if(this.ndEx.active&&this.ndEx.children[0].opacity==255){
+            this.hideExtend();
+        }else{
+            this.showExtend();
+        }
+    },
+    //攻略
+    onOpenInstruction(){
+        this.closeExtend();
+        Global.game.onShowTipExpect();
+    },
+    //敬请期待
+    onExpect(){
+        this.closeExtend();
+        Global.game.onShowTipExpect();
+    },
 
 
+
+    //小偷
+    playEatting_thief(){
+        this.animBody.play("thief2_eatting");
+    },
+    showExtend_thief(){
+        if(this.checkExtendState(this.ndEx)!=1)
+        this.node.getChildByName("Extend2").getComponent(cc.Animation).play("player2_extend");
+
+    },
+    hideExtend_thief(){
+        if(this.checkExtendState(this.ndEx)!=2)
+        this.node.getChildByName("Extend2").getComponent(cc.Animation).play("player2_extend_close");
+
+    },
+
+    onFightingSync(){
+        this._thiefCtrl.onFighting();
+    },
+    onOutSync(){
+        this._thiefCtrl.onOut();
+    },
+
+    //揍，格斗
+    onFighting(){
+        this.playFighting();
+        this.scheduleOnce(this.onHide,2);
+    },
+    //赶走
+    onOut(){
+        this.animBody.play("thief2_out");
+        this.ndTitti.active=false;
+        this.scheduleOnce(this.onHide,2);
+    },
+
+
+
+    checkExtendState(ndEx){
+        //0.正在动画  1.扩展打开  2.扩展关闭
+        let resultState=0;
+        if(ndEx.children[0].opacity==255){
+            resultState=1;
+        }else if(ndEx.children[0].opacity==0){
+            resultState=2;
+        }
+        return resultState;
+    },
+    checkExtendState_thief(){
+        return this.checkExtendState();
+    },
+
+    onHide(){
+        this.node.active=false;
+    }
 });

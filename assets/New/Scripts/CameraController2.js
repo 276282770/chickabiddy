@@ -15,7 +15,7 @@ cc.Class({
         _offset: cc.Vec2(0, 0),
 
         _isFollow: true,
-        
+        _canBack:true,  //是否可以回位
     },
 
 
@@ -86,6 +86,8 @@ cc.Class({
         let self=this;
         this.node.stopAllActions();
         let pos=this.clampPos(this.offsetPos());
+        if(!this._canBack)
+            return;
         this.node.runAction(cc.moveTo(0.8,pos),cc.callFunc(
             function(){
                 self._isFollow=true;

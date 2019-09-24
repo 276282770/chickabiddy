@@ -554,4 +554,8 @@ cc.Class({
         }
         this.shareSuccess();
     },
+    //显示敬请期待提示
+    onShowTipExpect(){
+        this.showTip("小编正在抓紧制作中...");
+    }
 });
