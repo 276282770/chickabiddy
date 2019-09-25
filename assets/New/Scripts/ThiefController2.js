@@ -101,6 +101,7 @@ cc.Class({
 
                self.scheduleOnce(function(){
                 Global.game.showTip(res.data.awardTxt);
+                    self._cam._canBack=true;
                },2)
             }else{
                 Global.game.showTip(res.data);
@@ -117,6 +118,7 @@ cc.Class({
                 Global.game.player.openSay(res.data.playerSay);
                 self.scheduleOnce(function(){
                     Global.game.showTip(res.data.awardTxt);
+                    self._cam._canBack=true;
                    },2)
             }else{
                 Global.game.showTip(res.data);

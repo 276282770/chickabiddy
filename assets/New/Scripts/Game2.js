@@ -43,6 +43,7 @@ cc.Class({
         ndEgg: cc.Node,  //鸡蛋节点
         ndTV: cc.Node,  //TV节点
         ndPanelLevelUp:cc.Node,  //升级节点
+        
 
         panels: PanelManager,  //面板管理
         prePanelFriends: cc.Prefab,  //朋友面板预制体
@@ -404,7 +405,34 @@ cc.Class({
     },
     //洗澡
     onBath() {
-        this.player.goBath();
+        var self=this;
+        if(Global.sceneCode==0){
+            Network.requestBath((res)=>{
+                if(res.result){
+                    self.player.goBath();
+
+                    self.scheduleOnce(function(){
+                        self.showTip(res.data.tip);
+                        self.player.openSay(res.data.say);
+                    },10);
+                }else{
+                    self.showTip(res.data);
+                }
+            });
+        }else if(Global.sceneCode==1){
+            Network.requestBathHelp(Global.scene.otherUid,(res)=>{
+                if(res.result){
+                    self.player.goBath();
+
+                    self.scheduleOnce(function(){
+                        self.showTip(res.data.tip);
+                        self.player.openSay(res.data.say);
+                    },10);
+                }else{
+                    self.showTip(res.data);
+                }
+            });
+        }
     },
 
     //吃饭
@@ -557,5 +585,8 @@ cc.Class({
     //显示敬请期待提示
     onShowTipExpect(){
         this.showTip("小编正在抓紧制作中...");
-    }
+    },
+
+    
+
 });

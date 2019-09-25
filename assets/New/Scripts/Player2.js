@@ -222,7 +222,7 @@ cc.Class({
     //获取x坐标
     getPositionX() {
         return this.node.position.x;
-    },
+    }, 
     //设置是否显示
     setActive(show) {
         this.node.active = show;
@@ -580,11 +580,13 @@ cc.Class({
 
     //揍，格斗
     onFighting(){
+        this.closeExtend();
         this.playFighting();
         this.scheduleOnce(this.onHide,2);
     },
     //赶走
     onOut(){
+        this.closeExtend();
         this.animBody.play("thief2_out");
         this.ndTitti.active=false;
         this.scheduleOnce(this.onHide,2);

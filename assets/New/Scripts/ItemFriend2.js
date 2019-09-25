@@ -83,9 +83,10 @@ cc.Class({
     //点击
     onClick(){
         Global.scene.otherUid=this._uid;
-        Global.scene.nextSceneName="OtherHome";
-        cc.director.loadScene("Loading");
-       
+        
+        // Global.scene.nextSceneName="OtherHome";
+        // cc.director.loadScene("Loading");
+       cc.find("Canvas").getComponent("HomeCtrl").gotoOtherHome();
     },
     // update (dt) {},
 });
