@@ -208,7 +208,7 @@ cc.Class({
     },
     //更新首页
     updateIndex() {
-        if (Global.id == -1)
+        if (Global.id == -1||Global.sceneCode!=0)
             return;
         console.log("【更新首页】");
         var self = this;
