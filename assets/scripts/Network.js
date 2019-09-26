@@ -2,15 +2,15 @@
 var WX = require("WX");
 var Common=require("Common");
 var Network = {
-    domain:"http://192.168.0.142:8080",
-    // domain: "https://xj.xiajiwangluo.com",  //域名
+    // domain:"http://192.168.0.142:8080",
+    domain: "https://xj.xiajiwangluo.com",  //域名
 
 
     backData:{result:false,data:{}},
 
     //封装微信http协议
     request(url, data, success) {
-        if(Global.id!=-1){
+        if(Global.id>0){
         data.uid=Global.id;
         }
         WX.request(url, data, "POST", success);
@@ -1144,7 +1144,7 @@ var Network = {
         
     },
     //给别人喂食
-    giveOtherFood(targetId,goodsId){
+    giveOtherFood(targetId,goodsId,callback){
         let url=this.domain+"/chicken/feedTheOtherChickens.action";
         let data={fid:targetId,pid:goodsId};
         let backData={result:false};

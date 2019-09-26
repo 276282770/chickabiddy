@@ -1661,6 +1661,15 @@
       },
       {
         "__uuid__": "4a38afb0-7eaa-4f0c-8b2d-e715165628f4"
+      },
+      {
+        "__uuid__": "07fd9431-3814-40e9-8b25-3aed98c2f3f5"
+      },
+      {
+        "__uuid__": "5b129722-b4b7-40b5-a2da-1ef1148b91ba"
+      },
+      {
+        "__uuid__": "00414378-f2fd-48c2-8b1d-a34698efb2eb"
       }
     ],
     "playOnLoad": true,
@@ -1692,7 +1701,7 @@
         "__id__": 51
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 2,
     "_components": [
       {

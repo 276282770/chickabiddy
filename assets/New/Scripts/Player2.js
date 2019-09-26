@@ -73,7 +73,8 @@ cc.Class({
         this._imgTitti = { hat: this.imgHat, glass: this.imgGlass, hornor: this.imgHornor };
 
         this._thiefCtrl=cc.find("Canvas/PlayerRoot").getComponent("ThiefController2");
-        this.setTittivateData({ hat: 10, glass: 9, hornor: 100 });
+        // this.setTittivateData({ hat: 10, glass: 9, hornor: 100 });
+
 
        
     },
@@ -91,6 +92,7 @@ cc.Class({
     },
     setData(id, name, level, tittiData, state) {
 
+        this.ndName.active = true;
         if (id == Global.id) {
             // this._isMe=true;
             this.type = 0;
@@ -304,6 +306,7 @@ cc.Class({
         if(this._isAction){
             return;
         }
+
         
         var self = this;
         if (this.type == 0) {
@@ -414,7 +417,7 @@ cc.Class({
             case 2: this.playIdle(); break;
             case 3: this.playCry(); break;
             case 4: this.playHunger(); break;
-            case 6: this.playNormal(); break;  //清洁========================缺动画
+            case 6: this.playDirty(); break;  
             case 7: this.node.active = false;break;
             // case 20:
         }
@@ -461,6 +464,18 @@ cc.Class({
     //播放烟雾
     playSmoke() {
         this.animBody.node.getChildByName("front").getComponent(cc.Animation).play("player2_smoke");
+    },
+    //播放脏了动画
+    playDirty(){
+        this.animBody.play("player2_dirty");
+    },
+    //播放饿了动画
+    playHunger(){
+        this.animBody.play("player2_hungry");
+    },
+    //播放被打了的动画
+    playCry(){
+        this.animBody.play("player2_beaten");
     },
 
     cleanSmoke() {
@@ -552,6 +567,14 @@ cc.Class({
     onExpect(){
         this.closeExtend();
         Global.game.onShowTipExpect();
+    },
+    getTitti(){
+        var self=this;
+        Network.getMyTittivate((res)=>{
+            if(res.result){
+                self.setTittivateData(res.data.use);
+            }
+        })
     },
 
 

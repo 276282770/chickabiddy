@@ -48,6 +48,8 @@ cc.Class({
         Global.scene.lastPanel="PanelFriends";
 
         this.svFriend.node.on('scroll-to-bottom', this.updatePanelPart, this);
+        
+        this.loadFriends();
     },
     
     show(){
@@ -61,12 +63,26 @@ cc.Class({
     this.ndBg.runAction(cc.sequence( cc.moveTo(0.5,new cc.Vec2(this.ndBg.position.x,this.ndBg.height)),
         cc.callFunc(function(){self._isPanelReady=true;})
         ));
-        this.loadFriends();
+        
     },
 
     //隐藏面板
-    hide(){
-
+    onHide(){
+        var self=this;
+        if(!this._isPanelReady)
+        return;
+        this.ndBg.runAction(cc.sequence( 
+            cc.moveTo(0.5,new cc.Vec2(this.ndBg.position.x,0)),
+            cc.callFunc(function(){
+                self.node.active=false;
+                Global.scene.lastPanel="";
+                console.log("隐藏面板");
+                //引导5
+                let guide=cc.find("Canvas/Guid").getComponent("Guid");
+                if(guide._isGuid){
+                    guide.stepSchedule(5);
+                }
+            })));
     },
     //删除面板
     onClose(){

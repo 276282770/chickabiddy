@@ -72,6 +72,8 @@ cc.Class({
                 this.ndMode.active = true;
             })
         ));
+
+        Global.game.player.node.active=false;
     },
     onClose() {
         if (!this._panelReady)
@@ -83,6 +85,9 @@ cc.Class({
                 this.node.destroy();
             })
         ));
+
+        Global.game.player.node.active=true;
+        Global.game.player.getTitti();
     },
     onEnable() {
         this.onShow();

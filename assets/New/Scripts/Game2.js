@@ -5,7 +5,7 @@ var Player = require("Player2");
 var PanelManager = require("PanelManager");
 var Thief = require("Thief");
 var Guid = require("Guid");
-var CameraController=require("CameraController2");
+var CameraController = require("CameraController2");
 cc.Class({
     extends: cc.Component,
 
@@ -37,13 +37,14 @@ cc.Class({
         ndLeft: cc.Node,  //左边按钮根节点
         ndDown: cc.Node,  //下按钮
         ndPanelRank: cc.Node,  //排行榜面板节点
+        ndPanelFriends:cc.Node,  //好友面板节点
         ndPlayerRoot: cc.Node,  //玩家根节点
         ndThiefRoot: cc.Node,  //小偷根节点
         ndCloud: cc.Node,  //云彩节点
         ndEgg: cc.Node,  //鸡蛋节点
         ndTV: cc.Node,  //TV节点
-        ndPanelLevelUp:cc.Node,  //升级节点
-        
+        ndPanelLevelUp: cc.Node,  //升级节点
+
 
         panels: PanelManager,  //面板管理
         prePanelFriends: cc.Prefab,  //朋友面板预制体
@@ -80,7 +81,7 @@ cc.Class({
         display: cc.Sprite,  //子域显示
 
         preBuy: cc.Prefab,//临时 购买
-        camera:CameraController,//摄像机控制
+        camera: CameraController,//摄像机控制
 
 
         _hour: 0,
@@ -107,7 +108,7 @@ cc.Class({
         //引导用
         _buyCount: 0,  //买东西的个数
 
-       
+
 
     },
 
@@ -115,7 +116,7 @@ cc.Class({
     onLoad() {
         var self = this;
         Global.game = this;
-        
+
 
         this.iniNode();
 
@@ -201,6 +202,7 @@ cc.Class({
                 self.createScene(res.data);
                 self.updateState(res.data);
                 self.ndWaitting.active = false;
+                self.player.getTitti();
 
 
             }
@@ -208,7 +210,7 @@ cc.Class({
     },
     //更新首页
     updateIndex() {
-        if (Global.id == -1||Global.sceneCode!=0)
+        if (Global.id == -1 || Global.sceneCode != 0)
             return;
         console.log("【更新首页】");
         var self = this;
@@ -333,15 +335,16 @@ cc.Class({
 
         //更新头像
         if (Global.user.avatar != "") {
-            cc.loader.load({ url: Global.user.avatar, type: "png" }, function (err, tex) {
-                if (!err) {
-                    self.imgAvatar.spriteFrame = new cc.SpriteFrame(tex);
-                }
-            });
+            // cc.loader.load({ url: Global.user.avatar, type: "png" }, function (err, tex) {
+            //     if (!err) {
+            //         self.imgAvatar.spriteFrame = new cc.SpriteFrame(tex);
+            //     }
+            // });
+            self.setAvatar(Global.user.avatar);
         }
 
         //更新升级
-        if (Global.user.level != -1 && Global.user.level != data.lvl) {
+        if (Global.user.level > 0 && Global.user.level != data.lvl) {
             self.onPlayLevelUp();
         }
         Global.user.level = data.lvl;
@@ -363,7 +366,7 @@ cc.Class({
         // this._ndRightPos = this.ndRight.position;
     },
     //创建场景
-    createScene(data){
+    createScene(data) {
 
         //背景
         // let newPlayer=cc.instantiate(this.prePlayer);
@@ -371,7 +374,7 @@ cc.Class({
         // let newPlayerSrc=newPlayer.getComponent("Player2");
         // newPlayerSrc.setPlayerData(data.id,"",data.lvl,null,data.playerState);
         // this.player=newPlayerSrc;
-        
+
     },
 
     // update (dt) {},
@@ -405,31 +408,31 @@ cc.Class({
     },
     //洗澡
     onBath() {
-        var self=this;
-        if(Global.sceneCode==0){
-            Network.requestBath((res)=>{
-                if(res.result){
+        var self = this;
+        if (Global.sceneCode == 0) {
+            Network.requestBath((res) => {
+                if (res.result) {
                     self.player.goBath();
 
-                    self.scheduleOnce(function(){
+                    self.scheduleOnce(function () {
                         self.showTip(res.data.tip);
                         self.player.openSay(res.data.say);
-                    },10);
-                }else{
-                    self.showTip(res.data);
+                    }, 10);
+                } else {
+                    self.player.openSay(res.data.say);
                 }
             });
-        }else if(Global.sceneCode==1){
-            Network.requestBathHelp(Global.scene.otherUid,(res)=>{
-                if(res.result){
+        } else if (Global.sceneCode == 1) {
+            Network.requestBathHelp(Global.scene.otherUid, (res) => {
+                if (res.result) {
                     self.player.goBath();
 
-                    self.scheduleOnce(function(){
+                    self.scheduleOnce(function () {
                         self.showTip(res.data.tip);
                         self.player.openSay(res.data.say);
-                    },10);
-                }else{
-                    self.showTip(res.data);
+                    }, 10);
+                } else {
+                    self.player.openSay(res.data.say);
                 }
             });
         }
@@ -438,6 +441,10 @@ cc.Class({
     //吃饭
     onDine() {
         this.player.goDine();
+    },
+    //设置头像
+    setAvatar(avatarUrl) {
+        Common.load(avatarUrl, this.imgAvatar);
     },
 
     /**显示个人面板 */
@@ -454,6 +461,11 @@ cc.Class({
         this.panels.showFx();
         //引导
         this.guide.hidePoint();
+    },
+    //显示朋友面板
+    onShowPanelFriends() {
+        this.ndPanelFriends.active=true;
+        this.ndPanelFriends.getComponent("PanelFriends2").showFx();
     },
     /**显示任务面板
  */
@@ -495,11 +507,11 @@ cc.Class({
     onShowPanelPackage() {
         this.panels.createPanel(this.prePanelPackage, "PanelPackage");
         //引导
-        if(this.guide!=null)
-        this.guide.hidePoint();
+        if (this.guide != null)
+            this.guide.hidePoint();
     },
-        /**显示链接面板
-     */
+    /**显示链接面板
+ */
     onShowPanelLink() {
         this.panels.createPanel(this.prePanelLink, "PanelLink");
     },
@@ -519,7 +531,7 @@ cc.Class({
     },
     //播放升级动画
     onPlayLevelUp() {
-        this.ndPanelLevelUp.active=true;
+        this.ndPanelLevelUp.active = true;
         this.ndPanelLevelUp.getComponent("PanelLevelUp2").show();
     },
     //收鸡蛋
@@ -583,10 +595,32 @@ cc.Class({
         this.shareSuccess();
     },
     //显示敬请期待提示
-    onShowTipExpect(){
+    onShowTipExpect() {
         this.showTip("小编正在抓紧制作中...");
     },
-
-    
+    //链接微信小程序 中原银行惠生活
+    onLink_HuiShenghuo() {
+        // let appid="wxeedb326f283fe740";
+        // let appid = Global.miniProgramAppIdList[0];
+        // WX.navigateToMiniProgram(appid);
+        Network.getLinkAppid("zhongyuanyinhanghuishenghuo", (res) => {
+            if (res.result) {
+                WX.navigateToMiniProgram(res.data);
+            }
+        })
+    },
+    //链接微信小程序  中原银行信用卡
+    onLink_XinYongKa() {
+        // WX.navigateToMiniProgram(Global.miniProgramAppIdList[1]);
+        Network.getLinkAppid("zhongyuanyinhanghuishenghuo", (res) => {
+            if (res.result) {
+                WX.navigateToMiniProgram(res.data);
+            }
+        })
+    },
+    //寻找小鸡
+    onFindPlayer() {
+        cc.find("Canvas").getComponent("HomeCtrl").gotoOtherHome();
+    },
 
 });

@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "641736b2-841d-43d3-bfca-c0f5b36b125d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "该洗澡了": {
+      "ver": "1.0.3",
+      "uuid": "7b27f307-a813-4a36-a11a-cb85c40c2ce4",
+      "rawTextureUuid": "641736b2-841d-43d3-bfca-c0f5b36b125d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 1.5,
+      "offsetY": 0.5,
+      "trimX": 15,
+      "trimY": 7,
+      "width": 306,
+      "height": 346,
+      "rawWidth": 333,
+      "rawHeight": 361,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

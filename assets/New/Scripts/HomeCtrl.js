@@ -15,6 +15,8 @@ cc.Class({
         
         btnAvatar:cc.Button,  //头像按钮
 
+        // prePanelPackage:cc.Prefab,  //背包预制体
+
         _uid:0,
     },
 
@@ -81,7 +83,8 @@ cc.Class({
         var self=this;
         Network.stealingFood(this._uid,(res)=>{
             if(res.result){
-                Global.game.onDine();
+                // Global.game.onDine();
+                self.updateIndex();
             }
         });
     },
@@ -94,7 +97,21 @@ cc.Class({
             }
         });
     },
-    
+    //给别人喂食
+    onGiveOtherFood(){
+        Global.game.onShowPanelPackage();
+    },
+    //给被人洗澡
+    onGiveOtherBath(){
+        Network.requestBathHelp(this._uid,(res)=>{
+            if(res.result){
+                Global.game.onBath();
+            }else{
+                Global.game.showTip(res.data);
+            }
+        });
+    },
+
     //更新
     updateIndex(){
         Network.requestPersonInfo(this._uid,(res)=>{
