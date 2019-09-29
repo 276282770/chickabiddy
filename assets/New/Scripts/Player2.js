@@ -554,7 +554,7 @@ cc.Class({
     randomWalk() {
         var self = this;
         let dir = new Date().getSeconds() % 2 == 0 ? 1 : -1;
-        let rnd = parseInt(Math.random() * 400) * dir;
+        let rnd = parseInt(Math.random() * 200) * dir;
         let target = new cc.v2(rnd, this.node.position.y);
         this.moveTo(target, function () {
             // if (new Date().getSeconds() % 2 == 0) {
@@ -609,6 +609,7 @@ cc.Class({
     
     //重置位置
     resetPostion(){
+        console.log("【重置位置】"+JSON.stringify(this._originalPosition));
         this.node.postion=this._originalPosition;
     },
 

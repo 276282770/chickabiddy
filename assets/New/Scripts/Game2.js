@@ -396,7 +396,7 @@ cc.Class({
     },
 
     //吃饭
-    onDine() {
+    onDine() {0
         this.player.goDine();
     },
     //设置头像

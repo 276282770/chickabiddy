@@ -54,17 +54,17 @@ cc.Class({
         if (Global.sceneCode == 0) {
             Network.requestDine(this._cid, (res) => {
 
-                Global.game.panels.deletePanel();
+                // Global.game.panels.deletePanel();
                 // Global.game.updateDine(res);
-                Global.game.onDine();
+                // Global.game.onDine();
 
 
-                // if(res.result){
-                //     Global.game.panels.deletePanel();
-                //     Global.game.updateDine(res.data);
-                // }else{
-                //     Global.game.showTip(res.data);
-                // }
+                if(res.result){
+                    Global.game.panels.deletePanel();
+                    Global.game.onDine();
+                }else{
+                    Global.game.showTip(res.data);
+                }
             });
         }else if(Global.sceneCode==1){
             Network.giveOtherFood(Global.scene.otherUid,this._cid,(res)=>{
