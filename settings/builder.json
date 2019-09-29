@@ -39,7 +39,7 @@
   "title": "chickabiddy",
   "webOrientation": "auto",
   "wechatgame": {
-    "REMOTE_SERVER_ROOT": "https://xj.xiajiwangluo.com",
+    "REMOTE_SERVER_ROOT": "http://192.168.0.254",
     "appid": "wxddaa76a78c7a2eb0",
     "orientation": "portrait",
     "subContext": "SDC"

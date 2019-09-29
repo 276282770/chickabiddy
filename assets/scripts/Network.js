@@ -2,8 +2,8 @@
 var WX = require("WX");
 var Common=require("Common");
 var Network = {
-    // domain:"http://192.168.0.142:8080",
-    domain: "https://xj.xiajiwangluo.com",  //域名
+    domain:"http://192.168.0.39:8080",
+    // domain: "https://xj.xiajiwangluo.com",  //域名
 
 
     backData:{result:false,data:{}},
@@ -891,6 +891,13 @@ var Network = {
                     backData.data.otherId = res.data.where;
                 }
                 backData.data.eggProgress = res.data.eggTime / res.data.totalEggTime;
+
+                backData.data.foodRemain=res.currentPage;
+                backData.data.titti={
+                    hat:res.replenish.styleB,
+                    glass:res.replenish.styleD,
+                    hornor:res.replenish.styleC
+                }
             } else {
                 backData.data = "";
             }
@@ -1247,6 +1254,19 @@ var Network = {
         backData.result=true;
         if(callback)
         callback(backData);
+    },
+    //获取是否显示不安全内容
+    getIsShowUnsafeData(callback){
+        let url=this.domain+"/load/kaiguan.action";
+        let data={};
+        let backData={result:false};
+        this.request(url,data,(res)=>{
+            if(res==1){
+                backData.result=true;
+            }
+            callback(backData);
+        })
+  
     },
     
 

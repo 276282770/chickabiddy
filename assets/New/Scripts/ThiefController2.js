@@ -18,12 +18,12 @@ cc.Class({
 
     start() {
 
-        let data = [{ id: 2, name: "侠盗猎车手", level: 100 }, {
-            id: 1,
-            name: "小子别跑",
-            level: 80,
-        }];
-        this.setData(data);
+        // let data = [{ id: 2, name: "侠盗猎车手", level: 100 }, {
+        //     id: 1,
+        //     name: "小子别跑",
+        //     level: 80,
+        // }];
+        // this.setData(data);
     },
 
     // update (dt) {},
@@ -44,6 +44,9 @@ cc.Class({
                 }
             }
         }
+    },
+    setThief(data){
+        this.setData(data);
     },
     showExtend(obj) {
         for (var i = 0; i < this.thiefs.length; i++) {

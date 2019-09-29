@@ -1135,7 +1135,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a8ba541b-1c0c-4508-9837-73d9e1fa8850"
+      "__uuid__": "64915d52-d587-44f1-a96c-3a988d763a39"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -1442,7 +1442,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "596af2Iq7dCWrXsz1BIsdg3",
+    "_componentId": "187afwquL1BbocI9gM8ze5B",
     "handler": "onClick",
     "customEventData": ""
   },
@@ -1467,12 +1467,14 @@
       "__id__": 21
     },
     "ndCanStealFood": {
-      "__id__": 30
+      "__id__": 27
     },
     "ndCanStealEgg": {
       "__id__": 24
     },
-    "ndIsOtherStealFood": null,
+    "ndIsOtherStealFood": {
+      "__id__": 30
+    },
     "spBg2": null,
     "_uid": -1,
     "spFronts": [

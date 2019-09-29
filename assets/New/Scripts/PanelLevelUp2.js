@@ -142,4 +142,9 @@ cc.Class({
         director = y / Math.abs(y);
         this.slide(director);
     },
+    onEnable(){
+        if(this._animPlayer==null){
+            this._animPlayer = this.ndPlayer.getComponent(cc.Animation);
+        }
+    },
 });

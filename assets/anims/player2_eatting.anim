@@ -3,7 +3,7 @@
   "_name": "player2_eatting",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 0.7666666666666667,
+  "_duration": 0.6833333333333333,
   "sample": 60,
   "speed": 1,
   "wrapMode": "2",
@@ -63,12 +63,6 @@
             "frame": 0.6666666666666666,
             "value": {
               "__uuid__": "3cb37a46-8e65-4b6b-9746-af86715b0002"
-            }
-          },
-          {
-            "frame": 0.75,
-            "value": {
-              "__uuid__": "b6a11b32-6e25-4ec6-a4d9-291499736060"
             }
           }
         ]

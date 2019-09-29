@@ -11,6 +11,8 @@ cc.Class({
         ndRight: cc.Node,  //回答正确
         ndWrong: cc.Node,  //回答错误
 
+        btnSubmit:cc.Button,  //提交按钮
+
         _answer: -1,
     },
 
@@ -34,8 +36,9 @@ cc.Class({
                 self.ndRight.active = true;
                 Global.game.updateIndex();
             } else {
-                self.ndWrong.active = false;
+                self.ndWrong.active = true;
             }
+            self.btnSubmit.interactable=false;
             // self.txtAward.string = res.data.award;
             // self.txtQuestion.string = res.data.say;
         });

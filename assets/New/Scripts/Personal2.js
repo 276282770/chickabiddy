@@ -82,7 +82,7 @@ cc.Class({
                 self.txtTotalEggCount.string = res.data.totalEggCount.toString();
                 self.txtTotalStealEggCount.string = res.data.totalOtherEggCount.toString();
                 self.txtLoseEggCount.string = res.data.totalLoseEggCount.toString();
-                self.txtMoney.string = res.data.money.toString();
+                self.txtMoney.string = "金币："+res.data.money.toString();
 
                 self.proExp.progress = res.data.lvlExp / res.data.lvlFullExp;
 
@@ -100,16 +100,8 @@ cc.Class({
                     self.txtClean.string = res.data.cleanProgCurr.toString() + "/" + res.data.cleanProgFull.toString();
                 }
 
-                // self.txtLevel.string=
-                // self.ndHonorRichEgg.active=
-                // self.ndHonorBeautiful.active=
-                // self.ndHonorOverlap.active=
-                // self.ndHonorStealEgg.active=
-                // self.txtHonorBeautifulNum.string=
-                // self.txtHonorOverlapNum.string=
-                // self.txtHonorRichEggNum.string=
-                // self.txtHonorStealEggNum.string=
-                // self.imgAvatarFront.spriteFrame=
+                self.txtLevel.string=res.data.lvl.toString();
+                self.imgAvatarFront.spriteFrame=self.spAvatar[Math.min(self.spAvatar.length-1,parseInt(res.data.lvl/10))];
 
             }
         });

@@ -1319,12 +1319,12 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
+      "x": 0,
       "y": 0.5
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 45,
+      "x": -13,
       "y": -62,
       "z": 0
     },
@@ -1366,7 +1366,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_N$horizontalAlign": 1,
+    "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
@@ -1412,17 +1412,17 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 38.33,
+      "width": 60,
       "height": 40
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
+      "x": 0,
       "y": 0.5
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 24,
+      "x": 18,
       "y": -19,
       "z": 0
     },
@@ -1455,8 +1455,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "ID:",
-    "_N$string": "ID:",
+    "_string": "ID：",
+    "_N$string": "ID：",
     "_fontSize": 30,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1464,7 +1464,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_N$horizontalAlign": 1,
+    "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
@@ -5193,7 +5193,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 150,
+      "x": 147,
       "y": 148,
       "z": 0
     },
@@ -5259,7 +5259,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 82,
+      "x": 81,
       "y": 0,
       "z": 0
     },
@@ -5803,7 +5803,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 154,
+      "x": 146,
       "y": 107,
       "z": 0
     },
@@ -5869,7 +5869,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 78,
+      "x": 84,
       "y": 0,
       "z": 0
     },
@@ -6559,7 +6559,9 @@
         "__uuid__": "ef71776c-d174-45f6-9ac2-e4f767fb56d6"
       }
     ],
-    "imgAvatarFront": null,
+    "imgAvatarFront": {
+      "__id__": 17
+    },
     "txtID": {
       "__id__": 40
     },

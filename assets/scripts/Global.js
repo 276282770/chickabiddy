@@ -5,7 +5,7 @@ window.Global={
     user:{
         nickName:"",
         avatar:"",
-        level:0,
+        level:-1,
     },
     money:0,
     scene:{

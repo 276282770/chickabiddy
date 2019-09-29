@@ -796,7 +796,7 @@
     },
     "component": "",
     "_componentId": "203d5xGz9REO6hjYCVdENLY",
-    "handler": "onFighting",
+    "handler": "onFightingSync",
     "customEventData": ""
   },
   {
@@ -980,7 +980,7 @@
     },
     "component": "",
     "_componentId": "203d5xGz9REO6hjYCVdENLY",
-    "handler": "onOut",
+    "handler": "onOutSync",
     "customEventData": ""
   },
   {
