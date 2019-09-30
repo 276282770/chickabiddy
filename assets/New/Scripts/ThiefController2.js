@@ -29,12 +29,14 @@ cc.Class({
     // update (dt) {},
 
     setData(datas) {
+        console.log("==================="+JSON.stringify(datas));
+        
         for (var i = 0; i < datas.length; i++) {
             if (i >= this.thiefs.length) {
                 return;
             }
             if (datas[i] == null) {
-                this.thiefs.node.active = false;
+                this.thiefs[i].node.active = false;
             } else {
                 if (this.thiefs[i].node.active == false) {
                     // this.thiefs[i].node.position=this.positions[i];

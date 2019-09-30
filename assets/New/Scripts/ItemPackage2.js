@@ -60,22 +60,23 @@ cc.Class({
 
 
                 if(res.result){
-                    Global.game.panels.deletePanel();
+                    
                     Global.game.onDine();
                 }else{
-                    Global.game.showTip(res.data);
+                    Global.game.player.openSay(res.data.say);
                 }
             });
         }else if(Global.sceneCode==1){
             Network.giveOtherFood(Global.scene.otherUid,this._cid,(res)=>{
                 if(res.result){
-                    Global.game.panels.deletePanel();
+                    
                     Global.game.onDine();
                 }else{
                     Global.game.showTip(res.date);
                 }
             })
         }
+        Global.game.panels.deletePanel();
         //本地测试
         // let res={result:true,data:10};
         // if(res.result){

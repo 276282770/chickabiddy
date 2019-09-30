@@ -89,9 +89,13 @@ var Network = {
                 let thiefs = res.data.badMan;
                 backData.data.thiefs = [];
                 for (var i = 0; i < thiefs.length; i++) {
-                    if (thiefs[i] == null)
-                        continue;
-                    backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url });
+                    if (thiefs[i] == null){
+                        backData.data.thiefs.push(null);
+                    }else{
+                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url });
+
+                    }
+                        
                 }
 
                 backData.data.playerState = 0;  //正常
@@ -873,9 +877,13 @@ var Network = {
                 let thiefs = res.data.badMan;
                 backData.data.thiefs = [];
                 for (var i = 0; i < thiefs.length; i++) {
-                    if (thiefs[i] == null)
-                        continue;
-                    backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url });
+                    if (thiefs[i] == null){
+                        backData.data.thiefs.push(null);
+                    }else{
+                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url });
+
+                    }
+                        
                 }
 
                 backData.data.eggCount = res.data.egg;

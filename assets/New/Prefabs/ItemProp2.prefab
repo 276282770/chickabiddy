@@ -725,7 +725,7 @@
     },
     "component": "",
     "_componentId": "45f91ZVcXhPWZS8QJLP2z15",
-    "handler": "onUse",
+    "handler": "onClick",
     "customEventData": ""
   },
   {
@@ -874,6 +874,9 @@
       },
       {
         "__uuid__": "eed607d3-6952-4982-9fd0-46528ca24d52"
+      },
+      {
+        "__uuid__": "0ff06b39-7a7b-4631-9901-085a337b297d"
       }
     ],
     "spTip": [
@@ -882,6 +885,9 @@
       },
       {
         "__uuid__": "55028004-2c45-4d70-b8ae-01306368c188"
+      },
+      {
+        "__uuid__": "24e08536-b32d-4061-bcae-fc5bd001eccd"
       }
     ],
     "_id": ""

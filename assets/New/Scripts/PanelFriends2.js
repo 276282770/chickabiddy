@@ -78,7 +78,7 @@ cc.Class({
                 Global.scene.lastPanel = "";
                 console.log("隐藏面板");
                 //引导5
-                
+
                 let guide = cc.find("Canvas/Guid").getComponent("Guid");
                 if (guide._isGuid) {
                     guide.stepSchedule(5);
@@ -175,11 +175,40 @@ cc.Class({
                 } else {
                     Global.game.showTip("添加好友失败");
                 }
-                self.onClose();
+                // self.onClose();
+                self.onHide();
             });
         }
         else {
             this.onShare();
         }
     },
+    onEnable() {
+        this.updateData();
+    },
+    updateData() {
+        var self = this;
+        Network.requestFriendList(this._page, (res) => {
+            if (res.result) {
+                let data = res.data.friends;
+                for (var i = 0; i < data.length; i++) {
+                    let exist = false;
+                    for (var j = 0; j < self.ndCtnt.childrenCount; j++) {
+                        let itemStr = self.ndCtnt.children[j].getComponent("ItemFriend2");
+                        if (itemStr._uid == data[i].id) {
+                            exist = true;
+                            break;
+                        }
+                    }
+                    if (!exist) {
+                        let newItem = cc.instantiate(self.preItem);
+                        newItem.parent = self.ndCtnt;
+                        let newItemScr = newItem.getComponent("ItemFriend2");
+                        newItemScr.fillItem(data[i].id, data[i].lvl, data[i].nickName, data[i].avatar,
+                            data[i].isHelpBath, data[i].isStealFood, data[i].isStealEgg, data[i].isOtherStealFood, 0);
+                    }
+                }
+            }
+        });
+    }
 });

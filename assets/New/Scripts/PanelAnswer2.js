@@ -13,6 +13,8 @@ cc.Class({
 
         btnSubmit:cc.Button,  //提交按钮
 
+        ndBg:cc.Node,  //答题背框
+
         _answer: -1,
     },
 
@@ -39,6 +41,7 @@ cc.Class({
                 self.ndWrong.active = true;
             }
             self.btnSubmit.interactable=false;
+            self.ndBg.active=false;
             // self.txtAward.string = res.data.award;
             // self.txtQuestion.string = res.data.say;
         });

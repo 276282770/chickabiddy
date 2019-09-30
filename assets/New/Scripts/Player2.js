@@ -77,6 +77,7 @@ cc.Class({
 
         this._remainChangeTime=20;
         
+
     },
 
     //设置小鸡
@@ -118,7 +119,7 @@ cc.Class({
     },
 
     update(dt) {
-        if (this.type == 0&&Global.sceneCode==0) {
+        if (this.type == 0&&Global.sceneCode==0&&(this._state==0||this._state==2)) {
             if (this._remainChangeTime <= 0) {
                 this.randomChangeState_idle();
                 this._remainChangeTime = Math.max(5, Math.random() * 20);
@@ -312,6 +313,9 @@ cc.Class({
         })
     },
     onClick() {
+
+
+    
 
 
         if (this._isAction) {
@@ -548,7 +552,7 @@ cc.Class({
             case 2: this.playIdle(); break;
             case 3: this.randomWalk(); break;
         }
-        this.openSay("发现来家里俩晕鸡儿...");
+        // this.openSay("发现来家里俩晕鸡儿...");
     },
     //随机行走
     randomWalk() {
@@ -609,8 +613,7 @@ cc.Class({
     
     //重置位置
     resetPostion(){
-        console.log("【重置位置】"+JSON.stringify(this._originalPosition));
-        this.node.postion=this._originalPosition;
+        this.node.position=this._originalPosition;
     },
 
 
