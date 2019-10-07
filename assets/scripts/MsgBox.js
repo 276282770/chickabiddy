@@ -29,6 +29,7 @@ cc.Class({
         // },
         txtMsg:cc.Label,  //消息框中的文字
         tm:2,  //默认消失时间
+        clamp:12
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -41,7 +42,18 @@ cc.Class({
         },this.tm);
     },
     show(text){
-        this.txtMsg.string=text;
+        if(text==null||text=="")
+        return;
+        let result=text[0];
+ 
+        for(var i=1;i<text.length;i++){
+            if(i%this.clamp==0){
+                result+=text[i]+"\r\n";
+            }
+            result+=text[i];
+        }
+        this.txtMsg.string=result;
+        
     },
 
     // update (dt) {},

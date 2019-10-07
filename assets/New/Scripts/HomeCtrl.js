@@ -106,14 +106,15 @@ cc.Class({
     },
     //给被人洗澡
     onGiveOtherBath() {
-        Network.requestBathHelp(this._uid, (res) => {
-            if (res.result) {
-                Global.game.onBath();
-            }
-            Global.game.showTip(res.data.tip);
-            Global.game.player.openSay(res.data.say);
+        // Network.requestBathHelp(this._uid, (res) => {
+        //     if (res.result) {
+        //         Global.game.onBath();
+        //     }
+        //     Global.game.showTip(res.data.tip);
+        //     Global.game.player.openSay(res.data.say);
 
-        });
+        // });
+        Global.game.onBath();
     },
 
     //更新

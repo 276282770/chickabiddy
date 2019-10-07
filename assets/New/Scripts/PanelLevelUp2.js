@@ -26,21 +26,33 @@ cc.Class({
         // this.ndPlaye=this.node.getChildByName("Player");
         this._animPlayer = this.ndPlayer.getComponent(cc.Animation);
 
-        this.scheduleOnce(this.resetSizeAndPosition, 1);
+        this.scheduleOnce(this.resetSizeAndPosition, 0.5);
 
 
+
+        
+
+
+        
     },
 
     update(dt) {
-
+        console.log(this.ndSteps.height);
     },
     resetSizeAndPosition() {
 
+      
         for (var i = 0; i < this.stepsRoot.length; i++) {
 
             this.stepsRoot[i].position = new cc.Vec2(0, i * this.ndSteps.height);
-
+            
         }
+
+        
+        // Global.user.level=11;
+    
+        this.ndSteps.position=new cc.v2(0,-this.getPage()*this.ndSteps.height);
+
 
         // let curr=10;
         // let bgIdx = parseInt(curr / 10);
@@ -53,6 +65,7 @@ cc.Class({
     },
 
     init(curr) {
+        console.log("等级"+curr);
         var self = this;
         let bgIdx = parseInt(curr / 10);
         let modIdx = parseInt((curr - 1) % 10);
@@ -63,6 +76,9 @@ cc.Class({
         let midLayer = Common.vector2Add(this.stepsRoot[bgIdx].getChildByName("bottomcenter").position, this.stepsRoot[bgIdx].position);
 
         // console.log(JSON.stringify(midLayer)+" "+JSON.stringify(tarStep));
+        // console.log(this.ndSteps.position+" ::");
+        // this.ndSteps.position=new cc.v2(0,-bgIdx*this.ndSteps.height);
+        // console.log(this.ndSteps.position+" :::");
         this.ndPlayer.position = preStep;
         if (modIdx != 9) {
             this.jumpTo(tarStep);
@@ -93,14 +109,17 @@ cc.Class({
 
     },
     show() {
+
+
         this.init(Global.user.level);
     },
     onHide() {
         this.node.active = false;
     },
     onAddLevel() {
-        Global.user.level++;
-        this.show();
+        // Global.user.level++;
+        // this.show();
+
     },
     slide(vertial, callback) {
   
@@ -143,8 +162,14 @@ cc.Class({
         this.slide(director);
     },
     onEnable(){
+
         if(this._animPlayer==null){
             this._animPlayer = this.ndPlayer.getComponent(cc.Animation);
         }
+        this.scheduleOnce(this.show,1);
+        
     },
+    getPage(){
+       return parseInt((Global.user.level-1)/10);
+    }
 });

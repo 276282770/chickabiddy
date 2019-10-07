@@ -184,7 +184,9 @@ cc.Class({
         }
     },
     onEnable() {
+        console.log("【更新好友数据】");
         this.updateData();
+
     },
     updateData() {
         var self = this;
@@ -197,6 +199,8 @@ cc.Class({
                         let itemStr = self.ndCtnt.children[j].getComponent("ItemFriend2");
                         if (itemStr._uid == data[i].id) {
                             exist = true;
+                            itemStr.fillItem(data[i].id, data[i].lvl, data[i].nickName, data[i].avatar,
+                                data[i].isHelpBath, data[i].isStealFood, data[i].isStealEgg, data[i].isOtherStealFood, 0);
                             break;
                         }
                     }

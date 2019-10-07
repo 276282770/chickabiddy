@@ -1,15 +1,15 @@
 {
   "ver": "2.2.0",
-  "uuid": "8e621b36-bb7b-4092-9b7f-9a36eaa602e9",
+  "uuid": "6a95297a-8ace-4dd6-ba1a-aa10932c3f54",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "subMetas": {
-    "获取食物": {
+    "1": {
       "ver": "1.0.3",
-      "uuid": "ee4e48b2-aa03-4b50-affa-ea14cc0a737f",
-      "rawTextureUuid": "8e621b36-bb7b-4092-9b7f-9a36eaa602e9",
+      "uuid": "5bd6423e-a474-45a0-8d21-0646b4dcce33",
+      "rawTextureUuid": "6a95297a-8ace-4dd6-ba1a-aa10932c3f54",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

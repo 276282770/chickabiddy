@@ -1,15 +1,15 @@
 {
   "ver": "2.2.0",
-  "uuid": "885e207a-616c-4b03-bb49-32f66928bc5e",
+  "uuid": "47dc6c52-c31c-4c13-bad5-a406ec38743e",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "subMetas": {
-    "主页": {
+    "3": {
       "ver": "1.0.3",
-      "uuid": "25abf3b3-40e3-4ed2-9a3c-decb18a4b51d",
-      "rawTextureUuid": "885e207a-616c-4b03-bb49-32f66928bc5e",
+      "uuid": "87e55cf1-c271-442c-8fb7-d5d0d5c09785",
+      "rawTextureUuid": "47dc6c52-c31c-4c13-bad5-a406ec38743e",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

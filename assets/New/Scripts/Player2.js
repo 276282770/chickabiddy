@@ -75,18 +75,18 @@ cc.Class({
         this._thiefCtrl = cc.find("Canvas/PlayerRoot").getComponent("ThiefController2");
         // this.setTittivateData({ hat: 10, glass: 9, hornor: 100 });
 
-        this._remainChangeTime=20;
-        
+        this._remainChangeTime = 20;
+
 
     },
 
     //设置小鸡
     setPlayerData(id, name, level, tittiData, state) {
-        
-        
+
+
         this.setData(id, name, level, tittiData, state);
 
-        
+
     },
     setThiefData(id, name, level, tittiData, state) {
         // this._isThief=true;
@@ -95,7 +95,7 @@ cc.Class({
         this.setData(id, name, level, tittiData, state);
     },
     setData(id, name, level, tittiData, state) {
-        
+
 
         this.ndName.active = true;
 
@@ -109,17 +109,17 @@ cc.Class({
 
         this.ndName.getChildByName("txtLevel").getComponent(cc.Label).string = level.toString();
         this.ndName.getChildByName("txtName").getComponent(cc.Label).string = name;
-        if(tittiData!=null)
-        this.setTittivateData(tittiData);
+        if (tittiData != null)
+            this.setTittivateData(tittiData);
         if (state != null)
             this.setState(state);
-      
 
-        
+
+
     },
 
     update(dt) {
-        if (this.type == 0&&Global.sceneCode==0&&(this._state==0||this._state==2)) {
+        if (this.type == 0 && Global.sceneCode == 0 && (this._state == 0 || this._state == 2)) {
             if (this._remainChangeTime <= 0) {
                 this.randomChangeState_idle();
                 this._remainChangeTime = Math.max(5, Math.random() * 20);
@@ -246,21 +246,30 @@ cc.Class({
         this._cam._isFollow = true;
         self.getPool();
         let targetPos = Common.vector2Add(this._pool.position, this._pool.getChildByName("playerPos").position);
+
         this.moveTo(targetPos, function () {
             console.log("走完了");
             // self.node.active=false;
             // self._pool.getChildByName("Bath").getComponent(cc.Animation).play("Player2_poolBath");
 
-            self.playSmoke();  //播放泡沫
-            self.scheduleOnce(function () {
-                cc.find("Canvas/ClothBucket").getComponent("ClothBucket2").setFull(true);//衣服篓填满
-                self.showTitti(false);
+            if (self.hasTitti()) {
+                self.playSmoke();  //播放泡沫
+                self.scheduleOnce(function () {
+                    cc.find("Canvas/ClothBucket").getComponent("ClothBucket2").setFull(true);//衣服篓填满
+                    self.showTitti(false);
+                    let targ = Common.vector2Add(self._pool.position, new cc.Vec2(0, 100));
+                    self.jumpTo(targ, function () {
+                        self._pool.getComponent("Pool").onBath();
+                        self.node.active = false;
+                    });
+                }, 1);
+            } else {
                 let targ = Common.vector2Add(self._pool.position, new cc.Vec2(0, 100));
                 self.jumpTo(targ, function () {
                     self._pool.getComponent("Pool").onBath();
                     self.node.active = false;
                 });
-            }, 1);
+            }
         })
     },
     //去洗澡回来
@@ -268,14 +277,21 @@ cc.Class({
         var self = this;
         this.node.active = true;
         let targetPos = Common.vector2Add(this._pool.position, this._pool.getChildByName("playerPos").position);
-        this.jumpTo(targetPos, function () {
-            self.playSmoke();
-            self.scheduleOnce(function () {
-                self.showTitti(true);
-                cc.find("Canvas/ClothBucket").getComponent("ClothBucket2").setFull(false);//衣服篓填满
+        if (this.hasTitti()) {
+            this.jumpTo(targetPos, function () {
+                self.playSmoke();
+                self.scheduleOnce(function () {
+                    self.showTitti(true);
+                    cc.find("Canvas/ClothBucket").getComponent("ClothBucket2").setFull(false);//衣服篓填满
+                    self.goBack();
+                }, 1)
+            });
+        } else {
+            this.jumpTo(targetPos, function () {
+
                 self.goBack();
-            }, 1)
-        });
+            });
+        }
     },
     //获取pool
     getPool() {
@@ -312,10 +328,12 @@ cc.Class({
             self.scheduleOnce(self.goBack, 5);
         })
     },
+
     onClick() {
 
 
-    
+
+
 
 
         if (this._isAction) {
@@ -348,8 +366,8 @@ cc.Class({
     },
     //装扮
     setTittivateData(data) {
-        
-        if(data==null){
+
+        if (data == null) {
             this.setTittivate("hat", 0);
             this.setTittivate("glass", 0);
             this.setTittivate("hornor", 0);
@@ -370,7 +388,7 @@ cc.Class({
         }
     },
     setTittivate(type, id) {
-        
+
         let path = "Tittivate/" + type + "_" + id.toString();
         let image;
         // switch (type) {
@@ -379,11 +397,11 @@ cc.Class({
         //     case "hornor":image=this.imgHornor;break;
         // }
         image = this._imgTitti[type];
-       
 
-        if(id<=0){
-            
-            image.spriteFrame=null;
+
+        if (id <= 0) {
+
+            image.spriteFrame = null;
             return;
         }
 
@@ -610,10 +628,12 @@ cc.Class({
             }
         })
     },
-    
+
     //重置位置
-    resetPostion(){
-        this.node.position=this._originalPosition;
+    resetPostion() {
+        this.node.position = this._originalPosition;
+        this.node.stopAllActions();
+        this.unscheduleAllCallbacks();
     },
 
 
@@ -672,5 +692,17 @@ cc.Class({
 
     onHide() {
         this.node.active = false;
-    }
+    },
+
+    //是否有装饰
+    hasTitti() {
+        if (this._tittivate.hat > 0)
+            return true;
+        if (this._tittivate.glass > 0)
+            return true;
+        if (this._tittivate.hornor > 0)
+            return true;
+        return false;
+    },
+
 });

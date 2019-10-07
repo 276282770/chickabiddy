@@ -33,6 +33,8 @@ cc.Class({
         txtLevel:{default:null,type:cc.Label,tooltip:"等级"},
         imgLevel:cc.Sprite,  //等级图
         spLevels:[cc.SpriteFrame],  //头三名等级图片精灵
+        imgFront:cc.Sprite,
+        spFronts:[cc.SpriteFrame],
         
         
 
@@ -77,6 +79,10 @@ cc.Class({
                     self.imgAvatar.spriteFrame=new cc.SpriteFrame(tex);
                 }
             });
+        }
+        
+        if(this.imgFront!=null){
+            this.imgFront.spriteFrame=this.spFronts[Math.min(this.spFronts.length-1, parseInt(level/10))];
         }
     },
 });

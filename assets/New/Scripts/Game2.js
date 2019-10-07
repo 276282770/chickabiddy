@@ -276,7 +276,9 @@ cc.Class({
 
         //更新升级
         if (Global.user.level > 0 && Global.user.level != data.lvl) {
-            self.onPlayLevelUp();
+            self.showTip("恭喜，等级提升");
+            self.scheduleOnce(self.onPlayLevelUp,2);
+            // self.onPlayLevelUp();
         }
         Global.user.level = data.lvl;
 
@@ -494,7 +496,7 @@ cc.Class({
     //播放升级动画
     onPlayLevelUp() {
         this.ndPanelLevelUp.active = true;
-        this.ndPanelLevelUp.getComponent("PanelLevelUp2").show();
+        // this.ndPanelLevelUp.getComponent("PanelLevelUp2").show();
     },
     //收鸡蛋
     onPickEgg() {
