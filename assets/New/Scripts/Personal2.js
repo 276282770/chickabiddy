@@ -43,6 +43,7 @@ cc.Class({
 
     start() {
         this.onShow();
+       
     },
     onClose() {
         var self = this;

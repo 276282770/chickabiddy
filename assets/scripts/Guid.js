@@ -189,6 +189,7 @@ cc.Class({
     },
     //隐藏所有手指
     hidePoint(){
+        return;
         // if(this._isGuid){
            this.ndPointoutBath.active=false;
            this.ndPointoutFriend.active=false;

@@ -37,7 +37,7 @@ cc.Class({
     },
 
     update(dt) {
-        console.log(this.ndSteps.height);
+        // console.log(this.ndSteps.height);
     },
     resetSizeAndPosition() {
 

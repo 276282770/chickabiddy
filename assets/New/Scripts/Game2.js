@@ -14,6 +14,7 @@ cc.Class({
         txtOtherEgg: cc.Label,  //偷来的鸡蛋
         txtMoney: cc.Label,  //钱
         txtLvl: cc.Label,  //等级
+        txtNickname:cc.Label,  //昵称
         imgLvl: cc.Sprite,  //等级图片
         spLvls: [cc.SpriteFrame],//等级外框精灵
         ndLvlUp: cc.Node,  //等级加速
@@ -44,6 +45,7 @@ cc.Class({
         ndEgg: cc.Node,  //鸡蛋节点
         ndTV: cc.Node,  //TV节点
         ndPanelLevelUp: cc.Node,  //升级节点
+        ndLevelUpFront:cc.Node,  //升级前节点
 
 
         panels: PanelManager,  //面板管理
@@ -273,11 +275,15 @@ cc.Class({
         if (Global.user.avatar != "") {
             self.setAvatar(Global.user.avatar);
         }
+        self.txtNickname.string="";
+        
 
         //更新升级
         if (Global.user.level > 0 && Global.user.level != data.lvl) {
-            self.showTip("恭喜，等级提升");
-            self.scheduleOnce(self.onPlayLevelUp,2);
+            self.ndLevelUpFront.active=true;
+            self.scheduleOnce(function(){
+                self.ndLevelUpFront.active=false;
+                self.onPlayLevelUp();},2);
             // self.onPlayLevelUp();
         }
         Global.user.level = data.lvl;
@@ -304,6 +310,7 @@ cc.Class({
         self.player.setPlayerData(data.id, data.nickName, data.lvl, data.titti, data.playerState);
         //更新头像
         self.setAvatar(data.avatar);
+        self.txtNickname.string=data.nickName+"的家";
         self.proFood.node.parent.getChildByName("full").active = data.foodRemain > 0;//更新饭桶
 
 
@@ -311,6 +318,7 @@ cc.Class({
 
 
     start() {
+        this._rqstTm = this._rqstRate;
     },
     //初始化节点
     iniNode() {
@@ -336,7 +344,16 @@ cc.Class({
 
     },
 
-    // update (dt) {},
+    update (dt) {
+        if (this._rqstTm > 0) {
+            this._rqstTm -= dt;
+
+        } else {
+
+            this._rqstTm = this._rqstRate;
+            this.updateIndex();
+        }
+    },
 
     //设置钱
     setMoney(num) {
@@ -374,9 +391,9 @@ cc.Class({
                     self.player.goBath();
 
                     self.scheduleOnce(function () {
-                        self.showTip(res.data.tip);
+                        // self.showTip(res.data.tip);
                         self.player.openSay(res.data.say);
-                    }, 10);
+                    }, 6);
                 } else {
                     self.player.openSay(res.data.say);
                 }
@@ -387,9 +404,9 @@ cc.Class({
                     self.player.goBath();
 
                     self.scheduleOnce(function () {
-                        self.showTip(res.data.tip);
+                        // self.showTip(res.data.tip);
                         self.player.openSay(res.data.say);
-                    }, 10);
+                    }, 6);
                 } else {
                     self.player.openSay(res.data.say);
                 }
@@ -599,6 +616,12 @@ cc.Class({
         if (Global.sceneCode == 0) {
             cc.find("Canvas").getComponent("HomeCtrl").gotoOtherHome();
         }
+    },
+    //是否显示控制按钮
+    showCtrl(yes){
+        this.ndLeft.active=yes;
+        this.ndRight.active=yes;
+        this.ndDown.active=yes;
     },
 
 });

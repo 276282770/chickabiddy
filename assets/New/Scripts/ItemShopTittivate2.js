@@ -69,7 +69,7 @@ cc.Class({
         // }
         // this._parent.onSelect(this._type,this._tId,this._isUse);
         var item=cc.instantiate(this.prePanelBuy);
-        item.getComponent("PanelBuy2").fill(this._tId,this._name,this._desc,this._price);
+        item.getComponent("PanelBuy2").fill(this._tId,this._name,this._desc,this._price,5);
         item.parent=cc.find("Canvas/UICanvas");
     }
 });

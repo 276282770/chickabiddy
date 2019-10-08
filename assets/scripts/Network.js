@@ -1227,7 +1227,7 @@ var Network = {
                 backData.result=true;
                 let data=res.data;
                 backData.data={
-                    isRichEgg:data.LargeChicken,
+                    isRichEgg:data.largeChicken,
                     richEggNum:data.numberOfEggs,
                     isBeautiful:data.fashionInsider,
                     beautifulNum:data.numberOfClothes,

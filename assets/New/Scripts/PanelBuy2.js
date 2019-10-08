@@ -8,10 +8,13 @@ cc.Class({
         txtTotalPrice:cc.Label,  //总价
         txtNum:cc.Label,  //数量文本
         btnBuy:cc.Button,  //购买按钮
+        ndAdd:cc.Node,  //加
+        ndReduce:cc.Node,  //减
 
         _unitPrice:0,  //单价
         _num:0,  //数量
         _cid:-1,
+        _tp:-1,  //类型  5.装饰
     },
 
 
@@ -19,7 +22,7 @@ cc.Class({
 
     },
     //填充
-    fill(id,name,desc,unitPrice){
+    fill(id,name,desc,unitPrice,tp){
 
         this._cid=id;
         var self=this;
@@ -32,6 +35,13 @@ cc.Class({
         }
         this._unitPrice=unitPrice;
         this.iniPrice();
+        if(tp){
+            this._tp=tp;
+            if(tp==5){
+                this.ndAdd.active=false;
+                this.ndReduce.active=false;
+            }
+        }
     },
     onClose(){
         this.node.destroy();
@@ -57,6 +67,8 @@ cc.Class({
             this.txtNum.string=this._num.toString();
             this.txtTotalPrice.string=price.toString();
             this.btnBuy.interactable=true;
+        }else{
+            Global.game.showTip("钱不够了");
         }
     },
     //减数量按钮
@@ -67,6 +79,8 @@ cc.Class({
             this.txtTotalPrice.string=(this._unitPrice*this._num).toString();
             if(this._num==0)
             this.btnBuy.interactable=false;
+        }else{
+            Global.game.showTip("已经到底了，不能再减了");
         }
     },
     //点击购买

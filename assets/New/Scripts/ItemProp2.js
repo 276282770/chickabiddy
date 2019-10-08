@@ -31,6 +31,9 @@ cc.Class({
         cid: 1,
         prePanelBuy: cc.Prefab,  //购买界面预制体
         txtCount: cc.Label,  //道具数量
+imgUse:cc.Sprite,//按钮图片
+spUse:[cc.SpriteFrame],  //按钮图片精灵
+
         _cid: -1,  //道具ID   1:双倍经验卡；  6:蹭吃卡  13.场景切换卡
         _count: 0,  //数量
 
@@ -64,7 +67,7 @@ cc.Class({
         } else {  //购买
             console.log("【购买道具卡】");
             let newPanel = cc.instantiate(this.prePanelBuy);
-            newPanel.parent = cc.find("Canvas");
+            newPanel.parent = cc.find("Canvas/UICanvas");
             let newPanelScr = newPanel.getComponent("PanelBuy2");
             newPanelScr.load(this._cid);
 
@@ -142,5 +145,9 @@ cc.Class({
             this.imgTip.spriteFrame = this.spTip[2];
         }
         this.txtCount.string = count;
+
+        if(count<=0){
+            this.imgUse.spriteFrame=this.spUse[1];
+        }
     }
 });

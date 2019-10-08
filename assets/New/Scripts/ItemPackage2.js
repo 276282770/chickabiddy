@@ -76,6 +76,7 @@ cc.Class({
                 }
             })
         }
+        Global.game.updateIndex();
         Global.game.panels.deletePanel();
         //本地测试
         // let res={result:true,data:10};

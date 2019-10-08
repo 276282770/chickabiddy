@@ -860,6 +860,17 @@
     "txtCount": {
       "__id__": 5
     },
+    "imgUse": {
+      "__id__": 17
+    },
+    "spUse": [
+      {
+        "__uuid__": "7d6a0750-9caa-446d-aa46-faf7bade6ce4"
+      },
+      {
+        "__uuid__": "9d61871c-8c58-46a4-b4fd-daceb0cbe2ca"
+      }
+    ],
     "_cid": -1,
     "_count": 0,
     "imgBg": {

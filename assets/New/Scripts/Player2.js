@@ -83,13 +83,14 @@ cc.Class({
     //设置小鸡
     setPlayerData(id, name, level, tittiData, state) {
 
-
+        this.ndName.active=false;
         this.setData(id, name, level, tittiData, state);
 
 
     },
     setThiefData(id, name, level, tittiData, state) {
         // this._isThief=true;
+        this.ndName.active=true;
         this.type = 1;
         this.ndEx = this.node.getChildByName("Extend2");
         this.setData(id, name, level, tittiData, state);
@@ -97,14 +98,14 @@ cc.Class({
     setData(id, name, level, tittiData, state) {
 
 
-        this.ndName.active = true;
+        // this.ndName.active = true;
 
         if (id == Global.id) {
             name = "我的小鸡";
             this.type = 0;
-            if (Global.sceneCode == 0) {
-                this.ndName.active = false;
-            }
+            // if (Global.sceneCode == 0) {
+            //     this.ndName.active = false;
+            // }
         }
 
         this.ndName.getChildByName("txtLevel").getComponent(cc.Label).string = level.toString();
@@ -247,6 +248,8 @@ cc.Class({
         self.getPool();
         let targetPos = Common.vector2Add(this._pool.position, this._pool.getChildByName("playerPos").position);
 
+        Global.game.showCtrl(false);
+
         this.moveTo(targetPos, function () {
             console.log("走完了");
             // self.node.active=false;
@@ -261,6 +264,8 @@ cc.Class({
                     self.jumpTo(targ, function () {
                         self._pool.getComponent("Pool").onBath();
                         self.node.active = false;
+
+                        
                     });
                 }, 1);
             } else {
@@ -268,6 +273,8 @@ cc.Class({
                 self.jumpTo(targ, function () {
                     self._pool.getComponent("Pool").onBath();
                     self.node.active = false;
+
+                    
                 });
             }
         })
@@ -311,6 +318,8 @@ cc.Class({
             console.log("走完了");
             self.updateHomeState();
             self._isAction = false;
+
+            Global.game.showCtrl(true);
         });
     },
     //去吃饭
@@ -320,6 +329,9 @@ cc.Class({
         this._cam._isFollow = true;
         self.getLunchBox();
         let targetPos = Common.vector2Add(this._lunchBox.position, this._lunchBox.getChildByName("playerPos").position);
+
+        Global.game.showCtrl(false);
+
         this.moveTo(targetPos, function () {
             console.log("走完了");
             // self.node.active=false;
@@ -448,6 +460,8 @@ cc.Class({
         }
     },
     setPlayerCondition(hungry, clean, beaten, outHome) {
+        if (this._isAction)
+            return;
         this._hungry = hungry;
         this._clean = clean;
         this._beaten = beaten;
@@ -578,6 +592,7 @@ cc.Class({
         let dir = new Date().getSeconds() % 2 == 0 ? 1 : -1;
         let rnd = parseInt(Math.random() * 200) * dir;
         let target = new cc.v2(rnd, this.node.position.y);
+        cc.find("Canvas/Main Camera").getComponent("CameraController2")._isFollow=true;
         this.moveTo(target, function () {
             // if (new Date().getSeconds() % 2 == 0) {
             //     self.randomWalk();
@@ -634,6 +649,7 @@ cc.Class({
         this.node.position = this._originalPosition;
         this.node.stopAllActions();
         this.unscheduleAllCallbacks();
+        this.closeExtend();
     },
 
 
