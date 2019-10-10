@@ -2,7 +2,7 @@
 var WX = require("WX");
 var Common=require("Common");
 var Network = {
-    // domain:"http://192.168.0.39:8080",
+    // domain:"http://192.168.0.4:8080",
     domain: "https://xj.xiajiwangluo.com",  //域名
 
 
@@ -314,6 +314,7 @@ var Network = {
             if (res.state == 200) {
                 backData.result = true;
                 backData.data.id = id;
+               
             }
             backData.data.say = res.tips.tips;
             // }else{
@@ -1166,6 +1167,7 @@ var Network = {
         this.request(url,data,(res)=>{
             if(res.state==200){
                 backData.result=true;
+                backData.data=res.tips.tips;
             }else{
                 backData.data=res.data;
             }

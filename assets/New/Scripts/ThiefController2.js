@@ -38,12 +38,12 @@ cc.Class({
             if (datas[i] == null) {
                 this.thiefs[i].node.active = false;
             } else {
-                if (this.thiefs[i].node.active == false) {
+                
                     // this.thiefs[i].node.position=this.positions[i];
                     this.thiefs[i].node.active = true;
                     this.thiefs[i].setThiefData(datas[i].id, datas[i].name, datas[i].level, null, 20);
                     this.thiefs[i].playEatting_thief();
-                }
+                
             }
         }
     },
@@ -93,8 +93,8 @@ cc.Class({
         var self = this;
         Network.requestHit(obj._uid,(res)=>{
             if(res.result){
-                otherObj= self.getAnotherThief(obj);
-                player=Global.game.player;
+                let otherObj= self.getAnotherThief(obj);
+                let player=Global.game.player;
 
                 obj.onFighting();
                 obj.openSay(res.data.say);

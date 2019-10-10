@@ -103,9 +103,7 @@ cc.Class({
                 }
             })));
     },
-    // onEnable(){
-    //     this.show();
-    // },
+
     //添加好友
     onShare() {
         Global.game.onShare("tp=af&id=" + Global.id);
@@ -184,11 +182,12 @@ cc.Class({
         }
     },
     onEnable() {
-        console.log("【更新好友数据】");
+       
         this.updateData();
 
     },
     updateData() {
+        console.log("【好友】更新");
         var self = this;
         Network.requestFriendList(this._page, (res) => {
             if (res.result) {
@@ -213,6 +212,7 @@ cc.Class({
                     }
                 }
             }
+            console.log("------------w");
         });
     }
 });

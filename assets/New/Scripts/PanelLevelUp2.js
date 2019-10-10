@@ -66,6 +66,7 @@ cc.Class({
 
     init(curr) {
         console.log("等级"+curr);
+        curr-=1;
         var self = this;
         let bgIdx = parseInt(curr / 10);
         let modIdx = parseInt((curr - 1) % 10);

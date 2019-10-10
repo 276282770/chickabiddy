@@ -17,6 +17,8 @@ cc.Class({
 
         // prePanelPackage:cc.Prefab,  //背包预制体
 
+        _isShowPanelFriend: false,
+
         _uid: 0,
     },
 
@@ -42,7 +44,7 @@ cc.Class({
                 Global.sceneCode = 1;
 
                 self.changeNode(false);
-
+                Global.game.player.openSay(res.data.say);
                 Global.game.updateOtherState(res.data);
             } else {
                 Global.game.showTip(res.data);
@@ -73,11 +75,20 @@ cc.Class({
         this.ndRight.active = isBackHome;
         this.ndDown.getChildByName("Mine").active = isBackHome;
         this.ndDown.getChildByName("Other").active = !isBackHome;
-        this.ndPanelFriend.active = isBackHome;
+
         this.ndProgEgg.active = isBackHome;
         this.ndProgExp.active = isBackHome;
         this.ndProgLunchBox.active = isBackHome;
         this.btnAvatar.interactable = isBackHome;
+
+        if (isBackHome) {
+            if (this._isShowPanelFriend) {
+                this.ndPanelFriend.active = isBackHome;
+            }
+        } else {
+            this._isShowPanelFriend = this.ndPanelFriend.active;
+            this.ndPanelFriend.active = isBackHome;
+        }
     },
     //蹭饭
     onStealingFood() {
@@ -86,6 +97,9 @@ cc.Class({
             if (res.result) {
                 // Global.game.onDine();
                 self.updateIndex();
+                Global.game.showTip("蹭吃成功");
+            }else{
+                Global.game.showTip(res.data);
             }
         });
     },
@@ -95,7 +109,7 @@ cc.Class({
         Network.treatFood(this._uid, (res) => {
             if (res.result) {
                 self.backHome();
-            }else{
+            } else {
                 Global.game.showTip(res.data);
             }
         });
@@ -121,7 +135,7 @@ cc.Class({
     updateIndex() {
         Network.requestPersonInfo(this._uid, (res) => {
             if (res.result) {
-                Global.game.updateState(res.data);
+                Global.game.updateOtherState(res.data);
             }
         });
     },

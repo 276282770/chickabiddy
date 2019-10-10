@@ -71,8 +71,10 @@ cc.Class({
                 if(res.result){
                     
                     Global.game.onDine();
+                    Global.player.openSay(res.data);
                 }else{
-                    Global.game.showTip(res.date);
+
+                    Global.game.showTip(res.data);
                 }
             })
         }

@@ -14,7 +14,7 @@ cc.Class({
         txtOtherEgg: cc.Label,  //偷来的鸡蛋
         txtMoney: cc.Label,  //钱
         txtLvl: cc.Label,  //等级
-        txtNickname:cc.Label,  //昵称
+        txtNickname: cc.Label,  //昵称
         imgLvl: cc.Sprite,  //等级图片
         spLvls: [cc.SpriteFrame],//等级外框精灵
         ndLvlUp: cc.Node,  //等级加速
@@ -45,7 +45,7 @@ cc.Class({
         ndEgg: cc.Node,  //鸡蛋节点
         ndTV: cc.Node,  //TV节点
         ndPanelLevelUp: cc.Node,  //升级节点
-        ndLevelUpFront:cc.Node,  //升级前节点
+        ndLevelUpFront: cc.Node,  //升级前节点
 
 
         panels: PanelManager,  //面板管理
@@ -244,13 +244,14 @@ cc.Class({
         self.txtEgg.string = data.eggNum.toString();
 
         // self.proClean.progress = data.cleanProgCurr / data.cleanProgFull;
-        if (data.foodRemain < 0) {
-            self.proFood.progress = 0;
-            self.proFood.node.parent.getChildByName("full").active = false;
-        } else {
-            self.proFood.progress = data.foodRemain / data.foodProgFull;
-            self.proFood.node.parent.getChildByName("full").active = true;
-        }
+        // if (data.foodRemain < 0) {
+        //     self.proFood.progress = 0;
+        //     self.proFood.node.parent.getChildByName("full").active = false;
+        // } else {
+        //     self.proFood.progress = data.foodRemain / data.foodProgFull;
+        //     self.proFood.node.parent.getChildByName("full").active = true;
+        // }
+        self.setLunchBox(data.foodRemain,data.foodProgFull);
 
         self.setProEgg(data.eggProgCurr / data.eggProgFull);
 
@@ -275,15 +276,18 @@ cc.Class({
         if (Global.user.avatar != "") {
             self.setAvatar(Global.user.avatar);
         }
-        self.txtNickname.string="";
-        
+        self.txtNickname.string = "";
+
 
         //更新升级
         if (Global.user.level > 0 && Global.user.level != data.lvl) {
-            self.ndLevelUpFront.active=true;
-            self.scheduleOnce(function(){
-                self.ndLevelUpFront.active=false;
-                self.onPlayLevelUp();},2);
+            if (!this.player._isAction) {
+                self.ndLevelUpFront.active = true;
+                self.scheduleOnce(function () {
+                    self.ndLevelUpFront.active = false;
+                    self.onPlayLevelUp();
+                }, 2);
+            }
             // self.onPlayLevelUp();
         }
         Global.user.level = data.lvl;
@@ -296,6 +300,7 @@ cc.Class({
             if (res.result) {
                 let data = res.data;
                 self.updateOtherState(data);
+                self.player.openSay(data.say);
             }
         })
     },
@@ -310,15 +315,17 @@ cc.Class({
         self.player.setPlayerData(data.id, data.nickName, data.lvl, data.titti, data.playerState);
         //更新头像
         self.setAvatar(data.avatar);
-        self.txtNickname.string=data.nickName+"的家";
-        self.proFood.node.parent.getChildByName("full").active = data.foodRemain > 0;//更新饭桶
+        self.txtNickname.string = data.nickName + "的家";
 
+        self.setLunchBox(data.foodRemain,data.foodProgFull);//更新饭桶
 
     },
 
 
     start() {
         this._rqstTm = this._rqstRate;
+
+        
     },
     //初始化节点
     iniNode() {
@@ -344,14 +351,14 @@ cc.Class({
 
     },
 
-    update (dt) {
+    update(dt) {
         if (this._rqstTm > 0) {
             this._rqstTm -= dt;
 
         } else {
 
             this._rqstTm = this._rqstRate;
-            this.updateIndex();
+            // this.updateIndex();
         }
     },
 
@@ -364,6 +371,15 @@ cc.Class({
     setProEgg(pro) {
         this.proEgg.progress = pro;
         // this.proEgg.node.getChildByName("text").getComponent(cc.Label).string = parseInt(pro * 100).toString();
+    },
+    //设置饭盒
+    setLunchBox(curr, full) {
+        let percent = 0;
+        if (curr > 0) {
+            percent = curr / full;
+        }
+        this.proFood.progress = percent;
+        this.proFood.node.parent.getChildByName("full").getComponent(cc.ProgressBar).progress=percent;
     },
     //添加钱
     addMoneyEff(num) {
@@ -393,7 +409,7 @@ cc.Class({
                     self.scheduleOnce(function () {
                         // self.showTip(res.data.tip);
                         self.player.openSay(res.data.say);
-                    }, 6);
+                    }, 5);
                 } else {
                     self.player.openSay(res.data.say);
                 }
@@ -406,7 +422,7 @@ cc.Class({
                     self.scheduleOnce(function () {
                         // self.showTip(res.data.tip);
                         self.player.openSay(res.data.say);
-                    }, 6);
+                    }, 5);
                 } else {
                     self.player.openSay(res.data.say);
                 }
@@ -415,7 +431,8 @@ cc.Class({
     },
 
     //吃饭
-    onDine() {0
+    onDine() {
+        this.setLunchBox(100,100);
         this.player.goDine();
     },
     //设置头像
@@ -618,10 +635,12 @@ cc.Class({
         }
     },
     //是否显示控制按钮
-    showCtrl(yes){
-        this.ndLeft.active=yes;
-        this.ndRight.active=yes;
-        this.ndDown.active=yes;
+    showCtrl(yes) {
+        if (Global.user.sceneCode == 0) {
+            this.ndLeft.active = yes;
+            this.ndRight.active = yes;
+        }
+        this.ndDown.active = yes;
     },
 
 });

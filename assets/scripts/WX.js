@@ -55,15 +55,14 @@ var WX={
             userInfoButton= wx.createUserInfoButton({
                 type:'image',
                 text:'',
-                image:'res/userInfoButton',
+                image:'res/userInfoButton.jpg',
                 style: {
-                    left: 0,
-                    top: 0,
-                    width: 400,
-                    height: 800,
+                    left: 10,
+                    top: 250,
+                    width: 360,
+                    height: 200,
                     lineHeight: 40,
-                    backgroundColor: '#ff0000',
-                    color: '#ffffff',
+                    
                     textAlign: 'center',
                     fontSize: 16,
                     borderRadius: 4,

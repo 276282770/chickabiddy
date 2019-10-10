@@ -85,7 +85,7 @@ cc.Class({
 
         this.ndName.active=false;
         this.setData(id, name, level, tittiData, state);
-
+        this.type=2;
 
     },
     setThiefData(id, name, level, tittiData, state) {
@@ -107,6 +107,7 @@ cc.Class({
             //     this.ndName.active = false;
             // }
         }
+        this._uid=id;
 
         this.ndName.getChildByName("txtLevel").getComponent(cc.Label).string = level.toString();
         this.ndName.getChildByName("txtName").getComponent(cc.Label).string = name;
@@ -367,7 +368,15 @@ cc.Class({
                 this.tollageExtend();
             } else if (Global.sceneCode == 1) {
                 //在别人家
-
+                console.log("【召回小鸡】");
+                Network.requestGoBackPlayer((res)=>{
+                    if(res.result){
+                        self.onOut();
+                    }else{
+                        Global.game.showTip(res.data);
+                    }
+                });
+   
             }
         } else if (this.type == 1) {
             if (this.checkExtendState(this.ndEx) != 0) {
@@ -490,10 +499,11 @@ cc.Class({
 
     //说话
     openSay(text) {
-        this.ndSay.getComponent(cc.Animation).play("fadeIn");
-        this.ndSay.getChildByName("Text").getComponent(cc.Label).string = text;
-        this.unschedule(this.hideSay);
-        this.scheduleOnce(this.hideSay, this.sayTime);
+        // this.ndSay.getComponent(cc.Animation).play("fadeIn");
+        // this.ndSay.getChildByName("Text").getComponent(cc.Label).string = text;
+        // this.unschedule(this.hideSay);
+        // this.scheduleOnce(this.hideSay, this.sayTime);
+        this.ndSay.getComponent("PlayerSay2").openSay(text);
     },
     hideSay() {
         this.ndSay.opacity = 0;
@@ -541,6 +551,10 @@ cc.Class({
     //播放被打了的动画
     playCry() {
         this.animBody.play("player2_beaten");
+    },
+    //播放跑了动画
+    playOut(){
+        this.animBody.play("thief2_out");
     },
 
     cleanSmoke() {
@@ -669,10 +683,10 @@ cc.Class({
     },
 
     onFightingSync() {
-        this._thiefCtrl.onFighting();
+        this._thiefCtrl.onFighting(this);
     },
     onOutSync() {
-        this._thiefCtrl.onOut();
+        this._thiefCtrl.onOut(this);
     },
 
     //揍，格斗
@@ -686,7 +700,7 @@ cc.Class({
         this.closeExtend();
         this.animBody.play("thief2_out");
         this.ndTitti.active = false;
-        this.scheduleOnce(this.onHide, 2);
+        this.scheduleOnce(this.onHide, 1);
     },
 
 
@@ -708,6 +722,7 @@ cc.Class({
 
     onHide() {
         this.node.active = false;
+        this.animBody.node.getChildByName("front").getComponent(cc.Sprite).spriteFrame=null;
     },
 
     //是否有装饰
