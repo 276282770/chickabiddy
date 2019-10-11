@@ -44,7 +44,7 @@ cc.Class({
         if(!pref)
             return;
         if(this.node.childrenCount>1){
-            return;
+            // this._panel.node.destroy();
         }
         var newPanel= cc.instantiate(pref);
         newPanel.parent=this.node;

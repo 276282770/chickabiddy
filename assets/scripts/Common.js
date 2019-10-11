@@ -87,6 +87,12 @@ var Common={
                 image.spriteFrame=new cc.SpriteFrame(tex);
             
         });
+    },
+    /**是否为空 */
+    isNullOrEmpty(str){
+        if(str==null||str=="")
+        return true;
+        return false;
     }
 
 };

@@ -1,17 +1,17 @@
 
 var WX = require("WX");
-var Common=require("Common");
+var Common = require("Common");
 var Network = {
-    // domain:"http://192.168.0.4:8080",
-    domain: "https://xj.xiajiwangluo.com",  //域名
+    domain: "http://192.168.0.39:8080",
+    // domain: "https://xj.xiajiwangluo.com",  //域名
 
 
-    backData:{result:false,data:{}},
+    backData: { result: false, data: {} },
 
     //封装微信http协议
     request(url, data, success) {
-        if(Global.id>0){
-        data.uid=Global.id;
+        if (Global.id > 0) {
+            data.uid = Global.id;
         }
         WX.request(url, data, "POST", success);
     },
@@ -20,9 +20,9 @@ var Network = {
      *
      * @param {*} data  任务
      */
-    requestStatistics(key,value){
+    requestStatistics(key, value) {
         let url = this.domain + "/tongji/tongji_shop.action";
-        let data={key:value}
+        let data = { key: value }
     },
     /**登录
      * @param  {string} code 微信code
@@ -44,15 +44,15 @@ var Network = {
 
 
         this.request(url, data, (res) => {
-            if (res.state == 200||res.state==199||res.state==198) {
+            if (res.state == 200 || res.state == 199 || res.state == 198) {
                 backData.result = true;
 
-                backData.data.isNewPlayer=false;
-                backData.data.isFirstLayingEgg=false;
-                if(res.state==198){
-                    backData.data.isNewPlayer=true;
-                }else if(res.state==199){
-                    backData.data.isFirstLayingEgg=true;
+                backData.data.isNewPlayer = false;
+                backData.data.isFirstLayingEgg = false;
+                if (res.state == 198) {
+                    backData.data.isNewPlayer = true;
+                } else if (res.state == 199) {
+                    backData.data.isFirstLayingEgg = true;
                 }
                 // backData.data={};
                 backData.data.id = res.data.uid;  //id
@@ -89,13 +89,13 @@ var Network = {
                 let thiefs = res.data.badMan;
                 backData.data.thiefs = [];
                 for (var i = 0; i < thiefs.length; i++) {
-                    if (thiefs[i] == null){
+                    if (thiefs[i] == null) {
                         backData.data.thiefs.push(null);
-                    }else{
+                    } else {
                         backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url });
 
                     }
-                        
+
                 }
 
                 backData.data.playerState = 0;  //正常
@@ -314,7 +314,7 @@ var Network = {
             if (res.state == 200) {
                 backData.result = true;
                 backData.data.id = id;
-               
+
             }
             backData.data.say = res.tips.tips;
             // }else{
@@ -366,7 +366,7 @@ var Network = {
     requestHit(id, callback) {
         let url = this.domain + "/chicken/Hit.action";
         let data = { uid: Global.id, fid: id };
-        let backData = { result: false, data: {} };
+        let backData = { result: false, data: {beizou:"",xiapao:"",zouren:""} };
         this.request(url, data, (res) => {
             if (res.state == 200) {
                 backData.result = true;
@@ -520,25 +520,25 @@ var Network = {
         });
     },
     /**获取世界排行榜 */
-    getWorldRank(callback){
-        let url=this.domain+"/tongji/worldRank.action";
-        let data={};
-        let backData={result:false};
-        this.request(url,data,(res)=>{
-            if(res.state==200){
-                backData.result=true;
-                backData.data=[];
-                let data=res.data;
-                for(var i=0;i<data.length;i++){
+    getWorldRank(callback) {
+        let url = this.domain + "/tongji/worldRank.action";
+        let data = {};
+        let backData = { result: false };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data = [];
+                let data = res.data;
+                for (var i = 0; i < data.length; i++) {
                     backData.data.push({
-                        id:data[i].user.id,
-                        avatarUrl:data[i].user.url,
-                        nickname:data[i].user.nickname,
-                        level:data[i].user.level
+                        id: data[i].user.id,
+                        avatarUrl: data[i].user.url,
+                        nickname: data[i].user.nickname,
+                        level: data[i].user.level
                     });
                 }
-            }else{
-                backData.data=res.data;
+            } else {
+                backData.data = res.data;
             }
             callback(backData);
         });
@@ -878,13 +878,13 @@ var Network = {
                 let thiefs = res.data.badMan;
                 backData.data.thiefs = [];
                 for (var i = 0; i < thiefs.length; i++) {
-                    if (thiefs[i] == null){
+                    if (thiefs[i] == null) {
                         backData.data.thiefs.push(null);
-                    }else{
+                    } else {
                         backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url });
 
                     }
-                        
+
                 }
 
                 backData.data.eggCount = res.data.egg;
@@ -901,11 +901,11 @@ var Network = {
                 }
                 backData.data.eggProgress = res.data.eggTime / res.data.totalEggTime;
 
-                backData.data.foodRemain=res.currentPage;
-                backData.data.titti={
-                    hat:res.replenish.styleB,
-                    glass:res.replenish.styleD,
-                    hornor:res.replenish.styleC
+                backData.data.foodRemain = res.currentPage;
+                backData.data.titti = {
+                    hat: res.replenish.styleB,
+                    glass: res.replenish.styleD,
+                    hornor: res.replenish.styleC
                 }
             } else {
                 backData.data = "";
@@ -915,8 +915,8 @@ var Network = {
         });
     },
     //获取链接小程序appid
-    getLinkAppid(tp,callback){
-        let backData={result:false,data:{}};
+    getLinkAppid(tp, callback) {
+        let backData = { result: false, data: {} };
         callback(backData);
     },
 
@@ -937,7 +937,7 @@ var Network = {
                 data.otherEggCount = res.data.badegg;
                 data.selfEggPrice = res.data.pergoodegg;
                 data.otherEggPrice = res.data.perbadegg;
-                data.egg2eggRatio=1/res.data.exchangeegg;
+                data.egg2eggRatio = 1 / res.data.exchangeegg;
             }
             if (callback)
                 callback(backData);
@@ -1005,12 +1005,12 @@ var Network = {
         this.request(url, data, (res) => {
             if (res.state == 200) {
                 backData.result = true;
-            }else{
-                if(res.state==234){
-                    backData.data="兑换传入code不存在";
+            } else {
+                if (res.state == 234) {
+                    backData.data = "兑换传入code不存在";
                 }
             }
-            if(callback)
+            if (callback)
                 callback(backData);
         });
     },
@@ -1042,27 +1042,29 @@ var Network = {
         });
     },
     /**获取我的装扮 */
-    getMyTittivate(callback){
-        let uri=this.domain+"/shop/GetAllYourDressUp.action";
-        let backData={result:false,data:{}};
-        this.request(uri,{},(res)=>{
-            if(res.state==200){
-                backData.result=true;
-                backData.data.had=[];
-                let data=res.data;
-                for(var i=0;i<data.length;i++){
-                    backData.data.had.push({
-                        id:data[i].id,
-                        type:data[i].clas,
-                        name:data[i].name
-                    });
+    getMyTittivate(callback) {
+        let uri = this.domain + "/shop/GetAllYourDressUp.action";
+        let backData = { result: false, data: {} };
+        this.request(uri, {}, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data.had = [];
+                let data = res.data;
+                if (data != null) {
+                    for (var i = 0; i < data.length; i++) {
+                        backData.data.had.push({
+                            id: data[i].id,
+                            type: data[i].clas,
+                            name: data[i].name
+                        });
+                    }
                 }
-                backData.data.use={};
-                backData.data.use.hat=res.replenish[0];
-                backData.data.use.glass=res.replenish[1];
-                backData.data.use.hornor=res.replenish[2];
-            }else{
-                backData.data=res.data;
+                backData.data.use = {};
+                backData.data.use.hat = res.replenish[0];
+                backData.data.use.glass = res.replenish[1];
+                backData.data.use.hornor = res.replenish[2];
+            } else {
+                backData.data = res.data;
             }
             callback(backData);
         });
@@ -1078,207 +1080,207 @@ var Network = {
         //     {id:102,type:2,name:"腰带3"},
         //     {id:103,type:2,name:"腰带4"},
         // ],use:{hat:10,glass:12,hornor:103}};
-        
+
     },
     /**保存装扮 */
-    saveMyTittivate(idArr,callback){
-        let url=this.domain+"/chicken/changeClothes.action";
-        let data={parameterCollection:idArr};
-        let backData={result:false};
-        this.request(url,data,(res)=>{
-            if(res.state==200){
-                backData.result=true;
-            }else{
-                backData.data=res.data;
+    saveMyTittivate(idArr, callback) {
+        let url = this.domain + "/chicken/changeClothes.action";
+        let data = { parameterCollection: idArr };
+        let backData = { result: false };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+            } else {
+                backData.data = res.data;
             }
             callback(backData);
         })
     },
     /**获取所有装扮 */
-    getTittivate(callback){
-        let url=this.domain+"/shop/allClothes.action";
-        let backData={};
-        this.request(url,{},(res)=>{
-            if(res.state==200){
-                backData.result=true;
-                backData.data=[];
-                for(var i=0;i<res.data.length;i++){
+    getTittivate(callback) {
+        let url = this.domain + "/shop/allClothes.action";
+        let backData = {};
+        this.request(url, {}, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data = [];
+                for (var i = 0; i < res.data.length; i++) {
                     backData.data.push({
-                        id:res.data[i].id,
-                        name:res.data[i].name,
-                        desc:res.data[i].des,
-                        type:res.data[i].clas,
-                        price:res.data[i].price,
+                        id: res.data[i].id,
+                        name: res.data[i].name,
+                        desc: res.data[i].des,
+                        type: res.data[i].clas,
+                        price: res.data[i].price,
                     });
                 }
-            }else{
-                backData.result=false;
-                backData.data=res.data;
+            } else {
+                backData.result = false;
+                backData.data = res.data;
             }
             callback(backData);
         });
     },
     /**根据类别获取装扮 */
-    getTittivateByType(type,callback){
+    getTittivateByType(type, callback) {
     },
     /**获取签到信息 */
-    getSignin(callback){
-        let url=this.domain+"/signin.action";
-        let backData={result:false,data:{}};
-        this.request(url,{},(res)=>{
-            if(res.state==200){
-                backData.result=true;
-                backData.data=[];
-                for(var i=0;i<res.data.length;i++){
-                    if(i<res.currentPage){
-                        backData.data.push({isFinish:true,num:res.data[i]});
-                    }else{
-                        backData.data.push({isFinish:false,num:res.data[i]});
+    getSignin(callback) {
+        let url = this.domain + "/signin.action";
+        let backData = { result: false, data: {} };
+        this.request(url, {}, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data = [];
+                for (var i = 0; i < res.data.length; i++) {
+                    if (i < res.currentPage) {
+                        backData.data.push({ isFinish: true, num: res.data[i] });
+                    } else {
+                        backData.data.push({ isFinish: false, num: res.data[i] });
                     }
                 }
-            }else{
-                backData.data=res.tips;
+            } else {
+                backData.data = res.tips;
             }
             callback(backData);
         });
     },
     /**签到 */
-    signin(callback){
-        let url=this.domain+"/daySignin.action";
-        
-        let backData={result:false,data:{}};
-        this.request(url,{},(res)=>{
-            if(res.state==200){
-                backData.result=true;
-                backData.data=res.currentPage;
-            }else{
-                backData.data=res.data;
+    signin(callback) {
+        let url = this.domain + "/daySignin.action";
+
+        let backData = { result: false, data: {} };
+        this.request(url, {}, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data = res.currentPage;
+            } else {
+                backData.data = res.data;
             }
             callback(backData);
         });
-        
-        
+
+
     },
     //给别人喂食
-    giveOtherFood(targetId,goodsId,callback){
-        let url=this.domain+"/chicken/feedTheOtherChickens.action";
-        let data={fid:targetId,pid:goodsId};
-        let backData={result:false};
-        this.request(url,data,(res)=>{
-            if(res.state==200){
-                backData.result=true;
-                backData.data=res.tips.tips;
-            }else{
-                backData.data=res.data;
+    giveOtherFood(targetId, goodsId, callback) {
+        let url = this.domain + "/chicken/feedTheOtherChickens.action";
+        let data = { fid: targetId, pid: goodsId };
+        let backData = { result: false };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data = res.tips.tips;
+            } else {
+                backData.data = res.data;
             }
             callback(backData);
         });
     },
     /**使用蹭饭卡 */
-    stealingFood(targetId,callback){
-        let url=this.domain+"/chicken/useCengMealCard.action";
-        let data={fid:targetId};
-        let backData={result:false};
-        this.request(url,data,(res)=>{
-            if(res.state==200){
-                backData.result=true;
-            }else{
-                backData.data=res.data;
+    stealingFood(targetId, callback) {
+        let url = this.domain + "/chicken/useCengMealCard.action";
+        let data = { fid: targetId };
+        let backData = { result: false };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+            } else {
+                backData.data = res.data;
             }
             callback(backData);
         });
     },
     /**请客吃饭 */
-    treatFood(targetId,callback){
-        let url=this.domain+"/chicken/invite.action";
-        let data={fid:targetId};
-        let backData={result:false};
-        this.request(url,data,(res)=>{
-            if(res.state==200){
-                backData.result=true;
-            }else{
-                backData.data=res.data;
+    treatFood(targetId, callback) {
+        let url = this.domain + "/chicken/invite.action";
+        let data = { fid: targetId };
+        let backData = { result: false };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+            } else {
+                backData.data = res.data;
             }
             callback(backData);
         });
     },
     /**改变小鸡游戏的风格 */
-    changeGameStyle(type,callback){
-        let url=this.domain+"/chicken/SwitchToStyle.action";
-        let data={style:'A'};
-        let backData={result:false};
-        if(type==1){
-            data.style='B';
+    changeGameStyle(type, callback) {
+        let url = this.domain + "/chicken/SwitchToStyle.action";
+        let data = { style: 'A' };
+        let backData = { result: false };
+        if (type == 1) {
+            data.style = 'B';
         }
-        this.request(url,data,(res)=>{
-            if(res.state==200){
-                backData.result=true;
-            }else{
-                backData.data=res.data;
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+            } else {
+                backData.data = res.data;
             }
             callback(backData);
         })
     },
     /**获取小鸡的荣誉 */
-    getHornor(callback){
-        let url=this.domain+"/ChickenMeadl.action";
-        let data={};
-        let backData={result:false};
-        this.request(url,data,(res)=>{
-            if(res.state==200){
-                backData.result=true;
-                let data=res.data;
-                backData.data={
-                    isRichEgg:data.largeChicken,
-                    richEggNum:data.numberOfEggs,
-                    isBeautiful:data.fashionInsider,
-                    beautifulNum:data.numberOfClothes,
-                    isOverlap:data.helpingOthers,
-                    overlapNum:data.numberOfHelpingOthers,
-                    isStealEgg:data.stealAnEggExpert,
-                    stealEggNum:data.stealEggCount
+    getHornor(callback) {
+        let url = this.domain + "/ChickenMeadl.action";
+        let data = {};
+        let backData = { result: false };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                let data = res.data;
+                backData.data = {
+                    isRichEgg: data.largeChicken,
+                    richEggNum: data.numberOfEggs,
+                    isBeautiful: data.fashionInsider,
+                    beautifulNum: data.numberOfClothes,
+                    isOverlap: data.helpingOthers,
+                    overlapNum: data.numberOfHelpingOthers,
+                    isStealEgg: data.stealAnEggExpert,
+                    stealEggNum: data.stealEggCount
                 };
-            }else{
-                backData.data=res.data;
+            } else {
+                backData.data = res.data;
             }
             callback(backData);
         })
     },
     //获取游戏风格
-    getStyle(callback){
-        let url=this.domain+"";
-        let data={};
-        let backData={result:false,data:{}};
+    getStyle(callback) {
+        let url = this.domain + "";
+        let data = {};
+        let backData = { result: false, data: {} };
 
-        backData.result=true;
-        backData.data=0;
+        backData.result = true;
+        backData.data = 0;
 
         callback(backData);
     },
     //设置游戏风格
-    setStyle(style,callback){
-        let url=this.domain+"/chicken/SwitchToStyle.action";
-        let data={};
-        let backData={result:false,data:{}};
+    setStyle(style, callback) {
+        let url = this.domain + "/chicken/SwitchToStyle.action";
+        let data = {};
+        let backData = { result: false, data: {} };
 
-        backData.result=true;
-        if(callback)
-        callback(backData);
+        backData.result = true;
+        if (callback)
+            callback(backData);
     },
     //获取是否显示不安全内容
-    getIsShowUnsafeData(callback){
-        let url=this.domain+"/load/kaiguan.action";
-        let data={};
-        let backData={result:false};
-        this.request(url,data,(res)=>{
-            if(res==1){
-                backData.result=true;
+    getIsShowUnsafeData(callback) {
+        let url = this.domain + "/load/kaiguan.action";
+        let data = {};
+        let backData = { result: false };
+        this.request(url, data, (res) => {
+            if (res == 1) {
+                backData.result = true;
             }
             callback(backData);
         })
-  
+
     },
-    
+
 
 
     //测试

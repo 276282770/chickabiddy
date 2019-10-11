@@ -80,6 +80,8 @@ cc.Class({
     },
     /**显示背景节点 */
     showBackground(){
+        if(this.ndBackground==null)
+        return;
         this.ndBackground.active=true;
     },
     /** 关闭
@@ -189,7 +191,9 @@ cc.Class({
     },
     //隐藏所有手指
     hidePoint(){
-        return;
+        if(this.ndPointoutBath==null){
+            return;
+        }
         // if(this._isGuid){
            this.ndPointoutBath.active=false;
            this.ndPointoutFriend.active=false;

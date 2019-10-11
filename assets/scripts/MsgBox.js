@@ -42,6 +42,7 @@ cc.Class({
         },this.tm);
     },
     show(text){
+
         if(text==null||text=="")
         return;
         let result=text[0];
@@ -52,6 +53,7 @@ cc.Class({
             }
             result+=text[i];
         }
+
         this.txtMsg.string=result;
         
     },

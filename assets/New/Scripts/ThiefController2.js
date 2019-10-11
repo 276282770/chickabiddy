@@ -109,7 +109,7 @@ cc.Class({
                     self._cam._canBack=true;
                },2)
             }else{
-                Global.game.showTip(res.data);
+                obj.openSay(res.data.say);
             }
         })
     },

@@ -197,8 +197,8 @@ cc.Class({
                 }
                 if (res.data.isNewPlayer) {
                     if (!self.guide._isGuid) {
-                        self.guide._isGuid = true;
-                        self.guide.step();
+                        // self.guide._isGuid = true;
+                        // self.guide.step();
                     }
                 }
                 self.createScene(res.data);
@@ -325,7 +325,7 @@ cc.Class({
     start() {
         this._rqstTm = this._rqstRate;
 
-        
+
     },
     //初始化节点
     iniNode() {
@@ -358,7 +358,7 @@ cc.Class({
         } else {
 
             this._rqstTm = this._rqstRate;
-            // this.updateIndex();
+            this.updateIndex();
         }
     },
 

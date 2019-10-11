@@ -14,6 +14,8 @@ cc.Class({
 
         imgModeFront: [cc.Sprite],//模型前
         ndMode: cc.Node,  //模型
+        ndBtnOpenShop:cc.Node,  //打开商店
+        ndBtnSave:cc.Node,  //保存按鈕
 
 
 
@@ -82,11 +84,11 @@ cc.Class({
         this.ndBg.runAction(cc.sequence(
             cc.moveTo(0.5, x, 0),
             cc.callFunc(() => {
+                Global.game.player.node.active=true;
                 this.node.destroy();
             })
         ));
 
-        Global.game.player.node.active=true;
         Global.game.player.getTitti();
     },
     onEnable() {
@@ -104,7 +106,7 @@ cc.Class({
                 self._save[0] = res.data.use.hat;
                 self._save[1] = res.data.use.glass;
                 self._save[2] = res.data.use.hornor;
-
+                if(data.length!=0){
                 for (var i = 0; i < data.length; i++) {
                     let item = cc.instantiate(self.preItem);
                     item.parent = self._pages[data[i].type].content;
@@ -116,6 +118,10 @@ cc.Class({
                     //     self._save[data[i].type]=data[i].id;
                     // }
                 }
+            }else{
+                self.ndBtnOpenShop.active=true;
+                self.ndBtnSave.active=false;
+            }
 
 
                 self.updateMode();
@@ -187,4 +193,9 @@ cc.Class({
         result.hornor = data[2];
         return result;
     },
+    //打开商店
+    onOpenShop(){
+        Global.game.onShowPanelShop();
+        this.node.destroy();
+    }
 });
