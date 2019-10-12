@@ -1577,6 +1577,12 @@
       "__id__": 1
     },
     "_enabled": true,
+    "ndScrollView": {
+      "__id__": 2
+    },
+    "_ctnt": null,
+    "_ctntOriPosX": 0,
+    "_currScrollX": -1,
     "_id": ""
   },
   {

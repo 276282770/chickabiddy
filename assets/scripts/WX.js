@@ -58,7 +58,7 @@ var WX={
                 image:'res/userInfoButton.jpg',
                 style: {
                     left: 10,
-                    top: 250,
+                    top: 550,
                     width: 360,
                     height: 200,
                     lineHeight: 40,

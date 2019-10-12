@@ -1238,7 +1238,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -131,
+      "y": -127,
       "z": 0
     },
     "_scale": {
@@ -1515,7 +1515,7 @@
         "__id__": 44
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -1690,8 +1690,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 2,
-    "transition": 2,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 230,

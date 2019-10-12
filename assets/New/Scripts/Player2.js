@@ -77,15 +77,16 @@ cc.Class({
 
         this._remainChangeTime = 20;
 
-
+        
     },
 
     //设置小鸡
     setPlayerData(id, name, level, tittiData, state) {
 
         this.ndName.active=false;
-        this.setData(id, name, level, tittiData, state);
         this.type=2;
+        this.setData(id, name, level, tittiData, state);
+        
 
     },
     setThiefData(id, name, level, tittiData, state) {
@@ -99,13 +100,14 @@ cc.Class({
 
 
         // this.ndName.active = true;
-
+  
         if (id == Global.id) {
             name = "我的小鸡";
             this.type = 0;
             // if (Global.sceneCode == 0) {
             //     this.ndName.active = false;
             // }
+          
         }
         this._uid=id;
 
@@ -113,7 +115,7 @@ cc.Class({
         this.ndName.getChildByName("txtName").getComponent(cc.Label).string = name;
         if (tittiData != null)
             this.setTittivateData(tittiData);
-        if (state != null)
+        if (state != null&&!this._isAction)
             this.setState(state);
 
 
@@ -349,10 +351,11 @@ cc.Class({
 
 
 
+
         if (this._isAction) {
             return;
         }
-
+       
 
         var self = this;
         if (this.type == 0) {
@@ -607,11 +610,13 @@ cc.Class({
         let rnd = parseInt(Math.random() * 200) * dir;
         let target = new cc.v2(rnd, this.node.position.y);
         cc.find("Canvas/Main Camera").getComponent("CameraController2")._isFollow=true;
+        this._isAction=true;
         this.moveTo(target, function () {
             // if (new Date().getSeconds() % 2 == 0) {
             //     self.randomWalk();
             // }
             // self.randomWalk();
+            self._isAction=false;
         })
     },
     //显示扩展

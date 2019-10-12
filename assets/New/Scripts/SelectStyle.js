@@ -1,4 +1,4 @@
-
+var WX=require("WX");
 var Network = require("Network");
 cc.Class({
     extends: cc.Component,
@@ -7,6 +7,7 @@ cc.Class({
         ndStyle: [cc.Node],//画面选择节点
 
         _style: "",
+        
     },
 
     //A/B (A拟人B卡通)
@@ -15,6 +16,11 @@ cc.Class({
     },
 
     start() {
+        var self=this;
+        WX.getSetting((isAuth) => {
+            if (!isAuth) {
+                WX.createUserInfoButton();
+            }});
         this.onSelectStyle(null, 0);
     },
 

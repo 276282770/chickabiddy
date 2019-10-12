@@ -201,8 +201,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 135,
-      "height": 168
+      "width": 142,
+      "height": 169
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -276,7 +276,7 @@
     "_alignFlags": 17,
     "_left": 0,
     "_right": 0,
-    "_top": -84,
+    "_top": -84.5,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -633,7 +633,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 169,
+      "y": 180,
       "z": 0
     },
     "_scale": {
@@ -1601,7 +1601,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 692,
-      "height": 424
+      "height": 442
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1611,7 +1611,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -100,
+      "y": -90,
       "z": 0
     },
     "_scale": {
@@ -1676,7 +1676,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 692,
-      "height": 424
+      "height": 442
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1973,7 +1973,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": -346,
-      "y": 212,
+      "y": 221,
       "z": 0
     },
     "_scale": {
@@ -2032,7 +2032,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 692,
-      "height": 424
+      "height": 442
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3709,7 +3709,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 0,
-    "_bottom": 1.4210854715202004e-14,
+    "_bottom": 1.0000000000000142,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -4170,7 +4170,7 @@
         "__id__": 121
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 4,
     "_components": [
       {
@@ -4345,8 +4345,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 2,
-    "transition": 2,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 230,
