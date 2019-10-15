@@ -84,7 +84,7 @@ cc.Class({
         this.ndBg.runAction(cc.sequence(
             cc.moveTo(0.5, x, 0),
             cc.callFunc(() => {
-                Global.game.player.node.active=true;
+                Global.game.player.onShow();
                 this.node.destroy();
             })
         ));

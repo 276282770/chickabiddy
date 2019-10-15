@@ -82,6 +82,19 @@ var WX={
         }
         return userInfo;
     },
+    //创建游戏圈按钮
+    createGameClubButton(){
+        var gameClubButton= wx.createGameClubButton({
+            type:'image',
+            icon: 'green',
+            style: {
+              left: 20,
+              top: 100,
+              width: 38,
+              height: 38
+            }
+        });
+    },
     getUserInfo(callback){
         if(cc.sys.platform==cc.sys.WECHAT_GAME){
             wx.getUserInfo({
@@ -252,6 +265,7 @@ var WX={
             ]
         */
     },
+    
 };
 
 module.exports=WX;

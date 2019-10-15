@@ -178,7 +178,7 @@ cc.Class({
             this.checkShareSuccess();
 
         });
-
+        WX.createGameClubButton();
     },
     login(code, avatar, nickName, fid) {
         var self = this;
@@ -310,15 +310,19 @@ cc.Class({
         self.imgLvl.spriteFrame = self.spLvls[Math.min(self.spLvls.length - 1, parseInt(data.lvl / 10))];
         self.txtEgg.string = data.eggCount.toString();
         self.thief.setData(data.thiefs);
+        
+        //更新角色
+        Global.scene.otherUid = data.otherId;
         self.ndFindPlayer.active = data.outHome;
         // self.player.setPlayerCondition(data.foodRemain, data.cleanProgCurr, data.bateu, data.outHome);
         self.player.setPlayerData(data.id, data.nickName, data.lvl, data.titti, data.playerState);
+        
         //更新头像
         self.setAvatar(data.avatar);
         self.txtNickname.string = data.nickName + "的家";
 
         self.setLunchBox(data.foodRemain,data.foodProgFull);//更新饭桶
-
+ 
     },
 
 
@@ -358,7 +362,7 @@ cc.Class({
         } else {
 
             this._rqstTm = this._rqstRate;
-            this.updateIndex();
+            // this.updateIndex();
         }
     },
 

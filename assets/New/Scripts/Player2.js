@@ -51,6 +51,11 @@ cc.Class({
         // _canClick:true,  //是否可以点击
         _isShowExtend: false,  //是否显示扩展
         _thiefCtrl: null,
+
+        _hungry:0,
+        _clean:0,
+        _bateu:false,
+        _outHome:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -472,14 +477,16 @@ cc.Class({
         }
     },
     setPlayerCondition(hungry, clean, beaten, outHome) {
+
         if (this._isAction)
             return;
         this._hungry = hungry;
         this._clean = clean;
-        this._beaten = beaten;
+        this._bateu = beaten;
         this._outHome = outHome;
 
         this.stateManager();
+    
     },
     //设置小鸡的状态
     setState(num) {
@@ -728,6 +735,11 @@ cc.Class({
     onHide() {
         this.node.active = false;
         this.animBody.node.getChildByName("front").getComponent(cc.Sprite).spriteFrame=null;
+    },
+    onShow(){
+        if(this._state!=7){
+            this.node.active=true;
+        }
     },
 
     //是否有装饰

@@ -100,9 +100,9 @@ var Network = {
 
                 backData.data.playerState = 0;  //正常
                 if (res.data.die > 0)
-                    backData.data.playerState = 1; //挨揍了
+                    backData.data.playerState = 3; //挨揍了
                 if (res.data.where > 0) {
-                    backData.data.playerState = 2;  //去别人家了
+                    backData.data.playerState = 7;  //去别人家了
                 }
                 backData.data.bateu = res.data.die > 0;
                 backData.data.outHome = res.data.where > 0;
@@ -893,12 +893,13 @@ var Network = {
                 backData.data.say = res.tips.tips;
 
                 backData.data.playerState = 0;  //正常
-                if (res.data.die > 0)
-                    backData.data.playerState = 1; //挨揍了
+                if (res.data.die > 0)  
+                    backData.data.playerState = 3; //挨揍了
                 if (res.data.where > 0) {
-                    backData.data.playerState = 2;  //去别人家了
-                    backData.data.otherId = res.data.where;
+                    backData.data.playerState = 7;  //去别人家了
                 }
+                backData.data.otherId = res.data.where;
+                backData.data.outHome = res.data.where > 0;
                 backData.data.eggProgress = res.data.eggTime / res.data.totalEggTime;
 
                 backData.data.foodRemain = res.currentPage;

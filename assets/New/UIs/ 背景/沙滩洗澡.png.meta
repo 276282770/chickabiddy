@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "24a646f8-8844-421b-8db1-639722d13b0b",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "沙滩洗澡": {
+      "ver": "1.0.3",
+      "uuid": "7255cde9-c888-4002-8e20-2d8cf0cff3cc",
+      "rawTextureUuid": "24a646f8-8844-421b-8db1-639722d13b0b",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": -10.5,
+      "trimX": 29,
+      "trimY": 72,
+      "width": 551,
+      "height": 284,
+      "rawWidth": 608,
+      "rawHeight": 407,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
