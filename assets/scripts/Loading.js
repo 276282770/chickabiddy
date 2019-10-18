@@ -45,7 +45,7 @@ cc.Class({
             var precent=completedCount/totalCount;
             self.progress.progress=precent;
             
-            self.lblProgress.string="加载中..."+ (parseInt(precent*100)).toString()+"%";
+            self.lblProgress.string= (parseInt(precent*100)).toString()+"%";
         },function(err,asset){
             if(err==null){
                 

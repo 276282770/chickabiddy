@@ -9,12 +9,17 @@ cc.Class({
 
         btnTabShop: cc.Button,  //商店按钮
         btnTabTittive: cc.Button,  //兑换按钮
+        btnTabBG:cc.Button, //背景切换
+
         ndSvShop: cc.Node,
         ndSvTittive: cc.Node,
+        ndSvBG:cc.Node,  //背景
 
 
         preItemShop: cc.Prefab,   //项预制体
         preItemTittive: cc.Prefab,  //商店装扮项预制体
+
+
         ndTittivateTabs: [cc.Node],  //装扮切换页
 
         _tittivate: [],  //装扮
@@ -41,8 +46,8 @@ cc.Class({
     onTab(event, customerData) {
         console.log("点击按钮" + customerData);
 
-        var tabBtn = [this.btnTabShop, this.btnTabTittive];
-        var svNode = [this.ndSvShop, this.ndSvTittive];
+        var tabBtn = [this.btnTabShop, this.btnTabTittive,this.btnTabBG];
+        var svNode = [this.ndSvShop, this.ndSvTittive,this.ndSvBG];
 
         let idx = parseInt(customerData);
 
@@ -65,7 +70,7 @@ cc.Class({
                     this.ndTittivateTabs[i].children[0].active = false;
                 }
             }
-            this.loadTittivate(idx);
+            this.loadTittivate(idx); 
         }
     },
 

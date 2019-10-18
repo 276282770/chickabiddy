@@ -1,5 +1,6 @@
 
 var WX={
+    gameClubButton:null,  //游戏圈按钮
     //登录
     login:function(callback){
         let code="";
@@ -84,12 +85,14 @@ var WX={
     },
     //创建游戏圈按钮
     createGameClubButton(){
-        var gameClubButton= wx.createGameClubButton({
-            type:'image',
-            icon: 'green',
+        if(cc.sys.platform!=cc.sys.WECHAT_GAME)
+        return;
+        this.gameClubButton= wx.createGameClubButton({
+            type:'text',
+            text: '',
             style: {
-              left: 20,
-              top: 100,
+              left: 330,
+              top: 300,
               width: 38,
               height: 38
             }

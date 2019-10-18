@@ -1,4 +1,5 @@
 var Network = require("Network");
+var WX=require("WX");
 cc.Class({
     extends: cc.Component,
 
@@ -15,11 +16,16 @@ cc.Class({
 
         btnAvatar: cc.Button,  //头像按钮
 
+        spBg:cc.Sprite,  //背景
+        spPool:cc.Sprite,  //池塘
+
         // prePanelPackage:cc.Prefab,  //背包预制体
 
         _isShowPanelFriend: false,
 
         _uid: 0,
+
+        _bg:0,  //默认   0.树林  1.海边 
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -81,13 +87,18 @@ cc.Class({
         this.ndProgLunchBox.active = isBackHome;
         this.btnAvatar.interactable = isBackHome;
 
+
         if (isBackHome) {
+            //回到家
             if (this._isShowPanelFriend) {
                 this.ndPanelFriend.active = isBackHome;
             }
+            WX.gameClubButton.show();
         } else {
+            //去被人家
             this._isShowPanelFriend = this.ndPanelFriend.active;
             this.ndPanelFriend.active = isBackHome;
+            WX.gameClubButton.hide();
         }
     },
     //蹭饭
@@ -139,4 +150,13 @@ cc.Class({
             }
         });
     },
+    //改变背景
+    changeBG(bg){
+        if(bg==this._bg){
+            return;
+        }
+        switch(bg){
+
+        }
+    }
 });
