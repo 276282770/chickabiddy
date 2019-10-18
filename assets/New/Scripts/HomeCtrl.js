@@ -16,8 +16,10 @@ cc.Class({
 
         btnAvatar: cc.Button,  //头像按钮
 
-        spBg:cc.Sprite,  //背景
-        spPool:cc.Sprite,  //池塘
+        imgBg:cc.Sprite,  //背景
+        spBgs:[cc.SpriteFrame],  //背景
+        ndLunchbox:cc.Node,  //饭盒
+        ndPool:cc.Node,  //池塘
 
         // prePanelPackage:cc.Prefab,  //背包预制体
 
@@ -155,8 +157,16 @@ cc.Class({
         if(bg==this._bg){
             return;
         }
-        switch(bg){
-
-        }
+        this._bg=bg;
+        console.log("【更改背景】#"+bg);
+        this.imgBg.spriteFrame=this.spBgs[bg];
+        this.ndLunchbox.getComponent("LunchBox2").changeStyle(bg);
+        this.ndPool.getComponent("Pool").changeStyle(bg);
+    },
+    test(){
+        
+        this._bg=1-this._bg;
+        
+        this.changeBG(this._bg);
     }
 });

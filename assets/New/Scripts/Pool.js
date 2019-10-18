@@ -7,6 +7,14 @@ cc.Class({
         player:Player,  //玩家
         camera:CameraController,  //摄像机控制
         animBath:cc.Animation,  //洗澡动画
+
+        ndClothBucket:cc.Node,  //衣服篓
+
+        spBgs:[cc.SpriteFrame],  //背景列表
+        
+
+
+
         _anim:cc.Animation,  //动画
     },
 
@@ -44,4 +52,9 @@ cc.Class({
             Global.game.player.goBathBack();
         },5);
     },
+
+    changeStyle(st){
+        this.node.getComponent(cc.Sprite).spriteFrame=this.spBgs[st];
+        this.ndClothBucket.getComponent("ClothBucket2").changeStyle(st);
+    }
 });

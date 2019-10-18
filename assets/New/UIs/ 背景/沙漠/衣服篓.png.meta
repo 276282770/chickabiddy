@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "59e6ba68-9677-4c06-a0fb-24fe5d3ef02c",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "衣服篓": {
+      "ver": "1.0.3",
+      "uuid": "bc7911af-2217-466c-8097-a66fc594454a",
+      "rawTextureUuid": "59e6ba68-9677-4c06-a0fb-24fe5d3ef02c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -7,
+      "offsetY": 6,
+      "trimX": 22,
+      "trimY": 38,
+      "width": 260,
+      "height": 215,
+      "rawWidth": 318,
+      "rawHeight": 303,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

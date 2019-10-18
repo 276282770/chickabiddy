@@ -268,7 +268,7 @@ cc.Class({
                 self.scheduleOnce(function () {
                     cc.find("Canvas/ClothBucket").getComponent("ClothBucket2").setFull(true);//衣服篓填满
                     self.showTitti(false);
-                    let targ = Common.vector2Add(self._pool.position, new cc.Vec2(0, 100));
+                    let targ = Common.vector2Add(self._pool.position, new cc.Vec2(0, 150));
                     self.jumpTo(targ, function () {
                         self._pool.getComponent("Pool").onBath();
                         self.node.active = false;
@@ -277,7 +277,7 @@ cc.Class({
                     });
                 }, 1);
             } else {
-                let targ = Common.vector2Add(self._pool.position, new cc.Vec2(0, 100));
+                let targ = Common.vector2Add(self._pool.position, new cc.Vec2(0, 150));
                 self.jumpTo(targ, function () {
                     self._pool.getComponent("Pool").onBath();
                     self.node.active = false;
