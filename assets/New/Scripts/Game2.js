@@ -278,6 +278,7 @@ cc.Class({
         }
         self.txtNickname.string = "";
 
+        cc.find("Canvas").getComponent("HomeCtrl").changeBGById(data.BG);//更换背景
 
         //更新升级
         if (Global.user.level > 0 && Global.user.level != data.lvl) {
@@ -322,6 +323,8 @@ cc.Class({
         self.txtNickname.string = data.nickName + "的家";
 
         self.setLunchBox(data.foodRemain,data.foodProgFull);//更新饭桶
+
+        cc.find("Canvas").getComponent("HomeCtrl").changeBGById(data.BG);//更换背景
  
     },
 
@@ -329,7 +332,9 @@ cc.Class({
     start() {
         this._rqstTm = this._rqstRate;
 
-
+        let homeCtrl=cc.find("Canvas").getComponent("HomeCtrl");
+        let useId=homeCtrl._bgId[homeCtrl._bg];
+        console.log("userID:"+useId);
     },
     //初始化节点
     iniNode() {
@@ -362,7 +367,7 @@ cc.Class({
         } else {
 
             this._rqstTm = this._rqstRate;
-            this.updateIndex();
+            // this.updateIndex();
         }
     },
 

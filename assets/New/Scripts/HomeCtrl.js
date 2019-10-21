@@ -27,7 +27,9 @@ cc.Class({
 
         _uid: 0,
 
-        _bg:0,  //默认   0.树林  1.海边 
+        _bg:0,  //默认   999.树林  14.海边 
+
+        _bgId:[999,14],
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -35,7 +37,8 @@ cc.Class({
     // onLoad () {},
 
     start() {
-
+        console.log("---------");
+        console.log(this._bgId);
     },
 
     // update (dt) {},
@@ -162,6 +165,16 @@ cc.Class({
         this.imgBg.spriteFrame=this.spBgs[bg];
         this.ndLunchbox.getComponent("LunchBox2").changeStyle(bg);
         this.ndPool.getComponent("Pool").changeStyle(bg);
+    },
+
+    changeBGById(id){
+        let bgIdx=0;
+        if(id==this._bgId[0]){
+            bgIdx=0;
+        }else if(id==this._bgId[1]){
+            bgIdx=1;
+        }
+        this.changeBG(bgIdx);
     },
     test(){
         

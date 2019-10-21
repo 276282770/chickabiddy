@@ -83,6 +83,8 @@ var Network = {
                 backData.data.newAnnouncement = res.data.unRead_gonggao > 0;  //新公告
                 // backData.data.newWorldMsg=res.data.unRead_world>0;
 
+                
+
 
                 // backData.data.thiefs=res.data.badMan;  //小偷
                 //设置小偷信息
@@ -108,8 +110,12 @@ var Network = {
                 backData.data.outHome = res.data.where > 0;
                 backData.data.otherId = res.data.where;
 
+                backData.data.BG=res.data.background;  //背景
+
                 Global.id = backData.data.id;
                 Global.openid = res.data.openid;
+
+                
             } else {
                 backData.data = "";
             }
@@ -366,7 +372,7 @@ var Network = {
     requestHit(id, callback) {
         let url = this.domain + "/chicken/Hit.action";
         let data = { uid: Global.id, fid: id };
-        let backData = { result: false, data: {beizou:"",xiapao:"",zouren:""} };
+        let backData = { result: false, data: { beizou: "", xiapao: "", zouren: "" } };
         this.request(url, data, (res) => {
             if (res.state == 200) {
                 backData.result = true;
@@ -576,6 +582,7 @@ var Network = {
                 let err = "";
                 switch (res.state) {
                     case 222: err = "购买商品不存在"; break;
+                    default:err=res.data;break;
                 }
 
                 backData.data = err;
@@ -892,8 +899,9 @@ var Network = {
                 backData.data.canPickupEgg = res.data.toudan == 1;
                 backData.data.say = res.tips.tips;
 
+                backData.data.BG=res.data.background;  //背景
                 backData.data.playerState = 0;  //正常
-                if (res.data.die > 0)  
+                if (res.data.die > 0)
                     backData.data.playerState = 3; //挨揍了
                 if (res.data.where > 0) {
                     backData.data.playerState = 7;  //去别人家了
@@ -1280,6 +1288,65 @@ var Network = {
             callback(backData);
         })
 
+    },
+    /**获取背景 */
+    getBGs(callback) {
+        let url = this.domain + "/shop/allBackground.action";
+        let data = {};
+        let backData = { result: false, data: {} };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data = [];
+                for (var i = 0; i < res.data.length; i++) {
+                    backData.data.push({
+                        id: res.data[i].id,
+                        name: res.data[i].name,
+                        type: res.data[i].clas,
+                        description: res.data[i].des,
+                        price: res.data[i].price
+                    });
+                }
+            }
+            callback(backData);
+        })
+    },
+    getSelfBgs(callback) {
+        let url = this.domain + "/shop/getBackground.action";
+        let data = {};
+        let backData = { result: false, data: {} };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data = [];
+                if (typeof (res.data) == 'object') {
+                    for (var i = 0; i < res.data.length; i++) {
+                        backData.data.push({
+                            id: res.data[i].id,
+                            name: res.data[i].name,
+                            type: res.data[i].clas,
+                            description: res.data[i].des,
+                            price: res.data[i].price
+                        });
+                    }
+                }
+            }
+            callback(backData);
+        });
+    },
+    /**保存场景 */
+    saveBG(id, callback) {
+        let url = this.domain + "/chicken/changeBackground.action";
+        let data = { pid: id };
+        let backData = { result: false, data: {} };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+            } else {
+                backData.data = res.data;
+            }
+            callback(backData);
+        });
     },
 
 

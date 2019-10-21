@@ -1,4 +1,5 @@
 var Network=require("Network");
+var Common=require("Common");
 cc.Class({
     extends: cc.Component,
 
@@ -27,11 +28,12 @@ cc.Class({
         this._cid=id;
         var self=this;
         if(id!=null){
-            cc.loader.loadRes("Shop2/shop_"+id,function(err,tex){
-                if(!err){
-                    self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
-                }
-            });
+            // cc.loader.loadRes("Shop2/shop_"+id,function(err,tex){
+            //     if(!err){
+            //         self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
+            //     }
+            // });
+            Common.loadRes("Shop2/shop_"+id,self.imgGoods);
         }
         this._unitPrice=unitPrice;
         this.iniPrice();

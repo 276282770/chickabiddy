@@ -18,6 +18,7 @@ cc.Class({
 
         preItemShop: cc.Prefab,   //项预制体
         preItemTittive: cc.Prefab,  //商店装扮项预制体
+        preItemBG:cc.Prefab,  //背景预制体
 
 
         ndTittivateTabs: [cc.Node],  //装扮切换页
@@ -139,6 +140,17 @@ cc.Class({
                 Global.game.showTip(res.data);
             }
 
+        });
+
+        Network.getBGs((res)=>{
+            if(res.result){
+                for(var i=0;i<res.data.length;i++){
+                    let data=res.data[i];
+                    let item=cc.instantiate(self.preItemBG);
+                    item.getComponent("ItemShopScene2").setData(data.id,data.name,data.description,data.price,i);
+                    item.parent=self.ndSvBG.getComponent(cc.ScrollView).content;
+                }
+            }
         });
 
     },

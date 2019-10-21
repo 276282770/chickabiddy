@@ -11,11 +11,12 @@ cc.Class({
 
         ndTabControl: cc.Node,  //tab
         preItem: cc.Prefab,  //项预制体
+        preItemBG: cc.Prefab,  //背景预制体
 
         imgModeFront: [cc.Sprite],//模型前
         ndMode: cc.Node,  //模型
-        ndBtnOpenShop:cc.Node,  //打开商店
-        ndBtnSave:cc.Node,  //保存按鈕
+        ndBtnOpenShop: cc.Node,  //打开商店
+        ndBtnSave: cc.Node,  //保存按鈕
 
 
 
@@ -25,6 +26,7 @@ cc.Class({
         _panelReady: false,
 
         _save: [],//装扮
+        _tittCount: 0,  //装饰个数
     },
 
 
@@ -42,7 +44,7 @@ cc.Class({
             this._tabs[i] = ndTabs.children[i].getComponent(cc.Button);
             this._pages[i] = ndPages.children[i].getComponent(cc.ScrollView);
         }
-        this._save[0] = [0, 0, 0];
+        this._save[0] = [0, 0, 0, -1];
     },
     /**选择
      */
@@ -75,7 +77,7 @@ cc.Class({
             })
         ));
 
-        Global.game.player.node.active=false;
+        Global.game.player.node.active = false;
     },
     onClose() {
         if (!this._panelReady)
@@ -106,28 +108,46 @@ cc.Class({
                 self._save[0] = res.data.use.hat;
                 self._save[1] = res.data.use.glass;
                 self._save[2] = res.data.use.hornor;
-                if(data.length!=0){
-                for (var i = 0; i < data.length; i++) {
-                    let item = cc.instantiate(self.preItem);
-                    item.parent = self._pages[data[i].type].content;
-                    if (data[i].id == self._save[data[i].type]) {
-                        data[i].isUse = true;
+                if (data.length != 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        let item = cc.instantiate(self.preItem);
+                        item.parent = self._pages[data[i].type].content;
+                        if (data[i].id == self._save[data[i].type]) {
+                            data[i].isUse = true;
+                        }
+                        item.getComponent("ItemTittivate2").init(data[i], this);
+                        // if(data[i].isUse){
+                        //     self._save[data[i].type]=data[i].id;
+                        // }
                     }
-                    item.getComponent("ItemTittivate2").init(data[i], this);
-                    // if(data[i].isUse){
-                    //     self._save[data[i].type]=data[i].id;
-                    // }
+                    self._tittCount=data.length;
+                } else {
+                    // self.ndBtnOpenShop.active = true;
+                    // self.ndBtnSave.active = false;
                 }
-            }else{
-                self.ndBtnOpenShop.active=true;
-                self.ndBtnSave.active=false;
-            }
 
 
                 self.updateMode();
             }
-        })
+        });
 
+        Network.getSelfBgs((res) => {
+            if (res.result) {
+                for (var i = 0; i < res.data.length; i++) {
+                    let data = res.data[i];
+                    let newItem = cc.instantiate(self.preItemBG);
+                    let newItemScr=newItem.getComponent("ItemBG2");
+                    newItem.parent = self._pages[3].content;
+                    newItemScr.init(data, self,i);
+                }
+            } else {
+                Global.game.showTip(res.data);
+            }
+        });
+
+    },
+    showShopButton(yes) {
+        
     },
     //选择
     onSelect(type, id, isUse) {
@@ -149,6 +169,16 @@ cc.Class({
 
         this.updateMode();
     },
+    onSelectBG(index) {
+        console.log("选择:"+index);
+        this._save[3] = index;
+        let content=this._pages[3].content;
+        for(var i=0;i<content.childrenCount.length;i++){
+            if(i!=index){
+                content.children[i].getComponent("ItemBG2").unSel();
+            }
+        }
+    },
     //更新形象
     updateMode() {
         for (var i = 0; i < this._save.length; i++) {
@@ -167,10 +197,22 @@ cc.Class({
             if (res.result) {
                 Global.game.player.setTittivateData(self.convertPlayerTittiData(self._save));
                 Global.game.showTip("保存装扮成功");
+                Global.game.updateIndex();
             } else {
                 Global.game.showTip(res.data);
             }
         });
+
+        if (this._save[3] != -1) {
+            let bgId = this._pages[3].content.children[this._save[3]].getComponent("ItemBG2")._tId;
+            Network.saveBG(bgId, (res) => {
+                if (res.result) {
+                    Global.game.updateIndex();
+                } else {
+                    Global.game.showTip(res.data);
+                }
+            });
+        }
     },
 
     //辅助
@@ -194,7 +236,7 @@ cc.Class({
         return result;
     },
     //打开商店
-    onOpenShop(){
+    onOpenShop() {
         Global.game.onShowPanelShop();
         this.node.destroy();
     }

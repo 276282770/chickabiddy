@@ -1,4 +1,4 @@
-
+var Common=require("Common");
 cc.Class({
     extends: cc.Component,
 
@@ -7,7 +7,7 @@ cc.Class({
         prePanelBuy:cc.Prefab,  //
 
         _tId:-1,
-        _name:"",
+        _nm:"",
         _desc:"",
         _price:0,
     },
@@ -17,7 +17,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        this._tId=999;
+        
     },
        
 
@@ -29,8 +29,25 @@ cc.Class({
     onClick(){
         
         var item=cc.instantiate(this.prePanelBuy);
-        item.getComponent("PanelBuy2").fill(this._tId,this._name,this._desc,this._price,5);
+        item.getComponent("PanelBuy2").fill(this._tId,this._nm,this._desc,this._price,5);
         item.parent=cc.find("Canvas/UICanvas");
 
-    }
+    },
+    setData(id,name,desc,price){
+
+
+
+        this._tId=id;
+        this._name=name;
+        this._desc=desc;
+        this._price=price;
+
+
+        
+        this.txtPrice.string=price.toString();
+
+        Common.loadRes("Shop2/shop_"+id.toString()+"_2",this.node.getComponent(cc.Sprite));
+
+    },
+    
 });
