@@ -1387,9 +1387,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 114,
-      "g": 92,
-      "b": 66,
+      "r": 69,
+      "g": 56,
+      "b": 40,
       "a": 255
     },
     "_contentSize": {
@@ -1439,8 +1439,8 @@
     "_useOriginalSize": false,
     "_string": "嘻嘻~主人来喂本宝宝了，开心呦",
     "_N$string": "嘻嘻~主人来喂本宝宝了，开心呦",
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_fontSize": 15,
+    "_lineHeight": 16,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1448,7 +1448,7 @@
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "黑体",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
     "_id": ""

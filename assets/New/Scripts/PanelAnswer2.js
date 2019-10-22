@@ -44,6 +44,7 @@ cc.Class({
             self.ndBg.active=false;
             // self.txtAward.string = res.data.award;
             // self.txtQuestion.string = res.data.say;
+            self.delayClose();
         });
     },
 
@@ -87,5 +88,9 @@ cc.Class({
     },
     onShow() {
 
+    },
+    //延迟关闭
+    delayClose(){
+        this.scheduleOnce(this.onClose,2);
     }
 });

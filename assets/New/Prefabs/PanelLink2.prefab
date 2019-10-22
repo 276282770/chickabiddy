@@ -195,8 +195,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 80,
-      "height": 96
+      "width": 138,
+      "height": 166
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -211,8 +211,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1.5,
-      "y": 1.5,
+      "x": 1,
+      "y": 1,
       "z": 1
     },
     "_rotationX": 0,
@@ -270,7 +270,7 @@
     "_alignFlags": 17,
     "_left": 0,
     "_right": 0,
-    "_top": -72,
+    "_top": -83,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -1608,7 +1608,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -147,
+      "y": -169,
       "z": 0
     },
     "_scale": {
@@ -1757,9 +1757,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 23,
-      "g": 6,
-      "b": 3,
+      "r": 69,
+      "g": 56,
+      "b": 40,
       "a": 255
     },
     "_contentSize": {
@@ -1809,8 +1809,8 @@
     "_useOriginalSize": false,
     "_string": "里面有更精彩的小程序",
     "_N$string": "里面有更精彩的小程序",
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_fontSize": 15,
+    "_lineHeight": 16,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1818,7 +1818,7 @@
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "黑体",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
     "_id": ""

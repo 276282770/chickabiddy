@@ -537,18 +537,18 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 109,
-      "height": 77
+      "width": 85.8,
+      "height": 74
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0
+      "x": 0.5261560903237055,
+      "y": 0.004328969652878101
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 1.5,
-      "y": -38.5,
+      "x": 2.7,
+      "y": -35.2,
       "z": 0
     },
     "_scale": {
@@ -580,10 +580,10 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "26fb56ae-3455-49eb-9f32-dd3aa018b961"
+      "__uuid__": "f0f29523-21e0-4d10-8872-cc416939fce4"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -1248,16 +1248,16 @@
     },
     "spFronts": [
       {
-        "__uuid__": "26fb56ae-3455-49eb-9f32-dd3aa018b961"
+        "__uuid__": "f0f29523-21e0-4d10-8872-cc416939fce4"
       },
       {
-        "__uuid__": "6ae9fab8-0f0a-4cdd-8763-a8cd475ee8fa"
+        "__uuid__": "d2a9b32c-392f-4d89-b74c-de865bb8e5df"
       },
       {
-        "__uuid__": "f634a0ae-2d43-4fce-bd7e-d4ba9be2342f"
+        "__uuid__": "ba608da4-7ad9-4e8e-8f68-b69d8fa8ecf1"
       },
       {
-        "__uuid__": "018d4636-f4ee-4c44-9c70-741846568e94"
+        "__uuid__": "ed6b11ea-84c0-43a2-956a-3f931448ccbb"
       }
     ],
     "_openid": "",

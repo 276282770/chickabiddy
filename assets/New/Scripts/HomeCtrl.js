@@ -29,7 +29,7 @@ cc.Class({
 
         _bg:0,  //默认   999.树林  14.海边 
 
-        _bgId:[999,14],
+        _bgId:[],
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -37,8 +37,7 @@ cc.Class({
     // onLoad () {},
 
     start() {
-        console.log("---------");
-        console.log(this._bgId);
+        this._bgId=[999,14];
     },
 
     // update (dt) {},

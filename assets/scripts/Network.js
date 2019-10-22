@@ -2,8 +2,9 @@
 var WX = require("WX");
 var Common = require("Common");
 var Network = {
-    // domain: "http://192.168.0.39:8080",
     domain: "https://xj.xiajiwangluo.com/chicken",  //域名
+    // domain: "http://192.168.0.39:8080",
+    // domain: "http://192.168.0.244:8080/chicken",
 
 
     backData: { result: false, data: {} },
@@ -83,7 +84,7 @@ var Network = {
                 backData.data.newAnnouncement = res.data.unRead_gonggao > 0;  //新公告
                 // backData.data.newWorldMsg=res.data.unRead_world>0;
 
-                
+
 
 
                 // backData.data.thiefs=res.data.badMan;  //小偷
@@ -110,12 +111,12 @@ var Network = {
                 backData.data.outHome = res.data.where > 0;
                 backData.data.otherId = res.data.where;
 
-                backData.data.BG=res.data.background;  //背景
+                backData.data.BG = res.data.background;  //背景
 
                 Global.id = backData.data.id;
                 Global.openid = res.data.openid;
 
-                
+
             } else {
                 backData.data = "";
             }
@@ -582,7 +583,7 @@ var Network = {
                 let err = "";
                 switch (res.state) {
                     case 222: err = "购买商品不存在"; break;
-                    default:err=res.data;break;
+                    default: err = res.data; break;
                 }
 
                 backData.data = err;
@@ -899,7 +900,7 @@ var Network = {
                 backData.data.canPickupEgg = res.data.toudan == 1;
                 backData.data.say = res.tips.tips;
 
-                backData.data.BG=res.data.background;  //背景
+                backData.data.BG = res.data.background;  //背景
                 backData.data.playerState = 0;  //正常
                 if (res.data.die > 0)
                     backData.data.playerState = 3; //挨揍了
@@ -1214,13 +1215,13 @@ var Network = {
         });
     },
     /**改变小鸡游戏的风格 */
-    changeGameStyle(type, callback) {
+    changeGameStyle(type,id, callback) {
         let url = this.domain + "/chicken/SwitchToStyle.action";
-        let data = { style: 'A' };
+        let data = { style: type,uid:id };
         let backData = { result: false };
-        if (type == 1) {
-            data.style = 'B';
-        }
+        // if (type == 1) {
+        //     data.style = 'B';
+        // }
         this.request(url, data, (res) => {
             if (res.state == 200) {
                 backData.result = true;
@@ -1256,25 +1257,33 @@ var Network = {
         })
     },
     //获取游戏风格
-    getStyle(callback) {
-        let url = this.domain + "";
-        let data = {};
+    getStyle(code, callback) {
+        let url = this.domain + "/chicken/getStyle.action";
+        let data = { code: code };
         let backData = { result: false, data: {} };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data.type = res.data;
+                backData.data.id=res.replenish;
+            }
+            callback(backData);
+        })
 
-        backData.result = true;
-        backData.data = 0;
 
-        callback(backData);
+
     },
     //设置游戏风格
-    setStyle(style, callback) {
+    setStyle(style,id, callback) {
         let url = this.domain + "/chicken/SwitchToStyle.action";
-        let data = {};
+        let data = { style: style,uid:id };
         let backData = { result: false, data: {} };
+        this.request(url, data, (res) => {
+            backData.result = true;
+            if (callback)
+                callback(backData);
+        });
 
-        backData.result = true;
-        if (callback)
-            callback(backData);
     },
     //获取是否显示不安全内容
     getIsShowUnsafeData(callback) {

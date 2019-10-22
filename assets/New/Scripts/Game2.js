@@ -71,6 +71,7 @@ cc.Class({
         prePlayer: cc.Prefab,  //玩家预制体
         preThief: cc.Prefab,  //小偷预制体
         // preCloud:cc.Prefab,  //云彩预制体
+        preAD:cc.Prefab,  //广告
 
 
         player: Player,  //玩家
@@ -232,7 +233,7 @@ cc.Class({
     },
     updateState(data) {
         var self = this;
-        // self.setScore(data.lvl);
+        self.setScore(data.lvl);
         // self.setSelfEgg(data.selfEggNum);
         // self.setOtherEgg(data.otherEggNum);
         self.setMoney(data.money);
@@ -251,7 +252,7 @@ cc.Class({
         //     self.proFood.progress = data.foodRemain / data.foodProgFull;
         //     self.proFood.node.parent.getChildByName("full").active = true;
         // }
-        self.setLunchBox(data.foodRemain,data.foodProgFull);
+        self.setLunchBox(data.foodRemain, data.foodProgFull);
 
         self.setProEgg(data.eggProgCurr / data.eggProgFull);
 
@@ -311,30 +312,27 @@ cc.Class({
         self.imgLvl.spriteFrame = self.spLvls[Math.min(self.spLvls.length - 1, parseInt(data.lvl / 10))];
         self.txtEgg.string = data.eggCount.toString();
         self.thief.setData(data.thiefs);
-        
+
         //更新角色
         Global.scene.otherUid = data.otherId;
         self.ndFindPlayer.active = data.outHome;
         // self.player.setPlayerCondition(data.foodRemain, data.cleanProgCurr, data.bateu, data.outHome);
         self.player.setPlayerData(data.id, data.nickName, data.lvl, data.titti, data.playerState);
-        
+
         //更新头像
         self.setAvatar(data.avatar);
         self.txtNickname.string = data.nickName + "的家";
 
-        self.setLunchBox(data.foodRemain,data.foodProgFull);//更新饭桶
+        self.setLunchBox(data.foodRemain, data.foodProgFull);//更新饭桶
 
         cc.find("Canvas").getComponent("HomeCtrl").changeBGById(data.BG);//更换背景
- 
+
     },
 
 
     start() {
         this._rqstTm = this._rqstRate;
 
-        let homeCtrl=cc.find("Canvas").getComponent("HomeCtrl");
-        let useId=homeCtrl._bgId[homeCtrl._bg];
-        console.log("userID:"+useId);
     },
     //初始化节点
     iniNode() {
@@ -367,7 +365,7 @@ cc.Class({
         } else {
 
             this._rqstTm = this._rqstRate;
-            // this.updateIndex();
+            this.updateIndex();
         }
     },
 
@@ -375,6 +373,14 @@ cc.Class({
     setMoney(num) {
         this._money = num;
         // this.txtMoney.string = this._money.toString();
+    },
+    //设置分数
+    setScore(score) {
+        WX.postMessage({ cmd: "SETSCORE", para: score });
+    },
+    //获取自己分数
+    getScore() {
+        WX.postMessage({ cmd: "GETSCORE" });
     },
     //设置鸡蛋进度
     setProEgg(pro) {
@@ -388,7 +394,7 @@ cc.Class({
             percent = curr / full;
         }
         this.proFood.progress = percent;
-        this.proFood.node.parent.getChildByName("full").getComponent(cc.ProgressBar).progress=percent;
+        this.proFood.node.parent.getChildByName("full").getComponent(cc.ProgressBar).progress = percent;
     },
     //添加钱
     addMoneyEff(num) {
@@ -441,7 +447,7 @@ cc.Class({
 
     //吃饭
     onDine() {
-        this.setLunchBox(100,100);
+        this.setLunchBox(100, 100);
         this.player.goDine();
     },
     //设置头像

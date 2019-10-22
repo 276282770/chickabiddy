@@ -173,7 +173,7 @@ cc.Class({
         console.log("选择:"+index);
         this._save[3] = index;
         let content=this._pages[3].content;
-        for(var i=0;i<content.childrenCount.length;i++){
+        for(var i=0;i<content.childrenCount;i++){
             if(i!=index){
                 content.children[i].getComponent("ItemBG2").unSel();
             }

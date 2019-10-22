@@ -130,8 +130,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 800
+      "width": 686,
+      "height": 591
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -339,7 +339,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 315,
+      "x": 298,
       "y": -45,
       "z": 0
     },
@@ -550,8 +550,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 612
+      "width": 686,
+      "height": 402
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -561,7 +561,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -494,
+      "y": -390,
       "z": 0
     },
     "_scale": {
@@ -837,7 +837,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
+      "width": 686,
       "height": -5
     },
     "_anchorPoint": {
@@ -848,7 +848,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 306,
+      "y": 201,
       "z": 0
     },
     "_scale": {
@@ -906,8 +906,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 612
+      "width": 686,
+      "height": 402
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1030,7 +1030,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 720,
+      "width": 686,
       "height": -5
     },
     "_resize": 1,
@@ -1281,9 +1281,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 114,
-      "g": 92,
-      "b": 66,
+      "r": 69,
+      "g": 56,
+      "b": 40,
       "a": 255
     },
     "_contentSize": {
@@ -1333,8 +1333,8 @@
     "_useOriginalSize": false,
     "_string": "快来看看咱最近发生的事",
     "_N$string": "快来看看咱最近发生的事",
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_fontSize": 15,
+    "_lineHeight": 16,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1342,7 +1342,7 @@
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "黑体",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
     "_id": ""
@@ -1510,7 +1510,7 @@
       "__uuid__": "00d7bf52-f6cc-4da6-bbcb-f9daba7a8015"
     },
     "_type": 0,
-    "_sizeMode": 0,
+    "_sizeMode": 1,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",

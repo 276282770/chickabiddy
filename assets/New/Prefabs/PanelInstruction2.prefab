@@ -1269,7 +1269,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 255.9,
+      "x": 270.6,
       "y": 478.9,
       "z": 0
     },
@@ -1333,7 +1333,7 @@
     "_target": null,
     "_alignFlags": 33,
     "_left": 0,
-    "_right": 29.25,
+    "_right": 14.549999999999926,
     "_top": 12.75,
     "_bottom": 0,
     "_verticalCenter": 0,

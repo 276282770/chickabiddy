@@ -1,5 +1,6 @@
-var WX=require("WX");
+var WX = require("WX");
 var Network = require("Network");
+var Common = require("Common");
 cc.Class({
     extends: cc.Component,
 
@@ -7,20 +8,23 @@ cc.Class({
         ndStyle: [cc.Node],//画面选择节点
 
         _style: "",
-        
+        _uid:-1,  //用户ID
     },
 
     //A/B (A拟人B卡通)
-    load() {
+    onLoad() {
+  
         this.getStyle();
     },
 
     start() {
-        var self=this;
+
+        var self = this;
         WX.getSetting((isAuth) => {
             if (!isAuth) {
                 WX.createUserInfoButton();
-            }});
+            }
+        });
         this.onSelectStyle(null, 0);
     },
 
@@ -44,20 +48,33 @@ cc.Class({
     },
     //获取游戏风格
     getStyle() {
-        Network.getStyle((res) => {
-            if (res.result) {
-                if (res.data != "") {
-                    if (res.data == 'A')
-                        Global.scene.nextSceneName = "Main";
-                    cc.director.loadScene("Loading");
+        var self=this;
+        WX.login(function (code) {
+    
+            Network.getStyle(code, (res) => {
+                if (res.result) {
+                    self._uid=res.data.id
+                    if (!Common.isNullOrEmpty(res.data)) {
+                        if (res.data.type == 'A') {
+                            Global.scene.nextSceneName = "Main";
+                        }
+                        else if(res.data.type=='B'){
+                            Global.scene.nextSceneName = 'Main2';
+                        }
+                        cc.director.loadScene("Loading");
+                    }
                 }
-            }
+            });
         });
+
     },
     //设置游戏风格
     setStyle() {
-        Network.setStyle(this._style);
-        cc.director.loadScene('Loading');
+        Network.setStyle(this._style,this._uid,(res)=>{
+            if(res.result)
+            cc.director.loadScene('Loading');
+        });
+        
     },
 
 });

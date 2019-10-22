@@ -53,7 +53,7 @@ export default class ItemBG2 extends cc.Component {
         if(data.id==useId){
             this.onSel();
         }
-        console.log("传来ID:"+data.id+" 保存ID:"+useId);
+        
     }
     //选中
     onSel() {
@@ -64,6 +64,7 @@ export default class ItemBG2 extends cc.Component {
     unSel() {
         this.imgBg.spriteFrame = this.spBgs[0];
         this._isUse = false;
+        console.log("未选中");
     }
     onClick() {
         // this._isUse = !this._isUse;

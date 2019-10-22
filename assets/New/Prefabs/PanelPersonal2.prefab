@@ -190,7 +190,7 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
-    "_srcBlendFactor": 1,
+    "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_id": ""
   },
@@ -680,8 +680,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 197,
-      "height": 138
+      "width": 156,
+      "height": 134
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -690,8 +690,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": -69,
+      "x": -0.2,
+      "y": -63,
       "z": 0
     },
     "_scale": {
@@ -723,10 +723,10 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "0f79163f-6fb6-4b34-9726-dbbb3c84f077"
+      "__uuid__": "cd4b64f3-8c4a-4364-9d9d-59e009e207e8"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -738,7 +738,7 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
-    "_srcBlendFactor": 1,
+    "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_id": ""
   },
@@ -756,7 +756,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 0,
-    "_bottom": 0,
+    "_bottom": 6,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -1157,7 +1157,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": -197,
-      "y": -48,
+      "y": -49.4,
       "z": 0
     },
     "_scale": {
@@ -6575,16 +6575,16 @@
     },
     "spAvatar": [
       {
-        "__uuid__": "0f79163f-6fb6-4b34-9726-dbbb3c84f077"
+        "__uuid__": "cd4b64f3-8c4a-4364-9d9d-59e009e207e8"
       },
       {
-        "__uuid__": "7c1f3e9b-9215-473c-9944-fe56e1b6e7f3"
+        "__uuid__": "23e0318a-e4bf-4b39-8d2e-8bcb0d9d3753"
       },
       {
-        "__uuid__": "a68bb0c0-b6fc-443e-8f19-fe758ccbe0c1"
+        "__uuid__": "3a77972e-8ccc-43c6-97f3-4a8984f57f23"
       },
       {
-        "__uuid__": "ef71776c-d174-45f6-9ac2-e4f767fb56d6"
+        "__uuid__": "3ccdbf07-dbad-4c00-8445-b75bfc0f317f"
       }
     ],
     "imgAvatarFront": {
