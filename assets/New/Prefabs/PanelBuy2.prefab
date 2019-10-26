@@ -1406,8 +1406,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 170,
-      "height": 170
+      "width": 149,
+      "height": 94
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1477,9 +1477,9 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 9,
-    "_left": 254.5,
+    "_left": 265,
     "_right": 428,
-    "_top": 165,
+    "_top": 203,
     "_bottom": 330,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,

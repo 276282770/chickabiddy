@@ -680,8 +680,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 156,
-      "height": 134
+      "width": 166.1,
+      "height": 155.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -690,7 +690,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -0.2,
+      "x": 0.2,
       "y": -63,
       "z": 0
     },
@@ -735,7 +735,7 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_state": 0,
     "_atlas": null,
     "_srcBlendFactor": 770,
