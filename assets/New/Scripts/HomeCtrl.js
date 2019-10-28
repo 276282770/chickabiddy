@@ -40,12 +40,16 @@ cc.Class({
         this._bgId=[999,14];
     },
 
-    // update (dt) {},
+     update (dt) {
+         
+     },
 
     //去被人家
     gotoOtherHome() {
         var self = this;
         this._uid = Global.scene.otherUid;
+ 
+
         self.ndInnerLoading.active = true;
         Global.game.player.resetPostion();
 
@@ -153,7 +157,7 @@ cc.Class({
                 Global.game.updateOtherState(res.data);
             }
         });
-    },
+    },  
     //改变背景
     changeBG(bg){
         if(bg==this._bg){

@@ -35,7 +35,7 @@ cc.Class({
         this._type=data.type;
         this._parent=parent;
         this.txtName.string=data.name;
-        cc.loader.loadRes("Shop2/shop_"+data.id.toString(),function(err,tex){
+        cc.loader.loadRes("Shop2/shop_"+data.id.toString()+"_2",function(err,tex){
             if(!err){
                 self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
             }

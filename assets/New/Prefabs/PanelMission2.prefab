@@ -24,20 +24,20 @@
     "_level": 1,
     "_components": [
       {
-        "__id__": 65
-      },
-      {
-        "__id__": 66
-      },
-      {
-        "__id__": 67
-      },
-      {
         "__id__": 68
+      },
+      {
+        "__id__": 69
+      },
+      {
+        "__id__": 70
+      },
+      {
+        "__id__": 71
       }
     ],
     "_prefab": {
-      "__id__": 70
+      "__id__": 73
     },
     "_opacity": 255,
     "_color": {
@@ -102,20 +102,23 @@
       },
       {
         "__id__": 56
+      },
+      {
+        "__id__": 62
       }
     ],
     "_active": true,
     "_level": 3,
     "_components": [
       {
-        "__id__": 62
+        "__id__": 65
       },
       {
-        "__id__": 63
+        "__id__": 66
       }
     ],
     "_prefab": {
-      "__id__": 64
+      "__id__": 67
     },
     "_opacity": 255,
     "_color": {
@@ -548,7 +551,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 692,
-      "height": 509
+      "height": 449
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -558,7 +561,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -370,
+      "y": -400,
       "z": 0
     },
     "_scale": {
@@ -852,7 +855,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 254.5,
+      "y": 224.5,
       "z": 0
     },
     "_scale": {
@@ -911,7 +914,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 692,
-      "height": 509
+      "height": 449
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1195,7 +1198,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 162,
+      "width": 126,
       "height": 66
     },
     "_anchorPoint": {
@@ -1205,7 +1208,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 215,
+      "x": 233,
       "y": 0,
       "z": 0
     },
@@ -1585,7 +1588,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 162,
+      "width": 126,
       "height": 66
     },
     "_anchorPoint": {
@@ -1595,7 +1598,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 215,
+      "x": 233,
       "y": 0,
       "z": 0
     },
@@ -2182,6 +2185,107 @@
     "sync": false
   },
   {
+    "__type__": "cc.Node",
+    "_name": "导航条",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_active": true,
+    "_level": 4,
+    "_components": [
+      {
+        "__id__": 63
+      }
+    ],
+    "_prefab": {
+      "__id__": 64
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 641,
+      "height": 52
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_position": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": -130,
+      "z": 0
+    },
+    "_scale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_quat": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 62
+    },
+    "_enabled": true,
+    "_spriteFrame": {
+      "__uuid__": "bf3b497f-f63e-45ba-857e-baa8d78fa7fd"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_state": 0,
+    "_atlas": null,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "95670cfa-aea8-476b-9453-007bed27db3d"
+    },
+    "fileId": "7d6nBCrZhD9pd4hTmlgzuK",
+    "sync": false
+  },
+  {
     "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
@@ -2382,7 +2486,7 @@
     "zoomScale": 1.2,
     "clickEvents": [
       {
-        "__id__": 69
+        "__id__": 72
       }
     ],
     "_N$interactable": true,

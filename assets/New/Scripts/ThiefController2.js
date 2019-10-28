@@ -29,7 +29,7 @@ cc.Class({
     // update (dt) {},
 
     setData(datas) {
-        console.log("==================="+JSON.stringify(datas));
+       
         
         for (var i = 0; i < datas.length; i++) {
             if (i >= this.thiefs.length) {

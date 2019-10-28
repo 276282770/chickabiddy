@@ -80,12 +80,13 @@ spUse:[cc.SpriteFrame],  //按钮图片精灵
         Network.requestUseProp(this._cid, (res) => {
             if (res.result) {
                 console.log("【使用场景切换卡】 ");
-                cc.director.loadScene("SelectStyle");
+               cc.director.loadScene("SelectStyle");
             } else {
                 Global.game.showTip(res.data);
             }
 
         });
+        
 
     },
 

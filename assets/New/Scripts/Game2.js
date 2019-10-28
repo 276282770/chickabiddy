@@ -314,7 +314,7 @@ cc.Class({
         self.thief.setData(data.thiefs);
 
         //更新角色
-        Global.scene.otherUid = data.otherId;
+        // Global.scene.otherUid = data.otherId;
         self.ndFindPlayer.active = data.outHome;
         // self.player.setPlayerCondition(data.foodRemain, data.cleanProgCurr, data.bateu, data.outHome);
         self.player.setPlayerData(data.id, data.nickName, data.lvl, data.titti, data.playerState);

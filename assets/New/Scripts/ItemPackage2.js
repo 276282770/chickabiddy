@@ -67,6 +67,7 @@ cc.Class({
                 }
             });
         }else if(Global.sceneCode==1){
+
             Network.giveOtherFood(Global.scene.otherUid,this._cid,(res)=>{
                 if(res.result){
                     
