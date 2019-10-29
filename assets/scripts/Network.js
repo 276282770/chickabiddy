@@ -1181,7 +1181,7 @@ var Network = {
                 backData.result = true;
                 backData.data = res.tips.tips;
             } else {
-                backData.data = res.data;
+                backData.data = res.tips.tips;
             }
             callback(backData);
         });

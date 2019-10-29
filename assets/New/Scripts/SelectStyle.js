@@ -13,7 +13,8 @@ cc.Class({
 
     //A/B (A拟人B卡通)
     onLoad() {
-  
+        this.ndStyle[0].getComponent(cc.Button).interactable=false;
+        this.ndStyle[1].getComponent(cc.Button).interactable=false;
         this.getStyle();
     },
 
@@ -54,7 +55,7 @@ cc.Class({
             Network.getStyle(code, (res) => {
                 if (res.result) {
                     self._uid=res.data.id
-                    if (!Common.isNullOrEmpty(res.data)) {
+                    if (!Common.isNullOrEmpty(res.data.type)) {
                         if (res.data.type == 'A') {
                             Global.scene.nextSceneName = "Main";
                         }
@@ -64,7 +65,10 @@ cc.Class({
                         cc.director.loadScene("Loading");
                     }
                 }
+                self.ndStyle[0].getComponent(cc.Button).interactable=true;
+                self.ndStyle[1].getComponent(cc.Button).interactable=true;
             });
+
         });
 
     },

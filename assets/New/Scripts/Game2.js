@@ -71,7 +71,7 @@ cc.Class({
         prePlayer: cc.Prefab,  //玩家预制体
         preThief: cc.Prefab,  //小偷预制体
         // preCloud:cc.Prefab,  //云彩预制体
-        preAD:cc.Prefab,  //广告
+        preAD: cc.Prefab,  //广告
 
 
         player: Player,  //玩家
@@ -530,6 +530,10 @@ cc.Class({
     //显示个人日志信息
     onShowPanelDetail() {
         this.panels.createPanel(this.prePanelDetail, "PanelDetail");
+    },
+    //显示兑换面板
+    onShowPanelExchange() {
+        this.panels.createPanel(this.prePanelExchange, "PanelExchange");
     },
     //显示提示框
     showTip(txt) {

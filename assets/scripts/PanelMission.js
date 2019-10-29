@@ -96,6 +96,7 @@ cc.Class({
                 if(res.data.miss1Cmplt){
                     // self.ndMiss1.getChildByName("txtComplete").active=true;
                     self.ndMiss1.getChildByName("btnOK").getComponent(cc.Sprite).spriteFrame=this.spMissAnswerGray;
+                    self.ndMiss1.getComponent(cc.Button).interactable=false;
                 }
             }
         });
