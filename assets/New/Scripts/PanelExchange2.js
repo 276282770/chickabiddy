@@ -121,7 +121,9 @@ cc.Class({
                 for (var i = 0; i < data.length; i++) {
                     let item = cc.instantiate(self.preItemExchangeList);
                     item.parent = self.ndSvExchangeList.getComponent(cc.ScrollView).content;
-                    item.fill(data[i].count, data[i].site, data[i].time);
+                    // item.fill(data[i].count, data[i].site, data[i].time);
+                    let itemScr=item.getComponent("ItemDetail");
+                    itemScr.fill(data[i].time,data[i].count);
                 }
             }
         });
@@ -152,21 +154,35 @@ cc.Class({
     //设置鸡蛋兑换鸡蛋的比率
     setEgg2EggRate(num) {
         this._egg2EggRate = num;
-        this.txtEgg2EggRate.string = num.toString();
+        this.txtEgg2EggRate.string = (1/num).toString()+"个游戏鸡蛋兑换1个鸡蛋";
     },
     //设置鸡蛋兑换钱的比率
     setEgg2MoneyRate(num) {
         this._egg2MoneyRate = num;
-        this.txtEgg2MoneyRate.string = num.toString();
+        this.txtEgg2MoneyRate.string ="1个兑换"+num.toString()+"金币" ;
     },
     //设置偷来鸡蛋兑换金币的比率
     setStealEgg2MoneyRate(num) {
         this._stealEgg2MoneyRate = num;
-        this.txtStealEgg2MoneyRate.string = num.toString();
+        this.txtStealEgg2MoneyRate.string = "1个兑换"+num.toString()+"金币" ;
     },
 
+    //鸡蛋换钱
     exchangeEgg2Money() {
-
+        this.openPanelExchangeBuy(this._eggCount,this._egg2EggRate,0);
+    },
+    //被人的蛋兑钱
+    exchangeOtherEgg2Money(){
+        this.openPanelExchangeBuy(this._stealEggCount,this._stealEgg2MoneyRate,2);
+    },
+    //鸡蛋兑鸡蛋
+    exchangeEgg2Egg(){
+        this.openPanelExchangeBuy(this._eggCount,this._egg2EggRate,1);
+    },
+    openPanelExchangeBuy(eggCount,rate,type){
+        let panelBuy=cc.instantiate(this.prePanelExchangeBuy);
+        panelBuy.getComponent("PanelExchangeBuy2").setData(eggCount,rate,type);
+        panelBuy.parent=cc.find("Canvas/UICanvas");
     },
 
 });
