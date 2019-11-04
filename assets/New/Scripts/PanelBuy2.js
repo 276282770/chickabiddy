@@ -28,12 +28,12 @@ cc.Class({
         this._cid=id;
         var self=this;
         if(id!=null){
-            cc.loader.loadRes("Shop2/shop_"+id,function(err,tex){
+            cc.loader.loadRes("Shop2/shop_"+id,cc.SpriteFrame, function(err,tex){
                 if(!err){
-                    self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
+                    self.imgGoods.spriteFrame=tex;
                 }
             });
-            // Common.loadRes("Shop2/shop_"+id,self.imgGoods);
+            // Common.loadRes("Shop2/shop_"+id, self.imgGoods);
         }
         this._unitPrice=unitPrice;
         this.iniPrice();

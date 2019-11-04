@@ -115,15 +115,15 @@ cc.Class({
 
         var self = this;
 
-        Network.exchangeEggLog((res) => {
+        Network.getExchangeList2((res) => {
             if (res.result) {
                 var data = res.data;
                 for (var i = 0; i < data.length; i++) {
                     let item = cc.instantiate(self.preItemExchangeList);
                     item.parent = self.ndSvExchangeList.getComponent(cc.ScrollView).content;
-                    // item.fill(data[i].count, data[i].site, data[i].time);
-                    let itemScr=item.getComponent("ItemDetail");
-                    itemScr.fill(data[i].time,data[i].count);
+
+                    let itemScr=item.getComponent("ItemDetailExchange2");
+                    itemScr.fill(data[i].isCmplt,data[i].time,data[i].count,data[i].no,data[i].expritydate,data[i].dealTime, data[i].servicenet);
                 }
             }
         });
@@ -169,7 +169,7 @@ cc.Class({
 
     //鸡蛋换钱
     exchangeEgg2Money() {
-        this.openPanelExchangeBuy(this._eggCount,this._egg2EggRate,0);
+        this.openPanelExchangeBuy(this._eggCount,this._egg2MoneyRate,0);
     },
     //被人的蛋兑钱
     exchangeOtherEgg2Money(){
@@ -177,9 +177,17 @@ cc.Class({
     },
     //鸡蛋兑鸡蛋
     exchangeEgg2Egg(){
-        this.openPanelExchangeBuy(this._eggCount,this._egg2EggRate,1);
+        var self=this;
+        Network.getIsShowUnsafeData((res)=>{
+            if(res.result){
+                self.openPanelExchangeBuy(this._eggCount,this._egg2EggRate,1);
+            }
+        });
+        
     },
     openPanelExchangeBuy(eggCount,rate,type){
+        this.onClose();
+
         let panelBuy=cc.instantiate(this.prePanelExchangeBuy);
         panelBuy.getComponent("PanelExchangeBuy2").setData(eggCount,rate,type);
         panelBuy.parent=cc.find("Canvas/UICanvas");

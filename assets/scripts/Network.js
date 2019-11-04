@@ -1215,9 +1215,9 @@ var Network = {
         });
     },
     /**改变小鸡游戏的风格 */
-    changeGameStyle(type,id, callback) {
+    changeGameStyle(type, id, callback) {
         let url = this.domain + "/chicken/SwitchToStyle.action";
-        let data = { style: type,uid:id };
+        let data = { style: type, uid: id };
         let backData = { result: false };
         // if (type == 1) {
         //     data.style = 'B';
@@ -1265,7 +1265,7 @@ var Network = {
             if (res.state == 200) {
                 backData.result = true;
                 backData.data.type = res.data;
-                backData.data.id=res.replenish;
+                backData.data.id = res.replenish;
             }
             callback(backData);
         })
@@ -1274,9 +1274,9 @@ var Network = {
 
     },
     //设置游戏风格
-    setStyle(style,id, callback) {
+    setStyle(style, id, callback) {
         let url = this.domain + "/chicken/SwitchToStyle.action";
-        let data = { style: style,uid:id };
+        let data = { style: style, uid: id };
         let backData = { result: false, data: {} };
         this.request(url, data, (res) => {
             backData.result = true;
@@ -1353,6 +1353,47 @@ var Network = {
                 backData.result = true;
             } else {
                 backData.data = res.data;
+            }
+            callback(backData);
+        });
+    },
+    /**鸡蛋兑换鸡蛋2 */
+    exchangeEgg2Egg2(num, callback) {
+        let url = this.domain + "/exchangeEggs/createExchangeEggCode.action";
+        let data = { num: num };
+        let backData = { result: false, data: {} };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data = res.replenish.codes;
+            }
+            else {
+
+            }
+            callback(backData);
+        });
+    },
+    getExchangeList2(callback) {
+        let url = this.domain + "/exchangeEggs/exchangeHis.action";
+        let data = {};
+        let backData = { result: false, data: {} };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data=[];
+                let sData=res.data;
+                for(var i=0;i<sData.length;i++){
+                    let item={
+                        no:sData[i].codes,
+                        isCmplt:sData[i].whetherToChange,
+                        time:sData[i].exchangeDate,
+                        count:sData[i].exchangeNumber,
+                        expritydate:sData[i].overTime,
+                        servicenet:sData[i].exchangeAddr,
+                        dealTime:sData[i].exchangeDate,
+                    }
+                    backData.data.push(item);
+                }
             }
             callback(backData);
         });

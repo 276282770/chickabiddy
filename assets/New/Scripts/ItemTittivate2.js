@@ -24,7 +24,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
+        
     },
 
     // update (dt) {},
@@ -38,6 +38,8 @@ cc.Class({
         cc.loader.loadRes("Shop2/shop_"+data.id.toString()+"_2",function(err,tex){
             if(!err){
                 self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
+            }else{
+                console.log(err);
             }
         });
         if(data.isUse){

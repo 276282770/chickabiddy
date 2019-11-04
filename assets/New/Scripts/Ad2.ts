@@ -1,4 +1,5 @@
 var Common=require("Common");
+var Network=require("Network");
 
 const {ccclass, property} = cc._decorator;
 
@@ -21,7 +22,14 @@ export default class Ad2 extends cc.Component {
     // onLoad () {}
 
     start () {
+        var self=this;
         // Common.load(this.adUrl,this.imgAD);
+        Network.getIsShowUnsafeData((res)=>{
+            if(!res.result){
+                self.node.destroy();
+            }
+        });
+        // Common.load("",this.imgAD);
     }
 
     update (dt) {

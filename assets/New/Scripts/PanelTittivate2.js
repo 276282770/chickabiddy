@@ -35,7 +35,6 @@ cc.Class({
     },
     start() {
         this.loadData();
-
     },
     init() {
         let ndTabs = this.ndTabControl.getChildByName("Tabs");

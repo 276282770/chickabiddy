@@ -93,7 +93,12 @@ var Common={
         if(str==null||str=="")
         return true;
         return false;
-    }
+    },
+    /**转换时间 */
+    parseTime(ms){
+        let tm=new Date(ms);
+        return tm.getFullYear()+"-"+(tm.getMonth()+1)+"-"+tm.getDate()+" "+tm.getHours()+":"+tm.getMinutes()+":"+tm.getSeconds();
+    },
 
 };
 
