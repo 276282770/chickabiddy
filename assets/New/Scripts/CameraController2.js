@@ -110,4 +110,14 @@ cc.Class({
 
         return pos;
     },
+    //摄像机放在最右边
+    setRight(){
+        this._isFollow=false;
+        this.node.position=new cc.Vec2(this.maxX,this.node.position.y);
+    },
+    //设置默认位置
+    setDefault(){
+        this._isFollow=true;
+        this.node.position=new cc.Vec2(0,this.node.position.y);
+    }
 });

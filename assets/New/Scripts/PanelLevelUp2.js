@@ -78,7 +78,7 @@ cc.Class({
 
         // console.log(JSON.stringify(midLayer)+" "+JSON.stringify(tarStep));
         // console.log(this.ndSteps.position+" ::");
-        // this.ndSteps.position=new cc.v2(0,-bgIdx*this.ndSteps.height);
+        this.ndSteps.position=new cc.v2(0,-bgIdx*this.ndSteps.height);
         // console.log(this.ndSteps.position+" :::");
         this.ndPlayer.position = preStep;
         if (modIdx != 9) {

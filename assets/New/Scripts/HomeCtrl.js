@@ -20,6 +20,7 @@ cc.Class({
         spBgs:[cc.SpriteFrame],  //背景
         ndLunchbox:cc.Node,  //饭盒
         ndPool:cc.Node,  //池塘
+        ndFalls:cc.Node, //瀑布
 
         // prePanelPackage:cc.Prefab,  //背包预制体
 
@@ -60,6 +61,7 @@ cc.Class({
                 self.changeNode(false);
                 Global.game.player.openSay(res.data.say);
                 Global.game.updateOtherState(res.data);
+
             } else {
                 Global.game.showTip(res.data);
             }
@@ -71,6 +73,7 @@ cc.Class({
         var self = this;
         self.ndInnerLoading.active = true;
         Global.game.player.resetPostion();
+        Global.game.camera.setDefault();
 
         Network.requestIndexInfo((res) => {
             if (res.result) {
@@ -82,6 +85,7 @@ cc.Class({
             }
             self.ndInnerLoading.active = false;
         });
+
     },
     changeNode(isBackHome) {
 
@@ -168,6 +172,12 @@ cc.Class({
         this.imgBg.spriteFrame=this.spBgs[bg];
         this.ndLunchbox.getComponent("LunchBox2").changeStyle(bg);
         this.ndPool.getComponent("Pool").changeStyle(bg);
+
+        if(this._bgId[bg]==this._bgId[0]){
+            this.ndFalls.active=true;
+        }else{
+            this.ndFalls.active=false;
+        }
     },
 
     changeBGById(id){

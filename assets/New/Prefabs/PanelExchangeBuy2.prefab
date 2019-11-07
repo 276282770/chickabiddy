@@ -55,8 +55,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 679,
-      "height": 674
+      "width": 506,
+      "height": 533
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -133,8 +133,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 179,
-      "y": 158,
+      "x": 196,
+      "y": 214,
       "z": 0
     },
     "_scale": {
@@ -197,8 +197,8 @@
     "_target": null,
     "_alignFlags": 33,
     "_left": 0,
-    "_right": 135,
-    "_top": 152.5,
+    "_right": 31.5,
+    "_top": 26,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -423,7 +423,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -101,
+      "y": -99,
       "z": 0
     },
     "_scale": {
@@ -467,9 +467,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 55,
+      "g": 43,
+      "b": 27,
       "a": 255
     },
     "_contentSize": {
@@ -713,8 +713,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 203,
-      "height": 53
+      "width": 196,
+      "height": 69
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -724,7 +724,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -160,
+      "y": -170,
       "z": 0
     },
     "_scale": {
@@ -915,7 +915,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -47,
+      "y": -38,
       "z": 0
     },
     "_scale": {
@@ -1328,8 +1328,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 175,
-      "b": 0,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -1472,7 +1472,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 280,
-      "height": 40
+      "height": 50
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1482,7 +1482,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 84,
+      "y": 110,
       "z": 0
     },
     "_scale": {
@@ -1517,7 +1517,7 @@
     "_string": "请输入兑换数量",
     "_N$string": "请输入兑换数量",
     "_fontSize": 40,
-    "_lineHeight": 40,
+    "_lineHeight": 50,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1739,9 +1739,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 55,
+      "g": 43,
+      "b": 27,
       "a": 255
     },
     "_contentSize": {

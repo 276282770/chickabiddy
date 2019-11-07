@@ -365,7 +365,7 @@ cc.Class({
         } else {
 
             this._rqstTm = this._rqstRate;
-            // this.updateIndex();
+            this.updateIndex();
         }
     },
 
@@ -651,6 +651,7 @@ cc.Class({
     onFindPlayer() {
         if (Global.sceneCode == 0) {
             cc.find("Canvas").getComponent("HomeCtrl").gotoOtherHome();
+            this.camera.setRight();
         }
     },
     //是否显示控制按钮
