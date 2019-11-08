@@ -77,7 +77,7 @@ spUse:[cc.SpriteFrame],  //按钮图片精灵
 
     //使用场景切换卡
     onChangeScene() {
-        Network.requestUseProp(this._cid, (res) => {
+        Network.setStyle(null,Global.id, (res) => {
             if (res.result) {
                 console.log("【使用场景切换卡】 ");
                cc.director.loadScene("SelectStyle");

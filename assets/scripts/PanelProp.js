@@ -76,6 +76,8 @@ cc.Class({
             if(res.result){
 
                 for(var i=0;i<res.data.length;i++){
+                    if(res.data[i].id==6)
+                    continue;
                     let newItem=cc.instantiate(self.preItem);
                     newItem.parent=self.ndCtnt;
                     let newItemScr=newItem.getComponent("ItemProp");

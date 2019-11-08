@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.44588623046875,
-      "y": 0.44588623046875,
+      "x": 0.7370496174062536,
+      "y": 0.7370496174062536,
       "z": 1
     },
     "_quat": {
@@ -470,7 +470,7 @@
       "__id__": 8
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_level": 3,
     "_components": [
       {
@@ -4071,7 +4071,7 @@
       "__id__": 92
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_level": 3,
     "_components": [
       {
@@ -4255,7 +4255,7 @@
       "__id__": 92
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_level": 3,
     "_components": [
       {
@@ -4289,7 +4289,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": -15,
-      "y": 139,
+      "y": 41,
       "z": 0
     },
     "_scale": {
@@ -6616,14 +6616,14 @@
       "y": 1,
       "z": 1
     },
-    "_rotationX": 0,
-    "_rotationY": 0,
+    "_rotationX": -90,
+    "_rotationY": -90,
     "_quat": {
       "__type__": "cc.Quat",
       "x": 0,
       "y": 0,
-      "z": 0,
-      "w": 1
+      "z": 0.7071067811865475,
+      "w": 0.7071067811865476
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -6649,8 +6649,8 @@
       "x": 0.5,
       "y": 0.5
     },
-    "_fillStart": 1,
-    "_fillRange": -1,
+    "_fillStart": 0,
+    "_fillRange": 1,
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
@@ -6672,7 +6672,7 @@
     },
     "_N$mode": 2,
     "_N$progress": 1,
-    "_N$reverse": true,
+    "_N$reverse": false,
     "_id": "aegbxnVCdMjqc0GfZkpzw/"
   },
   {
@@ -7155,14 +7155,14 @@
       "y": 1,
       "z": 1
     },
-    "_rotationX": 0,
-    "_rotationY": 0,
+    "_rotationX": -90,
+    "_rotationY": -90,
     "_quat": {
       "__type__": "cc.Quat",
       "x": 0,
       "y": 0,
-      "z": 0,
-      "w": 1
+      "z": 0.7071067811865475,
+      "w": 0.7071067811865476
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -7188,8 +7188,8 @@
       "x": 0.5,
       "y": 0.5
     },
-    "_fillStart": 0,
-    "_fillRange": -1,
+    "_fillStart": 1,
+    "_fillRange": 1,
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
@@ -7211,7 +7211,7 @@
     },
     "_N$mode": 2,
     "_N$progress": 1,
-    "_N$reverse": true,
+    "_N$reverse": false,
     "_id": "19uovCGlxJ1roEkLbleLjD"
   },
   {

@@ -482,7 +482,7 @@
     },
     "component": "",
     "_componentId": "ad9d2xcDmtFSJcehZDE/Wwv",
-    "handler": "onUse",
+    "handler": "onClick",
     "customEventData": ""
   },
   {
@@ -666,7 +666,7 @@
     },
     "component": "",
     "_componentId": "ad9d2xcDmtFSJcehZDE/Wwv",
-    "handler": "onUse",
+    "handler": "onClick",
     "customEventData": ""
   },
   {

@@ -6,6 +6,7 @@ cc.Class({
 
     properties: {
         ndStyle: [cc.Node],//画面选择节点
+        ndLoading:cc.Node, //加载界面
 
         _style: "",
         _uid:-1,  //用户ID
@@ -63,6 +64,8 @@ cc.Class({
                             Global.scene.nextSceneName = 'Main2';
                         }
                         cc.director.loadScene("Loading");
+                    }else{
+                        self.ndLoading.active=false;
                     }
                 }
                 self.ndStyle[0].getComponent(cc.Button).interactable=true;

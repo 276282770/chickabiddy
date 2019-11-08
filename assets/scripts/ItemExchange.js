@@ -113,6 +113,7 @@ cc.Class({
     //设置比率
     setRatio(num){
         this._ratio=num;
+        
         this.txtRatio.string=num.toString();
     },
     //设置兑换数量和结果数量

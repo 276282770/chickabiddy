@@ -244,7 +244,9 @@ cc.Class({
 
         self.txtEgg.string = data.eggNum.toString();
 
-        // self.proClean.progress = data.cleanProgCurr / data.cleanProgFull;
+        self.proClean.progress = data.cleanProgCurr / data.cleanProgFull;
+        self.proFood.progress = data.foodRemain / data.foodProgFull;
+        self.setLunchBox();
         // if (data.foodRemain < 0) {
         //     self.proFood.progress = 0;
         //     self.proFood.node.parent.getChildByName("full").active = false;
@@ -393,8 +395,8 @@ cc.Class({
         if (curr > 0) {
             percent = curr / full;
         }
-        this.proFood.progress = percent;
-        this.proFood.node.parent.getChildByName("full").getComponent(cc.ProgressBar).progress = percent;
+        // this.proFood.progress = percent;
+        cc.find("Canvas/LunchBox/full").getComponent(cc.ProgressBar).progress = percent;
     },
     //添加钱
     addMoneyEff(num) {

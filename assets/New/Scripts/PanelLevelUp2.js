@@ -68,13 +68,13 @@ cc.Class({
         console.log("等级"+curr);
         curr-=1;
         var self = this;
-        let bgIdx = parseInt(curr / 10);
+        let bgIdx = parseInt((curr-1) / 10);
         let modIdx = parseInt((curr - 1) % 10);
         // console.log(curr+" "+bgIdx+" "+modIdx);
         // this.imgBg.spriteFrame=this.spBg[bgIdx];
         let preStep = Common.vector2Add(this.stepsRoot[bgIdx].children[modIdx].position, this.stepsRoot[bgIdx].position);
-        let tarStep = Common.vector2Add(this.stepsRoot[bgIdx].children[modIdx + 1 > 9 ? 0 : modIdx + 1].position, this.stepsRoot[bgIdx].position);
-        let midLayer = Common.vector2Add(this.stepsRoot[bgIdx].getChildByName("bottomcenter").position, this.stepsRoot[bgIdx].position);
+        let tarStep = Common.vector2Add(this.stepsRoot[modIdx==9?bgIdx+1:bgIdx].children[modIdx + 1 > 9 ? 0 : modIdx + 1].position, this.stepsRoot[modIdx==9?bgIdx+1:bgIdx].position);
+        let midLayer = Common.vector2Add(this.stepsRoot[modIdx==9?bgIdx+1:bgIdx].getChildByName("bottomcenter").position, this.stepsRoot[modIdx==9?bgIdx+1:bgIdx].position);
 
         // console.log(JSON.stringify(midLayer)+" "+JSON.stringify(tarStep));
         // console.log(this.ndSteps.position+" ::");
@@ -148,6 +148,7 @@ cc.Class({
         // }
     },
     touchMove(event) {
+        return;
    
         if (!this._canSlide)
             return;
