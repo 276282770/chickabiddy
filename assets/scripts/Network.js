@@ -77,7 +77,7 @@ var Network = {
                 backData.data.cleanProgCurr = res.data.clean;
                 backData.data.cleanProgFull = 86400;
 
-                backData.data.foodRemain = res.data.resEatTime;  //食物剩余可以吃的时间
+                backData.data.foodRemain = Math.max(0,res.data.resEatTime);  //食物剩余可以吃的时间
                 backData.data.foodProgFull = res.data.totalEatTime;  //食物进度
                 // backData.data.foodProg=res.data.howLongEat_pre;  //食物进度
                 backData.data.newDetail = res.data.unRead_dongtai > 0;  //新动态

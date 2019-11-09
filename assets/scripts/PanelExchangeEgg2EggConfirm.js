@@ -32,6 +32,7 @@ cc.Class({
         count:0, // 兑换数量
         txtSite:cc.Label,  //网点位置
         txtCount:cc.Label,  //兑换数量文本
+        txtCode:cc.Label,  //兑换码
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -47,7 +48,8 @@ cc.Class({
     fill(code,count){
         this.code=code;
         this.count=count;
-        this.txtCount.string=count.toString();
+        this.txtCount.string=count.toString()+"个";
+        this.txtCode.string=code;
     },
     onClose(){
         this.node.destroy();
@@ -58,15 +60,16 @@ cc.Class({
      *
      */
     onExchange(){
-        var self=this;
-        Network.exchangeEgg2Egg(this.code,this.count,(res)=>{
-            if(res.result){
-                Global.game.updateIndex();
-                Global.game.showTip("兑换成功");
-            }else{
-                Global.game.showTip("兑换失败 "+res.data);
-            }
-            self.onClose();
-        });
+        // var self=this;
+        // Network.exchangeEgg2Egg(this.code,this.count,(res)=>{
+        //     if(res.result){
+        //         Global.game.updateIndex();
+        //         Global.game.showTip("兑换成功");
+        //     }else{
+        //         Global.game.showTip("兑换失败 "+res.data);
+        //     }
+        //     self.onClose();
+        // });
+        this.onClose();
     },
 });

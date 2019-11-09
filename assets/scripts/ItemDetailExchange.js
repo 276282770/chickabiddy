@@ -30,7 +30,6 @@ cc.Class({
         txtDate:cc.Label,  //日期
         txtNum:cc.Label,  //数量
         txtPlace:cc.Label,  //地点
-
     },
 
     // LIFE-CYCLE CALLBACKS:
