@@ -91,8 +91,8 @@ var WX={
             type:'text',
             text: '',
             style: {
-              left: 330,
-              top: 300,
+              left: 325,
+              top: 130,
               width: 38,
               height: 38
             }

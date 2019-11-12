@@ -95,7 +95,7 @@ var Network = {
                     if (thiefs[i] == null) {
                         backData.data.thiefs.push(null);
                     } else {
-                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url });
+                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url,comeFrom: data[i].chicken_style});
 
                     }
 
@@ -580,13 +580,13 @@ var Network = {
                 backData.result = true;
                 backData.result = "购买成功";
             } else {
-                let err = "";
-                switch (res.state) {
-                    case 222: err = "购买商品不存在"; break;
-                    default: err = res.data; break;
-                }
+                // let err = "";
+                // switch (res.state) {
+                //     case 222: err = "购买商品不存在"; break;
+                //     default: err = res.data; break;
+                // }
 
-                backData.data = err;
+                backData.data = res.tips.tips;
             }
             if (callback)
                 callback(backData);
@@ -889,7 +889,7 @@ var Network = {
                     if (thiefs[i] == null) {
                         backData.data.thiefs.push(null);
                     } else {
-                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url });
+                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url,comeFrom: thiefs[i].chicken_style });
 
                     }
 

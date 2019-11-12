@@ -69,16 +69,19 @@ cc.Class({
     },
     //初始化数量和总价
     iniPrice(){
-        if(Global.game._money>=this._unitPrice){
-            this._num=1;
-            this.txtNum.string=this._num.toString();
-            this.txtTotalPrice.string="￥"+this._unitPrice.toString();
-            this.btnBuy.interactable=true;
-        }else{
-            this.txtNum.string=this._num.toString();
-            this.txtTotalPrice.string="￥"+this._unitPrice.toString();
-            this.btnBuy.interactable=false;
-        }
+        // if(Global.game._money>=this._unitPrice){
+        //     this._num=1;
+        //     this.txtNum.string=this._num.toString();
+        //     this.txtTotalPrice.string="￥"+this._unitPrice.toString();
+        //     this.btnBuy.interactable=true;
+        // }else{
+        //     this.txtNum.string=this._num.toString();
+        //     this.txtTotalPrice.string="￥"+this._unitPrice.toString();
+        //     this.btnBuy.interactable=false;
+        // }
+        this._num=1;
+        this.txtNum.string=1;
+        this.txtTotalPrice.string=this._unitPrice.toString();
     },
     //加数量按钮
     onAdd(){

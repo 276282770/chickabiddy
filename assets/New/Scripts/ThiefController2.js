@@ -38,10 +38,13 @@ cc.Class({
             if (datas[i] == null) {
                 this.thiefs[i].node.active = false;
             } else {
-                
+                let tittiData={glass:0};
+                if(datas[i].comeFrom!=3){
+                    tittiData.glass=datas[i].comeFrom;
+                }
                     // this.thiefs[i].node.position=this.positions[i];
                     this.thiefs[i].node.active = true;
-                    this.thiefs[i].setThiefData(datas[i].id, datas[i].name, datas[i].level, null, 20);
+                    this.thiefs[i].setThiefData(datas[i].id, datas[i].name, datas[i].level, tittiData, 5);
                     this.thiefs[i].playEatting_thief();
                 
             }

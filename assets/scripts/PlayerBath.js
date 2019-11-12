@@ -42,7 +42,11 @@ cc.Class({
 
     start () {
         this.scheduleOnce(function(){
-            cc.find("Canvas/Guid").getComponent("Guid").stepSchedule(2);
+            // cc.find("Canvas/Guid").getComponent("Guid").stepSchedule(2);
+            let guid=cc.find("Canvas/Guid");
+            if(guid){
+                guid.getComponent("Guid").stepSchedule(2);
+            }
             this.node.destroy();
             Global.game.showTip(this._awardTxt);
         },this._backTime);

@@ -96,7 +96,7 @@ cc.Class({
 
         this.ndProgEgg.active = isBackHome;
         this.ndProgExp.active = isBackHome;
-        this.ndProgLunchBox.active = isBackHome;
+        // this.ndProgLunchBox.active = isBackHome;
         this.btnAvatar.interactable = isBackHome;
 
 

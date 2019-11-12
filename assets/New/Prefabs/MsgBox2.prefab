@@ -159,7 +159,7 @@
     "_useOriginalSize": false,
     "_string": "",
     "_N$string": "",
-    "_fontSize": 40,
+    "_fontSize": 35,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -290,6 +290,7 @@
       "__id__": 3
     },
     "tm": 2,
+    "clamp": 12,
     "_id": ""
   },
   {

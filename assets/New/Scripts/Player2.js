@@ -253,6 +253,7 @@ cc.Class({
         var self = this;
         this._isAction = true;
         this._cam._isFollow = true;
+        this._isShowExtend = false;
         self.getPool();
         let targetPos = Common.vector2Add(this._pool.position, this._pool.getChildByName("playerPos").position);
 
@@ -335,6 +336,7 @@ cc.Class({
         var self = this;
         this._isAction = true;
         this._cam._isFollow = true;
+        this._isShowExtend = false;
         self.getLunchBox();
         let targetPos = Common.vector2Add(this._lunchBox.position, this._lunchBox.getChildByName("playerPos").position);
 
@@ -500,6 +502,7 @@ cc.Class({
             case 2: this.playIdle(); break;
             case 3: this.playCry(); break;
             case 4: this.playHunger(); break;
+            case 5:this.playEatting();break;
             case 6: this.playDirty(); break;
             case 7: this.node.active = false; break;
             // case 20:
