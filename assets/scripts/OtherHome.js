@@ -50,9 +50,12 @@ cc.Class({
         thief: Thief,  //小偷
         preMsgBox: cc.Prefab,  //消息框预制体
         prePlayerBath: cc.Prefab,  //洗澡预制体
+        prePlayerDine:cc.Prefab,  //吃饭预制体
 
         prePlayer: cc.Prefab,  //小鸡预制体
         preThief: cc.Prefab,  //小偷预制体
+
+        prePanelPackage:cc.Prefab,  //背包
 
         ndTipEgg: cc.Node,  //偷蛋提示
         ndTipBath: cc.Node,  //洗澡提示
@@ -78,7 +81,7 @@ cc.Class({
     },
 
     start() {
-
+        Global.sceneCode = 1;
         this.updateIndex();
     },
     iniNode() {
@@ -156,9 +159,9 @@ cc.Class({
                     }
                     //如果进来小偷时
                     if (currentThiefsCount > 0 && originalThiefsCount <= 0) {
-                        if(originalThiefsCount==-1){
+                        if (originalThiefsCount == -1) {
                             self.backgroundScale("small");
-                        }else{
+                        } else {
                             self.onCloudClose();
                             self.scheduleOnce(function () {
                                 self.backgroundScale("small");
@@ -168,11 +171,11 @@ cc.Class({
                     }
                     if (data.thiefs[0] != null || data.thiefs[1] != null) {
                         //有小偷
-                 
+
 
                     } else {
                         //没有小偷
-                      
+
                     }
                     self.thief.setThief(data.thiefs);
                 }
@@ -299,11 +302,50 @@ cc.Class({
 
 
 
-    test() {
-        this.player.openSay("你好");
+    //蹭饭
+    onStealingFood() {
+        var self = this;
+        Network.stealingFood(this._uid, (res) => {
+            if (res.result) {
+                // Global.game.onDine();
+                self.updateIndex();
+                Global.game.showTip("蹭吃成功");
+            } else {
+                Global.game.showTip(res.data);
+            }
+        });
     },
+    //请客吃饭
+    onTreatFood() {
+        var self = this;
+        Network.treatFood(this._uid, (res) => {
+            if (res.result) {
+                self.onBack();
+            } else {
+                Global.game.showTip(res.data);
+            }
+        });
+    },
+    //给别人喂食
+    onGiveOtherFood() {
+        Global.game.onShowPanelPackage();
+    },
+    //显示背包
+    onShowPanelPackage() {
+        // this.panels.createPanel(this.prePanelPackage, "PanelPackage");
+        let panel=cc.instantiate(this.prePanelPackage);
+        panel.parent=cc.find("Canvas");
 
-
-
+    },
+    //播放吃饭动画
+    onPlayPlayerDine(id, sayText) {
+        let dine = cc.instantiate(this.prePlayerDine);
+        dine.parent = this.node;
+        let dineScr = dine.getComponent("PlayerDine");
+        dineScr.fill(id, sayText);
+    },
+    onDine(){
+        this.onPlayPlayerDine(1,"吃的饱饱的");
+    }
 
 });

@@ -66,10 +66,11 @@ cc.Class({
         cc.director.getCollisionManager().enabledDebugDraw = true;
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+        this._tittivate = { hat: -1, glass: -1, hornor: -1 };
     },
 
     start() {
-        this._tittivate = { hat: -1, glass: -1, hornor: -1 };
+        
         this._rigid = this.node.getComponent(cc.RigidBody);
         this._originalPosition = this.node.position;
         // this.node.position=new cc.Vec2(0,0);
@@ -403,6 +404,15 @@ cc.Class({
             this.setTittivate("glass", 0);
             this.setTittivate("hornor", 0);
             return;
+        }
+        if(!data.hat){
+            data.hat=-1;
+        }
+        if(!data.glass){
+            data.glass=0;
+        }
+        if(!data.hornor){
+            data.hornor=0;
         }
         if (data.hat != this._tittivate.hat) {
             this._tittivate.hat = data.hat;

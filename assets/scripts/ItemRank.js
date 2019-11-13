@@ -8,7 +8,6 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-var Network=require("Network");
 cc.Class({
     extends: cc.Component,
 
@@ -28,11 +27,16 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        ndBg:cc.Node,  //背景节点
-        ndCtnt:cc.Node,  //根内容节点
-        preItem:cc.Prefab,  //项预制体
+        imgAvatar:{default:null,type:cc.Sprite,tooltip:"头像"},
+        txtNo:{default:null,type:cc.Label,tooltip:"排名"},
+        txtNickname:{default:null,type:cc.Label,tooltip:"昵称"},
+        txtLevel:{default:null,type:cc.Label,tooltip:"等级"},
+        imgLevel:cc.Sprite,  //等级图
+        spLevels:[cc.SpriteFrame],  //头三名等级图片精灵
         
-        _panelReady:false,
+        
+
+        _openid:"",  //openId
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -42,47 +46,39 @@ cc.Class({
     start () {
 
     },
-    onShow(){
-        var self=this;
-        let h=this.ndBg.height;
-        let x=this.ndBg.position.x;
-        this.ndBg.runAction(cc.sequence(
-            cc.moveTo(0.5,x,h),
-            cc.callFunc(function(){
-                self._panelReady=true;
-            })
-        ));
-        this.load();
-    },
-    onClose(){
-        if(!this._panelReady)
-            return;
-        let x=this.ndBg.position.x;
-        var self=this;
-        this.ndBg.runAction(cc.sequence(
-            cc.moveTo(0.5,x,0),
-            cc.callFunc(function(){
-                self.node.destroy();
-            })
-        ));
-    },
-    onEnable(){
-        this.onShow();
-    },
-    load(){
-        var self=this;
-        
-        Network.requestGetPropLst((res)=>{
-            if(res.result){
 
-                for(var i=0;i<res.data.length;i++){
-                    let newItem=cc.instantiate(self.preItem);
-                    newItem.parent=self.ndCtnt;
-                    let newItemScr=newItem.getComponent("ItemProp");
-                    newItemScr.fill(res.data[i].id,res.data[i].count,res.data[i].percent);
-
+    // update (dt) {},
+    
+    /**填充
+     *
+     *
+     * @param {*} no  排名
+     * @param {*} nickname  昵称
+     * @param {*} avatar  头像
+     * @param {*} level  等级
+     */
+    fill(no,level,avatar,nickname,openId){
+        var self=this;
+        if(no<4){
+            if(this.imgLevel!=null)
+            this.imgLevel.spriteFrame=this.spLevels[no-1];
+        }else{
+            if(this.txtNo!=null)
+            this.txtNo.string=no.toString();
+        }
+        if(this.txtNickname!=null)
+        this.txtNickname.string=nickname;
+        if(this.txtLevel!=null)
+        this.txtLevel.string=level.toString();
+        if(avatar!=null&&avatar!=""){
+            cc.loader.load({url:avatar,type:'png'},function(err,tex){
+                if(!err){
+                    if(self.imgAvatar!=null)
+                    self.imgAvatar.spriteFrame=new cc.SpriteFrame(tex);
                 }
-            }
-        });
-    }
+            });
+        }
+        
+
+    },
 });

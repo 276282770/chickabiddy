@@ -95,7 +95,7 @@ var Network = {
                     if (thiefs[i] == null) {
                         backData.data.thiefs.push(null);
                     } else {
-                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url,comeFrom: data[i].chicken_style});
+                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url,comeFrom: thiefs[i].chicken_style});
 
                     }
 

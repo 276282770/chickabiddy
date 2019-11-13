@@ -179,7 +179,7 @@ cc.Class({
             this.checkShareSuccess();
 
         });
-        WX.createGameClubButton();
+        // WX.createGameClubButton();
     },
     login(code, avatar, nickName, fid) {
         var self = this;
@@ -334,7 +334,6 @@ cc.Class({
 
     start() {
         this._rqstTm = this._rqstRate;
-
     },
     //初始化节点
     iniNode() {

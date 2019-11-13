@@ -59,6 +59,7 @@ cc.Class({
         prePanelExchange: cc.Prefab,  //鸡蛋兑换界面
         prePanelExchangeEgg2Egg: cc.Prefab,  //鸡蛋兑换鸡蛋面板预制体
         prePanelExchangeEgg2Money: cc.Prefab,  //鸡蛋兑换钱面板预制体
+        prePanelSignin: cc.Prefab,  //签到界面
         // prePanelThief:cc.Prefab,  //小偷预制体
         prePlayerDine: cc.Prefab,  //吃东西预制体
         prePlayerBath: cc.Prefab,  //洗澡动画预制体
@@ -177,6 +178,7 @@ cc.Class({
     },
 
     start() {
+        Global.sceneCode = 0;
         // this.setDark();
 
         // if (cc.sys.platform == cc.sys.WECHAT_GAME) {
@@ -194,7 +196,7 @@ cc.Class({
 
         this.openLastPanel();
 
-        
+
     },
 
 
@@ -254,7 +256,7 @@ cc.Class({
                 self.updateState(res.data);
                 self.ndWaitting.active = false;
 
-                
+
             }
         });
     },
@@ -639,6 +641,10 @@ cc.Class({
     //显示兑换面板
     onShowPanelExchange() {
         this.panels.createPanel(this.prePanelExchange, "PanelExchange");
+    },
+    //显示签到界面
+    onShowPanelSignin() {
+        this.panels.createPanel(this.prePanelSignin, "PanelSignin");
     },
     // //显示别人家
     // onShowOtherHome(id){

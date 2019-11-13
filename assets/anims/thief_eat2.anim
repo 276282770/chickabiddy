@@ -1,0 +1,37 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "thief_eat2",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.0166666666666666,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "bac60a69-f303-45d7-9147-e7039bc1164a"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "c49fa33e-f833-414f-ad34-002a31bc9985"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "bac60a69-f303-45d7-9147-e7039bc1164a"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

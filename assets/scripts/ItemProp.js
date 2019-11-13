@@ -54,7 +54,7 @@ cc.Class({
             newPanel.parent = cc.find("Canvas");
             let newPanelScr = newPanel.getComponent("PanelBuy");
             newPanelScr.load(this._cid);
-            // Global.game.panels.deletePanel();
+            Global.game.panels.deletePanel();
         }
 
     },
@@ -72,6 +72,8 @@ cc.Class({
             });
         } else if (this._cid == 13) {
             this.onChangeScene();
+        } else if (this._cid == 6) {
+            Global.game.showTip("请在好友家里使用");
         }
         Global.game.panels.deletePanel();
     },
@@ -81,7 +83,7 @@ cc.Class({
         this._count = count;
         this._cid = id;
         percent = 1 - percent;
-        if (id) {
+        if (id && id == 1) {
             let path;
             if (percent > 0 || count > 0) {
                 path = "Shop/shop_" + id;
@@ -101,6 +103,8 @@ cc.Class({
                     self.node.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(tex);
                 }
             });
+        } else {
+            self.txtCount.string = count.toString();
         }
     },
     //使用场景切换卡

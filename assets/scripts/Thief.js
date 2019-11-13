@@ -44,7 +44,7 @@ cc.Class({
         _cid: -1,  //id
         _pos0: { default: new cc.Vec2(-121, -293) },
         _pos1: { default: new cc.Vec2(156, -293) },
-        _lastThiefCount:-1,  //上一次小偷的个数
+        _lastThiefCount: -1,  //上一次小偷的个数
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -52,7 +52,7 @@ cc.Class({
     // onLoad () {},
 
     start() {
-        console.log("======================="+this._lastThiefCount);
+        console.log("=======================" + this._lastThiefCount);
     },
     setThief(data) {
         if (data.length > 2)
@@ -83,7 +83,7 @@ cc.Class({
 
         if (this.thiefCount() > 0) {
             this.onShow();
-            let isExtendShowed=this._isExtendOpen0|this._isExtendOpen1;
+            let isExtendShowed = this._isExtendOpen0 | this._isExtendOpen1;
             // if(isExtendShowed){
             //     Global.game.showCtrl(false);
             // }else{
@@ -94,7 +94,8 @@ cc.Class({
 
             // Global.game.showCtrl(true);
         }
-        this._lastThiefCount=this.thiefCount();
+        this._lastThiefCount = this.thiefCount();
+
     },
     addThief(data) {
         if (!this.ndThief0.active) {
@@ -115,10 +116,10 @@ cc.Class({
     },
     onHide() {
         // this.node.runAction(cc.moveBy(1, 0, 1300));
-        this.node.active=false;
+        this.node.active = false;
     },
     onShow() {
-        this.node.active=true;
+        this.node.active = true;
         // this.node.position = new cc.Vec2(0, 0);
         // console.log("Thief position=" + this.node.position);
     },
@@ -195,14 +196,14 @@ cc.Class({
      *
      * @returns
      */
-    isShowedExtend(){
-        let result=false;
-        result=result|this._isExtendOpen0;
-        result=result|this._isExtendOpen1;
+    isShowedExtend() {
+        let result = false;
+        result = result | this._isExtendOpen0;
+        result = result | this._isExtendOpen1;
 
         // Global.game.showCtrl(!result);
 
-        return result;    
+        return result;
     },
     onClickBg() {
         var self = this;
@@ -352,7 +353,14 @@ cc.Class({
                     imgAvatar.spriteFrame = new cc.SpriteFrame(tex);
             });
             ndThief.getComponent(cc.Animation).play("thief_eat");
+
+            switch (data.comeFrom) {
+                case 1: ndThief.getComponent(cc.Animation).play("thief_eat"); break;
+                case 2: ndThief.getComponent(cc.Animation).play("thief_eat2"); break;
+                case 3: ndThief.getComponent(cc.Animation).play("thief_eat3"); break;
+            }
         }
+
     },
     /**设置小偷的信息
      *

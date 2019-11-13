@@ -13,6 +13,7 @@ cc.Class({
         ndCtntWechat: cc.Node,  //微信排行榜根节点
         ndSvWorldRank: cc.Node,  //sv世界排行榜根节点
         ndSvWechatRank: cc.Node,  //sv微信排行榜根节点
+        preItemRank: cc.Prefab,  //项预制体
 
         oriPosY: -1,
 
@@ -34,21 +35,26 @@ cc.Class({
 
     start() {
 
+        this.loadData();
     },
     onTab(event, customData) {
         switch (customData) {
             case "WorldRank": {
-                // this.tabBtnWorld.interactable = true;
-                // this.tabBtnWechat.interactable = false;
-                // this.ndSvWechatRank.active = true;
-                // this.ndSvWorldRank.active = false;
-                Global.game.onShowTipExpect();
+                this.tabBtnWorld.interactable = false;
+                this.tabBtnWechat.interactable = true;
+                this.ndSvWechatRank.active = false;
+                this.ndSvWorldRank.active = true;
+                this.tabBtnWorld.node.getChildByName("honghengxian").active = true;
+                this.tabBtnWechat.node.getChildByName("honghengxian").active = false;
+                // Global.game.onShowTipExpect();
             }; break;
             case "WechatRank": {
                 this.tabBtnWorld.interactable = true;
                 this.tabBtnWechat.interactable = false;
                 this.ndSvWechatRank.active = true;
                 this.ndSvWorldRank.active = false;
+                this.tabBtnWorld.node.getChildByName("honghengxian").active = false;
+                this.tabBtnWechat.node.getChildByName("honghengxian").active = true;
             }; break;
         }
     },
@@ -118,5 +124,26 @@ cc.Class({
     },
     onTouchEnd(event) {
         WX.postMessage({ cmd: "scrollTouchEnd" });
+    },
+    loadData() {
+        var self = this;
+        console.log("aavvcc");
+        //加载世界排行榜数据
+        Network.getWorldRank((res) => {
+            if (res.result) {
+                let data = res.data;
+                for (var i = 0; i < res.data.length; i++) {
+                    let item = cc.instantiate(self.preItemRank);
+                    console.log(item.name);
+                    item.parent = self.ndCtntWorld;
+                    // self.ndCtntWorld.addChild(item);
+                    let itemScr = item.getComponent("ItemRank");
+                    itemScr.fill(i+1, data[i].level, data[i].avatarUrl, data[i].nickname);
+
+                }
+            } else {
+                Gloabl.game.showTip(res.data);
+            }
+        })
     },
 });
