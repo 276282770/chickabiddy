@@ -105,12 +105,12 @@ cc.Class({
             if (this._isShowPanelFriend) {
                 this.ndPanelFriend.active = isBackHome;
             }
-            WX.gameClubButton.show();
+            // WX.gameClubButton.show();
         } else {
             //去被人家
             this._isShowPanelFriend = this.ndPanelFriend.active;
             this.ndPanelFriend.active = isBackHome;
-            WX.gameClubButton.hide();
+            // WX.gameClubButton.hide();
         }
     },
     //蹭饭

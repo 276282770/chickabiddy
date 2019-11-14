@@ -113,7 +113,7 @@ cc.Class({
             case 2: {
                 this.enableButton(0);
                 this.enableButton(3);
-                let isShow = cc.find("Canvas/Right").getComponent("AutoHide")._isShow;
+                let isShow = Global.game.ndLeft.getComponent("AutoHide")._isShow;
                 if (isShow) {
                     this.ndPointoutShop.active = true;
                 } else {
@@ -227,5 +227,11 @@ cc.Class({
     step_egg() {
         this._currentSteps = 8;
         this.showTipBox(this.spTipPickupEgg);
+    },
+    closeGuide(){
+        this._isGuid=false;
+        for (var i = 0; i < this.controllButtons.length; i++) {
+            this.controllButtons[i].interactable = true;
+        }
     },
 });

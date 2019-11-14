@@ -29,7 +29,7 @@ cc.Class({
         _rigid: cc.RigidBody,  //刚体
         _isBath: false,
 
-        _state: 0,  //小鸡状态  0正常，1被点击，2空闲， 3哭泣(被揍)， 4 挨饿， 5吃饭， 6洗澡 7不在家  20.偷吃
+        _state: 0,  //小鸡状态  0正常，1被点击，2空闲， 3哭泣(被揍)， 4 挨饿， 5吃饭， 6洗澡 7不在家，20.偷吃
 
         _lastState: 0,  //上一个状态
         _remainChangeTime: 0,  //改变状态小鸡时间
@@ -38,7 +38,7 @@ cc.Class({
         _pool: cc.Node,  //水池节点
         _lunchBox: cc.Node,  //饭盒节点
         _cam: null,
-        _tittivate: null,  //装扮
+        _tittivate: { default: { hat: -1, glass: -1, hornor: -1 } },  //装扮
         _imgTitti: null,//装扮图片
         _lastState: -1,  //上一个状态
 
@@ -52,10 +52,10 @@ cc.Class({
         _isShowExtend: false,  //是否显示扩展
         _thiefCtrl: null,
 
-        _hungry:0,
-        _clean:0,
-        _bateu:false,
-        _outHome:false,
+        _hungry: 0,
+        _clean: 0,
+        _bateu: false,
+        _outHome: false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -67,10 +67,6 @@ cc.Class({
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
         this._tittivate = { hat: -1, glass: -1, hornor: -1 };
-    },
-
-    start() {
-        
         this._rigid = this.node.getComponent(cc.RigidBody);
         this._originalPosition = this.node.position;
         // this.node.position=new cc.Vec2(0,0);
@@ -82,22 +78,27 @@ cc.Class({
         // this.setTittivateData({ hat: 10, glass: 9, hornor: 100 });
 
         this._remainChangeTime = 20;
+    },
 
-        
+    start() {
+
+
+
+
     },
 
     //设置小鸡
     setPlayerData(id, name, level, tittiData, state) {
 
-        this.ndName.active=false;
-        this.type=2;
+        this.ndName.active = false;
+        this.type = 2;
         this.setData(id, name, level, tittiData, state);
-        
+
 
     },
     setThiefData(id, name, level, tittiData, state) {
         // this._isThief=true;
-        this.ndName.active=true;
+        this.ndName.active = true;
         this.type = 1;
         this.ndEx = this.node.getChildByName("Extend2");
         this.setData(id, name, level, tittiData, state);
@@ -106,22 +107,22 @@ cc.Class({
 
 
         // this.ndName.active = true;
-  
+
         if (id == Global.id) {
             name = "我的小鸡";
             this.type = 0;
             // if (Global.sceneCode == 0) {
             //     this.ndName.active = false;
             // }
-          
+
         }
-        this._uid=id;
+        this._uid = id;
 
         this.ndName.getChildByName("txtLevel").getComponent(cc.Label).string = level.toString();
         this.ndName.getChildByName("txtName").getComponent(cc.Label).string = name;
         if (tittiData != null)
             this.setTittivateData(tittiData);
-        if (state != null&&!this._isAction)
+        if (state != null && !this._isAction)
             this.setState(state);
 
 
@@ -205,6 +206,7 @@ cc.Class({
                 self.animBody.play("player2_idle");
                 self.animBody.node.scaleX = 1;
                 callback();
+
             })
         ));
     },
@@ -255,10 +257,13 @@ cc.Class({
         this._isAction = true;
         this._cam._isFollow = true;
         this._isShowExtend = false;
+        this._state = 6;
         self.getPool();
         let targetPos = Common.vector2Add(this._pool.position, this._pool.getChildByName("playerPos").position);
 
         Global.game.showCtrl(false);
+
+        Global.game.guide.hidePoint(); //隐藏手指
 
         this.moveTo(targetPos, function () {
             console.log("走完了");
@@ -275,7 +280,7 @@ cc.Class({
                         self._pool.getComponent("Pool").onBath();
                         self.node.active = false;
 
-                        
+
                     });
                 }, 1);
             } else {
@@ -284,7 +289,7 @@ cc.Class({
                     self._pool.getComponent("Pool").onBath();
                     self.node.active = false;
 
-                    
+
                 });
             }
         })
@@ -330,6 +335,15 @@ cc.Class({
             self._isAction = false;
 
             Global.game.showCtrl(true);
+
+            if (self._state == 5) {
+                Global.game.guide.stepSchedule(4);
+            } else if (self._state == 6) {
+                Global.game.guide.stepSchedule(2);
+            }
+
+            self._state = 0;
+
         });
     },
     //去吃饭
@@ -338,10 +352,12 @@ cc.Class({
         this._isAction = true;
         this._cam._isFollow = true;
         this._isShowExtend = false;
+        this._state = 5;
         self.getLunchBox();
         let targetPos = Common.vector2Add(this._lunchBox.position, this._lunchBox.getChildByName("playerPos").position);
 
         Global.game.showCtrl(false);
+        Global.game.guide.hidePoint(); //隐藏手指
 
         this.moveTo(targetPos, function () {
             console.log("走完了");
@@ -363,7 +379,7 @@ cc.Class({
         if (this._isAction) {
             return;
         }
-       
+
 
         var self = this;
         if (this.type == 0) {
@@ -380,14 +396,14 @@ cc.Class({
             } else if (Global.sceneCode == 1) {
                 //在别人家
                 console.log("【召回小鸡】");
-                Network.requestGoBackPlayer((res)=>{
-                    if(res.result){
+                Network.requestGoBackPlayer((res) => {
+                    if (res.result) {
                         self.onOut();
-                    }else{
+                    } else {
                         Global.game.showTip(res.data);
                     }
                 });
-   
+
             }
         } else if (this.type == 1) {
             if (this.checkExtendState(this.ndEx) != 0) {
@@ -405,25 +421,16 @@ cc.Class({
             this.setTittivate("hornor", 0);
             return;
         }
-        if(!data.hat){
-            data.hat=-1;
-        }
-        if(!data.glass){
-            data.glass=0;
-        }
-        if(!data.hornor){
-            data.hornor=0;
-        }
-        if (data.hat != this._tittivate.hat) {
+        if (data.hat && (data.hat != this._tittivate.hat)) {
             this._tittivate.hat = data.hat;
             this.setTittivate("hat", this._tittivate.hat);
 
         }
-        if (data.glass != this._tittivate.glass) {
+        if (data.glass && (data.glass != this._tittivate.glass)) {
             this._tittivate.glass = data.glass;
             this.setTittivate("glass", this._tittivate.glass);
         }
-        if (data.hornor != this._tittivate.hornor) {
+        if (data.hornor && (data.hornor != this._tittivate.hornor)) {
             this._tittivate.hornor = data.hornor;
             this.setTittivate("hornor", this._tittivate.hornor);
         }
@@ -498,7 +505,7 @@ cc.Class({
         this._outHome = outHome;
 
         this.stateManager();
-    
+
     },
     //设置小鸡的状态
     setState(num) {
@@ -512,7 +519,7 @@ cc.Class({
             case 2: this.playIdle(); break;
             case 3: this.playCry(); break;
             case 4: this.playHunger(); break;
-            case 5:this.playEatting();break;
+            case 5: this.playEatting(); break;
             case 6: this.playDirty(); break;
             case 7: this.node.active = false; break;
             // case 20:
@@ -576,7 +583,7 @@ cc.Class({
         this.animBody.play("player2_beaten");
     },
     //播放跑了动画
-    playOut(){
+    playOut() {
         this.animBody.play("thief2_out");
     },
 
@@ -629,14 +636,14 @@ cc.Class({
         let dir = new Date().getSeconds() % 2 == 0 ? 1 : -1;
         let rnd = parseInt(Math.random() * 200) * dir;
         let target = new cc.v2(rnd, this.node.position.y);
-        cc.find("Canvas/Main Camera").getComponent("CameraController2")._isFollow=true;
-        this._isAction=true;
+        cc.find("Canvas/Main Camera").getComponent("CameraController2")._isFollow = true;
+        this._isAction = true;
         this.moveTo(target, function () {
             // if (new Date().getSeconds() % 2 == 0) {
             //     self.randomWalk();
             // }
             // self.randomWalk();
-            self._isAction=false;
+            self._isAction = false;
         })
     },
     //显示扩展
@@ -747,11 +754,11 @@ cc.Class({
 
     onHide() {
         this.node.active = false;
-        this.animBody.node.getChildByName("front").getComponent(cc.Sprite).spriteFrame=null;
+        this.animBody.node.getChildByName("front").getComponent(cc.Sprite).spriteFrame = null;
     },
-    onShow(){
-        if(this._state!=7){
-            this.node.active=true;
+    onShow() {
+        if (this._state != 7) {
+            this.node.active = true;
         }
     },
 

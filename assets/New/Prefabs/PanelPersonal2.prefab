@@ -1352,7 +1352,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -13,
+      "x": -12,
       "y": -62,
       "z": 0
     },
@@ -1396,7 +1396,7 @@
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "黑体",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
     "_id": ""
@@ -1450,8 +1450,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 18,
-      "y": -19,
+      "x": -12,
+      "y": -20,
       "z": 0
     },
     "_scale": {
@@ -1494,7 +1494,7 @@
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "黑体",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
     "_id": ""
@@ -3825,7 +3825,7 @@
       "__id__": 104
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 6,
     "_components": [
       {
@@ -4257,7 +4257,7 @@
       "__id__": 117
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 6,
     "_components": [
       {
@@ -4689,7 +4689,7 @@
       "__id__": 130
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 6,
     "_components": [
       {

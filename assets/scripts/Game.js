@@ -584,7 +584,7 @@ cc.Class({
         //引导
         if (this.guide._isGuid) {
             this.guide.hidePoint();
-            this.guide._isGuid = false;
+            this.guide.closeGuide();
         }
     },
     /**显示背包面板

@@ -137,7 +137,7 @@ cc.Class({
                 //更新鸡蛋进度
                 self.proEgg.progress = data.eggProgress;
 
-                self.setTip(data.canPickupEgg, data.canBath);
+                // self.setTip(data.canPickupEgg, data.canBath);
 
                 //小偷方法
                 if (data.thiefs != null) {

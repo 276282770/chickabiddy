@@ -198,8 +198,8 @@ cc.Class({
                 }
                 if (res.data.isNewPlayer) {
                     if (!self.guide._isGuid) {
-                        // self.guide._isGuid = true;
-                        // self.guide.step();
+                        self.guide._isGuid = true;
+                        self.guide.step();
                     }
                 }
                 self.createScene(res.data);
@@ -475,6 +475,7 @@ cc.Class({
     onShowPanelFriends() {
         this.ndPanelFriends.active = true;
         this.ndPanelFriends.getComponent("PanelFriends2").showFx();
+        this.guide.hidePoint();
     },
     /**显示任务面板
     */
@@ -483,7 +484,7 @@ cc.Class({
         //引导
         if (this.guide._isGuid) {
             this.guide.hidePoint();
-            this.guide._isGuid = false;
+            this.guide.closeGuide();
         }
     },
     //显示商店界面

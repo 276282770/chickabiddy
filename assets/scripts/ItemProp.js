@@ -105,6 +105,11 @@ cc.Class({
             });
         } else {
             self.txtCount.string = count.toString();
+            cc.loader.loadRes("Shop/shop_" + id, function (err, tex) {
+                if (!err) {
+                    self.node.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(tex);
+                }
+            });
         }
     },
     //使用场景切换卡
