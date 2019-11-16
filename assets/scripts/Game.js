@@ -259,6 +259,7 @@ cc.Class({
 
             }
         });
+
     },
     //分享
     onShare(tp) {
@@ -584,7 +585,7 @@ cc.Class({
         //引导
         if (this.guide._isGuid) {
             this.guide.hidePoint();
-            this.guide.closeGuide();
+            // this.guide.closeGuide();
         }
     },
     /**显示背包面板

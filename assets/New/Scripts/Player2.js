@@ -421,16 +421,19 @@ cc.Class({
             this.setTittivate("hornor", 0);
             return;
         }
-        if (data.hat && (data.hat != this._tittivate.hat)) {
+        if(!data.hat) data.hat=-1;
+        if (data.hat != this._tittivate.hat) {
             this._tittivate.hat = data.hat;
             this.setTittivate("hat", this._tittivate.hat);
 
         }
-        if (data.glass && (data.glass != this._tittivate.glass)) {
+        if(!data.glass) data.glass=-1;
+        if (data.glass != this._tittivate.glass) {
             this._tittivate.glass = data.glass;
             this.setTittivate("glass", this._tittivate.glass);
         }
-        if (data.hornor && (data.hornor != this._tittivate.hornor)) {
+        if(!data.hornor) data.hornor=-1;
+        if (data.hornor != this._tittivate.hornor) {
             this._tittivate.hornor = data.hornor;
             this.setTittivate("hornor", this._tittivate.hornor);
         }

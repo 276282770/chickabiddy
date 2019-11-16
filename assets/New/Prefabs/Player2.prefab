@@ -1292,8 +1292,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 215,
-      "height": 93
+      "width": 333,
+      "height": 315
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1303,7 +1303,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 1,
-      "y": 39,
+      "y": 0,
       "z": 0
     },
     "_scale": {
@@ -2363,12 +2363,15 @@
     "_pool": null,
     "_lunchBox": null,
     "_cam": null,
-    "_tittivate": null,
     "_imgTitti": null,
     "_uid": -1,
     "_isAction": false,
     "_isShowExtend": false,
     "_thiefCtrl": null,
+    "_hungry": 0,
+    "_clean": 0,
+    "_bateu": false,
+    "_outHome": false,
     "_id": ""
   },
   {

@@ -45,7 +45,7 @@ cc.Class({
                     // this.thiefs[i].node.position=this.positions[i];
                     this.thiefs[i].node.active = true;
                     this.thiefs[i].setThiefData(datas[i].id, datas[i].name, datas[i].level, tittiData, 5);
-                    this.thiefs[i].playEatting_thief();
+                    // this.thiefs[i].playEatting_thief();
                 
             }
         }

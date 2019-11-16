@@ -50,6 +50,8 @@ cc.Class({
         imgBase: cc.Sprite,  //基础图
         controllButtons: [cc.Button],  //控制按钮
 
+        spPics:[cc.SpriteFrame],
+
         _animBase: cc.Animation,
         _currentSteps: 1,
         _showTipboxTime: 0,
@@ -99,6 +101,15 @@ cc.Class({
     //点击背景
     background_onClick() {
         console.log("-【引导】点击背景");
+
+        if(this._currentSteps==100){
+            this.showPic(1);
+            return;
+        }
+
+
+
+
         let sec = new Date().getSeconds();
         if (Math.abs(sec - this._showTipboxTime) < 2) {
             return;
@@ -135,6 +146,10 @@ cc.Class({
             case 8: {
                 this.ndPointoutPickupEgg.active = true;
             }; break;
+            case 100:{
+
+            };
+            case 101:{this.closeGuide();};break;
         }
     },
     step(num) {
@@ -233,5 +248,18 @@ cc.Class({
         for (var i = 0; i < this.controllButtons.length; i++) {
             this.controllButtons[i].interactable = true;
         }
+        // this.showPic(0);
     },
+    showPic(n){
+        if(!this._isGuid){
+            return;
+        }
+        this._currentSteps=100+n;
+        // this.showTipBox(this.spPics[n]);
+        this.ndBackground.active=true;
+        this.imgBase.node.active=true;
+        this.imgBase.spriteFrame=this.spPics[n];
+
+        
+    }
 });

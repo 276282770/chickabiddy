@@ -484,7 +484,7 @@ cc.Class({
         //引导
         if (this.guide._isGuid) {
             this.guide.hidePoint();
-            this.guide.closeGuide();
+            // this.guide.closeGuide();
         }
     },
     //显示商店界面

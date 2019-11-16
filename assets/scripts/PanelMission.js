@@ -63,6 +63,10 @@ cc.Class({
         this.ndBg.runAction(cc.sequence(
             cc.moveTo(0.5,x,0),
             cc.callFunc(function(){
+
+                //引导
+                Global.game.guide.showPic(0);
+
                 self.node.destroy();
             })
         ));

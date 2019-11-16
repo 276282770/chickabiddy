@@ -13964,6 +13964,14 @@
         "__id__": 110
       }
     ],
+    "spPics": [
+      {
+        "__uuid__": "ba61e546-007d-4e78-acf3-36e49c0ecdf8"
+      },
+      {
+        "__uuid__": "1862855b-a78e-464c-875a-a0bf9221013b"
+      }
+    ],
     "_animBase": null,
     "_currentSteps": 1,
     "_showTipboxTime": 0,
