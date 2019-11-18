@@ -122,16 +122,20 @@ cc.Class({
                     self.player.openSay(data.say);
                 }
 
-                self.ndFindPlayer.active = false;
-                if (data.playerState == 0) {
-                    self.player.setState(0);
-                }
-                if (data.playerState == 1) {
+                
+                // if (data.playerState == 0) {
+                //     self.player.setState(0);
+                // }
+                // if (data.playerState == 1) {
 
-                    self.player.setState(3);
-                } else if (data.playerState == 2) {
-                    self.player.node.active = false;
-                    Global.scene.otherUid = data.otherId;
+                //     self.player.setState(3);
+                // } else if (data.playerState == 2) {
+                //     self.player.node.active = false;
+                //     Global.scene.otherUid = data.otherId;
+                //     self.ndFindPlayer.active = true;
+                // }
+                self.player.setState(data.playerState);
+                if(data.playerState==7){
                     self.ndFindPlayer.active = true;
                 }
                 //更新鸡蛋进度

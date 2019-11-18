@@ -120,6 +120,8 @@ cc.Class({
         var self = this;
         Global.game = this;
 
+        this._shareDelay=7;
+
 
         this.iniNode();
 

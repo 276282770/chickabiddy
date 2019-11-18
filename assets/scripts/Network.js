@@ -77,7 +77,7 @@ var Network = {
                 backData.data.cleanProgCurr = res.data.clean;
                 backData.data.cleanProgFull = 86400;
 
-                backData.data.foodRemain = Math.max(0,res.data.resEatTime);  //食物剩余可以吃的时间
+                backData.data.foodRemain = Math.max(0, res.data.resEatTime);  //食物剩余可以吃的时间
                 backData.data.foodProgFull = res.data.totalEatTime;  //食物进度
                 // backData.data.foodProg=res.data.howLongEat_pre;  //食物进度
                 backData.data.newDetail = res.data.unRead_dongtai > 0;  //新动态
@@ -95,7 +95,7 @@ var Network = {
                     if (thiefs[i] == null) {
                         backData.data.thiefs.push(null);
                     } else {
-                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url,comeFrom: thiefs[i].chicken_style});
+                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url, comeFrom: thiefs[i].chicken_style });
 
                     }
 
@@ -117,6 +117,62 @@ var Network = {
                 Global.openid = res.data.openid;
 
 
+            } else {
+                backData.data = "";
+            }
+            if (callback)
+                callback(backData);
+        });
+    },
+    //请求个人信息
+    requestPersonInfo(id, callback) {
+        let url = this.domain + "/friend/toFriendHome.action";
+        let data = { uid: Global.id, fid: id };
+        let backData = { result: false, data: {} };
+        this.request(url, data, (res) => {
+            if (res.state == 200) {
+                backData.result = true;
+                backData.data.id = id;
+                backData.data.avatar = res.data.url;
+                backData.data.nickName = res.data.nickName;
+                backData.data.lvl = res.data.level;
+                //设置小偷信息
+                let thiefs = res.data.badMan;
+                backData.data.thiefs = [];
+                for (var i = 0; i < thiefs.length; i++) {
+                    if (thiefs[i] == null) {
+                        backData.data.thiefs.push(null);
+                    } else {
+                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url, comeFrom: thiefs[i].chicken_style });
+
+                    }
+
+                }
+
+                backData.data.eggCount = res.data.egg;
+                backData.data.canBath = res.data.xizao == 0;
+                backData.data.canPickupEgg = res.data.toudan == 1;
+                backData.data.say = res.tips.tips;
+
+                backData.data.BG = res.data.background;  //背景
+                backData.data.playerState = 0;  //正常
+                if(res.currentPage>0) backData.data.playerState=4;
+                if(res.data.xizao==0) backData.data.playerState=6;
+                if (res.data.die > 0)
+                    backData.data.playerState = 3; //挨揍了
+                if (res.data.where > 0) {
+                    backData.data.playerState = 7;  //去别人家了
+                }
+                backData.data.otherId = res.data.where;
+                backData.data.outHome = res.data.where > 0;
+                backData.data.eggProgress = res.data.eggTime / res.data.totalEggTime;
+
+                backData.data.foodRemain = res.currentPage;
+                backData.data.titti = {
+                    hat: res.replenish.styleB,
+                    glass: res.replenish.styleD,
+                    hornor: res.replenish.styleC
+                }
             } else {
                 backData.data = "";
             }
@@ -870,60 +926,7 @@ var Network = {
     },
 
 
-    //请求个人信息
-    requestPersonInfo(id, callback) {
-        let url = this.domain + "/friend/toFriendHome.action";
-        let data = { uid: Global.id, fid: id };
-        let backData = { result: false, data: {} };
-        this.request(url, data, (res) => {
-            if (res.state == 200) {
-                backData.result = true;
-                backData.data.id = id;
-                backData.data.avatar = res.data.url;
-                backData.data.nickName = res.data.nickName;
-                backData.data.lvl = res.data.level;
-                //设置小偷信息
-                let thiefs = res.data.badMan;
-                backData.data.thiefs = [];
-                for (var i = 0; i < thiefs.length; i++) {
-                    if (thiefs[i] == null) {
-                        backData.data.thiefs.push(null);
-                    } else {
-                        backData.data.thiefs.push({ id: thiefs[i].id, name: thiefs[i].name, level: thiefs[i].level, avatarUrl: thiefs[i].url,comeFrom: thiefs[i].chicken_style });
 
-                    }
-
-                }
-
-                backData.data.eggCount = res.data.egg;
-                backData.data.canBath = res.data.xizao == 0;
-                backData.data.canPickupEgg = res.data.toudan == 1;
-                backData.data.say = res.tips.tips;
-
-                backData.data.BG = res.data.background;  //背景
-                backData.data.playerState = 0;  //正常
-                if (res.data.die > 0)
-                    backData.data.playerState = 3; //挨揍了
-                if (res.data.where > 0) {
-                    backData.data.playerState = 7;  //去别人家了
-                }
-                backData.data.otherId = res.data.where;
-                backData.data.outHome = res.data.where > 0;
-                backData.data.eggProgress = res.data.eggTime / res.data.totalEggTime;
-
-                backData.data.foodRemain = res.currentPage;
-                backData.data.titti = {
-                    hat: res.replenish.styleB,
-                    glass: res.replenish.styleD,
-                    hornor: res.replenish.styleC
-                }
-            } else {
-                backData.data = "";
-            }
-            if (callback)
-                callback(backData);
-        });
-    },
     //获取链接小程序appid
     getLinkAppid(tp, callback) {
         let backData = { result: false, data: {} };
@@ -1380,17 +1383,17 @@ var Network = {
         this.request(url, data, (res) => {
             if (res.state == 200) {
                 backData.result = true;
-                backData.data=[];
-                let sData=res.data;
-                for(var i=0;i<sData.length;i++){
-                    let item={
-                        no:sData[i].codes,
-                        isCmplt:sData[i].whetherToChange,
-                        time:sData[i].exchangeDate,
-                        count:sData[i].exchangeNumber,
-                        expritydate:sData[i].overTime,
-                        servicenet:sData[i].exchangeAddr,
-                        dealTime:sData[i].exchangeDate,
+                backData.data = [];
+                let sData = res.data;
+                for (var i = 0; i < sData.length; i++) {
+                    let item = {
+                        no: sData[i].codes,
+                        isCmplt: sData[i].whetherToChange,
+                        time: sData[i].exchangeDate,
+                        count: sData[i].exchangeNumber,
+                        expritydate: sData[i].overTime,
+                        servicenet: sData[i].exchangeAddr,
+                        dealTime: sData[i].exchangeDate,
                     }
                     backData.data.push(item);
                 }
