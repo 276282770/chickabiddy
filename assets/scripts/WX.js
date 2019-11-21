@@ -72,6 +72,7 @@ var WX={
             });
             userInfoButton.onTap((res)=>{
                 userInfo=res.userInfo;
+                if(userInfo!=undefined)
                 userInfoButton.hide();
                 console.log("->【获得用户信息】："+JSON.stringify(userInfo));
                 if(callback){

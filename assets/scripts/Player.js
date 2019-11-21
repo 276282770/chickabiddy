@@ -55,6 +55,7 @@ cc.Class({
 
     start() {
         this.setRandomChangeTime();
+        this.playHunger();
     },
 
     update(dt) {
@@ -165,7 +166,7 @@ cc.Class({
     },
     //播放脏了动画
     playDirty() {
-        this.animBody.play("player_dirty");
+        this.animPlayer.play("player_dirty");
     },
     setRandomChangeTime() {
         let tm = Math.random() * 15;
