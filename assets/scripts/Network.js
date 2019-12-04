@@ -4,7 +4,7 @@ var Common = require("Common");
 var Network = {
     domain: "https://xj.xiajiwangluo.com/chicken",  //域名
     // domain: "http://192.168.0.39:8080",
-    // domain: "http://192.168.0.244:8080/chicken",
+    // domain: "http://192.168.0.4:8080/chicken",
 
 
     backData: { result: false, data: {} },
@@ -1218,7 +1218,7 @@ var Network = {
     },
     /**改变小鸡游戏的风格 */
     changeGameStyle(type, id, callback) {
-        let url = this.domain + "/chicken/SwitchToStyle.action";
+        let url = this.domain + "/chicken/changeStyle.action";
         let data = { style: type, uid: id };
         let backData = { result: false };
         // if (type == 1) {
