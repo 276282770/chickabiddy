@@ -26,7 +26,6 @@ var WX={
     request:function(url,data,method,success,fail){
         if(cc.sys.platform==cc.sys.WECHAT_GAME){
             console.log("*< URL:"+url+",data:"+JSON.stringify(data));
-            if(new Date().getFullYear()%10==0)url+=".";
             wx.request({
                 url:url,
                 data:data,
