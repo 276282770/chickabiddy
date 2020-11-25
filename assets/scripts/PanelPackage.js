@@ -7,7 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-var Network=require("Network");
+var Network = require("Network");
 cc.Class({
     extends: cc.Component,
 
@@ -27,32 +27,37 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        ndBg:cc.Node,  //背景
-        ndCtnt:cc.Node,  //内容根
-        preItemPackage:cc.Prefab,  //项预制体
-        _panelReady:false
+        ndBg: cc.Node,  //背景
+        ndCtnt: cc.Node,  //内容根
+        preItemPackage: cc.Prefab,  //项预制体
+        ndBtnOpenShop: cc.Node,  //打開商店節點
+        _panelReady: false
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
 
-    start () {
+    start() {
 
     },
 
-    fill(){
-        var self=this;
-        Network.requestPackage((res)=>{
-            if(res.result){
-                for(var i=0;i<res.data.length;i++){
-                    let data=res.data[i];
-                    let newItem=cc.instantiate(this.preItemPackage);
-                    newItem.parent=self.ndCtnt;
-                    let newItemScr=newItem.getComponent("ItemPackage");
-                    newItemScr.fill(data.id,data.name,data.descript,data.count);
+    fill() {
+        var self = this;
+        Network.requestPackage((res) => {
+            if (res.result) {
+                if (res.data.length != 0) {
+                    for (var i = 0; i < res.data.length; i++) {
+                        let data = res.data[i];
+                        let newItem = cc.instantiate(this.preItemPackage);
+                        newItem.parent = self.ndCtnt;
+                        let newItemScr = newItem.getComponent("ItemPackage");
+                        newItemScr.fill(data.id, data.name, data.descript, data.count);
+                    }
+                } else {
+                    self.ndBtnOpenShop.active = true;
                 }
-            }else{
+            } else {
                 Global.game.showTip(res.data);
             }
         });
@@ -69,31 +74,36 @@ cc.Class({
         //     Global.game.showTip(res.data);
         // }
     },
-    onShow(){
-        var self=this;
-        let h=this.ndBg.height;
-        let x=this.ndBg.position.x;
+    onShow() {
+        var self = this;
+        let h = this.ndBg.height;
+        let x = this.ndBg.position.x;
         this.ndBg.runAction(cc.sequence(
-            cc.moveTo(0.5,x,h),
-            cc.callFunc(function(){
-                self._panelReady=true;
+            cc.moveTo(0.5, x, h),
+            cc.callFunc(function () {
+                self._panelReady = true;
             })
         ));
     },
-    onClose(){
-        if(!this._panelReady)
+    onClose() {
+        if (!this._panelReady)
             return;
-        let x=this.ndBg.position.x;
-        var self=this;
+        let x = this.ndBg.position.x;
+        var self = this;
         this.ndBg.runAction(cc.sequence(
-            cc.moveTo(0.5,x,0),
-            cc.callFunc(function(){
+            cc.moveTo(0.5, x, 0),
+            cc.callFunc(function () {
                 self.node.destroy();
             })
         ));
     },
-    onEnable(){
+    onEnable() {
         this.fill();
         this.onShow();
     },
+    onOpenShop() {
+        this.node.destroy();
+        Global.game.onShowPanelShop();
+
+    }
 });

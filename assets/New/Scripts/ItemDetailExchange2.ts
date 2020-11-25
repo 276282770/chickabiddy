@@ -33,7 +33,7 @@ export default class NewClass extends cc.Component {
             this.txtCtnt2.string="兑换日期："+ exTime;
         }else{
             this.txtCtnt1.string=seriNo;
-            this.txtCtnt2.string="有效期至"+expritydate;
+            this.txtCtnt2.string="有效期至"+expritydate+" 过期失效";
         }
     }
 }

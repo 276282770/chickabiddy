@@ -124,7 +124,7 @@ cc.Class({
                         time=data[i].dealTime;
                         site="已兑换 【"+data[i].servicenet+"】";
                     }else{
-                        time=data[i].time+"  --  "+data[i].expritydate+"(前兑换)"
+                        time=data[i].time+"  --  "+data[i].expritydate+"(前兑换) 过期失效"
                         site=data[i].no;
                     }
                     item.getComponent("ItemDetailExchange").fill(data[i].count, site, time);

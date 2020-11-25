@@ -34,6 +34,8 @@ cc.Class({
         ndMiss1:cc.Node,  //任务1
         spMissShareGray:cc.SpriteFrame,  //分享灰色
         spMissAnswerGray:cc.SpriteFrame,  //答题灰色
+
+        _isMiss1Cmplt:false, //是否答过题了
         _panelReady:false,
     },
 
@@ -81,6 +83,10 @@ cc.Class({
     },
     //答题
     onAnswer(){
+        if(this._isMiss1Cmplt){
+            Global.game.showTip("已经答过题了，明天在来吧");
+            return;
+        }
         var self=this;
         let panel=cc.instantiate(self.prePanelAnswer);
         // panel.parent=cc.find("Canvas");
@@ -100,7 +106,7 @@ cc.Class({
                 if(res.data.miss1Cmplt){
                     // self.ndMiss1.getChildByName("txtComplete").active=true;
                     self.ndMiss1.getChildByName("btnOK").getComponent(cc.Sprite).spriteFrame=this.spMissAnswerGray;
-                    self.ndMiss1.getComponent(cc.Button).interactable=false;
+                    self._isMiss1Cmplt=true;
                 }
             }
         });

@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "6bc3efab-ae6f-4946-b498-6fc19722538f",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "benShop": {
+      "ver": "1.0.3",
+      "uuid": "de6a52d6-b4e0-4707-8009-0fb4e4999b56",
+      "rawTextureUuid": "6bc3efab-ae6f-4946-b498-6fc19722538f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 3,
+      "offsetY": 47.5,
+      "trimX": 237,
+      "trimY": 551,
+      "width": 252,
+      "height": 83,
+      "rawWidth": 720,
+      "rawHeight": 1280,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

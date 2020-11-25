@@ -50,12 +50,13 @@ cc.Class({
         thief: Thief,  //小偷
         preMsgBox: cc.Prefab,  //消息框预制体
         prePlayerBath: cc.Prefab,  //洗澡预制体
-        prePlayerDine:cc.Prefab,  //吃饭预制体
+        prePlayerDine: cc.Prefab,  //吃饭预制体
 
         prePlayer: cc.Prefab,  //小鸡预制体
         preThief: cc.Prefab,  //小偷预制体
 
-        prePanelPackage:cc.Prefab,  //背包
+        prePanelPackage: cc.Prefab,  //背包
+        prePanelShop: cc.Prefab,  //商店
 
         ndTipEgg: cc.Node,  //偷蛋提示
         ndTipBath: cc.Node,  //洗澡提示
@@ -77,7 +78,7 @@ cc.Class({
 
     onLoad() {
         Global.game = this;
-        this.iniNode();
+        // this.iniNode();
     },
 
     start() {
@@ -122,7 +123,7 @@ cc.Class({
                     self.player.openSay(data.say);
                 }
 
-                
+
                 // if (data.playerState == 0) {
                 //     self.player.setState(0);
                 // }
@@ -135,7 +136,7 @@ cc.Class({
                 //     self.ndFindPlayer.active = true;
                 // }
                 self.player.setState(data.playerState);
-                if(data.playerState==7){
+                if (data.playerState == 7) {
                     self.ndFindPlayer.active = true;
                 }
                 //更新鸡蛋进度
@@ -337,8 +338,8 @@ cc.Class({
     //显示背包
     onShowPanelPackage() {
         // this.panels.createPanel(this.prePanelPackage, "PanelPackage");
-        let panel=cc.instantiate(this.prePanelPackage);
-        panel.parent=cc.find("Canvas");
+        let panel = cc.instantiate(this.prePanelPackage);
+        panel.parent = cc.find("Canvas");
 
     },
     //播放吃饭动画
@@ -347,9 +348,24 @@ cc.Class({
         dine.parent = this.node;
         let dineScr = dine.getComponent("PlayerDine");
         dineScr.fill(id, sayText);
+
+        this.updateIndex();
     },
-    onDine(){
-        this.onPlayPlayerDine(1,"吃的饱饱的");
+
+    // //更新吃饭
+    // updateDine(res) {
+
+    //     if (res.result) {
+    //         this.updateIndex();
+
+    //         this.onPlayPlayerDine(res.data.id, res.data.say);
+    //     } else {
+    //         this.player.openSay(res.data.say);
+    //     }
+    // },
+    onShowPanelShop() {
+        let panel = cc.instantiate(this.prePanelShop);
+        panel.parent = cc.find("Canvas");
     }
 
 });

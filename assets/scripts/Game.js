@@ -111,7 +111,7 @@ cc.Class({
 
         var self = this;
         Global.game = this;
-        this._shareDelay=7;
+        this._shareDelay=3;
 
 
         this.iniNode();
@@ -197,7 +197,7 @@ cc.Class({
 
         this.openLastPanel();
 
-
+        
     },
 
 

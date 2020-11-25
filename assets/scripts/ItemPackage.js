@@ -47,6 +47,8 @@ cc.Class({
                 if (res.result) {
                     // Global.game.panels.deletePanel();
                     Global.game.updateDine(res);
+                }else{
+                    Global.game.showTip(res.data.say);
                 }
 
 
@@ -62,7 +64,7 @@ cc.Class({
             Network.giveOtherFood(Global.scene.otherUid, this._cid, (res) => {
                 if (res.result) {
 
-                    Global.game.onDine();
+                    Global.game.onPlayPlayerDine(this._cid,res.data);
                     // Global.player.openSay(res.data);
                 } else {
 

@@ -2416,6 +2416,7 @@
     "spMissAnswerGray": {
       "__uuid__": "638a73cc-0fc4-448b-ad15-0f236042b896"
     },
+    "_isMiss1Cmplt": false,
     "_panelReady": false,
     "_id": ""
   },

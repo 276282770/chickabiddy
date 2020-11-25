@@ -131,7 +131,7 @@ cc.Class({
         this._lastState = this._state;
         this._state = num;
 
-        this.ndPlayer.active = true;
+        
         switch (num) {
             case 0: this.playNormal(); break;
             case 2: this.playIdle(); break;
@@ -140,6 +140,8 @@ cc.Class({
             case 6: this.playDirty(); break;  
             case 7: this.ndPlayer.active = false;
         }
+        if(num!=7)
+        this.ndPlayer.active = true;
 
     },
     playIdle() {

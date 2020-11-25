@@ -156,8 +156,8 @@ var Network = {
 
                 backData.data.BG = res.data.background;  //背景
                 backData.data.playerState = 0;  //正常
-                if(res.currentPage>0) backData.data.playerState=4;
-                if(res.data.xizao==0) backData.data.playerState=6;
+                if (res.currentPage < 0) backData.data.playerState = 4;
+                if (res.data.xizao == 0) backData.data.playerState = 6;
                 if (res.data.die > 0)
                     backData.data.playerState = 3; //挨揍了
                 if (res.data.where > 0) {
@@ -1182,10 +1182,9 @@ var Network = {
         this.request(url, data, (res) => {
             if (res.state == 200) {
                 backData.result = true;
-                backData.data = res.tips.tips;
-            } else {
-                backData.data = res.tips.tips;
             }
+            backData.data = res.tips.tips;
+
             callback(backData);
         });
     },

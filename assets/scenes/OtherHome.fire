@@ -2075,7 +2075,7 @@
         "__id__": 64
       }
     ],
-    "_active": false,
+    "_active": true,
     "_level": 2,
     "_components": [
       {
@@ -2361,7 +2361,7 @@
         "__id__": 71
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 3,
     "_components": [
       {
@@ -10520,6 +10520,9 @@
     },
     "prePanelPackage": {
       "__uuid__": "925ea9bd-6d43-4aca-9503-95f0b2b5303b"
+    },
+    "prePanelShop": {
+      "__uuid__": "9e3e95c1-176f-4ef8-8af5-9e0dbefe01d0"
     },
     "ndTipEgg": {
       "__id__": 37

@@ -8,7 +8,7 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-var Network=require("Network");
+var Network = require("Network");
 cc.Class({
     extends: cc.Component,
 
@@ -28,47 +28,47 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        imgGoods:cc.Sprite,  //物品图片
-        txtName:cc.Label,  //物品名称
-        txtDesc:cc.Label,  //物品说明
-        txtTotalPrice:cc.Label,  //总价
-        txtNum:cc.Label,  //数量文本
-        btnBuy:cc.Button,  //购买按钮
+        imgGoods: cc.Sprite,  //物品图片
+        txtName: cc.Label,  //物品名称
+        txtDesc: cc.Label,  //物品说明
+        txtTotalPrice: cc.Label,  //总价
+        txtNum: cc.Label,  //数量文本
+        btnBuy: cc.Button,  //购买按钮
 
-        _unitPrice:0,  //单价
-        _num:0,  //数量
-        _cid:-1,
+        _unitPrice: 0,  //单价
+        _num: 0,  //数量
+        _cid: -1,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
 
-    start () {
+    start() {
 
     },
     //填充
-    fill(id,name,desc,unitPrice){
+    fill(id, name, desc, unitPrice) {
 
-        this._cid=id;
-        var self=this;
-        if(id!=null){
-            cc.loader.loadRes("Shop/shop_"+id,function(err,tex){
-                if(!err){
-                    self.imgGoods.spriteFrame=new cc.SpriteFrame(tex);
+        this._cid = id;
+        var self = this;
+        if (id != null) {
+            cc.loader.loadRes("Shop/shop_" + id, function (err, tex) {
+                if (!err) {
+                    self.imgGoods.spriteFrame = new cc.SpriteFrame(tex);
                 }
             });
         }
-        this.txtName.string=name;
-        this.txtDesc.string=desc;
-        this._unitPrice=unitPrice;
+        this.txtName.string = name;
+        this.txtDesc.string = desc;
+        this._unitPrice = unitPrice;
         this.iniPrice();
     },
-    onClose(){
+    onClose() {
         this.node.destroy();
     },
     //初始化数量和总价
-    iniPrice(){
+    iniPrice() {
         // if(Global.game._money>=this._unitPrice){
         //     this._num=1;
         //     this.txtNum.string=this._num.toString();
@@ -79,62 +79,73 @@ cc.Class({
         //     this.txtTotalPrice.string="￥"+this._unitPrice.toString();
         //     this.btnBuy.interactable=false;
         // }
-        this._num=1;
-        this.txtNum.string=1;
-        this.txtTotalPrice.string=this._unitPrice.toString();
+        this._num = 1;
+        this.txtNum.string = 1;
+        this.txtTotalPrice.string = this._unitPrice.toString();
     },
     //加数量按钮
-    onAdd(){
-        let price=this._unitPrice*(this._num+1);
-        if(price<=Global.game._money){
+    onAdd() {
+        let price = this._unitPrice * (this._num + 1);
+        if (Global.sceneCode == 0) {
+            if (price <= Global.game._money) {
+                this._num++;
+                this.txtNum.string = this._num.toString();
+                this.txtTotalPrice.string = "￥" + price.toString();
+                this.btnBuy.interactable = true;
+            }
+        }else{
             this._num++;
-            this.txtNum.string=this._num.toString();
-            this.txtTotalPrice.string="￥"+price.toString();
-            this.btnBuy.interactable=true;
+            this.txtNum.string = this._num.toString();
+            this.txtTotalPrice.string = "￥" + price.toString();
+            this.btnBuy.interactable = true;
         }
     },
     //减数量按钮
-    onReduce(){
-        if(this._num>0){
+    onReduce() {
+        if (this._num > 0) {
             this._num--;
-            this.txtNum.string=this._num.toString();
-            this.txtTotalPrice.string="￥"+(this._unitPrice*this._num).toString();
-            if(this._num==0)
-            this.btnBuy.interactable=false;
+            this.txtNum.string = this._num.toString();
+            this.txtTotalPrice.string = "￥" + (this._unitPrice * this._num).toString();
+            if (this._num == 0)
+                this.btnBuy.interactable = false;
         }
     },
     //点击购买
-    onBuy(){
-        var self=this;
-        Network.requestBuy(this._cid,this._num,(res)=>{
-            if(res.result){
-                Global.game.addMoneyEff(-self._num*self._unitPrice);
-                Global.game.showTip("购买成功");
+    onBuy() {
+        var self = this;
+        Network.requestBuy(this._cid, this._num, (res) => {
+            if (res.result) {
+                if (Global.sceneCode == 0) {
+                    Global.game.addMoneyEff(-self._num * self._unitPrice);
 
-                //引导
-                cc.find("Canvas").getComponent("Game")._buyCount=self._num;
-            }else{
+
+
+                    //引导
+                    cc.find("Canvas").getComponent("Game")._buyCount = self._num;
+                }
+                Global.game.showTip("购买成功");
+            } else {
                 Global.game.showTip(res.data);
             }
             self.onClose();
         });
     },
     //加载界面
-    load(id){
-        console.log("加载:"+id);
-        var self=this;
-        Network.requestShopGoodsById(id,(res)=>{
-        
-            if(res.result){
- 
-                self.fill(res.data.id,res.data.name,res.data.description,res.data.price);
+    load(id) {
+        console.log("加载:" + id);
+        var self = this;
+        Network.requestShopGoodsById(id, (res) => {
+
+            if (res.result) {
+
+                self.fill(res.data.id, res.data.name, res.data.description, res.data.price);
             }
         });
     },
-    onEnable(){
+    onEnable() {
         this.onShow();
     },
-    onShow(){
+    onShow() {
         this.node.getComponent(cc.Animation).play();
     },
 
